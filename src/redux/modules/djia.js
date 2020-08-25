@@ -55,6 +55,7 @@ function* getDJIASaga() {
     yield
     if (DJIAList.length === 0) {
       const DJIAList = yield call(StockService.getDJIA);
+      console.log(DJIAList);
       yield put(successGetDJIA(DJIAList));
     } else if (new Date().getDate() !== initialState.date) {
       const DJIAList = yield call(StockService.getDJIA);
