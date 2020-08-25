@@ -7,15 +7,19 @@ import { useDispatch } from 'react-redux';
 import { getStockSagaActionCreator } from './redux/modules/stock';
 import { getDJIASagaActionCreator } from './redux/modules/djia';
 import SideBarContainer from './containers/SideBarContainer';
+import { ConnectedRouter } from 'connected-react-router';
+import { Switch, Route } from 'react-router-dom';
 
 const key = "Time Series (1min)"
 
 function App() {
 
   return (
-    <>
-      <SideBarContainer></SideBarContainer>
-    </>
+    <ConnectedRouter>
+      <Switch>
+        <Route />
+      </Switch>
+    </ConnectedRouter>
   );
 
 
