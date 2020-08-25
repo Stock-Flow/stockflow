@@ -64,13 +64,17 @@ export const getStockSagaActionCreator = (func, symbol) => ({
   }
 })
 
+
+
+
+
 export function* stockSaga() {
   yield takeEvery(GET_STOCK_SAGA, getStockSaga);
 }
 
 export default function reducer(prevState = initialState, action) {
   switch (action.type) {
-    case GET_STOCK_SAGA:
+    case GET_STOCK_START:
       return {
         ...prevState,
         loading: true,

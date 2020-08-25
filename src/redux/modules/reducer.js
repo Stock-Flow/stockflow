@@ -5,11 +5,13 @@ import {
   combineReducers
 } from 'redux';
 import stock from './stock';
+import djia from './djia';
 
 
 const reducer = (history) =>
   combineReducers({
     stock,
+    djia,
     rotuer: connectRouter(history),
   })
 

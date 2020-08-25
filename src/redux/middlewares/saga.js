@@ -4,9 +4,12 @@ import {
 import {
   stockSaga
 } from "../modules/stock";
+import {
+  DJIASaga
+} from "../modules/djia";
 
 
 
 export default function* rootSaga() {
-  yield all([stockSaga()])
+  yield all([stockSaga(), DJIASaga()])
 }

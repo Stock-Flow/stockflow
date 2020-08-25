@@ -5,18 +5,16 @@ import { StockService } from './services/StockService';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getStockSagaActionCreator } from './redux/modules/stock';
+import { getDJIASagaActionCreator } from './redux/modules/djia';
+import SideBarContainer from './containers/SideBarContainer';
 
 const key = "Time Series (1min)"
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getStockSagaActionCreator('TIME_SERIES_INTRADAY', 'IBM'))
-  }, [dispatch])
 
   return (
     <>
-
+      <SideBarContainer></SideBarContainer>
     </>
   );
 
