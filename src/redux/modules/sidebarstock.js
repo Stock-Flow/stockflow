@@ -52,4 +52,10 @@ function* getSideBarStockSaga(action) {
     yield put(FailGetSideBarStock(error));
   }
 
+<<<<<<< HEAD
 }
+=======
+}
+
+const GET_SIDEBARSTOCK_SAGA = "GET_SIDEBARSTOCK_SAGA";
+>>>>>>> feature/sidebarStock
