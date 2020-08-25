@@ -14,16 +14,25 @@ export default class StockService {
 
   static async getDJIA() {
     let DJIAList = [];
-    const getDjia = symbol => {
+    const getDjiaPromise = symbol => {
       return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
     }
-
-    const promDjia = DOW_ITEMS_SYMBOL.map(symbol => getDjia(symbol));
-
+    const promDjia = DOW_ITEMS_SYMBOL.map(symbol => getDjiaPromise(symbol));
     DJIAList = await Promise.all(promDjia)
       .then(result => {
         return result.map(item => item.data)
       })
     return DJIAList
+  }
+
+  static async getSideBarStock(symbols) {
+    const getSideBarStockPromise = symbol => {
+      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
+    }
+    const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol));
+    const SideBarStocks = await Promise.all(promGetSideBarStock)
+      .then(result => result.map(item => item.data))
+
+    return SideBarStocks
   }
 }

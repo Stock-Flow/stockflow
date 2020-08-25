@@ -12,7 +12,7 @@ const reducer = (history) =>
   combineReducers({
     stock,
     djia,
-    rotuer: connectRouter(history),
+    router: connectRouter(history),
   })
 
 

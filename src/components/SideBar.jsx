@@ -20,7 +20,6 @@ export default function SideBar({ getDjia, djiaValue }) {
 
   return (
     <>
-      <h1>HI</h1>
       <Plot data={[{
         x: testX,
         y: testY,
