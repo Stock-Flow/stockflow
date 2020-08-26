@@ -1,12 +1,22 @@
 import React from 'react';
-import SideBarContainer from '../containers/SideBarContainer';
+import Logo from '../components/SideBar/Logo';
+import Stock from '../components/SideBar/Stock';
+import DigitalCurrency from '../components/SideBar/DigitalCurrency';
+import ListSort from '../components/SideBar/ListSort';
+import List from '../components/SideBar/List';
+import Search from '../components/SideBar/Search';
 
 export default function Home() {
 
   return (
     <>
       <h1>home</h1>
-      <SideBarContainer />
+      <Logo/>
+      <Stock/>
+      <DigitalCurrency/>
+      <ListSort/>
+      <Search/>
+      <List/>
     </>
   )
 }
