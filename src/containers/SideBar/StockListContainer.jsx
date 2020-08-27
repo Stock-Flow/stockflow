@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import StockList from '../../components/SideBar/StockList';
-import { useSelector } from 'react-redux';
-
-export default function StockListContainer() {
-  let stockList = [];
-  let loading = false;
-  let initialList = useSelector(state => state.djia.djia);
-  let initialLoading = useSelector(state => state.djia.loading);
-  if (stockList.length === 0) {
-    stockList = initialList;
-    loading = initialLoading;
-  }
+import { useSelector, useDispatch } from 'react-redux';
+import SearchService from '../../services/SearchService';
+import DataProcessingService from '../../services/DataProcessingService';
+import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarstock';
 
 
-  return (<StockList stockList={stockList} loading={loading} />)
+export default function StockListContainer({ search }) {
+  const loading = useSelector(state => state.sidebarstock.loading)
+  const stockList = useSelector(state => state.sidebarstock.sideBarStock)
+  const dispatch = useDispatch();
+  const getsidebarStock = useCallback(() => {
+    dispatch(getSideBarStockSagaActionCreator(search));
+  }, [dispatch, search])
+
+
+  return (<StockList getsidebarStock={getsidebarStock} loading={loading} search={search} stockList={stockList} />)
+
+
 }

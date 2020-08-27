@@ -19,7 +19,6 @@ export default function Home() {
       <ListSort />
       <SideBarContentContainer />
       <List />
-      <StockListContainer />
     </>
   )
 }
