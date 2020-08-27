@@ -3,14 +3,18 @@ import {
   put,
   call,
   select,
-  takeLeading
+  takeLeading,
+  take
 } from 'redux-saga/effects'
+import SearchService from '../../services/SearchService'
+import DataProcessingService from '../../services/DataProcessingService'
 
 
-const prefix = "stockflow/sidebarstock"
+
+const prefix = "stockflow/sidebarstock/"
 
 const initialState = {
-  loading: false,
+  loading: true,
   sideBarStock: [],
   error: null
 }
@@ -42,28 +46,46 @@ const FailGetSideBarStock = (error) => {
 
 function* getSideBarStockSaga(action) {
   const {
-    symbols
+    searchvalue
   } = action.payload
   yield put(startGetSideBarStock());
   try {
-    const stocks = yield call(StockService.getSideBarStock(symbols))
-    yield put(SuccessGetSideBarStock(stocks))
+    if (searchvalue) {
+      const symbols = yield call(SearchService.searchingStock, searchvalue);
+      const stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
+      yield put(SuccessGetSideBarStock(stocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))))
+    } else {
+      const stocks = yield select(state => state.djia.djia);
+      yield put(SuccessGetSideBarStock(stocks));
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(FailGetSideBarStock(error));
+  }
+}
+
+function* initialSideBarStockSaga() {
+  yield put(startGetSideBarStock());
+  try {
+    const stocks = yield select(state => state.djia.djia);
+    yield put(SuccessGetSideBarStock(stocks));
   } catch (error) {
     yield put(FailGetSideBarStock(error));
   }
-
 }
+
 
 const GET_SIDEBARSTOCK_SAGA = "GET_SIDEBARSTOCK_SAGA";
 
-export const getSideBarStockSagaActionCreator = (symbols) => ({
+export const getSideBarStockSagaActionCreator = (searchvalue) => ({
   type: GET_SIDEBARSTOCK_SAGA,
   payload: {
-    symbols
+    searchvalue
   }
 })
 
 export function* sideBarStockSaga() {
+  yield takeLeading("stockflow/djia/GET_DJIA_SUCCESS", initialSideBarStockSaga)
   yield takeLeading(GET_SIDEBARSTOCK_SAGA, getSideBarStockSaga);
 }
 

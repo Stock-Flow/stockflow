@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Plot from 'react-plotly.js';
-import { Scatter } from 'recharts';
-import { line } from 'd3-shape';
 
 
 
 
-export default function StockList({ stockList, loading }) {
+export default function StockList({ stockList, getsidebarStock, loading, search }) {
+
+  useEffect(() => {
+    getsidebarStock(search)
+  }, [getsidebarStock, search])
+
 
   if (!loading) {
 

@@ -29,7 +29,7 @@ export default class StockService {
     const getSideBarStockPromise = symbol => {
       return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
     }
-    const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol));
+    const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol["1. symbol"]));
     const SideBarStocks = await Promise.all(promGetSideBarStock)
       .then(result => result.map(item => item.data))
 
