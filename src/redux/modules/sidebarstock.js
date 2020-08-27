@@ -55,3 +55,43 @@ function* getSideBarStockSaga(action) {
 }
 
 const GET_SIDEBARSTOCK_SAGA = "GET_SIDEBARSTOCK_SAGA";
+
+export const getSideBarStockSagaActionCreator = (symbols) => ({
+  type: GET_SIDEBARSTOCK_SAGA,
+  payload: {
+    symbols
+  }
+})
+
+export function* sideBarStockSaga() {
+  yield takeLeading(GET_SIDEBARSTOCK_SAGA, getSideBarStockSaga);
+}
+
+export default function reducer(prevState = initialState, action) {
+  switch (action.type) {
+    case GET_SIDEBARSTOCK_START:
+      return {
+        ...prevState,
+        loading: true,
+          error: null,
+      }
+
+      case GET_SIDEBARSTOCK_SUCCESS:
+        return {
+          ...prevState,
+          loading: false,
+            sideBarStock: action.sideBarStock,
+            error: null,
+        }
+        case GET_SIDEBARSTOCK_FAIL:
+          return {
+            ...prevState,
+            loading: false,
+              error: action.error
+          }
+          default:
+            return {
+              ...prevState
+            }
+  }
+}

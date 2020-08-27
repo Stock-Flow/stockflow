@@ -5,12 +5,13 @@ import {
   select,
   takeLeading
 } from 'redux-saga/effects'
+import DataProcessingService from '../../services/DataProcessingService';
 
 
 const prefix = "stockflow/djia"
 
 const initialState = {
-  loading: false,
+  loading: true,
   djia: [],
   error: null,
   date: new Date().getDate(),
@@ -54,7 +55,8 @@ function* getDJIASaga() {
   try {
     yield
     if (DJIAList.length === 0) {
-      const DJIAList = yield call(StockService.getDJIA);
+      let DJIAList = yield call(StockService.getDJIA);
+      DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
       yield put(successGetDJIA(DJIAList));
     } else if (new Date().getDate() !== initialState.date) {
       const DJIAList = yield call(StockService.getDJIA);
