@@ -4,7 +4,6 @@ import {
 
 export default class DataProcessingService {
   static DataProcessing(data, func) {
-    console.log(data);
     const ProcessedData = {
       symbol: data["Meta Data"]["2. Symbol"],
       stockData: data[func]

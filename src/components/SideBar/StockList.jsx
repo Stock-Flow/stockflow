@@ -5,11 +5,12 @@ import Plot from 'react-plotly.js';
 
 
 
-export default function StockList({ stockList, getsidebarStock, loading, search }) {
-
+export default function StockList({ stockList, getsidebarStock, loading, search, sort }) {
   useEffect(() => {
     getsidebarStock(search)
   }, [getsidebarStock, search])
+
+
 
 
   if (!loading) {

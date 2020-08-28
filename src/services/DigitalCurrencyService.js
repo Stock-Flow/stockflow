@@ -14,6 +14,7 @@ export default class digitalCurrencyService {
      
     }
     const promGetSideBarDigitalCurrency = symbols.map(symbol => getSideBarDigitalCurrencyPromise(symbol));
+    /////////////////////////////////////
     const sideBarDigitalCurrencys = await Promise.all(promGetSideBarDigitalCurrency)
       .then(result => result.map(item => item.data))
 

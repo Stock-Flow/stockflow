@@ -16,6 +16,7 @@ const prefix = "stockflow/sidebarstock/"
 const initialState = {
   loading: true,
   sideBarStock: [],
+  sort: "name",
   error: null
 }
 
@@ -85,8 +86,8 @@ export const getSideBarStockSagaActionCreator = (searchvalue) => ({
 })
 
 export function* sideBarStockSaga() {
-  yield takeLeading("stockflow/djia/GET_DJIA_SUCCESS", initialSideBarStockSaga)
   yield takeLeading(GET_SIDEBARSTOCK_SAGA, getSideBarStockSaga);
+  yield takeLeading("stockflow/djia/GET_DJIA_SUCCESS", initialSideBarStockSaga)
 }
 
 export default function reducer(prevState = initialState, action) {

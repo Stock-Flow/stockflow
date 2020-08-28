@@ -3,10 +3,8 @@ import Logo from '../components/SideBar/Logo';
 import Stock from '../components/SideBar/Stock';
 import DigitalCurrency from '../components/SideBar/DigitalCurrency';
 import ListSort from '../components/SideBar/ListSort';
-import DigitalcurrencyList from '../components/SideBar/DigitalcurrencyList';
-import Search from '../components/SideBar/Search';
-import StockListContainer from '../containers/SideBar/StockListContainer';
-import SideBarContentContainer from '../containers/SideBar/SideBarContentContainer';
+// import List from '../components/SideBar/List';
+import SideBarContent from '../components/SideBar/SideBarContent';
 
 export default function Home() {
   return (
@@ -16,7 +14,7 @@ export default function Home() {
       <Stock />
       <DigitalCurrency />
       <ListSort />
-      <SideBarContentContainer />
+      <SideBarContent />
       {/* <List /> */}
     </>
   )
