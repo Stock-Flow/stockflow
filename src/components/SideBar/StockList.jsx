@@ -5,7 +5,7 @@ import Plot from 'react-plotly.js';
 
 
 
-export default function StockList({ stockList, getsidebarStock, loading, search, sort }) {
+export default function StockList({ stockList, getsidebarStock, loading, search }) {
   useEffect(() => {
     getsidebarStock(search)
   }, [getsidebarStock, search])
@@ -29,7 +29,9 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
               },
             ]}
             layout={{ width: 400, height: 250, title: stock.symbol }}
-          /></li>)
+          />
+            {stock.change}
+          </li>)
         )
         }
       </ul>
