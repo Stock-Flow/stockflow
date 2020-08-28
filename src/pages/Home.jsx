@@ -4,8 +4,7 @@ import Stock from '../components/SideBar/Stock';
 import DigitalCurrency from '../components/SideBar/DigitalCurrency';
 import ListSort from '../components/SideBar/ListSort';
 import List from '../components/SideBar/List';
-import Search from '../components/SideBar/Search';
-import StockListContainer from '../containers/SideBar/StockListContainer';
+import SideBarContent from '../components/SideBar/SideBarContent';
 
 export default function Home() {
 
@@ -16,9 +15,8 @@ export default function Home() {
       <Stock />
       <DigitalCurrency />
       <ListSort />
-      <Search />
+      <SideBarContent />
       <List />
-      <StockListContainer />
     </>
   )
 }

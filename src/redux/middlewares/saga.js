@@ -7,9 +7,12 @@ import {
 import {
   DJIASaga
 } from "../modules/djia";
+import {
+  sideBarStockSaga
+} from "../modules/sidebarstock";
 
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), DJIASaga()])
+  yield all([stockSaga(), sideBarStockSaga(), DJIASaga()])
 }
