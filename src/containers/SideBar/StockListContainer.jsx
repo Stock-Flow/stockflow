@@ -7,18 +7,21 @@ import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarsto
 export default function StockListContainer({ search, sort }) {
   const loading = useSelector(state => state.sideBarStock.loading)
   let stockList = useSelector(state => state.sideBarStock.sideBarStock)
+  let stockNow = useSelector(state => state.stockNow.stockNow)
 
-  console.log(stockList);
+  if (stockNow.length !== 0) {
+    stockList = stockList.map((stock, i) => ({ ...stock, price: stockNow[i]["Global Quote"]["05. price"], change: stockNow[i]["Global Quote"]["10. change percent"] }));
+  }
 
   if (sort === 'name') {
-    stockList = stockList.sort((a, b) => a.symbol > b.symbol ? 1 : a.symbol < b.symbol ? -1 : 0);
-    // console.log(useSelector(state => state.sideBarStock.sideBarStock));
+    stockList = [...stockList].sort((a, b) => a.symbol > b.symbol ? 1 : a.symbol < b.symbol ? -1 : 0);
+
   } else if (sort === 'cheap') {
-    stockList = stockList.sort((a, b) => {
-      return a.stockData[Object.keys(a.stockData)[0]]["1. open"] - b.stockData[Object.keys(b.stockData)[0]]["1. open"]
+    stockList = [...stockList].sort((a, b) => {
+      return a.price - b.price;
     })
   } else if (sort === 'expensive') {
-    stockList = stockList.sort((a, b) => b.stockData[Object.keys(b.stockData)[0]]["1. open"] - a.stockData[Object.keys(a.stockData)[0]]["1. open"])
+    stockList = [...stockList].sort((a, b) => b.price - a.price)
   }
 
 

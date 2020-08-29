@@ -68,7 +68,8 @@ function* getSideBarStockSaga(action) {
 function* initialSideBarStockSaga() {
   yield put(startGetSideBarStock());
   try {
-    const stocks = yield select(state => state.djia.djia);
+    let stocks = yield select(state => state.djia.djia);
+    stocks = stocks.slice(0, 10);
     yield put(SuccessGetSideBarStock(stocks));
   } catch (error) {
     yield put(FailGetSideBarStock(error));

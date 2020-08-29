@@ -6,16 +6,18 @@ import {
 } from 'redux';
 import stock from './stock';
 import djia from './djia';
-import sidebarstock from './sidebarstock'
-import sidebarDigitalCurrency from './sidebarDigitalCurrency'
+import sideBarStock from './sidebarstock'
+import sidebarCurrency from './sidebarCurrency'
+import stockNow from './stocknow'
 
 
 const reducer = (history) =>
   combineReducers({
     stock,
     djia,
-    sidebarstock,
-    sidebarDigitalCurrency,
+    sideBarStock,
+    sidebarCurrency,
+    stockNow,
     router: connectRouter(history),
   })
 
