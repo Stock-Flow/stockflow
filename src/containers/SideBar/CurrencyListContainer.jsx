@@ -11,12 +11,12 @@ export default function CurrencyListContainer({sort}) {
   
     console.log(currencyList)
     if (sort === 'name') {
-    currencyList = [...currencyList].sort((a, b) => a["Meta Data"]["3. Digital Currency Name"]  > b["Meta Data"]["3. Digital Currency Name"] ? 1 : a["Meta Data"]["3. Digital Currency Name"]  < b["Meta Data"]["3. Digital Currency Name"]  ? -1 : 0);
+      currencyList = [...currencyList].sort((a, b) => a["Meta Data"]["3. Digital Currency Name"]  > b["Meta Data"]["3. Digital Currency Name"] ? 1 : a["Meta Data"]["3. Digital Currency Name"]  < b["Meta Data"]["3. Digital Currency Name"]  ? -1 : 0);
 
     } else if (sort === 'cheap') {
-    currencyList = [...currencyList].sort((a, b) => {
-      return a.price - b.price;
-    })
+      currencyList = [...currencyList].sort((a, b) => {
+        return a.price - b.price;
+      })
     } else if (sort === 'expensive') {
       currencyList = [...currencyList].sort((a, b) => b.price - a.price)
     }

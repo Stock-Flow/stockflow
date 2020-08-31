@@ -3,8 +3,8 @@ import {
   apiKey
 } from '../key'
 
-const symbols = ['ADA','AION']
-
+const symbols = ['ADA','AION','ANT','ARDR','BAT','BCC','BCH','BLZ','BNB','BNT',]
+// ['BTC','BTS','BUSD','CTXC','CVC','DAI','DASH','DATA','DCR','DENT','DGB','ENJ','EOS','ETC','ETH','FUN','GTO','GXS','ICX','IOST','IOTA','IOTX','KMD','KNC','LEND','LINK','LRC','LSK','LTC','MANA','MCO','MITH','MKR','NANO','NEO','NMR','NPXS','NULS','OMG','ONT','QTUM','REP','RLC','SC','SNX','STORJ','STORM','STRAT','STX','THETA','TRX','TUSD','VEN','WAN','WAVES','WTC','XLM','XMR','XRP','XTZ','XZC','ZEC','ZEN','ZIL','ZRX']
 
 export default class currencyService {
   static async getSideBarCurrency() {
@@ -14,7 +14,6 @@ export default class currencyService {
      
     }
     const promGetSideBarCurrency = symbols.map(symbol => getSideBarCurrencyPromise(symbol));
-    /////////////////////////////////////
     const sideBarCurrencys = await Promise.all(promGetSideBarCurrency)
       .then(result => result.map(item => item.data))
     console.log(sideBarCurrencys)
