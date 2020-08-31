@@ -30,7 +30,7 @@ export default function StockListContainer({ search, sort }) {
   const getsidebarStock = useCallback(() => {
     dispatch(getSideBarStockSagaActionCreator(search));
   }, [dispatch, search])
-
+  console.log(stockList)
 
   return (<StockList getsidebarStock={getsidebarStock} loading={loading} search={search} stockList={stockList} sort={sort} />)
 

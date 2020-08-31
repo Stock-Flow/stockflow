@@ -2,9 +2,9 @@ import React from 'react';
 import Logo from '../components/SideBar/Logo';
 import Stock from '../components/SideBar/Stock';
 import ListSort from '../components/SideBar/ListSort';
-import CurrencyList from '../components/SideBar/CurrencyList';
 import SideBarContent from '../components/SideBar/SideBarContent';
 import CurrencyContainer from '../containers/SideBar/CurrencyContainer';
+import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 
 export default function Home() {
   return (
@@ -15,7 +15,6 @@ export default function Home() {
       <CurrencyContainer />
       <ListSort />
       <SideBarContent />
-      <CurrencyList />
     </>
   )
 }

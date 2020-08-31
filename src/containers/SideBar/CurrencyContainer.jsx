@@ -1,7 +1,7 @@
 import React from 'react'
 import Currency from '../../components/SideBar/Currency'
-import { useDispatch, useSelector } from 'react-redux';
-import { sideBarCurrencySaga, getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebarCurrency';
+import { useDispatch} from 'react-redux';
+import {getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebarCurrency';
 
 
 export default function CurrencyContainer() {
@@ -15,7 +15,7 @@ export default function CurrencyContainer() {
     //데이터를 기다릴때 액션이 loading 실패시 fail
     //reducer에서 가져온 데이터를 redux store에 저장
   };
-  console.log(renderCurrencyList)
+
   return (
     <Currency renderCurrencyList={renderCurrencyList}/>
   )
