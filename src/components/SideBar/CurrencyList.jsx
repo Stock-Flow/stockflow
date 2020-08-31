@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Plot from 'react-plotly.js';
 
 
-export default function CurrencyList({ currencyList, renderCurrencyList }) {
+export default function CurrencyList({ currencyList, renderCurrencyList, search}) {
   useEffect(() => {
     renderCurrencyList()
   }, [renderCurrencyList])
@@ -10,8 +10,9 @@ export default function CurrencyList({ currencyList, renderCurrencyList }) {
   return (
     <ul>
       {
-        currencyList.length && (currencyList.map(currency => (
-          <li><Plot
+        currencyList.length && (currencyList.map((currency,i) => (
+
+          i < 10 && (<li><Plot
             data={[
               {
                 x: Object.keys(currency["Time Series (Digital Currency Daily)"]),
@@ -22,7 +23,7 @@ export default function CurrencyList({ currencyList, renderCurrencyList }) {
             ]}
             layout={{ width: 400, height: 250, title: currency["Meta Data"]["3. Digital Currency Name"] }}
           />
-          </li>)
+          </li>))
         ))
       }
     </ul>
