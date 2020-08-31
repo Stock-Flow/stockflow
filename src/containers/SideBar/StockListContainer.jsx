@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarstock';
 
 
-export default function StockListContainer({ search, sort }) {
+export default function StockListContainer({ search, sort, menu }) {
   const loading = useSelector(state => state.stockNow.loading)
   let stockList = useSelector(state => state.sideBarStock.sideBarStock)
   let stockNow = useSelector(state => state.stockNow.stockNow)
@@ -29,7 +29,7 @@ export default function StockListContainer({ search, sort }) {
   }, [dispatch, search])
 
 
-  return (<StockList getsidebarStock={getsidebarStock} loading={loading} search={search} stockList={stockList} sort={sort} />)
+  return (<StockList getsidebarStock={getsidebarStock} loading={loading} search={search} stockList={stockList} menu={menu} />)
 
 
 }

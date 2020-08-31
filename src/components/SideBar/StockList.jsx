@@ -5,7 +5,7 @@ import Plot from 'react-plotly.js';
 
 
 
-export default function StockList({ stockList, getsidebarStock, loading, search }) {
+export default function StockList({ stockList, getsidebarStock, loading, search, menu }) {
   useEffect(() => {
     getsidebarStock(search)
   }, [getsidebarStock, search])
@@ -15,7 +15,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search 
 
   if (!loading) {
     return (
-      <ul>
+      <ul className={menu ? "" : "none"}>
         {stockList.map(stock => (
           <li><Plot
             data={[

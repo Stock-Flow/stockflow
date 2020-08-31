@@ -8,13 +8,17 @@ export default function SideBarContent() {
   const searchValue = useRef();
   const searchDone = useRef();
   const [sort, setSort] = useState('name');
-  const [search, setSearch] = useState('')
+  const [stockSearch, setStockSearch] = useState('')
+  const [currencySearch, setCurrencySearch] = useState('')
   const [menu, setMenu] = useState(true)
 
-  const checkSearchDone = useCallback((e) => {
+  const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
     searchDone.current = setTimeout(() => {
-      setSearch(searchValue.current.value);
+      if (menu) { setStockSearch(searchValue.current.value) }
+      else {
+        setCurrencySearch(searchValue.current.value)
+      };
     }, 1500)
   }, [])
 
@@ -25,7 +29,8 @@ export default function SideBarContent() {
   const changeMode = useCallback((e) => {
     setMenu(e);
     searchValue.current.value = '';
-    setSearch('');
+    setStockSearch('');
+    setCurrencySearch('');
   }, [])
   return (
     <>
@@ -35,10 +40,11 @@ export default function SideBarContent() {
         <option value="expensive">expensive</option>
         <option value="cheap">cheap</option>
       </select>
-      <input type="text" onChange={checkSearchDone} ref={searchValue} />
+      <input type="text" onChange={() => { checkSearchDone(menu) }} ref={searchValue} />
       <button onClick={() => { changeMode(false) }}>Currency</button>
       <button onClick={() => { changeMode(true) }}>Stock</button>
-      {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer search={search} sort={sort} />}
+      <StockListContainer search={stockSearch} sort={sort} menu={menu} />
+      <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
     </>
   )
 }
