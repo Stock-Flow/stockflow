@@ -1,27 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import DetailStockGraph from "../../components/Detail/DetailStockGraph";
-
-import axios from "axios";
-import { apiKey } from "../../key";
+import { getDetailStockSagaActionCreator } from "../../redux/modules/detailStock";
 
 export default function DetailStockGraphContainer({
+  func = "TIME_SERIES_DAILY_ADJUSTED",
   symbol = "IBM",
-  stockData,
 }) {
-  // let stockList = [];
-  // let loading = false;
-  let sideBarStock = useSelector((state) => state.sideBarStock.sideBarStock);
-  let showStock = sideBarStock.filter(
-    (showStock) => showStock.symbol === symbol
-  );
-  showStock = showStock[0];
-  console.log(showStock);
+  const loading = useSelector((state) => state.detailStock.loading);
+  const stock = useSelector((state) => state.detailStock.stock);
+  const dispatch = useDispatch();
+  const getDetailStock = useCallback(() => {
+    dispatch(getDetailStockSagaActionCreator(func, symbol));
+  }, [dispatch, func, symbol]);
+  console.log(useSelector((state) => state));
 
-  // let initialList = useSelector((state) => state.djia.djia);
-  // let initialLoading = useSelector((state) => state.sideBarStock.loading);
-  // if (showStock.length === 0) {
-  //   loading = initialLoading;
-  // }
-  return <DetailStockGraph showStock={showStock} />;
+  return (
+    <DetailStockGraph
+      getDetailStock={getDetailStock}
+      loading={loading}
+      stock={stock}
+    />
+  );
 }

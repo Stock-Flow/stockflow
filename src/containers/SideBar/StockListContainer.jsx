@@ -7,14 +7,14 @@ export default function StockListContainer({ search, sort }) {
   const loading = useSelector((state) => state.sideBarStock.loading);
   let stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
-  console.log(stockList);
+  // console.log(stockList);
 
   if (sort === "name") {
     stockList = stockList.sort((a, b) =>
       a.symbol > b.symbol ? 1 : a.symbol < b.symbol ? -1 : 0
     );
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    console.log(useSelector((state) => state.sideBarStock.sideBarStock));
+    // console.log(useSelector((state) => state.sideBarStock.sideBarStock));
   } else if (sort === "cheap") {
     stockList = stockList.sort((a, b) => {
       return (
