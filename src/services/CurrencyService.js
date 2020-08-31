@@ -3,7 +3,7 @@ import {
   apiKey
 } from '../key'
 
-const symbols = ['ABT', 'AC',  'ACT',  'ADA',  'ADT',  'ADX',  'AEON',  'AGI',  'AGRS', 'AI',  'AID',  'AION',  'AIR',  'AKY']
+const symbols = ['ADA','AION']
 
 
 export default class currencyService {
@@ -17,7 +17,7 @@ export default class currencyService {
     /////////////////////////////////////
     const sideBarCurrencys = await Promise.all(promGetSideBarCurrency)
       .then(result => result.map(item => item.data))
-
+    console.log(sideBarCurrencys)
     return sideBarCurrencys
   }
 }
