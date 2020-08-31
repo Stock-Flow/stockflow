@@ -11,6 +11,7 @@ import DataProcessingService from '../../services/DataProcessingService'
 
 
 
+
 const prefix = "stockflow/sidebarstock/"
 
 const initialState = {
@@ -49,14 +50,19 @@ function* getSideBarStockSaga(action) {
   const {
     searchvalue
   } = action.payload
+  console.log(searchvalue);
   yield put(startGetSideBarStock());
   try {
     if (searchvalue) {
       const symbols = yield call(SearchService.searchingStock, searchvalue);
-      const stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
-      yield put(SuccessGetSideBarStock(stocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))))
+      let stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
+      yield stocks = stocks.filter(stock => stock["Meta Data"] !== undefined)
+      yield stocks = stocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))
+      yield put(SuccessGetSideBarStock(stocks))
     } else {
-      const stocks = yield select(state => state.djia.djia);
+      let stocks = yield select(state => state.djia.djia);
+      stocks = stocks.slice(0, 10);
+
       yield put(SuccessGetSideBarStock(stocks));
     }
   } catch (error) {

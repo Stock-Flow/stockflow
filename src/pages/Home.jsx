@@ -11,9 +11,6 @@ export default function Home() {
     <>
       <h1>home</h1>
       <Logo />
-      <Stock />
-      <CurrencyContainer />
-      <ListSort />
       <SideBarContent />
     </>
   )
