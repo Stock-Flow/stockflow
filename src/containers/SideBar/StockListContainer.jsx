@@ -9,7 +9,7 @@ export default function StockListContainer({ search, sort }) {
   let stockList = useSelector(state => state.sideBarStock.sideBarStock)
   let stockNow = useSelector(state => state.stockNow.stockNow)
 
-  if (stockNow.length !== 0) {
+  if (stockNow.length !== 0 && stockNow.length === stockList.length) {
     stockList = stockList.map((stock, i) => ({ ...stock, price: stockNow[i]["Global Quote"]["05. price"], change: stockNow[i]["Global Quote"]["10. change percent"] }));
   }
 
@@ -30,7 +30,7 @@ export default function StockListContainer({ search, sort }) {
   const getsidebarStock = useCallback(() => {
     dispatch(getSideBarStockSagaActionCreator(search));
   }, [dispatch, search])
-  console.log(stockList)
+
 
   return (<StockList getsidebarStock={getsidebarStock} loading={loading} search={search} stockList={stockList} sort={sort} />)
 

@@ -4,10 +4,7 @@ import {
   call,
   select,
   takeLeading,
-  take
 } from 'redux-saga/effects'
-import SearchService from '../../services/SearchService'
-import DataProcessingService from '../../services/DataProcessingService'
 
 
 
@@ -50,7 +47,6 @@ function* getStockNowSaga() {
   try {
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
     const symbols = yield stockNow.map(item => item.symbol);
-    console.log(symbols);
     const stocks = yield call(StockService.getStockNow, symbols);
     yield put(successGetStockNow(stocks));
   } catch (error) {
@@ -58,6 +54,7 @@ function* getStockNowSaga() {
     console.log(error);
   }
 }
+
 
 export function* stockNowSaga() {
   yield takeLeading("stockflow/sidebarstock/GET_SIDEBARSTOCK_SUCCESS", getStockNowSaga)
