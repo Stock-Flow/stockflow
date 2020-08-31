@@ -14,9 +14,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search 
 
 
   if (!loading) {
-
     return (
-
       <ul>
         {stockList.map(stock => (
           <li><Plot

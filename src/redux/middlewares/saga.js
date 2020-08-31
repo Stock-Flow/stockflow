@@ -23,5 +23,9 @@ import {
 
 
 export default function* rootSaga() {
-  yield all([stockNowSaga(), stockSaga(), DJIASaga(), sideBarStockSaga(), sideBarCurrencySaga(), currencyNowSaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(), stockNowSaga()])
+}
+
+export function* sidebarSaga() {
+  yield([sideBarStockSaga()])
 }

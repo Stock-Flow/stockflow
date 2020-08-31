@@ -19,7 +19,7 @@ const reducer = (history) =>
     sideBarStock,
     sidebarCurrency,
     stockNow,
-    currencyNow,
+
     router: connectRouter(history),
   })
 
