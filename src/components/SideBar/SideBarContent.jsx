@@ -38,7 +38,7 @@ export default function SideBarContent() {
       <input type="text" onChange={checkSearchDone} ref={searchValue} />
       <button onClick={() => { changeMode(false) }}>Currency</button>
       <button onClick={() => { changeMode(true) }}>Stock</button>
-      {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer sort={sort} />}
+      {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer search={search} sort={sort} />}
     </>
   )
 }
