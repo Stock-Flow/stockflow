@@ -1,33 +1,36 @@
 import React from "react";
 import Plot from "react-plotly.js";
+// loading
+export default function DetailStockGraph({ showStock }) {
+  // console.log(stockList);
 
-export default function DetailStockGraph({ stockList, loading }) {
-  if (!loading) {
-    return (
-      <>
-        <h1>Detail Stock</h1>
-        <ul>
-          {stockList.map((stock) => (
+  return (
+    <>
+      <h1>Detail Stock</h1>
+      {showStock && (
+        <>
+          <h2>{showStock.symbol}</h2>
+          <ul>
             <li>
               <Plot
                 data={[
                   {
-                    x: Object.keys(stock.stockData),
-                    y: Object.values(stock.stockData).map(
+                    x: Object.keys(showStock.stockData),
+                    y: Object.values(showStock.stockData).map(
                       (item) => item["1. open"]
                     ),
                     type: "scatter",
                     mode: "lines",
                   },
                 ]}
-                layout={{ width: 400, height: 250, title: stock.symbol }}
+                layout={{ width: 800, height: 350, title: showStock.symbol }}
               />
             </li>
-          ))}
-        </ul>
-      </>
-    );
-  }
+          </ul>
+        </>
+      )}
+    </>
+  );
 
-  return <h1>Detail Stock</h1>;
+  // return <h1>Detail Stock</h1>;
 }

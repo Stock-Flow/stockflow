@@ -27,12 +27,23 @@ export default class StockService {
 
   static async getSideBarStock(symbols) {
     const getSideBarStockPromise = symbol => {
-      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
+      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`)
     }
     const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol["1. symbol"]));
     const SideBarStocks = await Promise.all(promGetSideBarStock)
       .then(result => result.map(item => item.data))
 
     return SideBarStocks
+  }
+
+  static async getStockNow(symbols) {
+    const getStockNowPromise = symbol => {
+      return axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`)
+    }
+    const promGetStockNow = symbols.map(symbol => getStockNowPromise(symbol));
+    const stockNow = await Promise.all(promGetStockNow)
+      .then(result => result.map(item => item.data))
+
+    return stockNow;
   }
 }
