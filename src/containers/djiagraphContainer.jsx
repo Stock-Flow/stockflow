@@ -1,22 +1,20 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import DjiaGraph from "../components/djiagraph";
-import { getDJIASagaActionCreator } from "../redux/modules/djia";
 
 export default function DjiagraphContainer() {
   const djia = useSelector((state) => state.djia.djia);
   const djiaAverage = djia.map((djia) => {
     return djia.stockData;
   });
-
-  console.log(djiaAverage[0]);
-
-  // const dispatch = useDispatch();
-
-  // const getDjia = React.useCallback(() => {
-  //   dispatch(getDJIASagaActionCreator());
-  // }, [dispatch]);
-
+  if (djiaAverage.length !== 0) {
+    const a = Object.values(djiaAverage[0]);
+    console.log(a);
+    const b = a.map((item) => {
+      return item["1. open"];
+    });
+    console.log(b);
+  }
   return (
     <div>
       <DjiaGraph djia={djia} djiaAverage={djiaAverage} />

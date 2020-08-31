@@ -11,7 +11,7 @@ import DataProcessingService from '../../services/DataProcessingService';
 const prefix = "stockflow/djia"
 
 const initialState = {
-  loading: false,
+  loading: true,
   djia: [],
   error: null,
   date: new Date().getDate(),

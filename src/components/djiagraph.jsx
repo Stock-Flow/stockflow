@@ -1,9 +1,6 @@
 import React from "react";
 
-export default function DjiaGraph({ djia, getDjia, djiaAverage }) {
-  // React.useEffect(() => {
-  //   getDjia();
-  // }, [getDjia]);
+export default function DjiaGraph({ djia, djiaAverage }) {
   return (
     <div>
       <h1>DOW J</h1>
