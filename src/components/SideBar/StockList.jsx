@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import * as V from 'victory';
+import { createChart } from 'lightweight-charts';
 
 
 
@@ -22,6 +23,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
             const values = Object.values(stock.stockData).map(item => +item["1. open"]).reverse()
             keys.forEach((item, i) => { stocks.push({ date: item, price: values[i] }) })
             let color = stock.change[0] === "-" ? "yellow" : "red"
+
 
             return <li>
               {stock.change}
