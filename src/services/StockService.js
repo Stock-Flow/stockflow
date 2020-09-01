@@ -2,6 +2,7 @@ import axios from 'axios'
 import {
   apiKey
 } from '../key'
+import DataProcessingService from './DataProcessingService';
 const DOW_DIVISOR = 0.14748071991788;
 const DOW_ITEMS_SYMBOL = ["MMM", "IBM", "JPM", "AAPL", "GS", "NKE", "DOW", "MSFT", "MCD", "MRK", "VZ", "BA", "V", "CVX", "CSCO", "AXP", "XOM", "WMT", "DIS", "RTX", "UNH", "INTC", "WBA", "JNJ", "CAT", "KO", "TRV", "PG", "HD", "PFE"];
 
@@ -30,8 +31,10 @@ export default class StockService {
       return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`)
     }
     const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol["1. symbol"]));
-    const SideBarStocks = await Promise.all(promGetSideBarStock)
+    let SideBarStocks = await Promise.all(promGetSideBarStock)
       .then(result => result.map(item => item.data))
+    SideBarStocks = SideBarStocks.filter(stock => stock["Meta Data"] !== undefined)
+    SideBarStocks = SideBarStocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))
 
     return SideBarStocks
   }
@@ -43,7 +46,6 @@ export default class StockService {
     const promGetStockNow = symbols.map(symbol => getStockNowPromise(symbol));
     const stockNow = await Promise.all(promGetStockNow)
       .then(result => result.map(item => item.data))
-
     return stockNow;
   }
 }

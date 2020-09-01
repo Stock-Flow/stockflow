@@ -4,10 +4,8 @@ import {
   call,
   select,
   takeLeading,
-  take
+  takeEvery,
 } from 'redux-saga/effects'
-import SearchService from '../../services/SearchService'
-import DataProcessingService from '../../services/DataProcessingService'
 
 
 
@@ -50,7 +48,6 @@ function* getStockNowSaga() {
   try {
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
     const symbols = yield stockNow.map(item => item.symbol);
-    console.log(symbols);
     const stocks = yield call(StockService.getStockNow, symbols);
     yield put(successGetStockNow(stocks));
   } catch (error) {
@@ -58,36 +55,49 @@ function* getStockNowSaga() {
     console.log(error);
   }
 }
+const LOADING = "LOADING"
+
+function* setLoading() {
+  yield put({
+    type: LOADING
+  });
+}
 
 export function* stockNowSaga() {
   yield takeLeading("stockflow/sidebarstock/GET_SIDEBARSTOCK_SUCCESS", getStockNowSaga)
+  yield takeEvery("stockflow/sidebarstock/GET_SIDEBARSTOCK_START", setLoading)
 }
 
 export default function reducer(prevState = initialState, action) {
   switch (action.type) {
-    case GET_STOCKNOW_START:
+    case LOADING:
       return {
         ...prevState,
-        loading: true,
-          error: null,
+        loading: true
       }
-
-      case GET_STOCKNOW_SUCCESS:
+      case GET_STOCKNOW_START:
         return {
           ...prevState,
-          loading: false,
-            stockNow: action.stockNow,
+          loading: true,
             error: null,
         }
-        case GET_STOCKNOW_FAIL:
+
+        case GET_STOCKNOW_SUCCESS:
           return {
             ...prevState,
             loading: false,
-              error: action.error
+              stockNow: action.stockNow,
+              error: null,
           }
-          default:
+          case GET_STOCKNOW_FAIL:
             return {
-              ...prevState
+              ...prevState,
+              loading: false,
+                error: action.error
             }
+            default:
+              return {
+                ...prevState
+              }
   }
 }

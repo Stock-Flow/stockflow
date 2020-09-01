@@ -11,11 +11,21 @@ import {
   sideBarStockSaga
 } from "../modules/sidebarstock";
 import {
+  sideBarCurrencySaga
+} from "../modules/sidebarCurrency"
+import {
   stockNowSaga
 } from "../modules/stocknow";
+import {
+  currencyNowSaga
+} from "../modules/currencynow";
 
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), sideBarStockSaga(), DJIASaga(), stockNowSaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(), stockNowSaga()])
+}
+
+export function* sidebarSaga() {
+  yield([sideBarStockSaga()])
 }

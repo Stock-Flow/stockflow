@@ -3,9 +3,21 @@ import {
   put,
   call,
   select,
-  takeLeading
+  takeLeading,
+  takeEvery,
+  all
 } from 'redux-saga/effects'
 import DataProcessingService from '../../services/DataProcessingService';
+import {
+  stockNowSaga
+} from './stocknow';
+import {
+  sagaMiddleware
+} from '../create';
+import {
+  sidebarSaga
+} from '../middlewares/saga';
+
 
 
 const prefix = "stockflow/djia"
@@ -72,6 +84,7 @@ const GET_DJIA_SAGA = "GET_DJIA_SAGA";
 export const getDJIASagaActionCreator = () => ({
   type: GET_DJIA_SAGA,
 })
+
 
 
 

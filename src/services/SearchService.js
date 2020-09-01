@@ -6,9 +6,7 @@ import {
 
 export default class SearchService {
   static async searchingStock(searchvalue) {
-    console.log(searchvalue);
     const stockSymbols = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchvalue}&apikey=${apiKey}`);
-    console.log(stockSymbols);
     return stockSymbols.data;
   }
 }

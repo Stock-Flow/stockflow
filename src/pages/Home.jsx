@@ -1,3 +1,4 @@
+
 import React from "react";
 import Logo from "../components/SideBar/Logo";
 import Stock from "../components/SideBar/Stock";
@@ -6,6 +7,10 @@ import DjiagraphContainer from "../containers/djiagraphContainer";
 import ListSort from "../components/SideBar/ListSort";
 import List from "../components/SideBar/List";
 // import SideBarContent from "../components/SideBar/SideBarContent";
+import SideBarContent from '../components/SideBar/SideBarContent';
+import CurrencyContainer from '../containers/SideBar/CurrencyContainer';
+import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
+
 
 export default function Home() {
   return (
@@ -19,6 +24,7 @@ export default function Home() {
       <ListSort />
       {/* <SideBarContent /> */}
       <List />
+
     </>
   );
 }

@@ -1,22 +1,36 @@
 import React, { useRef, useState, useCallback } from 'react';
 import Search from './Search';
 import StockListContainer from '../../containers/SideBar/StockListContainer';
+import CurrencyListContainer from '../../containers/SideBar/CurrencyListContainer';
+import CurrencyContainer from '../../containers/SideBar/CurrencyContainer';
 
 export default function SideBarContent() {
   const searchValue = useRef();
   const searchDone = useRef();
   const [sort, setSort] = useState('name');
-  const [search, setSearch] = useState('')
+  const [stockSearch, setStockSearch] = useState('')
+  const [currencySearch, setCurrencySearch] = useState('')
+  const [menu, setMenu] = useState(true)
 
-  const checkSearchDone = useCallback((e) => {
+  const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
     searchDone.current = setTimeout(() => {
-      setSearch(searchValue.current.value);
-    }, 1000)
+      if (menu) { setStockSearch(searchValue.current.value) }
+      else {
+        setCurrencySearch(searchValue.current.value)
+      };
+    }, 1500)
   }, [])
 
   const selectedValue = useCallback((e) => {
     setSort(e.target.value);
+  }, [])
+
+  const changeMode = useCallback((e) => {
+    setMenu(e);
+    searchValue.current.value = '';
+    setStockSearch('');
+    setCurrencySearch('');
   }, [])
   return (
     <>
@@ -26,8 +40,11 @@ export default function SideBarContent() {
         <option value="expensive">expensive</option>
         <option value="cheap">cheap</option>
       </select>
-      <input type="text" onChange={checkSearchDone} ref={searchValue} />
-      <StockListContainer search={search} sort={sort} />
+      <input type="text" onChange={() => { checkSearchDone(menu) }} ref={searchValue} />
+      <button onClick={() => { changeMode(false) }}>Currency</button>
+      <button onClick={() => { changeMode(true) }}>Stock</button>
+      <StockListContainer search={stockSearch} sort={sort} menu={menu} />
+      <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
     </>
   )
 }
