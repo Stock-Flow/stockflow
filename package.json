@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
     "connected-react-router": "^6.8.0",
+    "node-sass": "^4.14.1",
     "plotly.js": "^1.54.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

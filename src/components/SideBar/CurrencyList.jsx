@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Plot from 'react-plotly.js';
 
 
-export default function CurrencyList({ currencyList, renderCurrencyList, search}) {
+export default function CurrencyList({ currencyList, renderCurrencyList, searchList}) {
   useEffect(() => {
     renderCurrencyList()
   }, [renderCurrencyList])

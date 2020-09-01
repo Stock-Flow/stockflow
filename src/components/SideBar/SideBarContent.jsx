@@ -1,8 +1,8 @@
 import React, { useRef, useState, useCallback } from 'react';
-import Search from './Search';
 import StockListContainer from '../../containers/SideBar/StockListContainer';
 import CurrencyListContainer from '../../containers/SideBar/CurrencyListContainer';
-import CurrencyContainer from '../../containers/SideBar/CurrencyContainer';
+
+import styles from '../../App.scss'
 
 export default function SideBarContent() {
   const searchValue = useRef();
@@ -28,7 +28,7 @@ export default function SideBarContent() {
     setSearch('');
   }, [])
   return (
-    <>
+    <div className={styles["SideBar"]}>
       <label htmlFor="sort-choice">Sort</label>
       <select id="sort-chocie" onChange={selectedValue}>
         <option defaultValue="name" >name</option>
@@ -39,6 +39,6 @@ export default function SideBarContent() {
       <button onClick={() => { changeMode(false) }}>Currency</button>
       <button onClick={() => { changeMode(true) }}>Stock</button>
       {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer search={search} sort={sort} />}
-    </>
+    </div>
   )
 }
