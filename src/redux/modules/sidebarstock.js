@@ -70,6 +70,44 @@ function* getSideBarStockSaga(action) {
   }
 }
 
+const GET_STOCKNOW_START = `${prefix}GET_STOCKNOW_START`
+const GET_STOCKNOW_SUCCESS = `${prefix}GET_STOCKNOW_SUCCESS`
+const GET_STOCKNOW_FAIL = `${prefix}GET_STOCKNOW_FAIL`
+
+const startGetStockNow = () => {
+  return {
+    type: GET_STOCKNOW_START,
+  }
+}
+
+const successGetStockNow = (sideBarStock) => {
+  return {
+    type: GET_STOCKNOW_SUCCESS,
+    sideBarStock
+  }
+}
+
+const failGetStockNow = (error) => {
+  return {
+    type: GET_STOCKNOW_FAIL,
+    error
+  }
+}
+
+
+function* getStockNowSaga() {
+  yield put(startGetStockNow());
+  try {
+    const stockNow = yield select(state => state.sideBarStock.sideBarStock)
+    // const symbols = yield stockNow.map(item => item.symbol);
+    const stocks = yield call(StockService.getStockNow, stockNow);
+    yield put(successGetStockNow(stocks));
+  } catch (error) {
+    yield put(failGetStockNow(error));
+    console.log(error);
+  }
+}
+
 function* initialSideBarStockSaga() {
   yield put(startGetSideBarStock());
   try {
@@ -81,9 +119,7 @@ function* initialSideBarStockSaga() {
   }
 }
 
-function* setLoadingSaga() {
-  yield put(startGetSideBarStock());
-}
+
 
 
 const GET_SIDEBARSTOCK_SAGA = "GET_SIDEBARSTOCK_SAGA";
@@ -98,6 +134,7 @@ export const getSideBarStockSagaActionCreator = (searchvalue) => ({
 export function* sideBarStockSaga() {
   yield takeLeading(GET_SIDEBARSTOCK_SAGA, getSideBarStockSaga);
   yield takeLeading("stockflow/djia/GET_DJIA_SUCCESS", initialSideBarStockSaga)
+  yield takeLeading(`${prefix}GET_SIDEBARSTOCK_SUCCESS`, getStockNowSaga)
 }
 
 export default function reducer(prevState = initialState, action) {
@@ -112,7 +149,7 @@ export default function reducer(prevState = initialState, action) {
       case GET_SIDEBARSTOCK_SUCCESS:
         return {
           ...prevState,
-          loading: false,
+          loading: true,
             sideBarStock: action.sideBarStock,
             error: null,
         }
@@ -122,9 +159,28 @@ export default function reducer(prevState = initialState, action) {
             loading: false,
               error: action.error
           }
-          default:
+          case GET_STOCKNOW_START:
             return {
-              ...prevState
+              ...prevState,
+              loading: true,
+                error: null,
             }
+            case GET_STOCKNOW_SUCCESS:
+              return {
+                ...prevState,
+                sideBarStock: action.sideBarStock,
+                  error: null,
+                  loading: false,
+              }
+              case GET_STOCKNOW_FAIL:
+                return {
+                  ...prevState,
+                  loading: false,
+                    error: action.error,
+                }
+                default:
+                  return {
+                    ...prevState
+                  }
   }
 }

@@ -1,22 +1,21 @@
 import React from "react";
 import Plot from "react-plotly.js";
 
-export default function DjiaGraph({ djiaOpenData }) {
+export default function DjiaGraph({ djiaOpenData, djiaDate }) {
   return (
     <div>
       <h1>DOW J</h1>
       <Plot
         data={[
           {
-            x: [1, 2, 3],
-            y: [2, 6, 3],
+            x: djiaDate,
+            y: djiaOpenData,
             type: "scatter",
-            mode: "lines+markers",
+            mode: "lines",
             marker: { color: "red" },
           },
-          { type: "bar", x: [1, 2, 3], y: [2, 5, 3] },
         ]}
-        layout={{ width: 320, height: 240, title: "A Fancy Plot" }}
+        layout={{ width: 1000, height: 600 }}
       />
       {/* {console.log(djia)}
       {console.log(djiaAverage)}

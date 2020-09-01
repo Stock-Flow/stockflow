@@ -3,8 +3,8 @@ import Logo from "../components/SideBar/Logo";
 import Stock from "../components/SideBar/Stock";
 // import DigitalCurrency from "../components/SideBar/DigitalCurrency";
 import DjiagraphContainer from "../containers/MainDjia/djiagraphContainer";
-import ListSort from "../components/SideBar/ListSort";
 // import List from "../components/SideBar/List";
+
 // import SideBarContent from "../components/SideBar/SideBarContent";
 import SideBarContent from "../components/SideBar/SideBarContent";
 import CurrencyContainer from "../containers/SideBar/CurrencyContainer";
@@ -19,9 +19,8 @@ export default function Home() {
       <Logo />
       <Stock />
       {/* <DigitalCurrency /> */}
-      <ListSort />
-      {/* <SideBarContent /> */}
-      {/* <List /> */}
+
+      <SideBarContent />
     </>
   );
 }

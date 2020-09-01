@@ -5,12 +5,10 @@ import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarsto
 
 
 export default function StockListContainer({ search, sort, menu }) {
-  const loading = useSelector(state => state.stockNow.loading)
+  const loading = useSelector(state => state.sideBarStock.loading)
   let stockList = useSelector(state => state.sideBarStock.sideBarStock)
-  let stockNow = useSelector(state => state.stockNow.stockNow)
 
   if (!loading) {
-    stockList = stockList.map((stock, i) => ({ ...stock, price: stockNow[i]["Global Quote"]["05. price"], change: stockNow[i]["Global Quote"]["10. change percent"] }));
     if (sort === 'name') {
       stockList = [...stockList].sort((a, b) => a.symbol > b.symbol ? 1 : a.symbol < b.symbol ? -1 : 0);
     } else if (sort === 'cheap') {

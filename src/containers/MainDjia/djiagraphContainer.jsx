@@ -13,13 +13,17 @@ export default function DjiagraphContainer() {
   const djiaStockData = djia.map((djia) => {
     return djia.stockData;
   });
+
   // console.log(djia);
-  console.log(djiaStockData);
+  // console.log(djiaStockData);
 
   let djiaDateData = [];
   let djiaOpenData = [];
+  let djiaDate = [];
 
   if (djia.length !== 0) {
+    djiaDate = Object.keys(djiaStockData[0]);
+
     for (let i = 0; i < djiaStockData.length; i++) {
       djiaDateData = Object.values(djiaStockData[i]);
       for (let j = 0; j < djiaDateData.length; j++) {
@@ -32,11 +36,12 @@ export default function DjiagraphContainer() {
       djiaOpenData[i] = +djiaOpenData[i].toFixed(2);
       // djiaOpenData[i] += parseInt(djiaOpenData[i] / DOW_DIVISOR, 10);
     }
+    // console.log(djiaDate);
   }
 
   return (
     <div>
-      <DjiaGraph djiaOpenData={djiaOpenData} />
+      <DjiaGraph djiaOpenData={djiaOpenData} djiaDate={djiaDate} djia={djia} />
     </div>
   );
 }

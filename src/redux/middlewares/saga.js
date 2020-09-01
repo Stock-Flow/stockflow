@@ -13,9 +13,7 @@ import {
 import {
   sideBarCurrencySaga
 } from "../modules/sidebarCurrency"
-import {
-  stockNowSaga
-} from "../modules/stocknow";
+
 import {
   currencyNowSaga
 } from "../modules/currencynow";
@@ -23,7 +21,7 @@ import {
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(), stockNowSaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga()])
 }
 
 export function* sidebarSaga() {
