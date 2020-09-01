@@ -1,15 +1,14 @@
-
 import React from "react";
 import Logo from "../components/SideBar/Logo";
 import Stock from "../components/SideBar/Stock";
 // import DigitalCurrency from "../components/SideBar/DigitalCurrency";
-import DjiagraphContainer from "../containers/djiagraphContainer";
+import DjiagraphContainer from "../containers/MainDjia/djiagraphContainer";
+// import List from "../components/SideBar/List";
 
 // import SideBarContent from "../components/SideBar/SideBarContent";
-import SideBarContent from '../components/SideBar/SideBarContent';
-import CurrencyContainer from '../containers/SideBar/CurrencyContainer';
-import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
-
+import SideBarContent from "../components/SideBar/SideBarContent";
+import CurrencyContainer from "../containers/SideBar/CurrencyContainer";
+import CurrencyListContainer from "../containers/SideBar/CurrencyListContainer";
 
 export default function Home() {
   return (
@@ -22,8 +21,6 @@ export default function Home() {
       {/* <DigitalCurrency /> */}
 
       <SideBarContent />
-
-
     </>
   );
 }

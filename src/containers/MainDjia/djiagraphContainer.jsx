@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import DjiaGraph from "../components/djiagraph";
+import DjiaGraph from "../../components/MainDjia/djiagraph";
 import { useEffect } from "react";
 
 export default function DjiagraphContainer() {
@@ -13,35 +13,35 @@ export default function DjiagraphContainer() {
   const djiaStockData = djia.map((djia) => {
     return djia.stockData;
   });
+
   // console.log(djia);
-  console.log(djiaStockData);
+  // console.log(djiaStockData);
 
   let djiaDateData = [];
-  let djiaDateDataArr;
   let djiaOpenData = [];
+  let djiaDate = [];
 
   if (djia.length !== 0) {
+    djiaDate = Object.keys(djiaStockData[0]);
+
     for (let i = 0; i < djiaStockData.length; i++) {
       djiaDateData = Object.values(djiaStockData[i]);
-      // console.log(djiaDateData);
       for (let j = 0; j < djiaDateData.length; j++) {
-        djiaDateDataArr = Object.values(djiaDateData[j]);
-        // console.log(djiaDateDataArr);
-        djiaOpenData[j] += djiaDateDataArr[0];
+        if (i === 0) djiaOpenData[j] = 0;
+        djiaOpenData[j] += +djiaDateData[j]["1. open"];
       }
-      // sumOpenData(djiaOpenData);
     }
-    console.log(djiaOpenData);
+    for (let i = 0; i < djiaOpenData.length; i++) {
+      djiaOpenData[i] += djiaOpenData[i] / DOW_DIVISOR;
+      djiaOpenData[i] = +djiaOpenData[i].toFixed(2);
+      // djiaOpenData[i] += parseInt(djiaOpenData[i] / DOW_DIVISOR, 10);
+    }
+    // console.log(djiaDate);
   }
-  // function sumOpenData(openDataArray) {
-  //   for (let b = 0; b < openDataArray.length; b++) {
-  //     console.log(openDataArray[b]);
-  //   }
-  // }
 
   return (
     <div>
-      <DjiaGraph />
+      <DjiaGraph djiaOpenData={djiaOpenData} djiaDate={djiaDate} djia={djia} />
     </div>
   );
 }
