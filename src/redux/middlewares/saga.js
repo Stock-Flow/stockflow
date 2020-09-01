@@ -13,9 +13,7 @@ import {
 import {
   sideBarCurrencySaga
 } from "../modules/sidebarCurrency"
-import {
-  stockNowSaga
-} from "../modules/stocknow";
+
 import {
   currencyNowSaga
 } from "../modules/currencynow";
