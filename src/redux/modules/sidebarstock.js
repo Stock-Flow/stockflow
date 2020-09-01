@@ -8,8 +8,9 @@ import {
 } from 'redux-saga/effects'
 import SearchService from '../../services/SearchService'
 import DataProcessingService from '../../services/DataProcessingService'
-
-
+import {
+  useDispatch
+} from 'react-redux'
 
 
 const prefix = "stockflow/sidebarstock/"
@@ -56,8 +57,6 @@ function* getSideBarStockSaga(action) {
     if (searchvalue) {
       const symbols = yield call(SearchService.searchingStock, searchvalue);
       let stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
-      yield stocks = stocks.filter(stock => stock["Meta Data"] !== undefined)
-      yield stocks = stocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))
       yield put(SuccessGetSideBarStock(stocks))
     } else {
       let stocks = yield select(state => state.djia.djia);
@@ -80,6 +79,10 @@ function* initialSideBarStockSaga() {
   } catch (error) {
     yield put(FailGetSideBarStock(error));
   }
+}
+
+function* setLoadingSaga() {
+  yield put(startGetSideBarStock());
 }
 
 

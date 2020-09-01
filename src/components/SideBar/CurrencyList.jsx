@@ -2,15 +2,15 @@ import React, { useEffect } from 'react'
 import Plot from 'react-plotly.js';
 
 
-export default function CurrencyList({ currencyList, renderCurrencyList, searchList}) {
+export default function CurrencyList({ currencyList, renderCurrencyList, menu }) {
   useEffect(() => {
     renderCurrencyList()
   }, [renderCurrencyList])
 
   return (
-    <ul>
+    <ul className={menu ? "none" : ""}>
       {
-        currencyList.length && (currencyList.map((currency,i) => (
+        currencyList.length && (currencyList.map((currency, i) => (
 
           i < 10 && (<li><Plot
             data={[

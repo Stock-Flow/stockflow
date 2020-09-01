@@ -1,14 +1,14 @@
-import React from 'react';
-import Logo from '../components/SideBar/Logo';
-import SideBarContent from '../components/SideBar/SideBarContent';
-import styles from './home.module.scss'
+import React from "react";
+import DjiagraphContainer from "../containers/djiagraphContainer";
+import SideBarContent from "../contents/SideBarContent";
+import './Home.scss'
+
 
 export default function Home() {
   return (
-    <>
-      <h1>home</h1>
-      <Logo />
-      <SideBarContent className={styles["SideBar"]}/>
-    </>
-  )
+    <div className = 'home'>
+      <SideBarContent />
+      <DjiagraphContainer />
+    </div>
+  );
 }

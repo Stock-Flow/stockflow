@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { history } from './redux/create'
 import { ConnectedRouter } from 'connected-react-router';
 import { Switch, Route } from 'react-router-dom';
