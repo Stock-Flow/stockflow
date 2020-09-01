@@ -21,7 +21,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
             const keys = Object.keys(stock.stockData).reverse()
             const values = Object.values(stock.stockData).map(item => +item["1. open"]).reverse()
             keys.forEach((item, i) => { stocks.push({ date: item, price: values[i] }) })
-            let color = stock.change[0] === "-" ? "green" : "red"
+            let color = stock.change[0] === "-" ? "yellow" : "red"
 
             return <li>
               {stock.change}
@@ -34,7 +34,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
                 style={{
                   data: { stroke: color },
                   parent: {
-                    width: 200,
+                    width: 50,
                     height: "auto"
                   }
 

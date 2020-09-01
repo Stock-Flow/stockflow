@@ -1,26 +1,16 @@
 import React from "react";
-import Logo from "../components/SideBar/Logo";
-import Stock from "../components/SideBar/Stock";
-// import DigitalCurrency from "../components/SideBar/DigitalCurrency";
-import DjiagraphContainer from "../containers/MainDjia/djiagraphContainer";
-// import List from "../components/SideBar/List";
 
-// import SideBarContent from "../components/SideBar/SideBarContent";
-import SideBarContent from "../components/SideBar/SideBarContent";
-import CurrencyContainer from "../containers/SideBar/CurrencyContainer";
-import CurrencyListContainer from "../containers/SideBar/CurrencyListContainer";
+import DjiagraphContainer from "../containers/djiagraphContainer";
+import SideBarContent from "../contents/SideBarContent";
+import './Home.scss'
+
 
 export default function Home() {
   return (
-    <>
-      <h1>home</h1>
-      {/* <SideBarContainer /> */}
-      <DjiagraphContainer />
-      <Logo />
-      <Stock />
-      {/* <DigitalCurrency /> */}
-
+    <div className = 'home'>
       <SideBarContent />
+      <DjiagraphContainer />
+    </div>
     </>
   );
 }

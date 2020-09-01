@@ -1,8 +1,8 @@
 import React, { useRef, useState, useCallback } from 'react';
-import Search from './Search';
-import StockListContainer from '../../containers/SideBar/StockListContainer';
-import CurrencyListContainer from '../../containers/SideBar/CurrencyListContainer';
-import CurrencyContainer from '../../containers/SideBar/CurrencyContainer';
+import StockListContainer from '../containers/SideBar/StockListContainer';
+import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
+import Logo from '../components/SideBar/Logo';
+import './SideBarContent.scss'
 
 export default function SideBarContent() {
   const searchValue = useRef();
@@ -33,18 +33,28 @@ export default function SideBarContent() {
     setCurrencySearch('');
   }, [])
   return (
-    <>
-      <label htmlFor="sort-choice">Sort</label>
-      <select id="sort-chocie" onChange={selectedValue}>
+    <div className='sidebar'>
+      <Logo />
+
+      <div className='menuBtn'>
+      <button className='stockBtn'onClick={() => { changeMode(true) }}>Stock</button>
+      <button className='currencyBtn' onClick={() => { changeMode(false) }}>Currency</button>
+      </div>
+    
+      <input className='search' type="text" onChange={() => { checkSearchDone(menu) }} ref={searchValue} />
+
+      {/* <label htmlFor="sort-choice">Sort</label> */}
+      <select className='sortBox' id="sort-chocie" onChange={selectedValue}>
         <option defaultValue="name" >name</option>
         <option value="expensive">expensive</option>
         <option value="cheap">cheap</option>
       </select>
-      <input type="text" onChange={() => { checkSearchDone(menu) }} ref={searchValue} />
-      <button onClick={() => { changeMode(false) }}>Currency</button>
-      <button onClick={() => { changeMode(true) }}>Stock</button>
+ 
+    
+      {/* {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer search={search} sort={sort} />}
+    </div> */}
       <StockListContainer search={stockSearch} sort={sort} menu={menu} />
       <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
-    </>
+    </div>
   )
 }
