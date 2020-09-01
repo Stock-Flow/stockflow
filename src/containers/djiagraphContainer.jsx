@@ -26,12 +26,12 @@ export default function DjiagraphContainer() {
       // console.log(djiaDateData);
       for (let j = 0; j < djiaDateData.length; j++) {
         djiaDateDataArr = Object.values(djiaDateData[j]);
-        // console.log(djiaDateDataArr);
+        console.log(djiaDateDataArr);
         djiaOpenData[j] += djiaDateDataArr[0];
       }
       // sumOpenData(djiaOpenData);
     }
-    console.log(djiaOpenData);
+    // console.log(djiaOpenData);
   }
   // function sumOpenData(openDataArray) {
   //   for (let b = 0; b < openDataArray.length; b++) {
