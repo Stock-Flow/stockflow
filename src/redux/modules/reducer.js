@@ -18,8 +18,6 @@ const reducer = (history) =>
     djia,
     sideBarStock,
     sidebarCurrency,
-    stockNow,
-
     router: connectRouter(history),
   })
 

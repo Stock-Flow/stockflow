@@ -39,13 +39,21 @@ export default class StockService {
     return SideBarStocks
   }
 
-  static async getStockNow(symbols) {
+  static async getStockNow(stockNow) {
+    const symbols = stockNow.map(item => item.symbol);
     const getStockNowPromise = symbol => {
       return axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`)
     }
     const promGetStockNow = symbols.map(symbol => getStockNowPromise(symbol));
-    const stockNow = await Promise.all(promGetStockNow)
+    const stocks = await Promise.all(promGetStockNow)
       .then(result => result.map(item => item.data))
-    return stockNow;
+
+
+    const stockList = stockNow.map((stock, i) => ({
+      ...stock,
+      price: stocks[i]["Global Quote"]["05. price"],
+      change: stocks[i]["Global Quote"]["10. change percent"]
+    }));
+    return stockList;
   }
 }
