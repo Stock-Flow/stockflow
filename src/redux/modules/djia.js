@@ -8,15 +8,7 @@ import {
   all
 } from 'redux-saga/effects'
 import DataProcessingService from '../../services/DataProcessingService';
-import {
-  stockNowSaga
-} from './stocknow';
-import {
-  sagaMiddleware
-} from '../create';
-import {
-  sidebarSaga
-} from '../middlewares/saga';
+
 
 
 

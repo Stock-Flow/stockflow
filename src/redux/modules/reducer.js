@@ -8,7 +8,6 @@ import stock from './stock';
 import djia from './djia';
 import sideBarStock from './sidebarstock'
 import sidebarCurrency from './sidebarCurrency'
-import stockNow from './stocknow'
 import currencyNow from './currencynow'
 
 
@@ -18,8 +17,6 @@ const reducer = (history) =>
     djia,
     sideBarStock,
     sidebarCurrency,
-    stockNow,
-
     router: connectRouter(history),
   })
 

@@ -34,10 +34,12 @@ export default function SideBarContent() {
   }, [])
   return (
     <div className='sidebar'>
-      <Logo className='logo'/>
+      <Logo />
 
-      <button onClick={() => { changeMode(true) }}>Stock</button>
-      <button onClick={() => { changeMode(false) }}>Currency</button>
+      <div className='menuBtn'>
+      <button className='stockBtn'onClick={() => { changeMode(true) }}>Stock</button>
+      <button className='currencyBtn' onClick={() => { changeMode(false) }}>Currency</button>
+      </div>
     
       <input className='search' type="text" onChange={() => { checkSearchDone(menu) }} ref={searchValue} />
 
