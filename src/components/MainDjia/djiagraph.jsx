@@ -17,9 +17,6 @@ export default function DjiaGraph({ djiaOpenData, djiaDate }) {
         ]}
         layout={{ width: 1000, height: 600 }}
       />
-      {/* {console.log(djia)}
-      {console.log(djiaAverage)}
-      {JSON.stringify(djia)} */}
     </div>
   );
 }
