@@ -50,4 +50,25 @@ export default class DataProcessingService {
 
     return djia
   }
+
+  static AdjustSplit(data) {
+    let processedData = data;
+    for (let i = 0; i < data.length; i++) {
+      const date = Object.keys(data[i].stockData)
+      let split = 0;
+      for (let j = 0; j < Object.keys(data[i].stockData).length; j++) {
+        if (split !== 0) {
+          processedData[i].stockData[date[j]]['1. open'] /= split
+          processedData[i].stockData[date[j]]['2. high'] /= split
+          processedData[i].stockData[date[j]]['3. low'] /= split
+          processedData[i].stockData[date[j]]['4. close'] /= split
+        }
+        if (data[i].stockData[date[j]]['8. split coefficient'] !== '1.0000') {
+          console.log('hi');
+          split = +data[i].stockData[date[j]]['8. split coefficient'];
+        }
+      }
+    }
+    return processedData;
+  }
 }
