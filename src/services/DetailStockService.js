@@ -1,14 +1,14 @@
 import axios from "axios";
-import { apiKey } from "../key";
+import {
+  apiKey
+} from "../key";
 
 export default class DetailStockService {
   static async getStockDaily(func, symbol) {
     const stockData = await axios.get(
-      `https://www.alphavantage.co/query?function=${func}&symbol=${symbol}&interval=1min&slice=year1month1&apikey=${apiKey}`
+      `https://www.alphavantage.co/query?function=${func}&symbol=${symbol}&interval=1min&apikey=${apiKey}`
     );
-    // console.log(stockData.data);
+
     return stockData.data;
   }
 }
-
-

@@ -1,18 +1,19 @@
 import React from "react";
 import Plot from "react-plotly.js";
 import { useEffect } from "react";
+import { dispatch } from "d3";
 // loading
-export default function DetailStockGraph({ getDetailStock, loading, symbol, dailyBtnClick, weeklyBtnClick, monthlyBtnClick, stockData }) {
+export default function DetailStockGraph({ getDetailStock, loading, symbol, intraBtnClick, dailyBtnClick, weeklyBtnClick, monthlyBtnClick, stockData }) {
 
   useEffect(() => {
     getDetailStock("TIME_SERIES_DAILY", "IBM");
-  }, []);
-  
-  
+  }, [getDetailStock]);
+
+
   return (
 
     <>
-    <h1>Detail Stock</h1>  
+      <h1>Detail Stock</h1>
       {!loading && (
         <>
           <h2>{symbol}</h2>

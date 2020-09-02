@@ -57,6 +57,7 @@ function* getSideBarStockSaga(action) {
     if (searchvalue) {
       const symbols = yield call(SearchService.searchingStock, searchvalue);
       let stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
+      stocks = DataProcessingService.AdjustSplit(stocks);
       yield put(SuccessGetSideBarStock(stocks))
     } else {
       let stocks = yield select(state => state.djia.djia);
