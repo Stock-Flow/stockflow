@@ -3,6 +3,7 @@ import CurrencyList from '../../components/SideBar/CurrencyList'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebarCurrency';
+import { getIndicatorSagaActionCreator } from '../../redux/modules/indicator';
 
 export default function CurrencyListContainer({ search, sort, menu }) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function CurrencyListContainer({ search, sort, menu }) {
 
   const renderCurrencyList = useCallback(() => {
     dispatch(getSideBarCurrencySagaActionCreator())
+    dispatch(getIndicatorSagaActionCreator())
   }, [dispatch]);
 
   return (

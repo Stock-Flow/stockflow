@@ -21,10 +21,11 @@ import {
 import { 
   detailStockSaga 
 } from "../modules/detailStock";
+import { indicatorSaga } from "../modules/indicator";
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga(), indicatorSaga()])
 }
 
 export function* sidebarSaga() {
