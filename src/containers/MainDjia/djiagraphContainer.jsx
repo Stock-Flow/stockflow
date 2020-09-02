@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import DjiaGraph from "../../components/MainDjia/djiagraph";
 import { useEffect } from "react";
+import "../../components/MainDjia/MainDjia.scss";
 
 export default function DjiagraphContainer() {
   const DOW_DIVISOR = 0.14748071991788;
@@ -40,7 +41,7 @@ export default function DjiagraphContainer() {
   }
 
   return (
-    <div>
+    <div className="djiagraphBox">
       <DjiaGraph djiaOpenData={djiaOpenData} djiaDate={djiaDate} djia={djia} />
     </div>
   );
