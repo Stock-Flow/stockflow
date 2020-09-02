@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
 import * as V from 'victory';
 import { createChart } from 'lightweight-charts';
+import { useDispatch } from 'react-redux';
+import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock'
 
 
 
 export default function StockList({ stockList, getsidebarStock, loading, search, menu }) {
+  const dispatch = useDispatch();
   useEffect(() => {
     getsidebarStock(search)
   }, [getsidebarStock, search])
 
 
+  const sendSymbol = (e) => {
+    e.stopPropagation();
+    const selectedStock = e.target.querySelector('span').textContent
+    dispatch(getSelectedStockSagaActionCreator(selectedStock))
+  }
 
 
   if (!loading) {
@@ -25,9 +33,9 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
             let color = stock.change[0] === "-" ? "yellow" : "red"
 
 
-            return <li>
+            return <li onClick={sendSymbol}>
+              <span>{stock.symbol}</span>
               {stock.change}
-              {stock.symbol}
               {stock.name}
               <V.VictoryLine
                 data={stocks}
