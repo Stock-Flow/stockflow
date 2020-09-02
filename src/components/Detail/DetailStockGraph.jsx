@@ -3,13 +3,14 @@ import Plot from "react-plotly.js";
 import { useEffect } from "react";
 import { dispatch } from "d3";
 // loading
-export default function DetailStockGraph({ getDetailStock, loading, symbol, intraBtnClick, dailyBtnClick, weeklyBtnClick, monthlyBtnClick, stockData }) {
+export default function DetailStockGraph({ getDetailStock, loading, symbol, stock, dailyBtnClick, weeklyBtnClick, monthlyBtnClick }) {
 
   useEffect(() => {
-    getDetailStock("TIME_SERIES_DAILY", "IBM");
-  }, [getDetailStock]);
+    console.log('hi');
+    getDetailStock("TIME_SERIES_DAILY_ADJUSTED", symbol);
+  }, [getDetailStock, symbol]);
 
-
+  console.log(stock);
   return (
 
     <>
@@ -25,8 +26,8 @@ export default function DetailStockGraph({ getDetailStock, loading, symbol, intr
               <Plot
                 data={[
                   {
-                    x: Object.keys(stockData),
-                    y: Object.values(stockData).map(
+                    x: Object.keys(stock.stockData),
+                    y: Object.values(stock.stockData).map(
                       (item) => item["1. open"]
                     ),
                     type: "scatter",
