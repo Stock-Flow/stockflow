@@ -35,16 +35,32 @@ const failGetDetailStock = (error) => {
   };
 };
 
+// function* getDetailStockSaga(action) {
+//   const { func, symbol, date } = action.payload;
+//   yield put(startGetDetailStock());
+//   try {
+//     let stock = yield call(DetailStockService.getStockDaily, func, symbol);
+//     stock = DataProcessingService.DataProcessing(stock, 'Time Series (Daily)');
+//     stock = DataProcessingService.AdjustSplitSingle(stock);
+//     yield put(successGetDetailStock(stock));
+//   } catch (error) {
+//     console.log(error);
+//     yield put(failGetDetailStock(error));
+//   }
+// }
+
 function* getDetailStockSaga(action) {
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
-    let stock = yield call(DetailStockService.getStockDaily, func, symbol);
-    stock = DataProcessingService.DataProcessing(stock, 'Time Series (Daily)');
-    stock = DataProcessingService.AdjustSplitSingle(stock);
+    const stock = yield call(
+      DetailStockService.getStockDaily,
+      func,
+      symbol,
+      date,
+    );
     yield put(successGetDetailStock(stock));
   } catch (error) {
-    console.log(error);
     yield put(failGetDetailStock(error));
   }
 }

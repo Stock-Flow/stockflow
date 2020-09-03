@@ -45,15 +45,12 @@ export default function DetailStockGraphContainer({
     dispatch(
       getDetailStockSagaActionCreator(func, symbol, 'Monthly Time Series'),
     );
-
-  
   }
   useEffect(() => {
     getDetailStock(func, symbol, 'Time Series (Daily)');
   }, []);
 
   // console.log(useSelector((state) => state));
-
 
   return (
     <DetailStockGraph
@@ -65,6 +62,7 @@ export default function DetailStockGraphContainer({
       dailyBtnClick={dailyBtnClick}
       weeklyBtnClick={weeklyBtnClick}
       monthlyBtnClick={monthlyBtnClick}
+      stockData={stockData}
     />
   );
 }
