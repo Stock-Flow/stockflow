@@ -1,6 +1,9 @@
 .home {
   display: flex;
 
+  .sidebar {
+    border: solid 2px black;
+    box-sizing: border-box;
+    width: 25vw;
+  }
 }
-
-
