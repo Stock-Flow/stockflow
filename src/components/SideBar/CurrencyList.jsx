@@ -1,12 +1,25 @@
 import React, { useEffect } from 'react'
 import Plot from 'react-plotly.js';
 import * as V from 'victory';
+import { getSelectedCurrencySagaActionCreator } from '../../redux/modules/selectedCurrency';
+import { useDispatch } from 'react-redux';
+import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 
 
 export default function CurrencyList({ currencyList, renderCurrencyList, menu }) {
+  const dispatch = useDispatch()
   useEffect(() => {
     renderCurrencyList()
   }, [renderCurrencyList])
+
+  const sendSymbol = (e) => {
+    e.stopPropagation();
+    let selectedCurrency = e.target.querySelector('span').textContent
+    console.log(selectedCurrency)
+    dispatch(getSelectedCurrencySagaActionCreator(selectedCurrency, 'currency'))
+    selectedCurrency = '';
+  }
+
 
   return (
     <ul className={menu ? "none" : ""}>
@@ -18,10 +31,11 @@ export default function CurrencyList({ currencyList, renderCurrencyList, menu })
             keys.forEach((item, i) => { currencys.push({ date: item, price: values[i] }) })
             // let color = currency.change[0] === "-" ? "green" : "red"
 
-            return <li>
-              {/* {currency.change} */}
-              {currency["Meta Data"]["2. Digital Currency Code"]}
+            return <li onClick ={sendSymbol}>
+              <span>{currency["Meta Data"]["2. Digital Currency Code"]}</span>
               {currency["Meta Data"]["3. Digital Currency Name"]}
+              {/* {currency.change} */}
+            
               <V.VictoryLine
                 data={currencys}
                 x="date"

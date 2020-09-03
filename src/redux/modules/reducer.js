@@ -12,6 +12,7 @@ import currencyNow from './currencynow'
 import detailStock from "./detailStock";
 import indicator from './indicator';
 import selectedStock from './selectedStock'
+import selectedCurrency from './selectedCurrency'
 
 
 const reducer = (history) =>
@@ -23,6 +24,7 @@ const reducer = (history) =>
     sidebarCurrency,
     detailStock,
     selectedStock,
+    selectedCurrency,
     router: connectRouter(history),
   })
 

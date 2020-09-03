@@ -15,8 +15,9 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
 
   const sendSymbol = (e) => {
     e.stopPropagation();
-    const selectedStock = e.target.querySelector('span').textContent
+    let selectedStock = e.target.querySelector('span')
     dispatch(getSelectedStockSagaActionCreator(selectedStock))
+    selectedStock = ''
   }
 
 
