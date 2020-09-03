@@ -1,13 +1,13 @@
-import DetailStockService from "../../services/DetailStockService";
-import { put, call, takeEvery, select } from "redux-saga/effects";
+import DetailStockService from '../../services/DetailStockService';
+import { put, call, takeEvery, select } from 'redux-saga/effects';
 
-const prefix = "stockflow/stock";
+const prefix = 'stockflow/stock';
 
 const initialState = {
   loading: true,
   stock: [],
   error: null,
-  date: "Time Series (Daily)", 
+  date: 'Time Series (Daily)',
 };
 
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
@@ -34,28 +34,29 @@ const failGetDetailStock = (error) => {
   };
 };
 function* getDetailStockSaga(action) {
-  const {
-    func,
-    symbol,
-  } = action.payload;
-  // console.log(func);
-  // console.log(symbol);
-  yield put(startGetDetailStock())
+  const { func, symbol, date } = action.payload;
+  yield put(startGetDetailStock());
   try {
-    const stock = yield call(DetailStockService.getStockDaily, func, symbol);
-
+    const stock = yield call(
+      DetailStockService.getStockDaily,
+      func,
+      symbol,
+      date,
+    );
     yield put(successGetDetailStock(stock));
   } catch (error) {
-    yield put(failGetDetailStock(error))
+    yield put(failGetDetailStock(error));
   }
 }
 
-const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
+const GET_DETAILSTOCK_SAGA = 'GET_DETAILSTOCK_SAGA';
+
 export const getDetailStockSagaActionCreator = (func, symbol, date) => ({
   type: GET_DETAILSTOCK_SAGA,
   payload: {
     func,
     symbol,
+    date,
   },
 });
 
@@ -90,4 +91,3 @@ export default function reducer(prevState = initialState, action) {
       };
   }
 }
-
