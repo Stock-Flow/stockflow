@@ -7,7 +7,9 @@ import { sideBarCurrencySaga } from "../modules/sidebarCurrency";
 import { currencyNowSaga } from "../modules/currencynow";
 
 import { detailStockSaga } from "../modules/detailStock";
+
 import { selectedStockSaga } from "../modules/selectedStock";
+
 import { selectedSymbolSaga } from "../modules/selectedSymbol";
 
 export default function* rootSaga() {
