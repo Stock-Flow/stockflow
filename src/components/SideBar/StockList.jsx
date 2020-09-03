@@ -3,6 +3,7 @@ import * as V from "victory";
 import { createChart } from "lightweight-charts";
 import { useDispatch } from "react-redux";
 import { getSelectedStockSagaActionCreator } from "../../redux/modules/selectedStock";
+import { getSelectedSymbolActionCreator } from "../../redux/modules/selectedSymbol";
 
 export default function StockList({
   stockList,
@@ -16,11 +17,32 @@ export default function StockList({
     getsidebarStock(search);
   }, [getsidebarStock, search]);
 
+  // function selectedSymbol(selectedStock) {
+  //   let selectedArr = [];
+  //   let b = selectedStock
+  //   function a () {
+  //     selectedArr = [...selectedArr, ...[b]];
+  //     localStorage.setItem("selectedStock", JSON.stringify(selectedArr));
+  //   }
+  //   return a;
+  // }
+
+  // const selectedSymbol = (function () {
+  //   let selectedArr = [];
+  //   return {
+  //     a(selectedStock) {
+  //       selectedArr = [...selectedArr, ...[selectedStock]];
+  //       localStorage.setItem("selectedStock", JSON.stringify(selectedArr));
+  //     },
+  //   };
+  // })();
+
   const sendSymbol = (e) => {
     e.stopPropagation();
     const selectedStock = e.target.querySelector("span").textContent;
-    console.log(selectedStock);
+    // selectedSymbol.a(selectedStock);
     dispatch(getSelectedStockSagaActionCreator(selectedStock));
+    dispatch(getSelectedSymbolActionCreator(selectedStock));
   };
 
   if (!loading) {
