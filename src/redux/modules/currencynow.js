@@ -1,4 +1,3 @@
-import StockService from '../../services/StockService'
 import {
   put,
   call,

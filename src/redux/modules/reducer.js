@@ -10,11 +10,13 @@ import sideBarStock from './sidebarstock'
 import sidebarCurrency from './sidebarCurrency'
 import currencyNow from './currencynow'
 import detailStock from "./detailStock";
+import indicator from './indicator';
 import selectedStock from './selectedStock'
 
 
 const reducer = (history) =>
   combineReducers({
+    indicator,
     stock,
     djia,
     sideBarStock,
