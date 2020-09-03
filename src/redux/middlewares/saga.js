@@ -21,7 +21,7 @@ import {
 import {
   detailStockSaga
 } from "../modules/detailStock";
-import { indicatorSaga } from "../modules/indicator";
+
 import {
   selectedStockSaga
 } from '../modules/selectedStock'
@@ -30,6 +30,6 @@ import { selectedCurrencySaga } from "../modules/selectedCurrency";
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga(), indicatorSaga(), selectedStockSaga(), selectedCurrencySaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga(), selectedStockSaga(), selectedCurrencySaga()])
 }
 

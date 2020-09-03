@@ -10,7 +10,7 @@ import { selectedCurrencySaga } from "../redux/modules/selectedCurrency";
 
 export default function Home() {
   const selectedStock = useSelector(state => state.selectedStock.selectedStock)
-  const selectedCurrency = useSelector(state => state.selectedStock.selectedStock)
+  const selectedCurrency = useSelector(state => state.selectedCurrency.selectedCurrency)
   
   return (
     <div className='home'>

@@ -17,7 +17,7 @@ export default function StockList({ stockList, getsidebarStock, loading, search,
     e.stopPropagation();
     let selectedStock = e.target.querySelector('span')
     dispatch(getSelectedStockSagaActionCreator(selectedStock))
-    selectedStock = ''
+    // selectedStock = ''
   }
 
 
