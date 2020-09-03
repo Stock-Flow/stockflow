@@ -1,5 +1,6 @@
 import DetailStockService from '../../services/DetailStockService';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
+import DataProcessingService from '../../services/DataProcessingService';
 
 const prefix = 'stockflow/stock';
 
@@ -33,18 +34,17 @@ const failGetDetailStock = (error) => {
     error,
   };
 };
+
 function* getDetailStockSaga(action) {
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
-    const stock = yield call(
-      DetailStockService.getStockDaily,
-      func,
-      symbol,
-      date,
-    );
+    let stock = yield call(DetailStockService.getStockDaily, func, symbol);
+    stock = DataProcessingService.DataProcessing(stock, 'Time Series (Daily)');
+    stock = DataProcessingService.AdjustSplitSingle(stock);
     yield put(successGetDetailStock(stock));
   } catch (error) {
+    console.log(error);
     yield put(failGetDetailStock(error));
   }
 }
