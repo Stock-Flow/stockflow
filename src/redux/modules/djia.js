@@ -61,6 +61,7 @@ function* getDJIASaga() {
     if (DJIAList.length === 0) {
       let DJIAList = yield call(StockService.getDJIA);
       DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
+      DJIAList = DataProcessingService.AdjustSplit(DJIAList);
       yield put(successGetDJIA(DJIAList));
     } else if (new Date().getDate() !== initialState.date) {
       const DJIAList = yield call(StockService.getDJIA);

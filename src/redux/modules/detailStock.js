@@ -1,5 +1,11 @@
 import DetailStockService from "../../services/DetailStockService";
-import { put, call, takeEvery, select } from "redux-saga/effects";
+import {
+  put,
+  call,
+  takeEvery,
+  select
+} from "redux-saga/effects";
+import DataProcessingService from "../../services/DataProcessingService";
 
 const prefix = "stockflow/stock";
 
@@ -7,7 +13,7 @@ const initialState = {
   loading: true,
   stock: [],
   error: null,
-  date: "Time Series (Daily)", 
+  date: "Time Series (Daily)",
 };
 
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
@@ -33,6 +39,7 @@ const failGetDetailStock = (error) => {
     error,
   };
 };
+
 function* getDetailStockSaga(action) {
   const {
     func,
@@ -42,10 +49,12 @@ function* getDetailStockSaga(action) {
   // console.log(symbol);
   yield put(startGetDetailStock())
   try {
-    const stock = yield call(DetailStockService.getStockDaily, func, symbol);
-
+    let stock = yield call(DetailStockService.getStockDaily, func, symbol);
+    stock = DataProcessingService.DataProcessing(stock, "Time Series (Daily)")
+    stock = DataProcessingService.AdjustSplitSingle(stock);
     yield put(successGetDetailStock(stock));
   } catch (error) {
+    console.log(error);
     yield put(failGetDetailStock(error))
   }
 }
@@ -69,20 +78,20 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
         loading: false,
-        stock: action.stock,
-        error: null,
+          stock: action.stock,
+          error: null,
       };
     case GET_DETAILSTOCK_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     default:
       return {
@@ -90,4 +99,3 @@ export default function reducer(prevState = initialState, action) {
       };
   }
 }
-

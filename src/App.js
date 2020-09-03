@@ -20,7 +20,6 @@ function App() {
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/detail" component={DetailStockGraphContainer} />
       </Switch>
     </ConnectedRouter>
 

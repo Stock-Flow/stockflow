@@ -18,16 +18,17 @@ import {
   currencyNowSaga
 } from "../modules/currencynow";
 
-import { 
-  detailStockSaga 
+import {
+  detailStockSaga
 } from "../modules/detailStock";
 import { indicatorSaga } from "../modules/indicator";
+import {
+  selectedStockSaga
+} from '../modules/selectedStock'
+
 
 
 export default function* rootSaga() {
-  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga(), indicatorSaga()])
+  yield all([stockSaga(), DJIASaga(), sideBarCurrencySaga(), sideBarStockSaga(),  detailStockSaga(), indicatorSaga(), selectedStockSaga()])
 }
 
-export function* sidebarSaga() {
-  yield([sideBarStockSaga()])
-}

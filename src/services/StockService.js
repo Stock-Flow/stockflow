@@ -16,7 +16,7 @@ export default class StockService {
   static async getDJIA() {
     let DJIAList = [];
     const getDjiaPromise = symbol => {
-      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
+      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&interval=1min&apikey=${apiKey}`)
     }
     const promDjia = DOW_ITEMS_SYMBOL.map(symbol => getDjiaPromise(symbol));
     DJIAList = await Promise.all(promDjia)
@@ -28,7 +28,7 @@ export default class StockService {
 
   static async getSideBarStock(symbols) {
     const getSideBarStockPromise = symbol => {
-      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`)
+      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${apiKey}`)
     }
     const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol["1. symbol"]));
     let SideBarStocks = await Promise.all(promGetSideBarStock)
@@ -63,4 +63,5 @@ export default class StockService {
     }));
     return stockList;
   }
+
 }
