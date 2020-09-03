@@ -44,14 +44,16 @@ function* getDetailStockSaga(action) {
   const {
     func,
     symbol,
+    date,
   } = action.payload;
-  // console.log(func);
-  // console.log(symbol);
   yield put(startGetDetailStock())
   try {
-    let stock = yield call(DetailStockService.getStockDaily, func, symbol);
-    stock = DataProcessingService.DataProcessing(stock, "Time Series (Daily)")
-    stock = DataProcessingService.AdjustSplitSingle(stock);
+    console.log(date);
+    let stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
+
+    if (stock.length >= 1500) {
+      stock = stock.slice(-1500)
+    }
     yield put(successGetDetailStock(stock));
   } catch (error) {
     console.log(error);
@@ -65,6 +67,7 @@ export const getDetailStockSagaActionCreator = (func, symbol, date) => ({
   payload: {
     func,
     symbol,
+    date,
   },
 });
 
