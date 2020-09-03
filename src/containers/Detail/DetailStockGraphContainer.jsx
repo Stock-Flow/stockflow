@@ -10,6 +10,7 @@ export default function DetailStockGraphContainer({
 }) {
   const loading = useSelector((state) => state.detailStock.loading);
   const stock = useSelector((state) => state.detailStock.stock);
+  const indicators = useSelector((state) => state.detailStock.indicator)
   const [date, setDate] = useState('Time Series (Daily)');
 
   const dispatch = useDispatch();
@@ -21,55 +22,65 @@ export default function DetailStockGraphContainer({
 
   const movingAverageFive = (stock) => {
     const movingAverage = []
-    for (let i = 0; i < stock.length; i += 5) {
+    for (let i = stock.length - 1; i >= 0; i--) {
+      if (i > stock.length - 5) {
+        continue;
+      }
       let sum = 0;
       for (let j = 0; j < 5; j++) {
         sum += +stock[i + j].close
 
       }
-      movingAverage.push({ time: stock[i].time, value: sum / 5 })
+      movingAverage.push({ time: stock[i + 4].time, value: sum / 5 })
     }
-    movingAverage.push({ time: stock[stock.length - 1].time, value: stock[stock.length - 1].close })
-    return movingAverage
+    return movingAverage.reverse();
   }
   const movingAverageTen = (stock) => {
     const movingAverage = []
-    for (let i = 0; 10 * (Math.trunc(stock.length / 10)); i += 10) {
+    for (let i = stock.length - 1; i >= 0; i--) {
+      if (i > stock.length - 10) {
+        continue;
+      }
       let sum = 0;
       for (let j = 0; j < 10; j++) {
         sum += +stock[i + j].close
 
       }
-      movingAverage.push({ time: stock[i].time, value: sum / 10 })
+      movingAverage.push({ time: stock[i + 9].time, value: sum / 10 })
     }
-    movingAverage.push({ time: stock[stock.length - 1].time, value: stock[stock.length - 1].close })
-    return movingAverage
+    return movingAverage.reverse();
   }
   const movingAverageTwenty = (stock) => {
     const movingAverage = []
-    for (let i = 0; i < 20 * (Math.trunc(stock.length / 20)); i += 20) {
+    for (let i = stock.length - 1; i >= 0; i--) {
       let sum = 0;
+      if (i > stock.length - 20) {
+        continue;
+      }
       for (let j = 0; j < 20; j++) {
         sum += +stock[i + j].close
 
       }
-      movingAverage.push({ time: stock[i].time, value: sum / 20 })
+      movingAverage.push({ time: stock[i + 19].time, value: sum / 20 })
     }
-    movingAverage.push({ time: stock[stock.length - 1].time, value: stock[stock.length - 1].close })
-    return movingAverage
+
+    return movingAverage.reverse();
   }
   const movingAverageSixty = (stock) => {
     const movingAverage = []
-    for (let i = 0; i < 60 * (Math.trunc(stock.length / 60)); i += 60) {
+    for (let i = stock.length - 1; i >= 0; i--) {
+      if (i > stock.length - 60) {
+        continue;
+      }
       let sum = 0;
       for (let j = 0; j < 60; j++) {
         sum += +stock[i + j].close
 
       }
-      movingAverage.push({ time: stock[i].time, value: sum / 60 })
+      movingAverage.push({ time: stock[i + 59].time, value: sum / 60 })
     }
-    movingAverage.push({ time: stock[stock.length - 1].time, value: stock[stock.length - 1].close })
-    return movingAverage
+
+    return movingAverage.reverse()
   }
   // function dailyBtnClick(func, symbol) {
   //   setDate('Time Series (Daily)');

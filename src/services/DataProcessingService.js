@@ -92,4 +92,17 @@ export default class DataProcessingService {
 
     return processedData;
   }
+  static IndicatorsProcessing(data) {
+    console.log(data);
+    const date = Object.keys(data["Technical Analysis"].SMA)
+    const value = Object.values(data["Technical Analysis"].SMA)
+    const processedIndicators = date.map((item, i) => {
+      return {
+        time: item,
+        value: value[i].SMA
+      }
+    })
+
+    return processedIndicators;
+  }
 }

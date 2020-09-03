@@ -1,8 +1,6 @@
 
 import React, { useRef } from 'react';
-import Plot from 'react-plotly.js';
 import { useEffect } from 'react';
-import { dispatch } from 'd3';
 import { createChart } from 'lightweight-charts';
 
 
@@ -22,10 +20,8 @@ export default function DetailStockGraph({
   const chart = useRef();
   const chartposition = useRef();
   useEffect(() => {
-    console.log(func, symbol, date);
     getDetailStock(func, symbol, date);
   }, [func, symbol, getDetailStock, date])
-
   useEffect(() => {
 
     if (chartposition.current) {
@@ -50,7 +46,7 @@ export default function DetailStockGraph({
         lineSeries.setData(stock);
       }
     }
-  }, [stock, symbol]);
+  }, [stock, symbol, loading]);
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.15}
 
