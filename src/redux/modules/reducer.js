@@ -10,6 +10,7 @@ import sideBarStock from './sidebarstock'
 import sidebarCurrency from './sidebarCurrency'
 import currencyNow from './currencynow'
 import detailStock from "./detailStock";
+import selectedStock from './selectedStock'
 
 
 const reducer = (history) =>
@@ -19,6 +20,7 @@ const reducer = (history) =>
     sideBarStock,
     sidebarCurrency,
     detailStock,
+    selectedStock,
     router: connectRouter(history),
   })
 

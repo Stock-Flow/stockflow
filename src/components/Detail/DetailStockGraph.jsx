@@ -1,8 +1,10 @@
+
 import React, { useRef } from 'react';
 import Plot from 'react-plotly.js';
 import { useEffect } from 'react';
 import { dispatch } from 'd3';
 import { createChart } from 'lightweight-charts';
+
 
 // loading
 export default function DetailStockGraph({
@@ -19,6 +21,7 @@ export default function DetailStockGraph({
   const chart = useRef();
   const chartposition = useRef();
   useEffect(() => {
+
     if (chartposition.current) {
       chart.current = createChart(chartposition.current, {
         width: 800,
@@ -45,6 +48,8 @@ export default function DetailStockGraph({
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.15}
 
+
+  console.log(stock);
   return (
     <>
       <h1>Detail Stock</h1>
@@ -59,8 +64,8 @@ export default function DetailStockGraph({
               <Plot
                 data={[
                   {
-                    x: Object.keys(stockData),
-                    y: Object.values(stockData).map(
+                    x: Object.keys(stock.stockData),
+                    y: Object.values(stock.stockData).map(
                       (item) => item["1. open"]
                     ),
                     type: "scatter",
