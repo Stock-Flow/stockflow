@@ -12,6 +12,8 @@ export default class DataProcessingService {
     return ProcessedData;
   }
 
+
+
   static SearchDataProcessing(data) {
     console.log(data);
     const ProcessedData = data.bestMatches.map(match => match["1. symbol"]);

@@ -9,22 +9,28 @@ export default function DetailStockGraph({
   getDetailStock,
   loading,
   symbol,
-  intraBtnClick,
-  dailyBtnClick,
-  weeklyBtnClick,
-  monthlyBtnClick,
+  date,
+  movingAverageFive,
+  movingAverageTen,
+  movingAverageTwenty,
+  movingAverageSixty,
   stock,
   func,
 }) {
-  const detailChart = useRef();
-  const detailChartposition = useRef();
+  const chart = useRef();
+  const chartposition = useRef();
   useEffect(() => {
-    if (detailChartposition.current) {
-      detailChart.current = createChart(detailChartposition.current, {
-        width: 600,
-        height: 500,
+    console.log(func, symbol, date);
+    getDetailStock(func, symbol, date);
+  }, [func, symbol, getDetailStock, date]);
+
+  useEffect(() => {
+    if (chartposition.current) {
+      chart.current = createChart(chartposition.current, {
+        width: 800,
+        height: 400,
       });
-      detailChart.current.applyOptions({
+      chart.current.applyOptions({
         priceScale: {
           position: 'left',
           autoScale: true,
@@ -34,14 +40,14 @@ export default function DetailStockGraph({
           barSpacing: 10,
         },
       });
-      if (detailChart.current) {
-        const lineSeries = detailChart.current.addCandlestickSeries({
-          title: 'stock',
+      if (chart.current) {
+        const lineSeries = chart.current.addCandlestickSeries({
+          title: symbol,
         });
         lineSeries.setData(stock);
       }
     }
-  }, [stock]);
+  }, [stock, symbol]);
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.15}
 
@@ -51,11 +57,51 @@ export default function DetailStockGraph({
       {!loading && (
         <>
           <h2>{symbol}</h2>
-          <button onClick={() => dailyBtnClick()}>1일</button>
+          <button
+            onClick={() => {
+              const data = movingAverageFive(stock);
+              const lineSeries = chart.current.addLineSeries();
+              lineSeries.setData(data);
+            }}
+          >
+            5 Moving Average
+          </button>
+          <button
+            onClick={() => {
+              const data = movingAverageTen(stock);
+              const lineSeries = chart.current.addLineSeries({
+                color: 'pink',
+              });
+              lineSeries.setData(data);
+            }}
+          >
+            10 Moving Average
+          </button>
+          <button
+            onClick={() => {
+              const data = movingAverageTwenty(stock);
+              const lineSeries = chart.current.addLineSeries({
+                color: 'brown',
+              });
+              lineSeries.setData(data);
+            }}
+          >
+            20 Moving Average
+          </button>
+          <button
+            onClick={() => {
+              const data = movingAverageSixty(stock);
+              const lineSeries = chart.current.addLineSeries({ color: 'red' });
+              lineSeries.setData(data);
+            }}
+          >
+            60 Moving Average
+          </button>
+          {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>
-          <button onClick={() => monthlyBtnClick()}>1달</button>
+          <button onClick={() => monthlyBtnClick()}>1달</button> */}
 
-          <div ref={detailChartposition}></div>
+          <div ref={chartposition}></div>
         </>
       )}
     </>
