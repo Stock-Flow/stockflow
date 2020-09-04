@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import DjiaGraph from "../../components/MainDjia/djiagraph";
 import { useEffect } from "react";
+import "../../components/MainDjia/MainDjia.scss";
 import DataProcessingService from "../../services/DataProcessingService";
 
 export default function DjiagraphContainer() {
@@ -20,7 +21,6 @@ export default function DjiagraphContainer() {
   let djiaList = [];
   let djiaDateData = [];
 
-
   let djiaDate = [];
 
   if (djia.length !== 0) {
@@ -38,17 +38,17 @@ export default function DjiagraphContainer() {
           djiaLowData.push(0);
           djiaCloseData.push(0);
         }
-        djiaOpenData[j] += +djiaDateData[j]['1. open'];
-        djiaHighData[j] += +djiaDateData[j]['2. high'];
-        djiaLowData[j] += +djiaDateData[j]['3. low'];
-        djiaCloseData[j] += +djiaDateData[j]['4. close'];
+        djiaOpenData[j] += +djiaDateData[j]["1. open"];
+        djiaHighData[j] += +djiaDateData[j]["2. high"];
+        djiaLowData[j] += +djiaDateData[j]["3. low"];
+        djiaCloseData[j] += +djiaDateData[j]["4. close"];
       }
     }
-    djiaOpenData = DataProcessingService.GetDJiaProcessing(djiaOpenData)
-    djiaHighData = DataProcessingService.GetDJiaProcessing(djiaHighData)
-    djiaLowData = DataProcessingService.GetDJiaProcessing(djiaLowData)
-    djiaCloseData = DataProcessingService.GetDJiaProcessing(djiaCloseData)
-    djiaList = [djiaOpenData, djiaHighData, djiaLowData, djiaCloseData,]
+    djiaOpenData = DataProcessingService.GetDJiaProcessing(djiaOpenData);
+    djiaHighData = DataProcessingService.GetDJiaProcessing(djiaHighData);
+    djiaLowData = DataProcessingService.GetDJiaProcessing(djiaLowData);
+    djiaCloseData = DataProcessingService.GetDJiaProcessing(djiaCloseData);
+    djiaList = [djiaOpenData, djiaHighData, djiaLowData, djiaCloseData];
     // console.log(djiaDate);
   }
 

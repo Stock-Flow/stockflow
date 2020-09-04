@@ -82,34 +82,6 @@ export default function DetailStockGraphContainer({
 
     return movingAverage.reverse()
   }
-  // function dailyBtnClick(func, symbol) {
-  //   setDate('Time Series (Daily)');
-  //   func = 'TIME_SERIES_DAILY';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Time Series (Daily)'),
-  //   );
-  // }
-  // function weeklyBtnClick(func, symbol) {
-  //   setDate('Weekly Time Series');
-  //   func = 'TIME_SERIES_WEEKLY_ADJUSTED';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Weekly Adjusted Time Series'),
-  //   );
-  // }
-  // function monthlyBtnClick(func, symbol) {
-  //   setDate('Monthly Time Series');
-  //   func = 'TIME_SERIES_MONTHLY_ADJUSTED';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Monthly Adjusted Time Series'),
-  //   );
-
-
-  // }
-
-  // console.log(useSelector((state) => state));
 
 
   return (
