@@ -20,7 +20,8 @@ const initialState = {
   loading: true,
   stock: [],
   error: null,
-  indicator: []
+  indicator: [],
+  volume: []
 };
 
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
@@ -34,10 +35,11 @@ const startGetDetailStock = () => {
   };
 };
 
-const successGetDetailStock = (stock) => {
+const successGetDetailStock = (stock, volume) => {
   return {
     type: GET_DETAILSTOCK_SUCCESS,
     stock,
+    volume,
   };
 };
 
@@ -65,11 +67,22 @@ function* getDetailStockSaga(action) {
     let stock = JSON.parse(localStorage.getItem(symbol))
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
-
-      if (stock.length >= 1500) {
-        stock = stock.slice(-1500)
+      console.log(stock[1]);
+      if (stock[0].length >= 1500) {
+        stock[0] = stock[0].slice(-1500)
+        stock[1] = stock[1].slice(-1500)
       }
-      yield put(successGetDetailStock(stock));
+      const barColor = stock[1].map((_, i) => {
+        if (i === 0) {
+          return "red"
+        }
+        return stock[1][i - 1].value < stock[1][i].value ? "red" : 'blue'
+      })
+      const volumeData = stock[1].map((item, i) => ({
+        ...item,
+        color: barColor[i]
+      }))
+      yield put(successGetDetailStock(stock[0], volumeData));
     } else {
       yield put(getStockFromLocalStorage(stock))
     }
@@ -187,6 +200,7 @@ export default function reducer(prevState = initialState, action) {
         loading: true,
           stock: action.stock,
           error: null,
+          volume: action.volume
       };
     case GET_DETAILSTOCK_FAIL:
       return {

@@ -11,7 +11,7 @@ export default function DetailStockGraphContainer({
   const loading = useSelector((state) => state.detailStock.loading);
   const stock = useSelector((state) => state.detailStock.stock);
   const indicators = useSelector((state) => state.detailStock.indicator)
-
+  const volume = useSelector((state => state.detailStock.volume))
 
   const dispatch = useDispatch();
   const getDetailStock = useCallback((symbol) => {
@@ -110,7 +110,7 @@ export default function DetailStockGraphContainer({
       indicators={indicators}
       loading={loading}
       stock={stock}
-
+      volume={volume}
 
       symbol={symbol}
     />

@@ -1,8 +1,26 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
+import { pink, lavender } from 'color-name';
+import Modal from 'react-modal';
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 100
+  },
+  overlay: {
+    zIndex: 100
+  }
+}
+
+Modal.setAppElement(document.getElementById('option_modal'))
 
 // loading
 export default function DetailStockGraph({
@@ -16,11 +34,39 @@ export default function DetailStockGraph({
   rsiSignal,
   indicators,
   stock,
+  volume
 }) {
   const chart = useRef();
   const assistChart = useRef();
   const chartposition = useRef();
   const candleSeries = useRef();
+  const smaFive = useRef();
+  const smaTen = useRef();
+  const smaTwenty = useRef();
+  const smaSixty = useRef();
+  const rsiChart = useRef();
+  const rsiSignalChart = useRef();
+  const volumeChart = useRef();
+
+  const [smaFiveCk, fiveCk] = useState(false)
+  const [smaTenCk, tenCk] = useState(false)
+  const [smaTwentyCk, twentyCk] = useState(false)
+  const [smaSixtyCk, sixtyCk] = useState(false)
+
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+
   useEffect(() => {
     getDetailStock(symbol);
   }, [symbol, getDetailStock])
@@ -42,19 +88,27 @@ export default function DetailStockGraph({
         barSpacing: 10,
       },
     });
-
+    assistChart.current = createChart(chartposition.current, { width: 800, height: 200 })
+    assistChart.current.applyOptions({
+      priceScale: {
+        position: 'left',
+      },
+      timeScale: {
+        fixLeftEdge: true,
+      },
+    });
 
   }, [])
 
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
+      assistChart.current.removeSeries(volumeChart.current);
     }
   }, [symbol])
 
 
   useEffect(() => {
-
     candleSeries.current = chart.current.addCandlestickSeries({
       title: symbol,
     });
@@ -63,60 +117,116 @@ export default function DetailStockGraph({
       from: stock.length - 60,
       to: stock.length,
     });
+
+    volumeChart.current = assistChart.current.addHistogramSeries({
+      title: 'volume',
+    })
+    volumeChart.current.setData(volume);
+    assistChart.current.timeScale().setVisibleLogicalRange({
+      from: volume.length - 60,
+      to: volume.length,
+    });
   }, [stock])
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <>
+      <button onClick={openModal}>open Modal</button>
+      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles}>
+        <form>
+          <label>
+            5 Moving Average
+            <input type="checkbox" checked={smaFiveCk} onChange={() => {
+              if (smaFive.current) {
+                fiveCk(false);
+                chart.current.removeSeries(smaFive.current);
+                smaFive.current = null;
+              } else {
+                fiveCk(true);
+                const data = movingAverageFive(stock)
+                smaFive.current = chart.current.addLineSeries();
+                smaFive.current.setData(data);
+              }
+            }} />
+          </label>
+          <label>
+            10 Moving Average
+            <input type="checkbox" checked={smaTenCk} onChange={() => {
+              if (smaTen.current) {
+                tenCk(false)
+                chart.current.removeSeries(smaTen.current);
+                smaTen.current = null;
+              } else {
+                tenCk(true)
+                const data = movingAverageTen(stock)
+                smaTen.current = chart.current.addLineSeries({
+                  color: "pink"
+                });
+                smaTen.current.setData(data);
+              }
+            }} />
+          </label>
+          <label>
+            20 Moving Average
+            <input type="checkbox" checked={smaTwentyCk} onChange={() => {
+              if (smaTwenty.current) {
+                twentyCk(false)
+                chart.current.removeSeries(smaTwenty.current);
+                smaTwenty.current = null;
+              } else {
+                twentyCk(true)
+                const data = movingAverageTwenty(stock)
+                smaTwenty.current = chart.current.addLineSeries({
+                  color: 'brown'
+                });
+                smaTwenty.current.setData(data);
+              }
+            }} />
+          </label>
+          <label>
+            60 Moving Average
+            <input type="checkbox" checked={smaSixtyCk} onChange={() => {
+              if (smaSixty.current) {
+                sixtyCk(false)
+                chart.current.removeSeries(smaSixty.current);
+                smaSixty.current = null;
+              } else {
+                sixtyCk(true)
+                const data = movingAverageSixty(stock)
+                smaSixty.current = chart.current.addLineSeries({
+                  color: 'red'
+                });
+                smaSixty.current.setData(data);
+              }
+            }} />
+          </label>
+          <button onClick={closeModal}>Submit</button>
+        </form>
+
+
+      </Modal>
       <h1>Detail Stock</h1>
       {!loading && (
         <>
           <h2>{symbol}</h2>
-          <button onClick={() => {
-            const data = movingAverageFive(stock)
-            const lineSeries = chart.current.addLineSeries();
-            lineSeries.setData(data);
-          }}>5 Moving Average</button>
-          <button onClick={() => {
-            const data = movingAverageTen(stock)
-            const lineSeries = chart.current.addLineSeries({
-              color: 'pink'
-            });
-            lineSeries.setData(data);
-          }}>10 Moving Average</button>
-          <button onClick={() => {
-            const data = movingAverageTwenty(stock)
-            const lineSeries = chart.current.addLineSeries({
-              color: 'brown'
-            });
-            lineSeries.setData(data);
-          }}>20 Moving Average</button>
-          <button onClick={() => {
-            const data = movingAverageSixty(stock)
-            const lineSeries = chart.current.addLineSeries(
-              { color: 'red' }
-            );
-            lineSeries.setData(data);
-          }}>60 Moving Average</button>
-          <button onClick={() => {
-            const rsiSignalData = rsiSignal(indicators[0]);
-            assistChart.current = createChart(chartposition.current, { width: 600, height: 400 })
-            assistChart.current.applyOptions({
-              priceScale: {
-                position: 'left',
-              },
-              timeScale: {
-                fixLeftEdge: true,
-              },
-            });
-            console.log(rsiSignalData);
-            const lineSeries = assistChart.current.addLineSeries({ title: "RSI" })
-            lineSeries.setData(indicators[0])
-            const rsiSeries = assistChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
-            rsiSeries.setData(rsiSignalData)
-          }}>
-            RSI
-          </button>
+          RSI
+          <input type="checkbox" onChange={() => {
+            if (rsiChart.current) {
+              assistChart.current.removeSeries(rsiChart.current)
+              assistChart.current.removeSeries(rsiSignalChart.current);
+              rsiChart.current = null
+              rsiSignalChart.current = null
+            }
+
+            else {
+              const rsiSignalData = rsiSignal(indicators[0]);
+              rsiChart.current = assistChart.current.addLineSeries({ title: "RSI" })
+              rsiChart.current.setData(indicators[0])
+              rsiSignalChart.current = assistChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
+              rsiSignalChart.current.setData(rsiSignalData)
+            }
+          }} />
+
           <button onClick={() => {
             const lowBBANDS = chart.current.addLineSeries({ title: "BBANDS LOW" })
             lowBBANDS.setData(indicators[1][0])
