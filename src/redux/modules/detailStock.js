@@ -50,31 +50,20 @@ const failGetDetailStock = (error) => {
 // }
 
 function* getDetailStockSaga(action) {
-<<<<<<< HEAD
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
-    const stock = yield call(
+    console.log(date);
+    let stock = yield call(
       DetailStockService.getStockDaily,
       func,
       symbol,
       date,
     );
-=======
-  const {
-    func,
-    symbol,
-    date,
-  } = action.payload;
-  yield put(startGetDetailStock())
-  try {
-    console.log(date);
-    let stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
 
     if (stock.length >= 1500) {
-      stock = stock.slice(-1500)
+      stock = stock.slice(-1500);
     }
->>>>>>> f457847d6b645f570637530eabc170db4bdab179
     yield put(successGetDetailStock(stock));
   } catch (error) {
     yield put(failGetDetailStock(error));

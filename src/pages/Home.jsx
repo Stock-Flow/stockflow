@@ -1,19 +1,25 @@
-import React from "react";
+import React from 'react';
 
-import DjiagraphContainer from "../containers/MainDjia/djiagraphContainer";
-import SideBarContent from "../contents/SideBarContent";
-import './Home.scss'
-import { useSelector } from "react-redux";
-import DetailStockGraphContainer from "../containers/Detail/DetailStockGraphContainer";
-
+import DjiagraphContainer from '../containers/MainDjia/djiagraphContainer';
+import SideBarContent from '../contents/SideBarContent';
+import './Home.scss';
+import { useSelector } from 'react-redux';
+import DetailStockGraphContainer from '../containers/Detail/DetailStockGraphContainer';
+import ForeignExchangeContainer from '../containers/MainDjia/foreignExchangeContainer';
 
 export default function Home() {
-  const selectedStock = useSelector(state => state.selectedStock.selectedStock)
+  const selectedStock = useSelector(
+    (state) => state.selectedStock.selectedStock,
+  );
   return (
-    <div className='home'>
+    <div className="home">
       <SideBarContent />
-      {selectedStock.length !== 0 ? <DetailStockGraphContainer symbol={selectedStock} /> : <DjiagraphContainer />}
-
+      {selectedStock.length !== 0 ? (
+        <DetailStockGraphContainer symbol={selectedStock} />
+      ) : (
+        <DjiagraphContainer />
+      )}
+      <ForeignExchangeContainer />
     </div>
   );
 }

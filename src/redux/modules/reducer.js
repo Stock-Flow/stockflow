@@ -1,17 +1,13 @@
-import {
-  connectRouter
-} from 'connected-react-router';
-import {
-  combineReducers
-} from 'redux';
+import { connectRouter } from 'connected-react-router';
+import { combineReducers } from 'redux';
 import stock from './stock';
 import djia from './djia';
-import sideBarStock from './sidebarstock'
-import sidebarCurrency from './sidebarCurrency'
-import currencyNow from './currencynow'
-import detailStock from "./detailStock";
-import selectedStock from './selectedStock'
-
+import sideBarStock from './sidebarstock';
+import sidebarCurrency from './sidebarCurrency';
+import currencyNow from './currencynow';
+import detailStock from './detailStock';
+import exchange from './exchange';
+import selectedStock from './selectedStock';
 
 const reducer = (history) =>
   combineReducers({
@@ -21,8 +17,8 @@ const reducer = (history) =>
     sidebarCurrency,
     detailStock,
     selectedStock,
+    exchange,
     router: connectRouter(history),
-  })
+  });
 
-
-export default reducer
+export default reducer;
