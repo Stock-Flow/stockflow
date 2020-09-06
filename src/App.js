@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import { useDispatch } from 'react-redux';
 import { getDJIASagaActionCreator } from './redux/modules/djia';
+import DetailStockGraphContainer from './containers/Detail/DetailStockGraphContainer';
 
 const key = 'Time Series (1min)';
 

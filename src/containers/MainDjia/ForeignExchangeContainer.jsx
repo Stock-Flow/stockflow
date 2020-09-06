@@ -22,11 +22,6 @@ export default function ForeignExchangeContainer() {
   //   dispatch(getExchangeSagaActionCreator(exchangeArr));
   // }, [dispatch, exchangeArr]);
 
-  useEffect(() => {
-    // console.log(exchange.exchange);
-    // console.log(exchange.exchange.exchange);
-  }, [exchange]);
-
   // console.log(exchange.exchange);
   const fromCurrenciesCode = exchange.exchange.map(
     (exchange, i) => exchange['1. From_Currency Code'],
@@ -49,7 +44,7 @@ export default function ForeignExchangeContainer() {
   let beforefxClose = 0;
   let afterfxClose = 0;
 
-  if (!loading) {
+  if (!fromCurrenciesName) {
     fxIntraday = fxIntraday.forEach((v, i) => {
       const beforefx = Object.keys(v)[1];
       const afterfx = Object.keys(v)[0];
