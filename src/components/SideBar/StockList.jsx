@@ -52,10 +52,9 @@ export default function StockList({
           {stockList.map(
             (stock) => {
               let stocks = [];
-              const keys = Object.keys(stock.stockData).reverse();
-              const values = Object.values(stock.stockData)
-                .map((item) => +item["1. open"])
-                .reverse();
+              const keys = stock.stockData.map(date => date.time).reverse();
+              const values = stock.stockData
+                .map((item) => +item.open)
               keys.forEach((item, i) => {
                 stocks.push({ date: item, price: values[i] });
               });

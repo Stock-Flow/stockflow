@@ -1,5 +1,12 @@
-import { put, takeEvery, takeLatest, select } from "redux-saga/effects";
-import { useSelector } from "react-redux";
+import {
+  put,
+  takeEvery,
+  takeLatest,
+  select
+} from "redux-saga/effects";
+import {
+  useSelector
+} from "react-redux";
 
 const prefix = "stockflow/selectedSymbol";
 
@@ -43,7 +50,7 @@ function* getSelectedSymbolSaga(action) {
   let selectedSymbol = yield select(
     (state) => state.selectedSymbol.selectedSymbol
   );
-  console.log(selectedSymbol);
+
   if (
     selectedSymbol.filter(
       (symbol) => symbol.symbol === action.payload.selectedSymbol
@@ -51,17 +58,22 @@ function* getSelectedSymbolSaga(action) {
   ) {
     selectedSymbol = [
       ...selectedSymbol,
-      { symbol: action.payload.selectedSymbol, count: 1 },
+      {
+        symbol: action.payload.selectedSymbol,
+        count: 1
+      },
     ];
   } else {
     selectedSymbol = selectedSymbol.map((symbol) =>
-      symbol.symbol === action.payload.selectedSymbol
-        ? { ...symbol, count: symbol.count + 1 }
-        : symbol
+      symbol.symbol === action.payload.selectedSymbol ?
+      {
+        ...symbol,
+        count: symbol.count + 1
+      } :
+      symbol
     );
   }
 
-  console.log(selectedSymbol);
   yield put(selectedSymbolStart());
   try {
     yield put(selectedSymbolSuccess(selectedSymbol));
@@ -90,22 +102,21 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case SUCCESS:
-      console.log(action.selectedSymbol);
       return {
         ...prevState,
         loading: false,
-        selectedSymbol: action.selectedSymbol,
-        error: null,
+          selectedSymbol: action.selectedSymbol,
+          error: null,
       };
     case FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     default:
       return {

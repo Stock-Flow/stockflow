@@ -26,6 +26,7 @@ const initialState = {
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
 const GET_DETAILSTOCK_SUCCESS = `${prefix}/GET_DETAILSTOCK_SUCCESS`;
 const GET_DETAILSTOCK_FAIL = `${prefix}/GET_DETAILSTOCK_FAIL`;
+const GET_STOCKFROMLOCALSTORAGE = `${prefix}/GET_STOCKFROMLOCALSTORAGE`
 
 const startGetDetailStock = () => {
   return {
@@ -46,6 +47,12 @@ const failGetDetailStock = (error) => {
     error,
   };
 };
+const getStockFromLocalStorage = (detailStock) => {
+  return {
+    type: GET_STOCKFROMLOCALSTORAGE,
+    detailStock
+  }
+}
 
 function* getDetailStockSaga(action) {
   const {
@@ -55,13 +62,17 @@ function* getDetailStockSaga(action) {
   } = action.payload;
   yield put(startGetDetailStock())
   try {
-    console.log(date);
-    let stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
+    let stock = JSON.parse(localStorage.getItem(symbol))
+    if (!stock) {
+      stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
 
-    if (stock.length >= 1500) {
-      stock = stock.slice(-1500)
+      if (stock.length >= 1500) {
+        stock = stock.slice(-1500)
+      }
+      yield put(successGetDetailStock(stock));
+    } else {
+      yield put(getStockFromLocalStorage(stock))
     }
-    yield put(successGetDetailStock(stock));
   } catch (error) {
     console.log(error);
     yield put(failGetDetailStock(error))
@@ -69,12 +80,12 @@ function* getDetailStockSaga(action) {
 }
 
 const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
-export const getDetailStockSagaActionCreator = (func, symbol, date) => ({
+export const getDetailStockSagaActionCreator = (symbol, date) => ({
   type: GET_DETAILSTOCK_SAGA,
   payload: {
-    func,
+    func: 'TIME_SERIES_DAILY_ADJUSTED',
     symbol,
-    date,
+    date: 'Time Series (Daily)'
   },
 });
 
@@ -121,13 +132,17 @@ function* getIndicatorSaga() {
   yield put(startGetIndicator());
   try {
     const symbol = yield select(state => state.selectedStock.selectedStock);
+    if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol)
     yield put(SuccessGetIndicator(indicator))
+    const detailStock = yield select(state => state.detailStock)
+    localStorage.setItem(symbol, JSON.stringify(detailStock))
   } catch (error) {
     console.log(error)
     yield put(FailGetIndicator(error));
   }
 }
+
 
 
 
@@ -155,6 +170,11 @@ export function* detailStockSaga() {
 
 export default function reducer(prevState = initialState, action) {
   switch (action.type) {
+    case GET_STOCKFROMLOCALSTORAGE: {
+      return {
+        ...action.detailStock
+      }
+    }
     case GET_DETAILSTOCK_START:
       return {
         ...prevState,
@@ -164,7 +184,7 @@ export default function reducer(prevState = initialState, action) {
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
-        loading: false,
+        loading: true,
           stock: action.stock,
           error: null,
       };

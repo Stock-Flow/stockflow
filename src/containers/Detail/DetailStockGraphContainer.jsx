@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DetailStockGraph from '../../components/Detail/DetailStockGraph';
 import { getDetailStockSagaActionCreator } from '../../redux/modules/detailStock';
-import { useState } from 'react';
+
 
 export default function DetailStockGraphContainer({
   func = 'TIME_SERIES_DAILY_ADJUSTED',
@@ -11,12 +11,12 @@ export default function DetailStockGraphContainer({
   const loading = useSelector((state) => state.detailStock.loading);
   const stock = useSelector((state) => state.detailStock.stock);
   const indicators = useSelector((state) => state.detailStock.indicator)
-  const [date, setDate] = useState('Time Series (Daily)');
+
 
   const dispatch = useDispatch();
-  const getDetailStock = useCallback((func, symbol, date) => {
+  const getDetailStock = useCallback((symbol) => {
     dispatch(
-      getDetailStockSagaActionCreator(func, symbol, date),
+      getDetailStockSagaActionCreator(symbol),
     );
   }, [dispatch]);
 
@@ -79,10 +79,25 @@ export default function DetailStockGraphContainer({
       }
       movingAverage.push({ time: stock[i + 59].time, value: sum / 60 })
     }
-
-    return movingAverage.reverse()
+    return movingAverage.reverse();
   }
 
+  const rsiSignal = (rsi) => {
+    const rsiSignal = []
+    for (let i = rsi.length - 1; i >= 0; i--) {
+      if (i > rsi.length - 6) {
+        continue;
+      }
+      let sum = 0;
+      for (let j = 0; j < 6; j++) {
+        sum += +rsi[i + j].value
+
+      }
+      rsiSignal.push({ time: rsi[i + 5].time, value: +(sum / 6).toFixed(2) })
+    }
+
+    return rsiSignal.reverse()
+  }
 
   return (
     <DetailStockGraph
@@ -91,10 +106,12 @@ export default function DetailStockGraphContainer({
       movingAverageTen={movingAverageTen}
       movingAverageTwenty={movingAverageTwenty}
       movingAverageSixty={movingAverageSixty}
+      rsiSignal={rsiSignal}
+      indicators={indicators}
       loading={loading}
       stock={stock}
-      func={func}
-      date={date}
+
+
       symbol={symbol}
     />
   );
