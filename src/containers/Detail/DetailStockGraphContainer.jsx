@@ -13,7 +13,7 @@ export default function DetailStockGraphContainer({
   const volume = useSelector((state) => state.detailStock.volume);
 
   const dispatch = useDispatch();
-<<<<<<< HEAD
+
   const getDetailStock = useCallback(
     (symbol) => {
       dispatch(getDetailStockSagaActionCreator(symbol));
@@ -23,17 +23,6 @@ export default function DetailStockGraphContainer({
 
   const movingAverageFive = (stock) => {
     const movingAverage = [];
-=======
-
-  const getDetailStock = useCallback((symbol) => {
-    dispatch(
-      getDetailStockSagaActionCreator(symbol),
-    );
-  }, [dispatch]);
-
-  const movingAverageFive = (stock) => {
-    const movingAverage = []
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     for (let i = stock.length - 1; i >= 0; i--) {
       if (i > stock.length - 5) {
         continue;
@@ -42,21 +31,12 @@ export default function DetailStockGraphContainer({
       for (let j = 0; j < 5; j++) {
         sum += +stock[i + j].close;
       }
-<<<<<<< HEAD
       movingAverage.push({ time: stock[i + 4].time, value: sum / 5 });
     }
     return movingAverage.reverse();
   };
   const movingAverageTwenty = (stock) => {
     const movingAverage = [];
-=======
-      movingAverage.push({ time: stock[i + 4].time, value: sum / 5 })
-    }
-    return movingAverage.reverse();
-  }
-  const movingAverageTwenty = (stock) => {
-    const movingAverage = []
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     for (let i = stock.length - 1; i >= 0; i--) {
       let sum = 0;
       if (i > stock.length - 20) {
@@ -115,10 +95,6 @@ export default function DetailStockGraphContainer({
     return rsiSignal.reverse();
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}

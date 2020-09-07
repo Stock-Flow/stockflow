@@ -1,20 +1,8 @@
-<<<<<<< HEAD
-import React, { useEffect, useRef } from 'react';
-// import Plot from "react-plotly.js";
-import './MainDjia.scss';
-import { createChart } from 'lightweight-charts';
-// import { useSelector } from "react-redux";
-=======
-
 import React, { useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
 import { useSelector } from 'react-redux';
 import DataProcessingService from '../../services/DataProcessingService';
-import "./MainDjia.scss";
-
-
-
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
+import './MainDjia.scss';
 
 export default function DjiaGraph({ djiaList, djiaDate }) {
   const chart = useRef();
@@ -35,10 +23,6 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
       },
     });
   }, []);
-<<<<<<< HEAD
-=======
-
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 
   let stockList = [];
   if (djiaList.length !== 0) {
@@ -54,11 +38,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   }
 
   if (chart.current) {
-<<<<<<< HEAD
     const lineSeries = chart.current.addCandlestickSeries({ title: 'DOW J' });
-=======
-    const lineSeries = chart.current.addCandlestickSeries({ title: "DOW J" });
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     lineSeries.setData(stockList);
   }
   return <div ref={chartposition}></div>;

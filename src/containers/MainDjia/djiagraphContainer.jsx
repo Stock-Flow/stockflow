@@ -1,20 +1,9 @@
-<<<<<<< HEAD
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DjiaGraph from '../../components/MainDjia/djiagraph';
 import { useEffect } from 'react';
 import '../../components/MainDjia/MainDjia.scss';
 import DataProcessingService from '../../services/DataProcessingService';
-=======
-
-import React from "react";
-import { useSelector } from "react-redux";
-import DjiaGraph from "../../components/MainDjia/djiagraph";
-import { useEffect } from "react";
-import "../../components/MainDjia/MainDjia.scss";
-import DataProcessingService from "../../services/DataProcessingService";
-
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 
 export default function DjiagraphContainer() {
   const DOW_DIVISOR = 0.14748071991788;
@@ -28,11 +17,6 @@ export default function DjiagraphContainer() {
   });
 
   // console.log(djia);
-
-<<<<<<< HEAD
-  let djiaList = [];
-=======
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 
   let djiaDate = [];
 
@@ -62,11 +46,6 @@ export default function DjiagraphContainer() {
     djiaLowData = DataProcessingService.GetDJiaProcessing(djiaLowData);
     djiaCloseData = DataProcessingService.GetDJiaProcessing(djiaCloseData);
     djiaList = [djiaOpenData, djiaHighData, djiaLowData, djiaCloseData];
-<<<<<<< HEAD
-    console.log(djiaList);
-=======
-
->>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
   }
 
   return (
