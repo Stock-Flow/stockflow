@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 import DjiagraphContainer from '../containers/MainDjia/djiagraphContainer';
@@ -10,6 +11,7 @@ import ForeignExchangeContainer from '../containers/MainDjia/ForeignExchangeCont
 export default function Home() {
   const selectedStock = useSelector(
     (state) => state.selectedStock.selectedStock,
+
   );
   return (
     <div className="home">

@@ -13,8 +13,15 @@ export default class DetailStockService {
       date,
     );
 
-    detailStock = DataProcessingService.AdjustSplitSingle(detailStock, date);
+
+    detailStock = DataProcessingService.AdjustSplitSingle(detailStock, date)
+    let volume = Object.values(detailStock.stockData).map(item => (item['6. volume']))
+    volume = Object.keys(detailStock.stockData).map((item, i) => ({
+      time: item,
+      value: +volume[i]
+    }))
+
     detailStock = DataProcessingService.GraphDataProcessing(detailStock);
-    return detailStock;
+    return [detailStock, volume.reverse()];
   }
 }

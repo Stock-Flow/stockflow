@@ -1,8 +1,12 @@
+
 import React, { useEffect, useRef } from 'react';
-import Plot from 'react-plotly.js';
 import { createChart } from 'lightweight-charts';
 import { useSelector } from 'react-redux';
 import DataProcessingService from '../../services/DataProcessingService';
+import "./MainDjia.scss";
+
+
+
 
 export default function DjiaGraph({ djiaList, djiaDate }) {
   const chart = useRef();
@@ -14,7 +18,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     });
     chart.current.applyOptions({
       priceScale: {
-        position: 'left',
+        position: "left",
         autoScale: true,
       },
       timeScale: {
@@ -23,9 +27,11 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
       },
     });
   }, []);
+
+
   let stockList = [];
   if (djiaList.length !== 0) {
-    stockList = djiaDate.reverse().map((item, i) => {
+    stockList = djiaDate.map((item, i) => {
       return {
         time: item,
         open: djiaList[0][i],
@@ -37,7 +43,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   }
 
   if (chart.current) {
-    const lineSeries = chart.current.addCandlestickSeries({ title: 'DOW J' });
+    const lineSeries = chart.current.addCandlestickSeries({ title: "DOW J" });
     lineSeries.setData(stockList);
   }
   return <div ref={chartposition}></div>;

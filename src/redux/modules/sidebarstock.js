@@ -18,7 +18,6 @@ const prefix = "stockflow/sidebarstock/"
 const initialState = {
   loading: true,
   sideBarStock: [],
-  sort: "name",
   error: null
 }
 
@@ -58,6 +57,10 @@ function* getSideBarStockSaga(action) {
       const symbols = yield call(SearchService.searchingStock, searchvalue);
       let stocks = yield call(StockService.getSideBarStock, symbols.bestMatches)
       stocks = DataProcessingService.AdjustSplit(stocks);
+      stocks = stocks.map(stock => ({
+        ...stock,
+        stockData: DataProcessingService.GraphDataProcessing(stock)
+      }))
       yield put(SuccessGetSideBarStock(stocks))
     } else {
       let stocks = yield select(state => state.djia.djia);
@@ -99,15 +102,26 @@ const failGetStockNow = (error) => {
 function* getStockNowSaga() {
   yield put(startGetStockNow());
   try {
+    const savedStocks = JSON.parse(localStorage.getItem("stockSideBar"));
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
-    // const symbols = yield stockNow.map(item => item.symbol);
-    const stocks = yield call(StockService.getStockNow, stockNow);
-    yield put(successGetStockNow(stocks));
+    if (stockNow.length === 0) {
+      return;
+    }
+    if (savedStocks !== null && stockNow.filter((stock, i) => stock.symbol !== savedStocks[i].symbol).length === 0) {
+      yield put(successGetStockNow(savedStocks));
+    } else {
+      const stocks = yield call(StockService.getStockNow, stockNow);
+      localStorage.setItem("stockSideBar", JSON.stringify(stocks));
+      yield put(successGetStockNow(stocks));
+    }
   } catch (error) {
     yield put(failGetStockNow(error));
     console.log(error);
   }
 }
+
+
+
 
 function* initialSideBarStockSaga() {
   yield put(startGetSideBarStock());
