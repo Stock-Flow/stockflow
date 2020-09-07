@@ -43,17 +43,25 @@ function* getSelectedSymbolSaga(action) {
   let selectedSymbol = yield select(
     (state) => state.selectedSymbol.selectedSymbol
   );
+
   console.log(selectedSymbol);
+
   if (
+    // 같은 symbol이 없을때 새로운 symbol 추가
     selectedSymbol.filter(
       (symbol) => symbol.symbol === action.payload.selectedSymbol
     ).length === 0
   ) {
     selectedSymbol = [
       ...selectedSymbol,
-      { symbol: action.payload.selectedSymbol, count: 1 },
+      {
+        names: action.payload.names,
+        symbol: action.payload.selectedSymbol,
+        count: 1,
+      },
     ];
   } else {
+    // 만약 이미 추가된 symbol이라면 count만 + 1
     selectedSymbol = selectedSymbol.map((symbol) =>
       symbol.symbol === action.payload.selectedSymbol
         ? { ...symbol, count: symbol.count + 1 }
@@ -71,10 +79,11 @@ function* getSelectedSymbolSaga(action) {
 }
 
 const GET_SELECTEDSYMBOL_SAGA = "GET_SELECTEDSYMBOL_SAGA";
-export const getSelectedSymbolActionCreator = (selectedSymbol) => ({
+export const getSelectedSymbolActionCreator = (selectedSymbol, names) => ({
   type: GET_SELECTEDSYMBOL_SAGA,
   payload: {
     selectedSymbol,
+    names,
   },
 });
 
@@ -99,6 +108,7 @@ export default function reducer(prevState = initialState, action) {
         ...prevState,
         loading: false,
         selectedSymbol: action.selectedSymbol,
+        names: action.names,
         error: null,
       };
     case FAIL:
