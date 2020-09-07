@@ -64,12 +64,14 @@ function* getSelectedSymbolSaga(action) {
     // 만약 이미 추가된 symbol이라면 count만 + 1
     selectedSymbol = selectedSymbol.map((symbol) =>
       symbol.symbol === action.payload.selectedSymbol
-        ? { ...symbol, count: symbol.count + 1 }
+        ? {
+            ...symbol,
+            count: symbol.count + 1,
+          }
         : symbol
     );
   }
 
-  console.log(selectedSymbol);
   yield put(selectedSymbolStart());
   try {
     yield put(selectedSymbolSuccess(selectedSymbol));
@@ -103,7 +105,6 @@ export default function reducer(prevState = initialState, action) {
       };
 
     case SUCCESS:
-      console.log(action.selectedSymbol);
       return {
         ...prevState,
         loading: false,

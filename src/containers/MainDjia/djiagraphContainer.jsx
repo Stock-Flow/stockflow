@@ -17,31 +17,30 @@ export default function DjiagraphContainer() {
   });
 
   // console.log(djia);
-  // console.log(djiaStockData);
+
   let djiaList = [];
-  let djiaDateData = [];
 
   let djiaDate = [];
 
   if (djia.length !== 0) {
-    let djiaOpenData = [];
+    let djiaOpenData = []
     let djiaHighData = [];
     let djiaLowData = [];
     let djiaCloseData = [];
-    djiaDate = Object.keys(djiaStockData[0]);
+    djiaDate = djiaStockData[0].map(date => date.time)
     for (let i = 0; i < djiaStockData.length; i++) {
-      djiaDateData = Object.values(djiaStockData[i]);
-      for (let j = 0; j < djiaDateData.length; j++) {
+      for (let j = 0; j < djiaStockData[0].length; j++) {
         if (i === 0) {
           djiaOpenData.push(0);
           djiaHighData.push(0);
           djiaLowData.push(0);
           djiaCloseData.push(0);
         }
-        djiaOpenData[j] += +djiaDateData[j]["1. open"];
-        djiaHighData[j] += +djiaDateData[j]["2. high"];
-        djiaLowData[j] += +djiaDateData[j]["3. low"];
-        djiaCloseData[j] += +djiaDateData[j]["4. close"];
+        // console.log(djiaStockData[i][j].open)
+        djiaOpenData[j] += +djiaStockData[i][j].open
+        djiaHighData[j] += +djiaStockData[i][j].high;
+        djiaLowData[j] += +djiaStockData[i][j].low;
+        djiaCloseData[j] += +djiaStockData[i][j].close;
       }
     }
     djiaOpenData = DataProcessingService.GetDJiaProcessing(djiaOpenData);
@@ -49,7 +48,7 @@ export default function DjiagraphContainer() {
     djiaLowData = DataProcessingService.GetDJiaProcessing(djiaLowData);
     djiaCloseData = DataProcessingService.GetDJiaProcessing(djiaCloseData);
     djiaList = [djiaOpenData, djiaHighData, djiaLowData, djiaCloseData];
-    // console.log(djiaDate);
+    console.log(djiaList);
   }
 
   return (

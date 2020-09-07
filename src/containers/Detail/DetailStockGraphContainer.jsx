@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DetailStockGraph from '../../components/Detail/DetailStockGraph';
 import { getDetailStockSagaActionCreator } from '../../redux/modules/detailStock';
-import { useState } from 'react';
+
 
 export default function DetailStockGraphContainer({
   func = 'TIME_SERIES_DAILY_ADJUSTED',
@@ -11,12 +11,12 @@ export default function DetailStockGraphContainer({
   const loading = useSelector((state) => state.detailStock.loading);
   const stock = useSelector((state) => state.detailStock.stock);
   const indicators = useSelector((state) => state.detailStock.indicator)
-  const [date, setDate] = useState('Time Series (Daily)');
+  const volume = useSelector((state => state.detailStock.volume))
 
   const dispatch = useDispatch();
-  const getDetailStock = useCallback((func, symbol, date) => {
+  const getDetailStock = useCallback((symbol) => {
     dispatch(
-      getDetailStockSagaActionCreator(func, symbol, date),
+      getDetailStockSagaActionCreator(symbol),
     );
   }, [dispatch]);
 
@@ -32,21 +32,6 @@ export default function DetailStockGraphContainer({
 
       }
       movingAverage.push({ time: stock[i + 4].time, value: sum / 5 })
-    }
-    return movingAverage.reverse();
-  }
-  const movingAverageTen = (stock) => {
-    const movingAverage = []
-    for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 10) {
-        continue;
-      }
-      let sum = 0;
-      for (let j = 0; j < 10; j++) {
-        sum += +stock[i + j].close
-
-      }
-      movingAverage.push({ time: stock[i + 9].time, value: sum / 10 })
     }
     return movingAverage.reverse();
   }
@@ -79,50 +64,54 @@ export default function DetailStockGraphContainer({
       }
       movingAverage.push({ time: stock[i + 59].time, value: sum / 60 })
     }
-
-    return movingAverage.reverse()
+    return movingAverage.reverse();
   }
-  // function dailyBtnClick(func, symbol) {
-  //   setDate('Time Series (Daily)');
-  //   func = 'TIME_SERIES_DAILY';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Time Series (Daily)'),
-  //   );
-  // }
-  // function weeklyBtnClick(func, symbol) {
-  //   setDate('Weekly Time Series');
-  //   func = 'TIME_SERIES_WEEKLY_ADJUSTED';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Weekly Adjusted Time Series'),
-  //   );
-  // }
-  // function monthlyBtnClick(func, symbol) {
-  //   setDate('Monthly Time Series');
-  //   func = 'TIME_SERIES_MONTHLY_ADJUSTED';
-  //   symbol = 'IBM';
-  //   dispatch(
-  //     getDetailStockSagaActionCreator(func, symbol, 'Monthly Adjusted Time Series'),
-  //   );
+  const movingAverageHundredTwenty = (stock) => {
+    const movingAverage = []
+    for (let i = stock.length - 1; i >= 0; i--) {
+      if (i > stock.length - 120) {
+        continue;
+      }
+      let sum = 0;
+      for (let j = 0; j < 120; j++) {
+        sum += +stock[i + j].close
 
+      }
+      movingAverage.push({ time: stock[i + 119].time, value: sum / 120 })
+    }
+    return movingAverage.reverse();
+  }
 
-  // }
+  const rsiSignal = (rsi) => {
+    const rsiSignal = []
+    for (let i = rsi.length - 1; i >= 0; i--) {
+      if (i > rsi.length - 6) {
+        continue;
+      }
+      let sum = 0;
+      for (let j = 0; j < 6; j++) {
+        sum += +rsi[i + j].value
 
-  // console.log(useSelector((state) => state));
+      }
+      rsiSignal.push({ time: rsi[i + 5].time, value: +(sum / 6).toFixed(2) })
+    }
 
+    return rsiSignal.reverse()
+  }
 
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverageFive={movingAverageFive}
-      movingAverageTen={movingAverageTen}
       movingAverageTwenty={movingAverageTwenty}
       movingAverageSixty={movingAverageSixty}
+      movingAverageHundredTwenty={movingAverageHundredTwenty}
+      rsiSignal={rsiSignal}
+      indicators={indicators}
       loading={loading}
       stock={stock}
-      func={func}
-      date={date}
+      volume={volume}
+
       symbol={symbol}
     />
   );
