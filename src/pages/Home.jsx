@@ -5,6 +5,7 @@ import SideBarContent from '../contents/SideBarContent';
 import './Home.scss';
 import { useSelector } from 'react-redux';
 import DetailStockGraphContainer from '../containers/Detail/DetailStockGraphContainer';
+import ForeignExchangeContainer from '../containers/MainDjia/ForeignExchangeContainer';
 
 export default function Home() {
   const selectedStock = useSelector(
