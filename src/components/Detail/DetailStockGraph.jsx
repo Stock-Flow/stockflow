@@ -1,9 +1,11 @@
 
+
 import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import { pink, lavender } from 'color-name';
 import Modal from 'react-modal';
+
 
 const customStyles = {
   content: {
@@ -262,6 +264,7 @@ export default function DetailStockGraph({
       {!loading && (
         <>
           <h2>{symbol}</h2>
+
           RSI
           <input type="checkbox" onChange={() => {
             if (rsiChart.current) {
@@ -298,6 +301,7 @@ export default function DetailStockGraph({
               rsiSignalChart.current.setData(rsiSignalData)
             }
           }} />
+
 
           {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>

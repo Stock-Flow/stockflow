@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from "react";
-// import Plot from "react-plotly.js";
+
+import React, { useEffect, useRef } from 'react';
+import { createChart } from 'lightweight-charts';
+import { useSelector } from 'react-redux';
+import DataProcessingService from '../../services/DataProcessingService';
 import "./MainDjia.scss";
-import { createChart } from "lightweight-charts";
-// import { useSelector } from "react-redux";
+
+
+
 
 export default function DjiaGraph({ djiaList, djiaDate }) {
   const chart = useRef();
@@ -23,6 +27,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
       },
     });
   }, []);
+
 
   let stockList = [];
   if (djiaList.length !== 0) {

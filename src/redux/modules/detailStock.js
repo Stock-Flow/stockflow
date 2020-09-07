@@ -1,3 +1,5 @@
+
+
 import DetailStockService from "../../services/DetailStockService";
 import {
   put,
@@ -14,7 +16,8 @@ import {
   useSelector
 } from "react-redux";
 
-const prefix = "stockflow/stock";
+
+const prefix = 'stockflow/stock';
 
 const initialState = {
   loading: true,
@@ -56,14 +59,25 @@ const getStockFromLocalStorage = (detailStock) => {
   }
 }
 
+// function* getDetailStockSaga(action) {
+//   const { func, symbol, date } = action.payload;
+//   yield put(startGetDetailStock());
+//   try {
+//     let stock = yield call(DetailStockService.getStockDaily, func, symbol);
+//     stock = DataProcessingService.DataProcessing(stock, 'Time Series (Daily)');
+//     stock = DataProcessingService.AdjustSplitSingle(stock);
+//     yield put(successGetDetailStock(stock));
+//   } catch (error) {
+//     console.log(error);
+//     yield put(failGetDetailStock(error));
+//   }
+// }
+
 function* getDetailStockSaga(action) {
-  const {
-    func,
-    symbol,
-    date,
-  } = action.payload;
-  yield put(startGetDetailStock())
+  const { func, symbol, date } = action.payload;
+  yield put(startGetDetailStock());
   try {
+
     let stock = JSON.parse(localStorage.getItem(symbol))
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
@@ -85,15 +99,17 @@ function* getDetailStockSaga(action) {
       yield put(successGetDetailStock(stock[0], volumeData));
     } else {
       yield put(getStockFromLocalStorage(stock))
+
     }
   } catch (error) {
-    console.log(error);
-    yield put(failGetDetailStock(error))
+    yield put(failGetDetailStock(error));
   }
 }
 
+
 const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
 export const getDetailStockSagaActionCreator = (symbol, date) => ({
+
   type: GET_DETAILSTOCK_SAGA,
   payload: {
     func: 'TIME_SERIES_DAILY_ADJUSTED',
@@ -192,11 +208,12 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-          error: null,
+        error: null,
       };
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
+
         loading: true,
           stock: action.stock,
           error: null,
@@ -206,7 +223,7 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: false,
-          error: action.error,
+        error: action.error,
       };
 
     case GET_INDICATOR_START:
