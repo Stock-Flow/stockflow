@@ -1,0 +1,25 @@
+.djiagraphBox {
+  background-color: #252525;
+  width: 75vw;
+}
+
+.djiagraph {
+  // width: 70%;
+  // margin: 0 auto;
+  // background-color: white;
+  h1 {
+    margin: 0;
+    margin-top: 30px;
+    color: white;
+    font-size: 40px;
+  }
+  span {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: 200;
+  }
+  .main-svg {
+    background: none !important;
+  }
+}
