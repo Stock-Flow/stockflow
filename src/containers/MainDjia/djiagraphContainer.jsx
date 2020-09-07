@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DjiaGraph from '../../components/MainDjia/djiagraph';
 import { useEffect } from 'react';
+import '../../components/MainDjia/MainDjia.scss';
 import DataProcessingService from '../../services/DataProcessingService';
-=======
-import React from "react";
-import { useSelector } from "react-redux";
-import DjiaGraph from "../../components/MainDjia/djiagraph";
-import { useEffect } from "react";
-import "../../components/MainDjia/MainDjia.scss";
-import DataProcessingService from "../../services/DataProcessingService";
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
 
 export default function DjiagraphContainer() {
   const DOW_DIVISOR = 0.14748071991788;
@@ -26,19 +18,16 @@ export default function DjiagraphContainer() {
 
   // console.log(djia);
 
-<<<<<<< HEAD
-=======
   let djiaList = [];
 
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
   let djiaDate = [];
 
   if (djia.length !== 0) {
-    let djiaOpenData = []
+    let djiaOpenData = [];
     let djiaHighData = [];
     let djiaLowData = [];
     let djiaCloseData = [];
-    djiaDate = djiaStockData[0].map(date => date.time)
+    djiaDate = djiaStockData[0].map((date) => date.time);
     for (let i = 0; i < djiaStockData.length; i++) {
       for (let j = 0; j < djiaStockData[0].length; j++) {
         if (i === 0) {
@@ -48,7 +37,7 @@ export default function DjiagraphContainer() {
           djiaCloseData.push(0);
         }
         // console.log(djiaStockData[i][j].open)
-        djiaOpenData[j] += +djiaStockData[i][j].open
+        djiaOpenData[j] += +djiaStockData[i][j].open;
         djiaHighData[j] += +djiaStockData[i][j].high;
         djiaLowData[j] += +djiaStockData[i][j].low;
         djiaCloseData[j] += +djiaStockData[i][j].close;
@@ -59,11 +48,7 @@ export default function DjiagraphContainer() {
     djiaLowData = DataProcessingService.GetDJiaProcessing(djiaLowData);
     djiaCloseData = DataProcessingService.GetDJiaProcessing(djiaCloseData);
     djiaList = [djiaOpenData, djiaHighData, djiaLowData, djiaCloseData];
-<<<<<<< HEAD
-    // console.log(djiaDate);
-=======
     console.log(djiaList);
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
   }
 
   return (

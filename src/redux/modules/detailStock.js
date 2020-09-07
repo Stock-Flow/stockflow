@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import DetailStockService from '../../services/DetailStockService';
-import { put, call, takeEvery, select } from 'redux-saga/effects';
-import DataProcessingService from '../../services/DataProcessingService';
-=======
 import DetailStockService from "../../services/DetailStockService";
 import {
   put,
@@ -18,7 +13,6 @@ import {
 import {
   useSelector
 } from "react-redux";
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
 
 const prefix = 'stockflow/stock';
 
@@ -26,12 +20,8 @@ const initialState = {
   loading: true,
   stock: [],
   error: null,
-<<<<<<< HEAD
-  date: 'Time Series (Daily)',
-=======
   indicator: [],
   volume: []
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
 };
 
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
@@ -84,18 +74,6 @@ function* getDetailStockSaga(action) {
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
-<<<<<<< HEAD
-    console.log(date);
-    let stock = yield call(
-      DetailStockService.getStockDaily,
-      func,
-      symbol,
-      date,
-    );
-
-    if (stock.length >= 1500) {
-      stock = stock.slice(-1500);
-=======
     let stock = JSON.parse(localStorage.getItem(symbol))
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
@@ -117,21 +95,14 @@ function* getDetailStockSaga(action) {
       yield put(successGetDetailStock(stock[0], volumeData));
     } else {
       yield put(getStockFromLocalStorage(stock))
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
     }
   } catch (error) {
     yield put(failGetDetailStock(error));
   }
 }
 
-<<<<<<< HEAD
-const GET_DETAILSTOCK_SAGA = 'GET_DETAILSTOCK_SAGA';
-
-export const getDetailStockSagaActionCreator = (func, symbol, date) => ({
-=======
 const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
 export const getDetailStockSagaActionCreator = (symbol, date) => ({
->>>>>>> f3d68145ebf9e60c19bea172e53e11b066f7e18b
   type: GET_DETAILSTOCK_SAGA,
   payload: {
     func: 'TIME_SERIES_DAILY_ADJUSTED',
