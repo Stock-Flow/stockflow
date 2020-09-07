@@ -1,9 +1,30 @@
+<<<<<<< HEAD
 import DetailStockService from '../../services/DetailStockService';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
 import DataProcessingService from '../../services/DataProcessingService';
 import IndicatorService from '../../services/IndicatorService';
 import { symbol } from 'd3-shape';
 import { useSelector } from 'react-redux';
+=======
+
+
+import DetailStockService from "../../services/DetailStockService";
+import {
+  put,
+  call,
+  takeEvery,
+  select
+} from "redux-saga/effects";
+import DataProcessingService from "../../services/DataProcessingService";
+import IndicatorService from "../../services/IndicatorService";
+import {
+  symbol
+} from "d3-shape";
+import {
+  useSelector
+} from "react-redux";
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 
 const prefix = 'stockflow/stock';
 
@@ -12,7 +33,11 @@ const initialState = {
   stock: [],
   error: null,
   indicator: [],
+<<<<<<< HEAD
   volume: [],
+=======
+  volume: []
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 };
 
 const GET_DETAILSTOCK_START = `${prefix}/GET_DETAILSTOCK_START`;
@@ -65,7 +90,12 @@ function* getDetailStockSaga(action) {
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
+<<<<<<< HEAD
     let stock = JSON.parse(localStorage.getItem(symbol));
+=======
+
+    let stock = JSON.parse(localStorage.getItem(symbol))
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
       console.log(stock[1]);
@@ -85,15 +115,27 @@ function* getDetailStockSaga(action) {
       }));
       yield put(successGetDetailStock(stock[0], volumeData));
     } else {
+<<<<<<< HEAD
       yield put(getStockFromLocalStorage(stock));
+=======
+      yield put(getStockFromLocalStorage(stock))
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     }
   } catch (error) {
     yield put(failGetDetailStock(error));
   }
 }
 
+<<<<<<< HEAD
 const GET_DETAILSTOCK_SAGA = 'GET_DETAILSTOCK_SAGA';
 export const getDetailStockSagaActionCreator = (symbol, date) => ({
+=======
+
+const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
+export const getDetailStockSagaActionCreator = (symbol, date) => ({
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
   type: GET_DETAILSTOCK_SAGA,
   payload: {
     func: 'TIME_SERIES_DAILY_ADJUSTED',
@@ -176,10 +218,18 @@ export default function reducer(prevState = initialState, action) {
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
+<<<<<<< HEAD
         loading: true,
         stock: action.stock,
         error: null,
         volume: action.volume,
+=======
+
+        loading: true,
+          stock: action.stock,
+          error: null,
+          volume: action.volume
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
       };
     case GET_DETAILSTOCK_FAIL:
       return {

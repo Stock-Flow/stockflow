@@ -13,6 +13,7 @@ export default class DetailStockService {
       date,
     );
 
+<<<<<<< HEAD
     detailStock = DataProcessingService.AdjustSplitSingle(detailStock, date);
     let volume = Object.values(detailStock.stockData).map(
       (item) => item['6. volume'],
@@ -21,6 +22,16 @@ export default class DetailStockService {
       time: item,
       value: +volume[i],
     }));
+=======
+
+    detailStock = DataProcessingService.AdjustSplitSingle(detailStock, date)
+    let volume = Object.values(detailStock.stockData).map(item => (item['6. volume']))
+    volume = Object.keys(detailStock.stockData).map((item, i) => ({
+      time: item,
+      value: +volume[i]
+    }))
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     detailStock = DataProcessingService.GraphDataProcessing(detailStock);
     return [detailStock, volume.reverse()];
   }

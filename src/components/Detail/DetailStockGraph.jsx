@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import { pink, lavender } from 'color-name';
 import Modal from 'react-modal';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
 const customStyles = {
   content: {
     top: '50%',
@@ -77,6 +86,10 @@ export default function DetailStockGraph({
   }, [symbol, getDetailStock]);
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
     chart.current = createChart(chartposition.current, {
       width: 800,
       height: 400,
@@ -292,6 +305,7 @@ export default function DetailStockGraph({
       {!loading && (
         <>
           <h2>{symbol}</h2>
+<<<<<<< HEAD
           RSI
           <input
             type="checkbox"
@@ -333,6 +347,47 @@ export default function DetailStockGraph({
               }
             }}
           />
+=======
+
+          RSI
+          <input type="checkbox" onChange={() => {
+            if (rsiChart.current) {
+              indicatorChart.current.removeSeries(rsiChart.current)
+              indicatorChart.current.removeSeries(rsiSignalChart.current);
+              rsiChart.current = null
+              rsiSignalChart.current = null
+              indicatorChart.current.applyOptions({
+                priceScale: {
+                  borderVisible: false,
+                },
+                timeScale: {
+                  borderVisible: false,
+                },
+              })
+              indicatorChart.current.resize(0, 0)
+
+            }
+
+            else {
+              indicatorChart.current.applyOptions({
+                priceScale: {
+                  borderVisible: true,
+                },
+                timeScale: {
+                  borderVisible: true,
+                },
+              })
+              indicatorChart.current.resize(800, 200)
+              const rsiSignalData = rsiSignal(indicators[0]);
+              rsiChart.current = indicatorChart.current.addLineSeries({ title: "RSI" })
+              rsiChart.current.setData(indicators[0])
+              rsiSignalChart.current = indicatorChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
+              rsiSignalChart.current.setData(rsiSignalData)
+            }
+          }} />
+
+
+>>>>>>> 70ad982a426ba8e787838054bd974ac910eeef7a
           {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
