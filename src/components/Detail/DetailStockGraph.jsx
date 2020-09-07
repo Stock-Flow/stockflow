@@ -28,7 +28,7 @@ export default function DetailStockGraph({
   loading,
   symbol,
   movingAverageFive,
-  movingAverageTen,
+  movingAverageHundredTwenty,
   movingAverageTwenty,
   movingAverageSixty,
   rsiSignal,
@@ -36,22 +36,31 @@ export default function DetailStockGraph({
   stock,
   volume
 }) {
+  //chart ref
   const chart = useRef();
   const assistChart = useRef();
+  const indicatorChart = useRef();
+  //chart position ref
   const chartposition = useRef();
+  const indicatorPosition = useRef();
+  //graph ref
   const candleSeries = useRef();
   const smaFive = useRef();
-  const smaTen = useRef();
+  const smaHundredTwenty = useRef();
   const smaTwenty = useRef();
   const smaSixty = useRef();
   const rsiChart = useRef();
   const rsiSignalChart = useRef();
   const volumeChart = useRef();
+  const lowBBANDS = useRef();
+  const middleBBANDS = useRef();
+  const highBBANDS = useRef();
 
   const [smaFiveCk, fiveCk] = useState(false)
-  const [smaTenCk, tenCk] = useState(false)
+  const [smaHundredTwentyCk, hundredTwentyCk] = useState(false)
   const [smaTwentyCk, twentyCk] = useState(false)
   const [smaSixtyCk, sixtyCk] = useState(false)
+  const [BBANDSCk, setBBANDSCk] = useState(false)
 
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -79,7 +88,7 @@ export default function DetailStockGraph({
     });
     chart.current.applyOptions({
       priceScale: {
-        position: 'left',
+        position: 'right',
         autoScale: true,
       },
       timeScale: {
@@ -91,19 +100,39 @@ export default function DetailStockGraph({
     assistChart.current = createChart(chartposition.current, { width: 800, height: 200 })
     assistChart.current.applyOptions({
       priceScale: {
-        position: 'left',
+        position: 'right',
       },
       timeScale: {
         fixLeftEdge: true,
       },
     });
-
+    indicatorChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    indicatorChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+    })
   }, [])
 
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
+      if (lowBBANDS.current) chart.current.removeSeries(lowBBANDS.current);
+
+      if (middleBBANDS.current) chart.current.removeSeries(middleBBANDS.current);
+      if (highBBANDS.current) chart.current.removeSeries(highBBANDS.current);
+      if (smaFive.current) chart.current.removeSeries(smaFive.current);
+      if (smaTwenty.current) chart.current.removeSeries(smaTwenty.current);
+      if (smaSixty.current) chart.current.removeSeries(smaSixty.current);
+      if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
+
       assistChart.current.removeSeries(volumeChart.current);
+      chartposition.current.removeChild(assistChart.current);
     }
   }, [symbol])
 
@@ -149,23 +178,7 @@ export default function DetailStockGraph({
               }
             }} />
           </label>
-          <label>
-            10 Moving Average
-            <input type="checkbox" checked={smaTenCk} onChange={() => {
-              if (smaTen.current) {
-                tenCk(false)
-                chart.current.removeSeries(smaTen.current);
-                smaTen.current = null;
-              } else {
-                tenCk(true)
-                const data = movingAverageTen(stock)
-                smaTen.current = chart.current.addLineSeries({
-                  color: "pink"
-                });
-                smaTen.current.setData(data);
-              }
-            }} />
-          </label>
+
           <label>
             20 Moving Average
             <input type="checkbox" checked={smaTwentyCk} onChange={() => {
@@ -200,6 +213,46 @@ export default function DetailStockGraph({
               }
             }} />
           </label>
+          <label>
+            120 Moving Average
+            <input type="checkbox" checked={smaHundredTwentyCk} onChange={() => {
+              if (smaHundredTwenty.current) {
+                hundredTwentyCk(false)
+                chart.current.removeSeries(smaHundredTwenty.current);
+                smaHundredTwenty.current = null;
+              } else {
+                hundredTwentyCk(true)
+                const data = movingAverageHundredTwenty(stock)
+                smaHundredTwenty.current = chart.current.addLineSeries({
+                  color: "pink"
+                });
+                smaHundredTwenty.current.setData(data);
+              }
+            }} />
+          </label>
+          <label>
+            BBANDS
+          <input type="checkbox" checked={BBANDSCk} onChange={() => {
+              if (lowBBANDS.current) {
+                setBBANDSCk(false);
+                chart.current.removeSeries(lowBBANDS.current)
+                chart.current.removeSeries(middleBBANDS.current)
+                chart.current.removeSeries(highBBANDS.current)
+                lowBBANDS.current = null;
+                middleBBANDS.current = null;
+                highBBANDS.current = null;
+              } else {
+                setBBANDSCk(true);
+                lowBBANDS.current = chart.current.addLineSeries({ title: "BBANDS LOW" })
+                lowBBANDS.current.setData(indicators[1][0])
+                middleBBANDS.current = chart.current.addLineSeries({ title: "BBANDS MIDDLE" })
+                middleBBANDS.current.setData(indicators[1][1])
+                highBBANDS.current = chart.current.addLineSeries({ title: "BBANDS HIGH" })
+                highBBANDS.current.setData(indicators[1][2])
+              }
+            }} />
+
+          </label>
           <button onClick={closeModal}>Submit</button>
         </form>
 
@@ -212,31 +265,40 @@ export default function DetailStockGraph({
           RSI
           <input type="checkbox" onChange={() => {
             if (rsiChart.current) {
-              assistChart.current.removeSeries(rsiChart.current)
-              assistChart.current.removeSeries(rsiSignalChart.current);
+              indicatorChart.current.removeSeries(rsiChart.current)
+              indicatorChart.current.removeSeries(rsiSignalChart.current);
               rsiChart.current = null
               rsiSignalChart.current = null
+              indicatorChart.current.applyOptions({
+                priceScale: {
+                  borderVisible: false,
+                },
+                timeScale: {
+                  borderVisible: false,
+                },
+              })
+              indicatorChart.current.resize(0, 0)
+
             }
 
             else {
+              indicatorChart.current.applyOptions({
+                priceScale: {
+                  borderVisible: true,
+                },
+                timeScale: {
+                  borderVisible: true,
+                },
+              })
+              indicatorChart.current.resize(800, 200)
               const rsiSignalData = rsiSignal(indicators[0]);
-              rsiChart.current = assistChart.current.addLineSeries({ title: "RSI" })
+              rsiChart.current = indicatorChart.current.addLineSeries({ title: "RSI" })
               rsiChart.current.setData(indicators[0])
-              rsiSignalChart.current = assistChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
+              rsiSignalChart.current = indicatorChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
               rsiSignalChart.current.setData(rsiSignalData)
             }
           }} />
 
-          <button onClick={() => {
-            const lowBBANDS = chart.current.addLineSeries({ title: "BBANDS LOW" })
-            lowBBANDS.setData(indicators[1][0])
-            const middleBBANDS = chart.current.addLineSeries({ title: "BBANDS MIDDLE" })
-            middleBBANDS.setData(indicators[1][1])
-            const highBBANDS = chart.current.addLineSeries({ title: "BBANDS HIGH" })
-            highBBANDS.setData(indicators[1][2])
-          }}>
-            BBANDS
-          </button>
           {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
@@ -244,6 +306,7 @@ export default function DetailStockGraph({
         </>
       )}
       <div ref={chartposition}></div>
+      <div ref={indicatorPosition}></div>
     </>
   );
 
