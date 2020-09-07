@@ -93,17 +93,39 @@ export default class DataProcessingService {
 
     return processedData;
   }
-  static IndicatorsProcessing(data) {
-    console.log(data);
-    const date = Object.keys(data["Technical Analysis"].SMA)
-    const value = Object.values(data["Technical Analysis"].SMA)
+  static IndicatorsProcessing(data, symbol) {
+    if (symbol === "BBANDS") {
+      const date = Object.keys(data[`Technical Analysis: ${symbol}`])
+      const value = Object.values(data[`Technical Analysis: ${symbol}`])
+      const lowBBANDS = date.map((item, i) => {
+        return {
+          time: item,
+          value: value[i]['Real Lower Band']
+        }
+      })
+      const middleBBANDS = date.map((item, i) => {
+        return {
+          time: item,
+          value: value[i]['Real Middle Band']
+        }
+      })
+      const upBBANDS = date.map((item, i) => {
+        return {
+          time: item,
+          value: value[i]['Real Upper Band']
+        }
+      })
+      return [lowBBANDS.reverse(), middleBBANDS.reverse(), upBBANDS.reverse()]
+    }
+    const date = Object.keys(data[`Technical Analysis: ${symbol}`])
+    const value = Object.values(data[`Technical Analysis: ${symbol}`])
     const processedIndicators = date.map((item, i) => {
       return {
         time: item,
-        value: value[i].SMA
+        value: value[i][symbol]
       }
     })
 
-    return processedIndicators;
+    return processedIndicators.reverse();
   }
 }

@@ -54,22 +54,37 @@ const failGetDJIA = (error) => {
 }
 
 function* getDJIASaga() {
-  const DJIAList = yield select((state) => state.djia.djia);
+  const DJIAList = JSON.parse(localStorage.getItem('djia'));
   yield put(startGetDJIA())
   try {
     yield
-    if (DJIAList.length === 0) {
+    if (!DJIAList) {
       let DJIAList = yield call(StockService.getDJIA);
       console.log(DJIAList)
       DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
       DJIAList = DataProcessingService.AdjustSplit(DJIAList);
+      DJIAList = DJIAList.map(djia => ({
+        ...djia,
+        stockData: DataProcessingService.GraphDataProcessing(djia)
+      }))
+      localStorage.setItem('djia', JSON.stringify(DJIAList));
       yield put(successGetDJIA(DJIAList));
     } else if (new Date().getDate() !== initialState.date) {
-      const DJIAList = yield call(StockService.getDJIA);
+      let DJIAList = yield call(StockService.getDJIA);
+      DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
+      DJIAList = DataProcessingService.AdjustSplit(DJIAList);
+      DJIAList = DJIAList.map(djia => ({
+        ...djia,
+        stockData: DataProcessingService.GraphDataProcessing(djia)
+      }))
+      yield put(successGetDJIA(DJIAList));
+    } else {
+      console.log(DJIAList);
       yield put(successGetDJIA(DJIAList));
     }
 
   } catch (error) {
+    console.log(error);
     yield put(failGetDJIA(error))
   }
 }

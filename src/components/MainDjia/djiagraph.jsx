@@ -23,9 +23,10 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
       },
     });
   }, []);
+
   let stockList = [];
   if (djiaList.length !== 0) {
-    stockList = djiaDate.reverse().map((item, i) => {
+    stockList = djiaDate.map((item, i) => {
       return {
         time: item,
         open: djiaList[0][i],
