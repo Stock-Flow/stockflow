@@ -16,7 +16,7 @@ export default function CurrencyList({ currencyList, renderCurrencyList, menu })
     e.stopPropagation();
     let selectedCurrency = e.target.querySelector('span').textContent
     console.log(selectedCurrency)
-    dispatch(getSelectedCurrencySagaActionCreator(selectedCurrency, 'currency'))
+    dispatch(getSelectedCurrencySagaActionCreator(selectedCurrency, 'stock'))
     selectedCurrency = '';
   }
 

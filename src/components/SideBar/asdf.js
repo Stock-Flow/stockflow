@@ -3,11 +3,17 @@ selectedSymbol = {
   error : null
   selectedSymbol : [
     {
-      name: appl,
+      kind: 'currency'
+      symbol: 'appl',
       count: 1
     },
     {
-      name: asoi,
+      kind: 'stock'
+      symbol: 'aso'i,
+      count: 2
+    },
+    {
+      symbol: asoi,
       count: 2
     },
   ] 

@@ -41,7 +41,7 @@ export default function StockList({
     e.stopPropagation();
     let selectedStock = e.target.querySelector('span')
     dispatch(getSelectedStockSagaActionCreator(selectedStock))
-    dispatch(getSelectedSymbolActionCreator(selectedStock));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, 'symbl'));
     selectedStock = ''
   }
 
