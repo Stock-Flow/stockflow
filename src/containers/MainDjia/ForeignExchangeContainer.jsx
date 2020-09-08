@@ -37,10 +37,6 @@ export default function ForeignExchangeContainer() {
     (exchange) => exchange['5. Exchange Rate'],
   );
   let fxIntraday = exchange.exchange.map((exchange) => exchange['fxIntraday']);
-<<<<<<< HEAD
-
-=======
->>>>>>> dbe343d06df95abe4faed04a51cdd661e6de0a54
   let fxIntradayArr = [];
   let beforefxClose = 0;
   let afterfxClose = 0;
@@ -58,22 +54,11 @@ export default function ForeignExchangeContainer() {
       });
     });
   }
-  // console.log(fxIntradayArr);
 
-  // 0: {2020-09-04 21:45:00: {…}, 2020-09-04 21:40:00: {…}, 2020-09-04 21:35:00: {…}, 2020-09-04 21:30:00: {…}, 2020-09-04 21:25:00: {…}, …}
-  // 1: {2020-09-04 21:55:00: {…}, 2020-09-04 21:50:00: {…}, 2020-09-04 21:45:00: {…}, 2020-09-04 21:40:00: {…}, 2020-09-04 21:35:00: {…}, …}
-  // 2: {2020-09-04 21:55:00: {…}, 2020-09-04 21:50:00: {…}, 2020-09-04 21:45:00: {…}, 2020-09-04 21:40:00: {…}, 2020-09-04 21:35:00: {…}, …}
-  // 3: {2020-09-04 21:55:00: {…}, 2020-09-04 21:50:00: {…}, 2020-09-04 21:45:00: {…}, 2020-09-04 21:40:00: {…}, 2020-09-04 21:35:00: {…}, …}
-  // 4: {2020-09-04 21:55:00: {…}, 2020-09-04 21:50:00: {…}, 2020-09-04 21:45:00: {…}, 2020-09-04 21:40:00: {…}, 2020-09-04 21:35:00: {…}, …
-  // console.log(fromCurrenciesCode);
-  // console.log(fromCurrencies); //  ["EUR", "USD", "JPY", "USD", "AUD"]
-
-  // console.log(result);
   return (
     <>
       <ForeignExchange
         getExchange={getExchange}
-        // getExchangeDaily={getExchangeDaily}
         loading={loading}
         exchangeArr={exchangeArr}
         fromCurrenciesCode={fromCurrenciesCode}
