@@ -18,6 +18,10 @@ export default function DjiagraphContainer() {
 
   // console.log(djia);
 
+<<<<<<< HEAD
+=======
+  let djiaList = [];
+>>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
   let djiaDate = [];
   let djiaList = [];
 

@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, delay } from 'redux-saga/effects';
 import ExchangeSerivice from '../../services/ExchangeService';
 
 const prefix = 'stockflow/exchange';
@@ -26,6 +26,7 @@ const successGetExchange = (exchange) => {
 const failGetExchange = (error) => {
   return {
     type: GET_EXCHANGE_ERROR,
+    error,
   };
 };
 
@@ -33,7 +34,10 @@ function* getExchangeSaga(action) {
   const { exchangeArray } = action.payload;
   yield put(startGetExchange());
   try {
+    // delay(1000);
     let exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
+    console.log(exchange);
+
     yield put(successGetExchange(exchange));
   } catch (error) {
     yield put(failGetExchange());

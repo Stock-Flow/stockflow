@@ -30,12 +30,11 @@ export default function ForeignExchangeItem({
   resultPercent = resultPercent.toFixed(2);
   let fxDiff = (after - before).toFixed(2);
 
-  console.log(resultPercent);
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
   return (
     <>
-      {fromCurrenciesName && (
+      {!loading && (
         <div className="exchange-item">
           <div className="exchange-column icon">
             <span className="country-icon from">
