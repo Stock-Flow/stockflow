@@ -21,66 +21,23 @@ export default function DetailStockGraphContainer({
     );
   }, [dispatch]);
 
-  const movingAverageFive = (stock) => {
+
+  const movingAverage = (stock, duration) => {
     const movingAverage = []
     for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 5) {
+      if (i > stock.length - duration) {
         continue;
       }
       let sum = 0;
-      for (let j = 0; j < 5; j++) {
+      for (let j = 0; j < duration; j++) {
         sum += +stock[i + j].close;
       }
-      movingAverage.push({ time: stock[i + 4].time, value: sum / 5 })
+      movingAverage.push({ time: stock[i + duration - 1].time, value: +sum / duration })
     }
     return movingAverage.reverse();
   }
-  const movingAverageTwenty = (stock) => {
-    const movingAverage = []
-    for (let i = stock.length - 1; i >= 0; i--) {
-      let sum = 0;
-      if (i > stock.length - 20) {
-        continue;
-      }
-      for (let j = 0; j < 20; j++) {
-        sum += +stock[i + j].close
 
-      }
-      movingAverage.push({ time: stock[i + 19].time, value: sum / 20 })
-    }
 
-    return movingAverage.reverse();
-  }
-  const movingAverageSixty = (stock) => {
-    const movingAverage = []
-    for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 60) {
-        continue;
-      }
-      let sum = 0;
-      for (let j = 0; j < 60; j++) {
-        sum += +stock[i + j].close
-
-      }
-      movingAverage.push({ time: stock[i + 59].time, value: sum / 60 })
-    }
-    return movingAverage.reverse();
-  }
-  const movingAverageHundredTwenty = (stock) => {
-    const movingAverage = []
-    for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 120) {
-        continue;
-      }
-      let sum = 0;
-      for (let j = 0; j < 120; j++) {
-        sum += +stock[i + j].close
-
-      }
-      movingAverage.push({ time: stock[i + 119].time, value: sum / 120 })
-    }
-    return movingAverage.reverse();
-  }
 
   const rsiSignal = (rsi) => {
     const rsiSignal = []
@@ -103,10 +60,7 @@ export default function DetailStockGraphContainer({
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
-      movingAverageFive={movingAverageFive}
-      movingAverageTwenty={movingAverageTwenty}
-      movingAverageSixty={movingAverageSixty}
-      movingAverageHundredTwenty={movingAverageHundredTwenty}
+      movingAverage={movingAverage}
       rsiSignal={rsiSignal}
       indicators={indicators}
       loading={loading}

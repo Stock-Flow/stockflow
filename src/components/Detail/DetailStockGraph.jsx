@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import { pink, lavender } from 'color-name';
 import Modal from 'react-modal';
+import CustomGraph from './CustomGraph';
 
 
 const customStyles = {
@@ -29,10 +30,7 @@ export default function DetailStockGraph({
   getDetailStock,
   loading,
   symbol,
-  movingAverageFive,
-  movingAverageHundredTwenty,
-  movingAverageTwenty,
-  movingAverageSixty,
+  movingAverage,
   rsiSignal,
   indicators,
   stock,
@@ -61,20 +59,37 @@ export default function DetailStockGraph({
   const highBBANDS = useRef();
 
   const [smaFiveCk, fiveCk] = useState(false)
-  const [smaHundredTwentyCk, hundredTwentyCk] = useState(false)
+  const [fiveColor, setFiveColor] = useState('#0000ff');
+
   const [smaTwentyCk, twentyCk] = useState(false)
+  const [twentyColor, setTwentyColor] = useState('#964b00');
+
   const [smaSixtyCk, sixtyCk] = useState(false)
+  const [sixtyColor, setSixtyColor] = useState('#ff0000');
+
+  const [smaHundredTwentyCk, hundredTwentyCk] = useState(false)
+  const [hundredTwentyColor, setHundredTwentyColor] = useState('#ffc0cb');
+
   const [BBANDSCk, setBBANDSCk] = useState(false)
   const [RSICk, setRSICk] = useState(false);
   const [disparityCk, setDisparityCk] = useState(false);
 
-  const twentyMovingAverageData = movingAverageTwenty(stock);
-  const sixtyMovingAverageData = movingAverageSixty(stock);
-  const twentyDisparity = twentyMovingAverageData.map((item, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / twentyMovingAverageData[twentyMovingAverageData.length - i - 1].value) * 100 })).reverse();
-  const sixtyDisparity = sixtyMovingAverageData.map((item, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) * 100 }));
+  const fiveMovingAverageData = movingAverage(stock, 5)
+  const twentyMovingAverageData = movingAverage(stock, 20);
+  const sixtyMovingAverageData = movingAverage(stock, 60);
+  const hundredTwentyMovingAverageData = movingAverage(stock, 120);
+  const twentyDisparity = twentyMovingAverageData.map((_, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / twentyMovingAverageData[twentyMovingAverageData.length - i - 1].value) * 100 })).reverse();
+  const sixtyDisparity = sixtyMovingAverageData.map((_, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) * 100 }));
 
 
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const [customGraph, setCustomGraph] = useState([]);
+  const customChart = useRef();
+  const customG = useRef();
+  const [color, setColor] = useState('#ff0000');
+
+
 
   function openModal() {
     setIsOpen(true);
@@ -130,6 +145,17 @@ export default function DetailStockGraph({
     })
     disparityChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
     disparityChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+    })
+    customChart.current = createChart(chartposition.current, { width: 0, height: 0 })
+    customChart.current.applyOptions({
       priceScale: {
         position: 'right',
         borderVisible: false,
@@ -196,13 +222,20 @@ export default function DetailStockGraph({
                 smaFive.current = null;
               } else {
                 fiveCk(true);
-                const data = movingAverageFive(stock)
-                smaFive.current = chart.current.addLineSeries();
-                smaFive.current.setData(data);
+                smaFive.current = chart.current.addLineSeries({ color: fiveColor });
+                smaFive.current.setData(fiveMovingAverageData);
               }
             }} />
           </label>
-
+          <label>
+            Five Moving Average Color
+            <input type="color" value={fiveColor} onChange={e => {
+              setFiveColor(e.target.value)
+              if (smaFive.current) {
+                smaFive.current.applyOptions({ color: fiveColor })
+              }
+            }} />
+          </label>
           <label>
             20 Moving Average
             <input type="checkbox" checked={smaTwentyCk} onChange={() => {
@@ -212,11 +245,19 @@ export default function DetailStockGraph({
                 smaTwenty.current = null;
               } else {
                 twentyCk(true)
-                const data = movingAverageTwenty(stock)
                 smaTwenty.current = chart.current.addLineSeries({
-                  color: 'brown'
+                  color: twentyColor
                 });
-                smaTwenty.current.setData(data);
+                smaTwenty.current.setData(twentyMovingAverageData);
+              }
+            }} />
+          </label>
+          <label>
+            Twenty Moving Average Color
+            <input type="color" value={twentyColor} onChange={e => {
+              setTwentyColor(e.target.value)
+              if (smaTwenty.current) {
+                smaTwenty.current.applyOptions({ color: twentyColor })
               }
             }} />
           </label>
@@ -229,11 +270,19 @@ export default function DetailStockGraph({
                 smaSixty.current = null;
               } else {
                 sixtyCk(true)
-                const data = movingAverageSixty(stock)
                 smaSixty.current = chart.current.addLineSeries({
-                  color: 'red'
+                  color: sixtyColor
                 });
-                smaSixty.current.setData(data);
+                smaSixty.current.setData(sixtyMovingAverageData);
+              }
+            }} />
+          </label>
+          <label>
+            Sixty Moving Average Color
+            <input type="color" value={sixtyColor} onChange={e => {
+              setSixtyColor(e.target.value)
+              if (smaSixty.current) {
+                smaSixty.current.applyOptions({ color: sixtyColor })
               }
             }} />
           </label>
@@ -246,14 +295,35 @@ export default function DetailStockGraph({
                 smaHundredTwenty.current = null;
               } else {
                 hundredTwentyCk(true)
-                const data = movingAverageHundredTwenty(stock)
                 smaHundredTwenty.current = chart.current.addLineSeries({
-                  color: "pink"
+                  color: hundredTwentyColor
                 });
-                smaHundredTwenty.current.setData(data);
+                smaHundredTwenty.current.setData(hundredTwentyMovingAverageData);
               }
             }} />
           </label>
+          <label>
+            HundredTwenty Moving Average Color
+            <input type="color" value={hundredTwentyColor} onChange={e => {
+              setHundredTwentyColor(e.target.value)
+              if (smaHundredTwenty.current) {
+                smaHundredTwenty.current.applyOptions({ color: hundredTwentyColor })
+              }
+            }} />
+          </label>
+          <label>
+            Custom Graph
+            <input type="checkbox" onChange={() => {
+              if (customGraph.filter(custom => custom.key === 'custom').length !== 0) {
+                setCustomGraph(customGraph.filter(custom => custom.key !== 'custom'))
+                customChart.current.resize(0, 0);
+              } else {
+                setCustomGraph([...customGraph, <CustomGraph chart={customChart.current} color={color} key="custom" graph={customG} />])
+                console.log('hi');
+              }
+            }} />
+          </label>
+          <input type="color" onChange={e => { setColor(e.target.value) }} value={color} />
           <label>
             BBANDS
           <input type="checkbox" checked={BBANDSCk} onChange={() => {
@@ -381,6 +451,7 @@ export default function DetailStockGraph({
       )}
       <div ref={chartposition}></div>
       <div ref={indicatorPosition}></div>
+      {customGraph}
     </>
   );
 
