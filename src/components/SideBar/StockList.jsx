@@ -23,9 +23,10 @@ export default function StockList({
   const sendSymbol = (e) => {
     e.stopPropagation();
     const selectedStock = e.target.querySelector("span").textContent;
+
     // selectedSymbol.a(selectedStock);
     dispatch(getSelectedStockSagaActionCreator(selectedStock));
-    dispatch(getSelectedSymbolActionCreator(selectedStock));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
   };
 
   if (!loading) {
