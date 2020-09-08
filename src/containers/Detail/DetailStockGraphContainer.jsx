@@ -21,14 +21,8 @@ export default function DetailStockGraphContainer({
     [dispatch],
   );
 
-<<<<<<< HEAD
-  const movingAverageFive = (stock) => {
-    const movingAverage = [];
-=======
-
   const movingAverage = (stock, duration) => {
-    const movingAverage = []
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
+    const movingAverage = [];
     for (let i = stock.length - 1; i >= 0; i--) {
       if (i > stock.length - duration) {
         continue;
@@ -37,62 +31,13 @@ export default function DetailStockGraphContainer({
       for (let j = 0; j < duration; j++) {
         sum += +stock[i + j].close;
       }
-<<<<<<< HEAD
-      movingAverage.push({ time: stock[i + 4].time, value: sum / 5 });
+      movingAverage.push({
+        time: stock[i + duration - 1].time,
+        value: +sum / duration,
+      });
     }
     return movingAverage.reverse();
   };
-  const movingAverageTwenty = (stock) => {
-    const movingAverage = [];
-    for (let i = stock.length - 1; i >= 0; i--) {
-      let sum = 0;
-      if (i > stock.length - 20) {
-        continue;
-      }
-      for (let j = 0; j < 20; j++) {
-        sum += +stock[i + j].close;
-      }
-      movingAverage.push({ time: stock[i + 19].time, value: sum / 20 });
-    }
-
-    return movingAverage.reverse();
-  };
-  const movingAverageSixty = (stock) => {
-    const movingAverage = [];
-    for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 60) {
-        continue;
-      }
-      let sum = 0;
-      for (let j = 0; j < 60; j++) {
-        sum += +stock[i + j].close;
-      }
-      movingAverage.push({ time: stock[i + 59].time, value: sum / 60 });
-    }
-    return movingAverage.reverse();
-  };
-  const movingAverageHundredTwenty = (stock) => {
-    const movingAverage = [];
-    for (let i = stock.length - 1; i >= 0; i--) {
-      if (i > stock.length - 120) {
-        continue;
-      }
-      let sum = 0;
-      for (let j = 0; j < 120; j++) {
-        sum += +stock[i + j].close;
-      }
-      movingAverage.push({ time: stock[i + 119].time, value: sum / 120 });
-    }
-    return movingAverage.reverse();
-  };
-=======
-      movingAverage.push({ time: stock[i + duration - 1].time, value: +sum / duration })
-    }
-    return movingAverage.reverse();
-  }
-
-
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
 
   const rsiSignal = (rsi) => {
     const rsiSignal = [];
