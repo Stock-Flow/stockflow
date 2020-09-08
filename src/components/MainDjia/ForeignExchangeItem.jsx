@@ -62,20 +62,20 @@ export default function ForeignExchangeItem({
             <p className="exchange-percent">
               {before < after && (
                 <>
-                  <p className="plus">+{resultPercent}%</p>
-                  <p className="plus">+{fxDiff}</p>
+                  <span className="plus">+{resultPercent}%</span>
+                  <span className="plus">+{fxDiff}</span>
                 </>
               )}
               {before > after && (
                 <>
-                  <p className="minus">-{resultPercent}%</p>
-                  <p className="minus">{fxDiff}</p>
+                  <span className="minus">-{resultPercent}%</span>
+                  <span className="minus">{fxDiff}</span>
                 </>
               )}
               {before === after && (
                 <>
-                  <p className="zero">{resultPercent}%</p>
-                  <p className="zero">0</p>
+                  <span className="zero">{resultPercent}%</span>
+                  <span className="zero">0</span>
                 </>
               )}
             </p>

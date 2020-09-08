@@ -33,7 +33,14 @@ function* getExchangeSaga(action) {
   const { exchangeArray } = action.payload;
   yield put(startGetExchange());
   try {
-    let exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
+    const exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
+    console.log(
+      typeof exchange,
+      Array.isArray(exchange),
+      exchange,
+      exchange.length,
+      exchange[0],
+    );
     yield put(successGetExchange(exchange));
   } catch (error) {
     yield put(failGetExchange());
