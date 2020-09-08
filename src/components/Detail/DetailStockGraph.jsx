@@ -42,6 +42,7 @@ export default function DetailStockGraph({
   const chart = useRef();
   const assistChart = useRef();
   const indicatorChart = useRef();
+  const disparityChart = useRef();
   //chart position ref
   const chartposition = useRef();
   const indicatorPosition = useRef();
@@ -53,6 +54,7 @@ export default function DetailStockGraph({
   const smaSixty = useRef();
   const rsiChart = useRef();
   const rsiSignalChart = useRef();
+  const disparityGraph = useRef();
   const volumeChart = useRef();
   const lowBBANDS = useRef();
   const middleBBANDS = useRef();
@@ -63,6 +65,13 @@ export default function DetailStockGraph({
   const [smaTwentyCk, twentyCk] = useState(false)
   const [smaSixtyCk, sixtyCk] = useState(false)
   const [BBANDSCk, setBBANDSCk] = useState(false)
+  const [RSICk, setRSICk] = useState(false);
+  const [disparityCk, setDisparityCk] = useState(false);
+
+  const twentyMovingAverageData = movingAverageTwenty(stock);
+  const sixtyMovingAverageData = movingAverageSixty(stock);
+  const twentyDisparity = twentyMovingAverageData.map((item, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / twentyMovingAverageData[twentyMovingAverageData.length - i - 1].value) * 100 })).reverse();
+  const sixtyDisparity = sixtyMovingAverageData.map((item, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) * 100 }));
 
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -119,6 +128,17 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
     })
+    disparityChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    disparityChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+    })
   }, [])
 
   useEffect(() => {
@@ -134,7 +154,6 @@ export default function DetailStockGraph({
       if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
 
       assistChart.current.removeSeries(volumeChart.current);
-      chartposition.current.removeChild(assistChart.current);
     }
   }, [symbol])
 
@@ -157,6 +176,9 @@ export default function DetailStockGraph({
       from: volume.length - 60,
       to: volume.length,
     });
+
+
+
   }, [stock])
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
@@ -255,6 +277,89 @@ export default function DetailStockGraph({
             }} />
 
           </label>
+          <label>
+            RSI
+          <input type="checkbox" checked={RSICk} onChange={() => {
+              if (rsiChart.current) {
+                setRSICk(false)
+                indicatorChart.current.removeSeries(rsiChart.current)
+                indicatorChart.current.removeSeries(rsiSignalChart.current);
+                rsiChart.current = null
+                rsiSignalChart.current = null
+                indicatorChart.current.applyOptions({
+                  priceScale: {
+                    borderVisible: false,
+                  },
+                  timeScale: {
+                    borderVisible: false,
+                  },
+                })
+                indicatorChart.current.resize(0, 0)
+
+              }
+
+              else {
+                setRSICk(true)
+                indicatorChart.current.applyOptions({
+                  priceScale: {
+                    borderVisible: true,
+                  },
+                  timeScale: {
+                    borderVisible: true,
+                  },
+                })
+                indicatorChart.current.resize(800, 200)
+                const rsiSignalData = rsiSignal(indicators[0]);
+                rsiChart.current = indicatorChart.current.addLineSeries({ title: "RSI" })
+                rsiChart.current.setData(indicators[0])
+                rsiSignalChart.current = indicatorChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
+                rsiSignalChart.current.setData(rsiSignalData)
+                indicatorChart.current.timeScale().setVisibleLogicalRange({
+                  from: indicators[0].length - 60,
+                  to: indicators[0].length,
+                });
+              }
+            }} />
+          </label>
+          <label>
+            Disparity
+          <input type="checkbox" checked={disparityCk} onChange={() => {
+              if (disparityGraph.current) {
+                setDisparityCk(false)
+                disparityChart.current.removeSeries(disparityGraph.current)
+                disparityGraph.current = null
+                disparityChart.current.applyOptions({
+                  priceScale: {
+                    borderVisible: false,
+                  },
+                  timeScale: {
+                    borderVisible: false,
+                  },
+                })
+                disparityChart.current.resize(0, 0)
+
+              }
+
+              else {
+                setDisparityCk(true)
+                disparityChart.current.applyOptions({
+                  priceScale: {
+                    borderVisible: true,
+                  },
+                  timeScale: {
+                    borderVisible: true,
+                  },
+                })
+                disparityChart.current.resize(800, 200)
+                disparityGraph.current = disparityChart.current.addLineSeries({ title: "Disparity" })
+                disparityGraph.current.setData(twentyDisparity)
+                disparityChart.current.timeScale().setVisibleLogicalRange({
+                  from: twentyDisparity.length - 60,
+                  to: twentyDisparity.length,
+                });
+              }
+            }} />
+          </label>
           <button onClick={closeModal}>Submit</button>
         </form>
 
@@ -265,42 +370,7 @@ export default function DetailStockGraph({
         <>
           <h2>{symbol}</h2>
 
-          RSI
-          <input type="checkbox" onChange={() => {
-            if (rsiChart.current) {
-              indicatorChart.current.removeSeries(rsiChart.current)
-              indicatorChart.current.removeSeries(rsiSignalChart.current);
-              rsiChart.current = null
-              rsiSignalChart.current = null
-              indicatorChart.current.applyOptions({
-                priceScale: {
-                  borderVisible: false,
-                },
-                timeScale: {
-                  borderVisible: false,
-                },
-              })
-              indicatorChart.current.resize(0, 0)
 
-            }
-
-            else {
-              indicatorChart.current.applyOptions({
-                priceScale: {
-                  borderVisible: true,
-                },
-                timeScale: {
-                  borderVisible: true,
-                },
-              })
-              indicatorChart.current.resize(800, 200)
-              const rsiSignalData = rsiSignal(indicators[0]);
-              rsiChart.current = indicatorChart.current.addLineSeries({ title: "RSI" })
-              rsiChart.current.setData(indicators[0])
-              rsiSignalChart.current = indicatorChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
-              rsiSignalChart.current.setData(rsiSignalData)
-            }
-          }} />
 
 
           {/* <button onClick={() => dailyBtnClick()}>1일</button>
