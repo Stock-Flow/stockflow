@@ -1,7 +1,7 @@
-import { put, takeEvery, takeLatest, select } from "redux-saga/effects";
-import { useSelector } from "react-redux";
+import { put, takeEvery, takeLatest, select } from 'redux-saga/effects';
+import { useSelector } from 'react-redux';
 
-const prefix = "stockflow/selectedSymbol";
+const prefix = 'stockflow/selectedSymbol';
 
 // action type
 const START = `${prefix}/START`;
@@ -19,7 +19,8 @@ const FAIL = `${prefix}/FAIL`;
 
 // initial state
 const initialState = {
-  selectedSymbol: [],
+  selectedStockSymbol: [],
+  selectedCurrencySymbol: [],
   loading: false,
   error: null,
 };
@@ -29,9 +30,10 @@ const selectedSymbolStart = () => ({
   type: START,
 });
 
-const selectedSymbolSuccess = (selectedSymbol) => ({
+const selectedSymbolSuccess = (selectedSymbol, names) => ({
   type: SUCCESS,
   selectedSymbol,
+  names,
 });
 
 const selectedSymbolFail = (error) => ({
@@ -40,47 +42,86 @@ const selectedSymbolFail = (error) => ({
 });
 
 function* getSelectedSymbolSaga(action) {
-  let selectedSymbol = yield select(
-    (state) => state.selectedSymbol.selectedSymbol
+  let selectedStockSymbol = yield select(
+    (state) => state.selectedSymbol.selectedStockSymbol,
   );
 
-  console.log(selectedSymbol);
+  let selectedCurrencySymbol = yield select(
+    (state) => state.selectedSymbol.selectedCurrencySymbol,
+  );
 
-  if (
-    // 같은 symbol이 없을때 새로운 symbol 추가
-    selectedSymbol.filter(
-      (symbol) => symbol.symbol === action.payload.selectedSymbol
-    ).length === 0
-  ) {
-    selectedSymbol = [
-      ...selectedSymbol,
-      {
-        names: action.payload.names,
-        symbol: action.payload.selectedSymbol,
-        count: 1,
-      },
-    ];
+  let names = action.payload.names;
+
+  console.log(selectedStockSymbol);
+  console.log(selectedCurrencySymbol);
+  console.log(names);
+
+  if (names === 'stock') {
+    if (
+      // 같은 symbol이 없을때 새로운 symbol 추가
+      selectedStockSymbol.filter(
+        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+      ).length === 0
+    ) {
+      selectedStockSymbol = [
+        ...selectedStockSymbol,
+        {
+          symbol: action.payload.selectedSymbol,
+          count: 1,
+        },
+      ];
+    } else {
+      // 만약 이미 추가된 symbol이라면 count만 + 1
+      selectedStockSymbol = selectedStockSymbol.map((symbol) =>
+        symbol.symbol === action.payload.selectedSymbol
+          ? {
+              ...symbol,
+              count: symbol.count + 1,
+            }
+          : symbol,
+      );
+    }
+    yield put(selectedSymbolStart());
+    try {
+      yield put(selectedSymbolSuccess(selectedStockSymbol, names));
+    } catch (error) {
+      yield put(selectedSymbolFail(error));
+    }
   } else {
-    // 만약 이미 추가된 symbol이라면 count만 + 1
-    selectedSymbol = selectedSymbol.map((symbol) =>
-      symbol.symbol === action.payload.selectedSymbol
-        ? {
-            ...symbol,
-            count: symbol.count + 1,
-          }
-        : symbol
-    );
-  }
-
-  yield put(selectedSymbolStart());
-  try {
-    yield put(selectedSymbolSuccess(selectedSymbol));
-  } catch (error) {
-    yield put(selectedSymbolFail(error));
+    if (
+      // 같은 symbol이 없을때 새로운 symbol 추가
+      selectedCurrencySymbol.filter(
+        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+      ).length === 0
+    ) {
+      selectedCurrencySymbol = [
+        ...selectedCurrencySymbol,
+        {
+          symbol: action.payload.selectedSymbol,
+          count: 1,
+        },
+      ];
+    } else {
+      // 만약 이미 추가된 symbol이라면 count만 + 1
+      selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
+        symbol.symbol === action.payload.selectedSymbol
+          ? {
+              ...symbol,
+              count: symbol.count + 1,
+            }
+          : symbol,
+      );
+    }
+    yield put(selectedSymbolStart());
+    try {
+      yield put(selectedSymbolSuccess(selectedCurrencySymbol, names));
+    } catch (error) {
+      yield put(selectedSymbolFail(error));
+    }
   }
 }
 
-const GET_SELECTEDSYMBOL_SAGA = "GET_SELECTEDSYMBOL_SAGA";
+const GET_SELECTEDSYMBOL_SAGA = 'GET_SELECTEDSYMBOL_SAGA';
 export const getSelectedSymbolActionCreator = (selectedSymbol, names) => ({
   type: GET_SELECTEDSYMBOL_SAGA,
   payload: {
@@ -105,13 +146,21 @@ export default function reducer(prevState = initialState, action) {
       };
 
     case SUCCESS:
-      return {
-        ...prevState,
-        loading: false,
-        selectedSymbol: action.selectedSymbol,
-        names: action.names,
-        error: null,
-      };
+      if (action.names === 'stock') {
+        return {
+          ...prevState,
+          loading: false,
+          selectedStockSymbol: action.selectedSymbol,
+          error: null,
+        };
+      } else {
+        return {
+          ...prevState,
+          loading: false,
+          selectedCurrencySymbol: action.selectedSymbol,
+          error: null,
+        };
+      }
     case FAIL:
       return {
         ...prevState,
