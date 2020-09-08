@@ -69,7 +69,7 @@ export default function ForeignExchangeContainer() {
 
   // console.log(result);
   return (
-    <div>
+    <>
       <ForeignExchange
         getExchange={getExchange}
         // getExchangeDaily={getExchangeDaily}
@@ -82,6 +82,6 @@ export default function ForeignExchangeContainer() {
         exchangeRate={exchangeRate}
         fxIntradayArr={fxIntradayArr}
       />
-    </div>
+    </>
   );
 }

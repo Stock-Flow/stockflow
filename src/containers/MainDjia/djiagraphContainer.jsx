@@ -19,6 +19,7 @@ export default function DjiagraphContainer() {
   // console.log(djia);
 
   let djiaDate = [];
+  let djiaList = [];
 
   if (djia.length !== 0) {
     let djiaOpenData = [];

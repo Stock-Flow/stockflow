@@ -135,7 +135,7 @@ export default function DetailStockGraph({
         chart.current.removeSeries(smaHundredTwenty.current);
 
       assistChart.current.removeSeries(volumeChart.current);
-      chartposition.current.removeChild(assistChart.current);
+      // chartposition.current.removeChild(assistChart.current);
     }
   }, [symbol]);
 
