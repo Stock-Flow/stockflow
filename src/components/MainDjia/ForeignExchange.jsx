@@ -32,12 +32,8 @@ export default function ForeignExchange({
       exchangeRate={exchangeRate[i]}
       fxIntradayArr={fxIntradayArr[i]}
     />
-    // <div>{item}</div>
   ));
 
-  // {!loading && (<>
-  //   <div className="foreign-exchange-wrap">{itemList}</div>
-  // </>)})
   return (
     <>{!loading && <div className="foreign-exchange-wrap">{itemList}</div>}</>
   );
