@@ -39,7 +39,6 @@ export default function ForeignExchangeContainer() {
     (exchange) => exchange['5. Exchange Rate'],
   );
   let fxIntraday = exchange.exchange.map((exchange) => exchange['fxIntraday']);
-  console.log(fxIntraday);
   let fxIntradayArr = [];
   let beforefxClose = 0;
   let afterfxClose = 0;
