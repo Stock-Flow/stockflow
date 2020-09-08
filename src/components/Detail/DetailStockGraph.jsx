@@ -58,13 +58,6 @@ export default function DetailStockGraph({
   const middleBBANDS = useRef();
   const highBBANDS = useRef();
 
-<<<<<<< HEAD
-  const [smaFiveCk, fiveCk] = useState(false);
-  const [smaHundredTwentyCk, hundredTwentyCk] = useState(false);
-  const [smaTwentyCk, twentyCk] = useState(false);
-  const [smaSixtyCk, sixtyCk] = useState(false);
-  const [BBANDSCk, setBBANDSCk] = useState(false);
-=======
 
   const [smaFiveCk, fiveCk] = useState(false)
   const [fiveColor, setFiveColor] = useState('#0000ff');
@@ -92,7 +85,6 @@ export default function DetailStockGraph({
   const sixtyDisparity = sixtyMovingAverageData.map((_, i) => ({ time: stock[stock.length - i - 1].time, value: (stock[stock.length - i - 1].open / sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) * 100 }));
 
 
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -107,11 +99,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-<<<<<<< HEAD
-  function afterOpenModal() {}
-=======
   function afterOpenModal() { }
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
   function closeModal() {
     setIsOpen(false);
   }
@@ -161,10 +149,6 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-<<<<<<< HEAD
-    });
-  }, []);
-=======
 
     })
     disparityChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
@@ -190,7 +174,6 @@ export default function DetailStockGraph({
       },
     })
   }, [])
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
 
 
   useEffect(() => {
@@ -208,10 +191,6 @@ export default function DetailStockGraph({
         chart.current.removeSeries(smaHundredTwenty.current);
 
       assistChart.current.removeSeries(volumeChart.current);
-<<<<<<< HEAD
-      // chartposition.current.removeChild(assistChart.current);
-=======
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
     }
   }, [symbol]);
 
@@ -233,16 +212,12 @@ export default function DetailStockGraph({
       from: volume.length - 60,
       to: volume.length,
     });
-<<<<<<< HEAD
-  }, [stock]);
-=======
 
 
 
 
   }, [stock])
 
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
@@ -257,24 +232,6 @@ export default function DetailStockGraph({
         <form>
           <label>
             5 Moving Average
-<<<<<<< HEAD
-            <input
-              type="checkbox"
-              checked={smaFiveCk}
-              onChange={() => {
-                if (smaFive.current) {
-                  fiveCk(false);
-                  chart.current.removeSeries(smaFive.current);
-                  smaFive.current = null;
-                } else {
-                  fiveCk(true);
-                  const data = movingAverageFive(stock);
-                  smaFive.current = chart.current.addLineSeries();
-                  smaFive.current.setData(data);
-                }
-              }}
-            />
-=======
             <input type="checkbox" checked={smaFiveCk} onChange={() => {
               if (smaFive.current) {
                 fiveCk(false);
@@ -295,72 +252,9 @@ export default function DetailStockGraph({
                 smaFive.current.applyOptions({ color: fiveColor })
               }
             }} />
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
           </label>
           <label>
             20 Moving Average
-<<<<<<< HEAD
-            <input
-              type="checkbox"
-              checked={smaTwentyCk}
-              onChange={() => {
-                if (smaTwenty.current) {
-                  twentyCk(false);
-                  chart.current.removeSeries(smaTwenty.current);
-                  smaTwenty.current = null;
-                } else {
-                  twentyCk(true);
-                  const data = movingAverageTwenty(stock);
-                  smaTwenty.current = chart.current.addLineSeries({
-                    color: 'brown',
-                  });
-                  smaTwenty.current.setData(data);
-                }
-              }}
-            />
-          </label>
-          <label>
-            60 Moving Average
-            <input
-              type="checkbox"
-              checked={smaSixtyCk}
-              onChange={() => {
-                if (smaSixty.current) {
-                  sixtyCk(false);
-                  chart.current.removeSeries(smaSixty.current);
-                  smaSixty.current = null;
-                } else {
-                  sixtyCk(true);
-                  const data = movingAverageSixty(stock);
-                  smaSixty.current = chart.current.addLineSeries({
-                    color: 'red',
-                  });
-                  smaSixty.current.setData(data);
-                }
-              }}
-            />
-          </label>
-          <label>
-            120 Moving Average
-            <input
-              type="checkbox"
-              checked={smaHundredTwentyCk}
-              onChange={() => {
-                if (smaHundredTwenty.current) {
-                  hundredTwentyCk(false);
-                  chart.current.removeSeries(smaHundredTwenty.current);
-                  smaHundredTwenty.current = null;
-                } else {
-                  hundredTwentyCk(true);
-                  const data = movingAverageHundredTwenty(stock);
-                  smaHundredTwenty.current = chart.current.addLineSeries({
-                    color: 'pink',
-                  });
-                  smaHundredTwenty.current.setData(data);
-                }
-              }}
-            />
-=======
             <input type="checkbox" checked={smaTwentyCk} onChange={() => {
               if (smaTwenty.current) {
                 twentyCk(false)
@@ -424,7 +318,6 @@ export default function DetailStockGraph({
                 smaHundredTwenty.current.setData(hundredTwentyMovingAverageData);
               }
             }} />
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
           </label>
           <label>
             HundredTwenty Moving Average Color
@@ -466,34 +359,22 @@ export default function DetailStockGraph({
                   setBBANDSCk(true);
                   lowBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS LOW',
-<<<<<<< HEAD
-=======
                     color: BBANDSColor,
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
                   });
                   lowBBANDS.current.setData(indicators[1][0]);
                   middleBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS MIDDLE',
-<<<<<<< HEAD
-=======
                     color: BBANDSColor,
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
                   });
                   middleBBANDS.current.setData(indicators[1][1]);
                   highBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS HIGH',
-<<<<<<< HEAD
-=======
                     color: BBANDSColor,
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
                   });
                   highBBANDS.current.setData(indicators[1][2]);
                 }
               }}
             />
-<<<<<<< HEAD
-          </label>
-=======
           </label>
           <label>
             BBANDS Color
@@ -589,7 +470,6 @@ export default function DetailStockGraph({
               }
             }} />
           </label>
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
           <button onClick={closeModal}>Submit</button>
         </form>
       </Modal>
@@ -597,51 +477,6 @@ export default function DetailStockGraph({
       {!loading && (
         <>
           <h2>{symbol}</h2>
-<<<<<<< HEAD
-          RSI
-          <input
-            type="checkbox"
-            onChange={() => {
-              if (rsiChart.current) {
-                indicatorChart.current.removeSeries(rsiChart.current);
-                indicatorChart.current.removeSeries(rsiSignalChart.current);
-                rsiChart.current = null;
-                rsiSignalChart.current = null;
-                indicatorChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: false,
-                  },
-                  timeScale: {
-                    borderVisible: false,
-                  },
-                });
-                indicatorChart.current.resize(0, 0);
-              } else {
-                indicatorChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: true,
-                  },
-                  timeScale: {
-                    borderVisible: true,
-                  },
-                });
-                indicatorChart.current.resize(800, 200);
-                const rsiSignalData = rsiSignal(indicators[0]);
-                rsiChart.current = indicatorChart.current.addLineSeries({
-                  title: 'RSI',
-                });
-                rsiChart.current.setData(indicators[0]);
-                rsiSignalChart.current = indicatorChart.current.addLineSeries({
-                  title: 'RSI Signal (6)',
-                  color: 'brown',
-                });
-                rsiSignalChart.current.setData(rsiSignalData);
-              }
-            }}
-          />
-=======
-
->>>>>>> d67d6b57e25bd9b26e7347fea448ba28f3023758
           {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
