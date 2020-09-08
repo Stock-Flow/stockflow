@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, delay } from 'redux-saga/effects';
 import ExchangeSerivice from '../../services/ExchangeService';
 
 const prefix = 'stockflow/exchange';
@@ -26,6 +26,7 @@ const successGetExchange = (exchange) => {
 const failGetExchange = (error) => {
   return {
     type: GET_EXCHANGE_ERROR,
+    error,
   };
 };
 
@@ -33,14 +34,10 @@ function* getExchangeSaga(action) {
   const { exchangeArray } = action.payload;
   yield put(startGetExchange());
   try {
-    const exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
-    console.log(
-      typeof exchange,
-      Array.isArray(exchange),
-      exchange,
-      exchange.length,
-      exchange[0],
-    );
+    // delay(1000);
+    let exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
+    console.log(exchange);
+
     yield put(successGetExchange(exchange));
   } catch (error) {
     yield put(failGetExchange());
@@ -49,7 +46,6 @@ function* getExchangeSaga(action) {
 
 const GET_EXCHANGE_SAGA = 'GET_EXCHANGE_SAGA';
 
-// 1. 실행
 export const getExchangeSagaActionCreator = (exchangeArray) => ({
   type: GET_EXCHANGE_SAGA,
   payload: {
@@ -57,7 +53,6 @@ export const getExchangeSagaActionCreator = (exchangeArray) => ({
   },
 });
 
-// 2. 액션디스패치 사가호출
 export function* exchangeSaga() {
   yield takeEvery(GET_EXCHANGE_SAGA, getExchangeSaga);
 }

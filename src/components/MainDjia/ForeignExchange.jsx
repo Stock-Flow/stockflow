@@ -6,7 +6,6 @@ import './ForeignExchange.scss';
 export default function ForeignExchange({
   getExchange,
   exchangeArr,
-  getExchangeDaily,
   loading,
   fromCurrenciesCode,
   fromCurrenciesName,
@@ -15,27 +14,27 @@ export default function ForeignExchange({
   exchangeRate,
   fxIntradayArr,
 }) {
+  // console.log(exchangeArr);
   useEffect(() => {
     getExchange(exchangeArr);
-    // getExchangeDaily(exchangeArr);
   }, []);
-  if (fromCurrenciesName) {
-    // console.log(exchangeArr);
-    const itemList = exchangeArr.map((item, i) => (
-      <ForeignExchangeItem
-        loading={loading}
-        item={item}
-        fromCurrenciesCode={fromCurrenciesCode[i]}
-        fromCurrenciesName={fromCurrenciesName[i]}
-        toCurrenciesCode={toCurrenciesCode[i]}
-        toCurrenciesName={toCurrenciesName[i]}
-        exchangeRate={exchangeRate[i]}
-        fxIntradayArr={fxIntradayArr[i]}
-      />
-      // <div>{item}</div>
-    ));
 
-    return <div className="foreign-exchange-wrap">{itemList}</div>;
-  }
-  return <div>로딩중</div>;
+  let itemList = [];
+
+  itemList = exchangeArr.map((item, i) => (
+    <ForeignExchangeItem
+      loading={loading}
+      item={item}
+      fromCurrenciesCode={fromCurrenciesCode[i]}
+      fromCurrenciesName={fromCurrenciesName[i]}
+      toCurrenciesCode={toCurrenciesCode[i]}
+      toCurrenciesName={toCurrenciesName[i]}
+      exchangeRate={exchangeRate[i]}
+      fxIntradayArr={fxIntradayArr[i]}
+    />
+  ));
+
+  return (
+    <>{!loading && <div className="foreign-exchange-wrap">{itemList}</div>}</>
+  );
 }
