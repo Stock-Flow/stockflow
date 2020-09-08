@@ -69,6 +69,8 @@ export default function DetailStockGraph({
   const [hundredTwentyColor, setHundredTwentyColor] = useState('#ffc0cb');
 
   const [BBANDSCk, setBBANDSCk] = useState(false)
+  const [BBANDSColor, setBBANDSColor] = useState('#00ff00')
+
   const [RSICk, setRSICk] = useState(false);
   const [disparityCk, setDisparityCk] = useState(false);
 
@@ -354,19 +356,33 @@ export default function DetailStockGraph({
                   setBBANDSCk(true);
                   lowBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS LOW',
+                    color: BBANDSColor,
                   });
                   lowBBANDS.current.setData(indicators[1][0]);
                   middleBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS MIDDLE',
+                    color: BBANDSColor,
                   });
                   middleBBANDS.current.setData(indicators[1][1]);
                   highBBANDS.current = chart.current.addLineSeries({
                     title: 'BBANDS HIGH',
+                    color: BBANDSColor,
                   });
                   highBBANDS.current.setData(indicators[1][2]);
                 }
               }}
             />
+          </label>
+          <label>
+            BBANDS Color
+            <input type="color" value={BBANDSColor} onChange={e => {
+              setHundredTwentyColor(e.target.value)
+              if (lowBBANDS.current) {
+                lowBBANDS.current.applyOptions({ color: BBANDSColor })
+                middleBBANDS.current.applyOptions({ color: BBANDSColor })
+                highBBANDS.current.applyOptions({ color: BBANDSColor })
+              }
+            }} />
           </label>
           <label>
             RSI
