@@ -21,7 +21,7 @@ export default function DjiagraphContainer() {
 
   // console.log(djia);
 
-
+  let djiaList = [];
   let djiaDate = [];
 
   if (djia.length !== 0) {
