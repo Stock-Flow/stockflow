@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getDJIASagaActionCreator } from '../redux/modules/djia';
-import SideBar from '../components/SideBar';
+import { getDJIASagaActionCreator } from '../../redux/modules/djia';
+import SideBar from '../../components/SideBar/SideBar';
 
 export default function SideBarContainer() {
   const djia = useSelector(state => state.djia.djia);
