@@ -14,6 +14,7 @@ export default function DetailStockGraphContainer({
   const volume = useSelector((state => state.detailStock.volume))
 
   const dispatch = useDispatch();
+
   const getDetailStock = useCallback((symbol) => {
     dispatch(
       getDetailStockSagaActionCreator(symbol),
@@ -28,8 +29,7 @@ export default function DetailStockGraphContainer({
       }
       let sum = 0;
       for (let j = 0; j < 5; j++) {
-        sum += +stock[i + j].close
-
+        sum += +stock[i + j].close;
       }
       movingAverage.push({ time: stock[i + 4].time, value: sum / 5 })
     }
@@ -98,6 +98,7 @@ export default function DetailStockGraphContainer({
 
     return rsiSignal.reverse()
   }
+
 
   return (
     <DetailStockGraph

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import * as V from "victory";
 import { createChart } from "lightweight-charts";
@@ -17,37 +18,21 @@ export default function StockList({
     getsidebarStock(search);
   }, [getsidebarStock, search]);
 
-  // function selectedSymbol(selectedStock) {
-  //   let selectedArr = [];
-  //   let b = selectedStock
-  //   function a () {
-  //     selectedArr = [...selectedArr, ...[b]];
-  //     localStorage.setItem("selectedStock", JSON.stringify(selectedArr));
-  //   }
-  //   return a;
-  // }
 
-  // const selectedSymbol = (function () {
-  //   let selectedArr = [];
-  //   return {
-  //     a(selectedStock) {
-  //       selectedArr = [...selectedArr, ...[selectedStock]];
-  //       localStorage.setItem("selectedStock", JSON.stringify(selectedArr));
-  //     },
-  //   };
-  // })();
 
   const sendSymbol = (e) => {
     e.stopPropagation();
-    let selectedStock = e.target.querySelector('span')
-    dispatch(getSelectedStockSagaActionCreator(selectedStock))
-    dispatch(getSelectedSymbolActionCreator(selectedStock, 'symbl'));
-    selectedStock = ''
-  }
+    const selectedStock = e.target.querySelector("span").textContent;
+
+    // selectedSymbol.a(selectedStock);
+    dispatch(getSelectedStockSagaActionCreator(selectedStock));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
+  };
 
   if (!loading) {
     return (
       <div className="stock-sidebar">
+
         <ul className={menu ? "" : "none"}>
           {stockList.map(
             (stock) => {
@@ -59,7 +44,6 @@ export default function StockList({
                 stocks.push({ date: item, price: values[i] });
               });
               let color = stock.change[0] === "-" ? "yellow" : "red";
-
               return (
                 <li onClick={sendSymbol}>
                   <span>{stock.symbol}</span>
@@ -79,7 +63,9 @@ export default function StockList({
                   />
                 </li>
               );
+
             }
+
 
             // <li><Plot
             //   data={[
