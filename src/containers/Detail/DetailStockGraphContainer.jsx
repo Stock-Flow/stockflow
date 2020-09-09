@@ -59,7 +59,7 @@ export default function DetailStockGraphContainer({
 
   const rsiSignal = (rsi) => {
     if (!rsi) return;
-    const rsiSignal = []
+    const rsiSignal = [];
     for (let i = rsi.length - 1; i >= 0; i--) {
       if (i > rsi.length - 6) {
         continue;
@@ -76,17 +76,23 @@ export default function DetailStockGraphContainer({
   const getMACDData = useCallback((stock) => {
     const movingAverageTwentySix = movingAverage(stock, 26);
     const movingAverageTwelve = movingAverage(stock, 12);
-    const MACDData = movingAverageTwentySix.map((item, i) => ({ time: item.time, value: movingAverageTwelve[i].value - item.value }))
+    const MACDData = movingAverageTwentySix.map((item, i) => ({
+      time: item.time,
+      value: movingAverageTwelve[i].value - item.value,
+    }));
     const MACDSignal = getAverage(MACDData, 9);
-    const MACDOscillator = MACDSignal.map((item, i) => ({ time: item.time, value: MACDData[i].value - item.value }))
-    return [MACDData, MACDSignal, MACDOscillator]
-  }, [])
+    const MACDOscillator = MACDSignal.map((item, i) => ({
+      time: item.time,
+      value: MACDData[i].value - item.value,
+    }));
+    return [MACDData, MACDSignal, MACDOscillator];
+  }, []);
 
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverage={movingAverage}
-      rsiSignal={rsiSignal(indicators[0])}
+      // rsiSignal={rsiSignal(indicators[0])}
       getMACDData={getMACDData}
       indicators={indicators}
       loading={loading}

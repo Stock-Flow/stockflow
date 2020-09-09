@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import Modal from 'react-modal';
 import GraphService from '../../services/GraphService';
+import './DetailStockGraph.scss';
 
 const customStyles = {
   content: {
@@ -31,7 +32,7 @@ export default function DetailStockGraph({
   indicators,
   stock,
   volume,
-  getMACDData
+  getMACDData,
 }) {
   //chart ref
   const chart = useRef();
@@ -83,8 +84,6 @@ export default function DetailStockGraph({
 
   const [disparityColor, setDisparityColor] = useState('#00ffff');
 
-
-
   const fiveMovingAverageData = movingAverage(stock, 5);
   const twentyMovingAverageData = movingAverage(stock, 20);
   const sixtyMovingAverageData = movingAverage(stock, 60);
@@ -109,12 +108,11 @@ export default function DetailStockGraph({
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
-
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() { }
+  function afterOpenModal() {}
   function closeModal() {
     setIsOpen(false);
   }
@@ -164,9 +162,11 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
-    })
-    disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
+    });
+    disparityChart.current = createChart(disparityPosition.current, {
+      width: 0,
+      height: 0,
+    });
     disparityChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -176,8 +176,11 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-    })
-    MACDChart.current = createChart(MACDPosition.current, { width: 0, height: 0 })
+    });
+    MACDChart.current = createChart(MACDPosition.current, {
+      width: 0,
+      height: 0,
+    });
     MACDChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -187,9 +190,8 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-    })
-  }, [])
-
+    });
+  }, []);
 
   useEffect(() => {
     if (candleSeries.current) {
@@ -235,6 +237,15 @@ export default function DetailStockGraph({
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <div className="detail-stock">
+      {!loading && (
+        <>
+          <h2>{symbol}</h2>
+
+          {/* <button onClick={() => dailyBtnClick()}>1일</button>
+          <button onClick={() => weeklyBtnClick()}>1주</button>
+          <button onClick={() => monthlyBtnClick()}>1달</button> */}
+        </>
+      )}
       <button onClick={openModal}>open Modal</button>
       <Modal
         isOpen={modalIsOpen}
@@ -416,113 +427,160 @@ export default function DetailStockGraph({
           </label>
           <label>
             BBANDS Color
-            <input type="color" value={BBANDSColor} onChange={e => {
-              setBBANDSColor(e.target.value)
-              if (lowBBANDS.current) {
-                lowBBANDS.current.applyOptions({ color: BBANDSColor })
-                middleBBANDS.current.applyOptions({ color: BBANDSColor })
-                highBBANDS.current.applyOptions({ color: BBANDSColor })
-              }
-            }} />
+            <input
+              type="color"
+              value={BBANDSColor}
+              onChange={(e) => {
+                setBBANDSColor(e.target.value);
+                if (lowBBANDS.current) {
+                  lowBBANDS.current.applyOptions({ color: BBANDSColor });
+                  middleBBANDS.current.applyOptions({ color: BBANDSColor });
+                  highBBANDS.current.applyOptions({ color: BBANDSColor });
+                }
+              }}
+            />
           </label>
           <label>
             RSI
-          <input type="checkbox" onChange={() => {
-              if (rsiChart.current) {
-                indicatorChart.current.removeSeries(rsiChart.current);
-                indicatorChart.current.removeSeries(rsiSignalChart.current);
-                indicatorChart.current.resize(0, 0);
-                rsiChart.current = null;
-              } else {
-                GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
-                GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
-              }
-            }} />
+            <input
+              type="checkbox"
+              onChange={() => {
+                if (rsiChart.current) {
+                  indicatorChart.current.removeSeries(rsiChart.current);
+                  indicatorChart.current.removeSeries(rsiSignalChart.current);
+                  indicatorChart.current.resize(0, 0);
+                  rsiChart.current = null;
+                } else {
+                  GraphService.graphColor(
+                    indicatorChart.current,
+                    rsiColor,
+                    rsiChart,
+                    indicators[0],
+                  );
+                  GraphService.graphColor(
+                    indicatorChart.current,
+                    rsiSignalColor,
+                    rsiSignalChart,
+                    rsiSignal,
+                  );
+                }
+              }}
+            />
           </label>
           <label>
             RSI Color
-          <input type="color" onChange={e => {
-              setRsiColor(e.target.value)
-              if (rsiChart.current) {
-                rsiChart.current.applyOptions({ color: rsiColor })
-              }
-            }} value={rsiColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiColor(e.target.value);
+                if (rsiChart.current) {
+                  rsiChart.current.applyOptions({ color: rsiColor });
+                }
+              }}
+              value={rsiColor}
+            />
           </label>
           <label>
             RSI Signal Color
-          <input type="color" onChange={e => {
-              setRsiSignalColor(e.target.value)
-              if (rsiSignalChart.current) {
-                rsiSignalChart.current.applyOptions({ color: rsiSignalColor })
-              }
-            }} value={rsiSignalColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiSignalColor(e.target.value);
+                if (rsiSignalChart.current) {
+                  rsiSignalChart.current.applyOptions({
+                    color: rsiSignalColor,
+                  });
+                }
+              }}
+              value={rsiSignalColor}
+            />
           </label>
           <label>
             Disparity
-          <input type="checkbox" onChange={() => {
-              if (disparityGraph.current) {
-                disparityChart.current.removeSeries(disparityGraph.current);
-                disparityChart.current.resize(0, 0);
-                disparityGraph.current = null;
-              } else {
-                GraphService.graphColor(disparityChart.current, disparityColor, disparityGraph, twentyDisparity)
-              }
-            }}
+            <input
+              type="checkbox"
+              onChange={() => {
+                if (disparityGraph.current) {
+                  disparityChart.current.removeSeries(disparityGraph.current);
+                  disparityChart.current.resize(0, 0);
+                  disparityGraph.current = null;
+                } else {
+                  GraphService.graphColor(
+                    disparityChart.current,
+                    disparityColor,
+                    disparityGraph,
+                    twentyDisparity,
+                  );
+                }
+              }}
             />
           </label>
           <label>
-            <input type="color" onChange={e => {
-              setDisparityColor(e.target.value)
-              if (disparityGraph.current) {
-                disparityGraph.current.applyOptions({ color: disparityColor })
-              }
-            }} value={rsiSignalColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setDisparityColor(e.target.value);
+                if (disparityGraph.current) {
+                  disparityGraph.current.applyOptions({
+                    color: disparityColor,
+                  });
+                }
+              }}
+              value={rsiSignalColor}
+            />
           </label>
           <label>
             MACD
-          <input type="checkbox" onChange={() => {
-              if (MACDGraph.current) {
-                MACDChart.current.removeSeries(MACDGraph.current);
-                MACDChart.current.removeSeries(MACDSignalGraph.current);
-                MACDChart.current.resize(0, 0);
-                MACDGraph.current = null;
-                MACDSignalGraph.current = null;
-              } else {
-                console.log(MACDData.current);
-                GraphService.graphColor(MACDChart.current, disparityColor, MACDGraph, MACDData.current[0])
-                GraphService.graphColor(MACDChart.current, disparityColor, MACDSignalGraph, MACDData.current[1])
-              }
-            }}
+            <input
+              type="checkbox"
+              onChange={() => {
+                if (MACDGraph.current) {
+                  MACDChart.current.removeSeries(MACDGraph.current);
+                  MACDChart.current.removeSeries(MACDSignalGraph.current);
+                  MACDChart.current.resize(0, 0);
+                  MACDGraph.current = null;
+                  MACDSignalGraph.current = null;
+                } else {
+                  console.log(MACDData.current);
+                  GraphService.graphColor(
+                    MACDChart.current,
+                    disparityColor,
+                    MACDGraph,
+                    MACDData.current[0],
+                  );
+                  GraphService.graphColor(
+                    MACDChart.current,
+                    disparityColor,
+                    MACDSignalGraph,
+                    MACDData.current[1],
+                  );
+                }
+              }}
             />
           </label>
           <label>
-            <input type="color" onChange={e => {
-              setDisparityColor(e.target.value)
-              if (disparityGraph.current) {
-                disparityGraph.current.applyOptions({ color: disparityColor })
-              }
-            }} value={rsiSignalColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setDisparityColor(e.target.value);
+                if (disparityGraph.current) {
+                  disparityGraph.current.applyOptions({
+                    color: disparityColor,
+                  });
+                }
+              }}
+              value={rsiSignalColor}
+            />
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>
       </Modal>
-      <h1>Detail Stock</h1>
-      {
-        !loading && (
-          <>
-            <h2>{symbol}</h2>
 
-            {/* <button onClick={() => dailyBtnClick()}>1일</button>
-          <button onClick={() => weeklyBtnClick()}>1주</button>
-          <button onClick={() => monthlyBtnClick()}>1달</button> */}
-          </>
-        )
-      }
       <div ref={chartposition}></div>
       <div ref={indicatorPosition}></div>
       <div ref={disparityPosition}></div>
       <div ref={MACDPosition}></div>
-    </div >
+    </div>
   );
 
   // return <h1>Detail Stock</h1>;
