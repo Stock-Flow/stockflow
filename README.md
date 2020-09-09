@@ -1,31 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 📈Stock Flow
 
-In the project directory, you can run:
+주식 / 디지털화폐 정보의 데이터시각화
 
-### `npm start`
+## **개발 인원 및 기간**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 개발기간 : 2020/8/18 ~
+- 개발인원 : Front-End 4명(유진혁, 배준선, 도지현, 박민지)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 적용기술
 
-### `npm test`
+- HTML5
+- SCSS
+- javaScript
+- react
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- <details open>
+  <summary>라이브러리</summary>
+  1. react-router-dom<br>
+  2. react-redux<br>
+  3. redux-saga<br>
+  4. axios<br>
+  5. antd<br>
+  6. antd-icon<br>
+  7. eslint-plugin-react-hooks@next<br>
+  8. node-sass<br>
+  9. error-boundary<br>
+  10. devtools-extension<br>
+  11. connected-react-router<br>
+  12. react-thunk<br>
+  13. react-actions<br>
+  14. http-proxy-middleware<br>
+  15. react-scripts<br>
+  </details>
 
-### `npm build`
+## **Getting Started**
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+API호출을 위한 key 파일은 업로드 되지 않았습니다.
+**실행하기 위해서는 해당 파일을 요청하셔야 합니다.**
+요청 email: dksro324@gmail.com
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+경로 : ./src/key.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+$ git clone "https://github.com/Stock-Flow/stockflow.git"
+$ npm install
+\$ npm start
+
 
 ## `How to run this app`
 
