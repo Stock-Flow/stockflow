@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
-import { pink, lavender } from 'color-name';
 import Modal from 'react-modal';
-import CustomGraph from './CustomGraph';
+import GraphService from '../../services/GraphService';
 
 const customStyles = {
   content: {
@@ -41,6 +40,7 @@ export default function DetailStockGraph({
   //chart position ref
   const chartposition = useRef();
   const indicatorPosition = useRef();
+  const disparityPosition = useRef();
   //graph ref
   const candleSeries = useRef();
   const smaFive = useRef();
@@ -71,8 +71,10 @@ export default function DetailStockGraph({
   const [BBANDSCk, setBBANDSCk] = useState(false)
   const [BBANDSColor, setBBANDSColor] = useState('#00ff00')
 
-  const [RSICk, setRSICk] = useState(false);
-  const [disparityCk, setDisparityCk] = useState(false);
+  const [rsiColor, setRsiColor] = useState('#ffff00');
+  const [rsiSignalColor, setRsiSignalColor] = useState('#ff00ff');
+
+  const [disparityColor, setDisparityColor] = useState('#00ffff');
 
   const fiveMovingAverageData = movingAverage(stock, 5)
   const twentyMovingAverageData = movingAverage(stock, 20);
@@ -85,10 +87,6 @@ export default function DetailStockGraph({
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const [customGraph, setCustomGraph] = useState([]);
-  const customChart = useRef();
-  const customG = useRef();
-  const [color, setColor] = useState('#ff0000');
 
 
 
@@ -148,19 +146,8 @@ export default function DetailStockGraph({
       },
 
     })
-    disparityChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
     disparityChart.current.applyOptions({
-      priceScale: {
-        position: 'right',
-        borderVisible: false,
-      },
-      timeScale: {
-        fixLeftEdge: true,
-        borderVisible: false,
-      },
-    })
-    customChart.current = createChart(chartposition.current, { width: 0, height: 0 })
-    customChart.current.applyOptions({
       priceScale: {
         position: 'right',
         borderVisible: false,
@@ -218,7 +205,7 @@ export default function DetailStockGraph({
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
-    <>
+    <div className="detail-stock">
       <button onClick={openModal}>open Modal</button>
       <Modal
         isOpen={modalIsOpen}
@@ -326,19 +313,6 @@ export default function DetailStockGraph({
             }} />
           </label>
           <label>
-            Custom Graph
-            <input type="checkbox" onChange={() => {
-              if (customGraph.filter(custom => custom.key === 'custom').length !== 0) {
-                setCustomGraph(customGraph.filter(custom => custom.key !== 'custom'))
-                customChart.current.resize(0, 0);
-              } else {
-                setCustomGraph([...customGraph, <CustomGraph chart={customChart.current} color={color} key="custom" graph={customG} />])
-                console.log('hi');
-              }
-            }} />
-          </label>
-          <input type="color" onChange={e => { setColor(e.target.value) }} value={color} />
-          <label>
             BBANDS
             <input
               type="checkbox"
@@ -376,7 +350,7 @@ export default function DetailStockGraph({
           <label>
             BBANDS Color
             <input type="color" value={BBANDSColor} onChange={e => {
-              setHundredTwentyColor(e.target.value)
+              setBBANDSColor(e.target.value)
               if (lowBBANDS.current) {
                 lowBBANDS.current.applyOptions({ color: BBANDSColor })
                 middleBBANDS.current.applyOptions({ color: BBANDSColor })
@@ -386,104 +360,76 @@ export default function DetailStockGraph({
           </label>
           <label>
             RSI
-          <input type="checkbox" checked={RSICk} onChange={() => {
+          <input type="checkbox" onChange={() => {
               if (rsiChart.current) {
-                setRSICk(false)
-                indicatorChart.current.removeSeries(rsiChart.current)
+                indicatorChart.current.removeSeries(rsiChart.current);
                 indicatorChart.current.removeSeries(rsiSignalChart.current);
-                rsiChart.current = null
-                rsiSignalChart.current = null
-                indicatorChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: false,
-                  },
-                  timeScale: {
-                    borderVisible: false,
-                  },
-                })
-                indicatorChart.current.resize(0, 0)
-
-              }
-
-              else {
-                setRSICk(true)
-                indicatorChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: true,
-                  },
-                  timeScale: {
-                    borderVisible: true,
-                  },
-                })
-                indicatorChart.current.resize(800, 200)
-                const rsiSignalData = rsiSignal(indicators[0]);
-                rsiChart.current = indicatorChart.current.addLineSeries({ title: "RSI" })
-                rsiChart.current.setData(indicators[0])
-                rsiSignalChart.current = indicatorChart.current.addLineSeries({ title: "RSI Signal (6)", color: "brown" })
-                rsiSignalChart.current.setData(rsiSignalData)
-                indicatorChart.current.timeScale().setVisibleLogicalRange({
-                  from: indicators[0].length - 60,
-                  to: indicators[0].length,
-                });
+                indicatorChart.current.resize(0, 0);
+                rsiChart.current = null;
+              } else {
+                GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
+                GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
               }
             }} />
           </label>
           <label>
+            RSI Color
+          <input type="color" onChange={e => {
+              setRsiColor(e.target.value)
+              if (rsiChart.current) {
+                rsiChart.current.applyOptions({ color: rsiColor })
+              }
+            }} value={rsiColor} />
+          </label>
+          <label>
+            RSI Signal Color
+          <input type="color" onChange={e => {
+              setRsiSignalColor(e.target.value)
+              if (rsiSignalChart.current) {
+                rsiSignalChart.current.applyOptions({ color: rsiSignalColor })
+              }
+            }} value={rsiSignalColor} />
+          </label>
+          <label>
             Disparity
-          <input type="checkbox" checked={disparityCk} onChange={() => {
+          <input type="checkbox" onChange={() => {
               if (disparityGraph.current) {
-                setDisparityCk(false)
-                disparityChart.current.removeSeries(disparityGraph.current)
-                disparityGraph.current = null
-                disparityChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: false,
-                  },
-                  timeScale: {
-                    borderVisible: false,
-                  },
-                })
-                disparityChart.current.resize(0, 0)
-
+                disparityChart.current.removeSeries(disparityGraph.current);
+                disparityChart.current.resize(0, 0);
+                disparityGraph.current = null;
+              } else {
+                GraphService.graphColor(disparityChart.current, disparityColor, disparityGraph, twentyDisparity)
               }
-
-              else {
-                setDisparityCk(true)
-                disparityChart.current.applyOptions({
-                  priceScale: {
-                    borderVisible: true,
-                  },
-                  timeScale: {
-                    borderVisible: true,
-                  },
-                })
-                disparityChart.current.resize(800, 200)
-                disparityGraph.current = disparityChart.current.addLineSeries({ title: "Disparity" })
-                disparityGraph.current.setData(twentyDisparity)
-                disparityChart.current.timeScale().setVisibleLogicalRange({
-                  from: twentyDisparity.length - 60,
-                  to: twentyDisparity.length,
-                });
+            }}
+            />
+          </label>
+          <label>
+            <input type="color" onChange={e => {
+              setDisparityColor(e.target.value)
+              if (disparityGraph.current) {
+                disparityGraph.current.applyOptions({ color: disparityColor })
               }
-            }} />
+            }} value={rsiSignalColor} />
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>
       </Modal>
       <h1>Detail Stock</h1>
-      {!loading && (
-        <>
-          <h2>{symbol}</h2>
+      {
+        !loading && (
+          <>
+            <h2>{symbol}</h2>
 
-          {/* <button onClick={() => dailyBtnClick()}>1일</button>
+            {/* <button onClick={() => dailyBtnClick()}>1일</button>
           <button onClick={() => weeklyBtnClick()}>1주</button>
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
-        </>
-      )}
+          </>
+        )
+      }
       <div ref={chartposition}></div>
       <div ref={indicatorPosition}></div>
-      {customGraph}
-    </>
+      <div ref={disparityPosition}></div>
+    </div >
   );
 
   // return <h1>Detail Stock</h1>;

@@ -40,6 +40,7 @@ export default function DetailStockGraphContainer({
 
 
   const rsiSignal = (rsi) => {
+    if (!rsi) return;
     const rsiSignal = []
     for (let i = rsi.length - 1; i >= 0; i--) {
       if (i > rsi.length - 6) {
@@ -61,7 +62,7 @@ export default function DetailStockGraphContainer({
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverage={movingAverage}
-      rsiSignal={rsiSignal}
+      rsiSignal={rsiSignal(indicators[0])}
       indicators={indicators}
       loading={loading}
       stock={stock}
