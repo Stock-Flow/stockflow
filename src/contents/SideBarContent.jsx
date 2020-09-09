@@ -3,6 +3,7 @@ import StockListContainer from '../containers/SideBar/StockListContainer';
 import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 import Logo from '../components/SideBar/Logo';
 import './SideBarContent.scss';
+import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
 
 export default function SideBarContent() {
   const searchValue = useRef();
@@ -67,6 +68,7 @@ export default function SideBarContent() {
 
       {/* <label htmlFor="sort-choice">Sort</label> */}
       <div>
+        <FavoriteListContainer />
         <select className="sortBox" id="sort-chocie" onChange={selectedValue}>
           <option defaultValue="name">name</option>
           <option value="expensive">expensive</option>
