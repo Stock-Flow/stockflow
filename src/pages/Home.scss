@@ -1,9 +1,16 @@
+.ReactModal__Content form label {
+  display: block;
+}
+
 .home {
   display: flex;
 
   .detail-stock {
     display: block;
   }
+
+
+
 
   .sidebar {
     border: solid 2px black;

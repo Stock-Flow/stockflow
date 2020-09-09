@@ -41,6 +41,7 @@ export default function DetailStockGraph({
   const disparityChart = useRef();
   const MACDChart = useRef();
   const MACDOSCChart = useRef();
+  const stochasticSlowChart = useRef();
   //chart position ref
   const chartposition = useRef();
   const indicatorPosition = useRef();
@@ -54,6 +55,8 @@ export default function DetailStockGraph({
   const smaSixty = useRef();
   const rsiChart = useRef();
   const rsiSignalChart = useRef();
+  const stochasticSlowKGraph = useRef();
+  const stochasticSlowDGraph = useRef();
   const disparityGraph = useRef();
   const MACDGraph = useRef();
   const MACDSignalGraph = useRef();
@@ -65,6 +68,7 @@ export default function DetailStockGraph({
 
   //data
   const MACDData = useRef();
+  const stochasticSlowData = useRef();
   //check
   const [smaFiveCk, fiveCk] = useState(false);
   const [fiveColor, setFiveColor] = useState('#0000ff');
@@ -81,15 +85,23 @@ export default function DetailStockGraph({
   const [BBANDSCk, setBBANDSCk] = useState(false);
   const [BBANDSColor, setBBANDSColor] = useState('#00ff00');
 
+  const [rsiCk, setRsick] = useState(false);
   const [rsiColor, setRsiColor] = useState('#ffff00');
   const [rsiSignalColor, setRsiSignalColor] = useState('#ff00ff');
 
+  const [macdCk, setMacdck] = useState(false);
   const [MACDColor, setMACDColor] = useState('#cc0c0c');
   const [MACDSignalColor, setMACDSignalColor] = useState('#181818');
 
+  const [macdOscCk, setMacdOscck] = useState(false);
   const [MACDOSCColor, setMACDOSCColor] = useState('#651542')
 
+  const [disparityCk, setDisparityck] = useState(false);
   const [disparityColor, setDisparityColor] = useState('#00ffff');
+
+  const [stochasticSlowCk, setStochasticSlowck] = useState(false);
+  const [slowDColor, setSlowDColor] = useState('#cccc00');
+  const [slowKColor, setSlowKColor] = useState('#0000cc');
 
 
 
@@ -163,6 +175,7 @@ export default function DetailStockGraph({
       width: 0,
       height: 0,
     });
+    indicatorChart.current.resize(0, 0);
     indicatorChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -175,6 +188,7 @@ export default function DetailStockGraph({
 
     })
     disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
+    disparityChart.current.resize(0, 0)
     disparityChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -186,6 +200,7 @@ export default function DetailStockGraph({
       },
     })
     MACDChart.current = createChart(MACDPosition.current, { width: 0, height: 0 })
+    MACDChart.current.resize(0, 0);
     MACDChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -197,7 +212,20 @@ export default function DetailStockGraph({
       },
     })
     MACDOSCChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    MACDOSCChart.current.resize(0, 0)
     MACDOSCChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+    })
+    stochasticSlowChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    stochasticSlowChart.current.resize(0, 0);
+    stochasticSlowChart.current.applyOptions({
       priceScale: {
         position: 'right',
         borderVisible: false,
@@ -248,7 +276,7 @@ export default function DetailStockGraph({
     });
 
     MACDData.current = getMACDData(stock);
-    getStochasticSlow(stock, 12, 5, 5);
+    stochasticSlowData.current = getStochasticSlow(stock, 12, 5, 5);
   }, [stock]);
 
   // stock
@@ -278,6 +306,7 @@ export default function DetailStockGraph({
                   smaFive.current = chart.current.addLineSeries({
                     color: fiveColor,
                   });
+                  console.log(fiveMovingAverageData);
                   smaFive.current.setData(fiveMovingAverageData);
                 }
               }}
@@ -447,13 +476,15 @@ export default function DetailStockGraph({
           </label>
           <label>
             RSI
-          <input type="checkbox" onChange={() => {
+          <input type="checkbox" checked={rsiCk} onChange={() => {
               if (rsiChart.current) {
+                setRsick(false);
                 indicatorChart.current.removeSeries(rsiChart.current);
                 indicatorChart.current.removeSeries(rsiSignalChart.current);
                 indicatorChart.current.resize(0, 0);
                 rsiChart.current = null;
               } else {
+                setRsick(true);
                 GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
                 GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
               }
@@ -479,12 +510,14 @@ export default function DetailStockGraph({
           </label>
           <label>
             Disparity
-          <input type="checkbox" onChange={() => {
+          <input type="checkbox" checked={disparityCk} onChange={() => {
               if (disparityGraph.current) {
+                setDisparityck(false)
                 disparityChart.current.removeSeries(disparityGraph.current);
                 disparityChart.current.resize(0, 0);
                 disparityGraph.current = null;
               } else {
+                setDisparityck(true)
                 GraphService.graphColor(disparityChart.current, disparityColor, disparityGraph, twentyDisparity)
               }
             }}
@@ -501,14 +534,16 @@ export default function DetailStockGraph({
           </label>
           <label>
             MACD
-          <input type="checkbox" onChange={() => {
+          <input type="checkbox" checked={macdCk} onChange={() => {
               if (MACDGraph.current) {
+                setMacdck(false)
                 MACDChart.current.removeSeries(MACDGraph.current);
                 MACDChart.current.removeSeries(MACDSignalGraph.current);
                 MACDChart.current.resize(0, 0);
                 MACDGraph.current = null;
                 MACDSignalGraph.current = null;
               } else {
+                setMacdck(true)
                 console.log(MACDData.current);
                 GraphService.graphColor(MACDChart.current, MACDColor, MACDGraph, MACDData.current[0])
                 GraphService.graphColor(MACDChart.current, MACDSignalColor, MACDSignalGraph, MACDData.current[1])
@@ -536,12 +571,14 @@ export default function DetailStockGraph({
           </label>
           <label>
             MACD Oscillator
-          <input type="checkbox" onChange={() => {
+          <input type="checkbox" chekced={macdOscCk} onChange={() => {
               if (MACDOSCGraph.current) {
+                setMacdOscck(false);
                 MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
                 MACDOSCChart.current.resize(0, 0);
                 MACDOSCGraph.current = null;
               } else {
+                setMacdOscck(true);
                 GraphService.setHistogramGraph(MACDOSCChart.current, MACDOSCColor, MACDOSCGraph, MACDData.current[2])
               }
             }}
@@ -555,6 +592,41 @@ export default function DetailStockGraph({
                 MACDOSCGraph.current.applyOptions({ color: MACDOSCColor })
               }
             }} value={MACDOSCColor} />
+          </label>
+          <label>
+            Stochastic Slow
+          <input type="checkbox" checked={stochasticSlowCk} onChange={() => {
+              if (stochasticSlowDGraph.current) {
+                setStochasticSlowck(false);
+                stochasticSlowChart.current.removeSeries(stochasticSlowDGraph.current);
+                stochasticSlowChart.current.removeSeries(stochasticSlowKGraph.current);
+                stochasticSlowChart.current.resize(0, 0);
+                stochasticSlowDGraph.current = null;
+                stochasticSlowKGraph.current = null;
+              } else {
+                setStochasticSlowck(true);
+                GraphService.graphColor(stochasticSlowChart.current, slowDColor, stochasticSlowDGraph, stochasticSlowData.current[1])
+                GraphService.graphColor(stochasticSlowChart.current, slowKColor, stochasticSlowKGraph, stochasticSlowData.current[0])
+              }
+            }} />
+          </label>
+          <label>
+            Stochastic Slow K Color
+          <input type="color" onChange={e => {
+              setSlowKColor(e.target.value)
+              if (stochasticSlowKGraph.current) {
+                stochasticSlowKGraph.current.applyOptions({ color: slowKColor })
+              }
+            }} value={slowKColor} />
+          </label>
+          <label>
+            Stochastic Slow D Color
+          <input type="color" onChange={e => {
+              setSlowDColor(e.target.value)
+              if (stochasticSlowDGraph.current) {
+                stochasticSlowDGraph.current.applyOptions({ color: slowDColor })
+              }
+            }} value={slowDColor} />
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>
