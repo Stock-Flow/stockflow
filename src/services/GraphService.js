@@ -11,4 +11,17 @@ export default class GraphService {
       to: data.length,
     });
   }
+  static setHistogramGraph(chart, color, graph, data) {
+    chart.resize(800, 200);
+    graph.current = chart.addHistogramSeries({
+      color: color,
+      base: 0
+    });
+    graph.current.setData(data)
+
+    chart.timeScale().setVisibleLogicalRange({
+      from: data.length - 60,
+      to: data.length,
+    });
+  }
 }

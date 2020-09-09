@@ -31,7 +31,8 @@ export default function DetailStockGraph({
   indicators,
   stock,
   volume,
-  getMACDData
+  getMACDData,
+  getStochasticSlow
 }) {
   //chart ref
   const chart = useRef();
@@ -39,6 +40,7 @@ export default function DetailStockGraph({
   const indicatorChart = useRef();
   const disparityChart = useRef();
   const MACDChart = useRef();
+  const MACDOSCChart = useRef();
   //chart position ref
   const chartposition = useRef();
   const indicatorPosition = useRef();
@@ -55,6 +57,7 @@ export default function DetailStockGraph({
   const disparityGraph = useRef();
   const MACDGraph = useRef();
   const MACDSignalGraph = useRef();
+  const MACDOSCGraph = useRef();
   const volumeChart = useRef();
   const lowBBANDS = useRef();
   const middleBBANDS = useRef();
@@ -80,6 +83,11 @@ export default function DetailStockGraph({
 
   const [rsiColor, setRsiColor] = useState('#ffff00');
   const [rsiSignalColor, setRsiSignalColor] = useState('#ff00ff');
+
+  const [MACDColor, setMACDColor] = useState('#cc0c0c');
+  const [MACDSignalColor, setMACDSignalColor] = useState('#181818');
+
+  const [MACDOSCColor, setMACDOSCColor] = useState('#651542')
 
   const [disparityColor, setDisparityColor] = useState('#00ffff');
 
@@ -188,6 +196,17 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
     })
+    MACDOSCChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    MACDOSCChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+    })
   }, [])
 
 
@@ -229,6 +248,7 @@ export default function DetailStockGraph({
     });
 
     MACDData.current = getMACDData(stock);
+    getStochasticSlow(stock, 12, 5, 5);
   }, [stock]);
 
   // stock
@@ -471,12 +491,13 @@ export default function DetailStockGraph({
             />
           </label>
           <label>
+            Disparity Color
             <input type="color" onChange={e => {
               setDisparityColor(e.target.value)
               if (disparityGraph.current) {
                 disparityGraph.current.applyOptions({ color: disparityColor })
               }
-            }} value={rsiSignalColor} />
+            }} value={disparityColor} />
           </label>
           <label>
             MACD
@@ -489,19 +510,51 @@ export default function DetailStockGraph({
                 MACDSignalGraph.current = null;
               } else {
                 console.log(MACDData.current);
-                GraphService.graphColor(MACDChart.current, disparityColor, MACDGraph, MACDData.current[0])
-                GraphService.graphColor(MACDChart.current, disparityColor, MACDSignalGraph, MACDData.current[1])
+                GraphService.graphColor(MACDChart.current, MACDColor, MACDGraph, MACDData.current[0])
+                GraphService.graphColor(MACDChart.current, MACDSignalColor, MACDSignalGraph, MACDData.current[1])
               }
             }}
             />
           </label>
           <label>
+            MACD Color
             <input type="color" onChange={e => {
-              setDisparityColor(e.target.value)
-              if (disparityGraph.current) {
-                disparityGraph.current.applyOptions({ color: disparityColor })
+              setMACDColor(e.target.value)
+              if (MACDGraph.current) {
+                MACDGraph.current.applyOptions({ color: MACDColor })
               }
-            }} value={rsiSignalColor} />
+            }} value={MACDColor} />
+          </label>
+          <label>
+            MACD Signal Color
+            <input type="color" onChange={e => {
+              setMACDSignalColor(e.target.value)
+              if (MACDSignalGraph.current) {
+                MACDSignalGraph.current.applyOptions({ color: MACDSignalColor })
+              }
+            }} value={MACDSignalColor} />
+          </label>
+          <label>
+            MACD Oscillator
+          <input type="checkbox" onChange={() => {
+              if (MACDOSCGraph.current) {
+                MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
+                MACDOSCChart.current.resize(0, 0);
+                MACDOSCGraph.current = null;
+              } else {
+                GraphService.setHistogramGraph(MACDOSCChart.current, MACDOSCColor, MACDOSCGraph, MACDData.current[2])
+              }
+            }}
+            />
+          </label>
+          <label>
+            MACDO Oscillator Color
+            <input type="color" onChange={e => {
+              setMACDOSCColor(e.target.value)
+              if (MACDOSCGraph.current) {
+                MACDOSCGraph.current.applyOptions({ color: MACDOSCColor })
+              }
+            }} value={MACDOSCColor} />
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>

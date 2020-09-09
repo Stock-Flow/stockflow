@@ -82,12 +82,28 @@ export default function DetailStockGraphContainer({
     return [MACDData, MACDSignal, MACDOscillator]
   }, [])
 
+  const getStochasticSlow = useCallback((stock, duration, n, m) => {
+    const data = stock.reverse();
+    const fastK = []
+    for (let i = 0; i < stock.length - 1 - duration; i++) {
+      const low = Math.min(...data.slice(i, duration + i).map(item => { return +item.low }))
+      const high = Math.max(...data.slice(i, duration + i).map(item => { return +item.high }))
+      const fast = (stock[i].close - low) / (high - low) * 100
+      fastK.push({ time: stock[i].time, value: fast });
+    }
+    const slowK = getAverage(fastK.reverse(), n);
+    const slowD = getAverage(slowK, m);
+    return [slowK, slowD]
+
+  }, [])
+
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverage={movingAverage}
       rsiSignal={rsiSignal(indicators[0])}
       getMACDData={getMACDData}
+      getStochasticSlow={getStochasticSlow}
       indicators={indicators}
       loading={loading}
       stock={stock}
