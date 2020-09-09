@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 html {
   font-size: 16px;
@@ -40,5 +41,26 @@ html {
     > div {
       display: inline-block;
     }
+  }
+}
+
+.ReactModal__Content form label {
+  display: block;
+}
+
+.home {
+
+
+  .detail-stock {
+    display: block;
+  }
+
+
+
+
+  .sidebar {
+    border: solid 2px black;
+    box-sizing: border-box;
+    width: 25vw;
   }
 }

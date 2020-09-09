@@ -7,6 +7,7 @@ export default function DetailStockGraphContainer({
   func = 'TIME_SERIES_DAILY_ADJUSTED',
   symbol = 'IBM',
 }) {
+  let rsiSig = [];
   const loading = useSelector((state) => state.detailStock.loading);
   const stock = useSelector((state) => state.detailStock.stock);
   const indicators = useSelector((state) => state.detailStock.indicator);
@@ -73,6 +74,9 @@ export default function DetailStockGraphContainer({
 
     return rsiSignal.reverse();
   };
+  if (indicators) {
+    rsiSig = rsiSignal(indicators[0])
+  }
   const getMACDData = useCallback((stock) => {
     const movingAverageTwentySix = movingAverage(stock, 26);
     const movingAverageTwelve = movingAverage(stock, 12);
@@ -88,12 +92,29 @@ export default function DetailStockGraphContainer({
     return [MACDData, MACDSignal, MACDOscillator];
   }, []);
 
+  const getStochasticSlow = useCallback((stock, duration, n, m) => {
+    console.log(stock);
+    const data = [...stock].reverse();
+    const fastK = []
+    for (let i = 0; i < data.length - 1 - duration; i++) {
+      const low = Math.min(...data.slice(i, duration + i).map(item => { return +item.low }))
+      const high = Math.max(...data.slice(i, duration + i).map(item => { return +item.high }))
+      const fast = (data[i].close - low) / (high - low) * 100
+      fastK.push({ time: data[i].time, value: fast });
+    }
+    const slowK = getAverage(fastK.reverse(), n);
+    const slowD = getAverage(slowK, m);
+    return [slowK, slowD]
+
+  }, [])
+
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverage={movingAverage}
-      // rsiSignal={rsiSignal(indicators[0])}
+      rsiSignal={rsiSig}
       getMACDData={getMACDData}
+      getStochasticSlow={getStochasticSlow}
       indicators={indicators}
       loading={loading}
       stock={stock}
