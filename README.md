@@ -1,3 +1,4 @@
+
 # 📈Stock Flow
 
 주식 / 디지털화폐 정보의 데이터시각화
@@ -37,9 +38,16 @@
 
 API호출을 위한 key 파일은 업로드 되지 않았습니다.
 **실행하기 위해서는 해당 파일을 요청하셔야 합니다.**
+요청 email: dksro324@gmail.com
 
 경로 : ./src/key.js
 
 $ git clone "https://github.com/Stock-Flow/stockflow.git"
 $ npm install
 \$ npm start
+
+
+## `How to run this app`
+
+`npm ci` to download package. you need key.js file on src folder. If you want to test this app, please send a mail to dksro324@gmail.com. Then I'll give you a key.js file
+

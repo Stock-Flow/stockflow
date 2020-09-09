@@ -40,7 +40,12 @@ export default function DetailStockGraphContainer({
   };
 
   const rsiSignal = (rsi) => {
+<<<<<<< HEAD
+    if (!rsi) return;
+    const rsiSignal = []
+=======
     const rsiSignal = [];
+>>>>>>> 095eadd7a4fee859b0fa223a9f508420037b4a83
     for (let i = rsi.length - 1; i >= 0; i--) {
       if (i > rsi.length - 6) {
         continue;
@@ -59,7 +64,7 @@ export default function DetailStockGraphContainer({
     <DetailStockGraph
       getDetailStock={getDetailStock}
       movingAverage={movingAverage}
-      rsiSignal={rsiSignal}
+      rsiSignal={rsiSignal(indicators[0])}
       indicators={indicators}
       loading={loading}
       stock={stock}
