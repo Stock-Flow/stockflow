@@ -28,7 +28,7 @@ export default function StockList({
 
   if (!loading) {
     return (
-      <div className="stock-sidebar">
+      <div className="sidebar stock">
         <ul className={menu ? '' : 'none'}>
           {stockList.map(
             (stock) => {
@@ -40,22 +40,29 @@ export default function StockList({
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
               return (
-                <li onClick={sendSymbol}>
-                  <span>{stock.symbol}</span>
-                  {stock.change}
-                  {stock.name}
-                  <V.VictoryLine
-                    data={stocks}
-                    x="date"
-                    y="price"
-                    style={{
-                      data: { stroke: color },
-                      parent: {
-                        width: 50,
-                        height: 'auto',
-                      },
-                    }}
-                  />
+                <li onClick={sendSymbol} className="clear-fix">
+                  <div className="sidebar-left">
+                    <span className="sidebar-symbol">{stock.symbol}</span>
+                    <br />
+                    <span className="sidebar-name">{stock.name}</span>
+                    <br />
+                  </div>
+                  <div className="sidebar-right">
+                    <V.VictoryLine
+                      data={stocks}
+                      x="date"
+                      y="price"
+                      style={{
+                        data: { stroke: color },
+                        parent: {
+                          width: 50,
+                          height: 'auto',
+                        },
+                      }}
+                    />
+
+                    <span className="sidebar-change">{stock.change}</span>
+                  </div>
                 </li>
               );
             },

@@ -35,7 +35,7 @@ export default function SideBarContent() {
     setCurrencySearch('');
   }, []);
   return (
-    <div className="sidebar">
+    <div className="sidebar-wrap">
       <Logo />
 
       <div className="menuBtn">
@@ -67,9 +67,10 @@ export default function SideBarContent() {
       />
 
       {/* <label htmlFor="sort-choice">Sort</label> */}
-      <div>
+
+      <div className="sortbox-wrap clear-fix">
         <FavoriteListContainer />
-        <select className="sortBox" id="sort-chocie" onChange={selectedValue}>
+        <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
           <option defaultValue="name">name</option>
           <option value="expensive">expensive</option>
           <option value="cheap">cheap</option>
