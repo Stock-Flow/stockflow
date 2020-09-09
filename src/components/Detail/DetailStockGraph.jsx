@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import Modal from 'react-modal';
 import GraphService from '../../services/GraphService';
+import './DetailStockGraph.scss';
 
 const customStyles = {
   content: {
@@ -99,11 +100,10 @@ export default function DetailStockGraph({
   const [disparityCk, setDisparityck] = useState(false);
   const [disparityColor, setDisparityColor] = useState('#00ffff');
 
+
   const [stochasticSlowCk, setStochasticSlowck] = useState(false);
   const [slowDColor, setSlowDColor] = useState('#cccc00');
   const [slowKColor, setSlowKColor] = useState('#0000cc');
-
-
 
   const fiveMovingAverageData = movingAverage(stock, 5);
   const twentyMovingAverageData = movingAverage(stock, 20);
@@ -129,12 +129,11 @@ export default function DetailStockGraph({
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
-
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() { }
+  function afterOpenModal() {}
   function closeModal() {
     setIsOpen(false);
   }
@@ -186,6 +185,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
 
+
     })
     disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
     disparityChart.current.resize(0, 0)
@@ -198,9 +198,11 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
+
     })
     MACDChart.current = createChart(MACDPosition.current, { width: 0, height: 0 })
     MACDChart.current.resize(0, 0);
+
     MACDChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -210,6 +212,7 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
+
     })
     MACDOSCChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
     MACDOSCChart.current.resize(0, 0)
@@ -236,8 +239,6 @@ export default function DetailStockGraph({
       },
     })
   }, [])
-
-
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
@@ -283,6 +284,15 @@ export default function DetailStockGraph({
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <div className="detail-stock">
+      {!loading && (
+        <>
+          <h2>{symbol}</h2>
+
+          {/* <button onClick={() => dailyBtnClick()}>1일</button>
+          <button onClick={() => weeklyBtnClick()}>1주</button>
+          <button onClick={() => monthlyBtnClick()}>1달</button> */}
+        </>
+      )}
       <button onClick={openModal}>open Modal</button>
       <Modal
         isOpen={modalIsOpen}
@@ -465,17 +475,22 @@ export default function DetailStockGraph({
           </label>
           <label>
             BBANDS Color
-            <input type="color" value={BBANDSColor} onChange={e => {
-              setBBANDSColor(e.target.value)
-              if (lowBBANDS.current) {
-                lowBBANDS.current.applyOptions({ color: BBANDSColor })
-                middleBBANDS.current.applyOptions({ color: BBANDSColor })
-                highBBANDS.current.applyOptions({ color: BBANDSColor })
-              }
-            }} />
+            <input
+              type="color"
+              value={BBANDSColor}
+              onChange={(e) => {
+                setBBANDSColor(e.target.value);
+                if (lowBBANDS.current) {
+                  lowBBANDS.current.applyOptions({ color: BBANDSColor });
+                  middleBBANDS.current.applyOptions({ color: BBANDSColor });
+                  highBBANDS.current.applyOptions({ color: BBANDSColor });
+                }
+              }}
+            />
           </label>
           <label>
             RSI
+
           <input type="checkbox" checked={rsiCk} onChange={() => {
               if (rsiChart.current) {
                 setRsick(false);
@@ -492,24 +507,35 @@ export default function DetailStockGraph({
           </label>
           <label>
             RSI Color
-          <input type="color" onChange={e => {
-              setRsiColor(e.target.value)
-              if (rsiChart.current) {
-                rsiChart.current.applyOptions({ color: rsiColor })
-              }
-            }} value={rsiColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiColor(e.target.value);
+                if (rsiChart.current) {
+                  rsiChart.current.applyOptions({ color: rsiColor });
+                }
+              }}
+              value={rsiColor}
+            />
           </label>
           <label>
             RSI Signal Color
-          <input type="color" onChange={e => {
-              setRsiSignalColor(e.target.value)
-              if (rsiSignalChart.current) {
-                rsiSignalChart.current.applyOptions({ color: rsiSignalColor })
-              }
-            }} value={rsiSignalColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiSignalColor(e.target.value);
+                if (rsiSignalChart.current) {
+                  rsiSignalChart.current.applyOptions({
+                    color: rsiSignalColor,
+                  });
+                }
+              }}
+              value={rsiSignalColor}
+            />
           </label>
           <label>
             Disparity
+
           <input type="checkbox" checked={disparityCk} onChange={() => {
               if (disparityGraph.current) {
                 setDisparityck(false)
@@ -627,27 +653,17 @@ export default function DetailStockGraph({
                 stochasticSlowDGraph.current.applyOptions({ color: slowDColor })
               }
             }} value={slowDColor} />
+
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>
       </Modal>
-      <h1>Detail Stock</h1>
-      {
-        !loading && (
-          <>
-            <h2>{symbol}</h2>
 
-            {/* <button onClick={() => dailyBtnClick()}>1일</button>
-          <button onClick={() => weeklyBtnClick()}>1주</button>
-          <button onClick={() => monthlyBtnClick()}>1달</button> */}
-          </>
-        )
-      }
       <div ref={chartposition}></div>
       <div ref={indicatorPosition}></div>
       <div ref={disparityPosition}></div>
       <div ref={MACDPosition}></div>
-    </div >
+    </div>
   );
 
   // return <h1>Detail Stock</h1>;
