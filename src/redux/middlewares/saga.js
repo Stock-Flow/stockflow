@@ -1,4 +1,3 @@
-
 import { all } from 'redux-saga/effects';
 import { stockSaga } from '../modules/stock';
 import { DJIASaga } from '../modules/djia';
@@ -11,8 +10,7 @@ import { detailStockSaga } from '../modules/detailStock';
 import { exchangeSaga } from '../modules/exchange';
 import { selectedStockSaga } from '../modules/selectedStock';
 
-import { selectedSymbolSaga } from "../modules/selectedSymbol";
-
+import { selectedSymbolSaga } from '../modules/selectedSymbol';
 
 export default function* rootSaga() {
   yield all([
@@ -25,8 +23,6 @@ export default function* rootSaga() {
     exchangeSaga(),
     selectedStockSaga(),
 
-
     selectedSymbolSaga(),
-
   ]);
 }
