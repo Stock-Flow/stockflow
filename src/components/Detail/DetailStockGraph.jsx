@@ -6,6 +6,7 @@ import GraphService from '../../services/GraphService';
 import './DetailStockGraph.scss';
 import { dispatch } from 'd3';
 import SearchService from '../../services/SearchService';
+import { title } from 'process';
 
 const customStyles = {
   content: {
@@ -272,9 +273,8 @@ export default function DetailStockGraph({
   }, [symbol]);
 
   useEffect(() => {
-    console.log(searchValue.current);
     if (compareGraph.current) chart.current.removeSeries(compareGraph.current)
-    compareGraph.current = chart.current.addCandlestickSeries();
+    compareGraph.current = chart.current.addCandlestickSeries({ title: search.current });
     compareGraph.current.setData(compare);
   }, [compare])
 
@@ -303,16 +303,15 @@ export default function DetailStockGraph({
   const searchDone = useRef();
   const searchValue = useRef();
   const [searchList, setSearchList] = useState([]);
+  const search = useRef();
 
 
-  const checkSearchDone = () => {
-    clearTimeout(searchDone.current);
-    searchDone.current = setTimeout(async () => {
-      if (searchValue.current) {
-        const search = searchValue.current.value;
-        setSearchList(await SearchService.searchingStock(search));
-      }
-    }, 1500);
+  const checkSearchDone = async () => {
+
+    if (searchValue.current) {
+      search.current = searchValue.current.value;
+      setSearchList(await SearchService.searchingStock(search.current));
+    }
   };
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
