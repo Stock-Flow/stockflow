@@ -30,12 +30,11 @@ export default function ForeignExchangeItem({
   resultPercent = resultPercent.toFixed(2);
   let fxDiff = (after - before).toFixed(2);
 
-  console.log(resultPercent);
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
   return (
     <>
-      {fromCurrenciesName && (
+      {!loading && (
         <div className="exchange-item">
           <div className="exchange-column icon">
             <span className="country-icon from">
@@ -62,20 +61,20 @@ export default function ForeignExchangeItem({
             <p className="exchange-percent">
               {before < after && (
                 <>
-                  <p className="plus">+{resultPercent}%</p>
-                  <p className="plus">+{fxDiff}</p>
+                  <span className="plus">+{resultPercent}%</span>
+                  <span className="plus">+{fxDiff}</span>
                 </>
               )}
               {before > after && (
                 <>
-                  <p className="minus">-{resultPercent}%</p>
-                  <p className="minus">{fxDiff}</p>
+                  <span className="minus">-{resultPercent}%</span>
+                  <span className="minus">{fxDiff}</span>
                 </>
               )}
               {before === after && (
                 <>
-                  <p className="zero">{resultPercent}%</p>
-                  <p className="zero">0</p>
+                  <span className="zero">{resultPercent}%</span>
+                  <span className="zero">0</span>
                 </>
               )}
             </p>

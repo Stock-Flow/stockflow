@@ -58,9 +58,10 @@ function* getDetailCurrencySaga(action) {
   try {
 
     let currency = JSON.parse(localStorage.getItem(symbol))
+    console.log(currency)
     if (!currency) {
       currency = yield call(DetailCurrencyService.getCurrencyDaily, func, symbol, date);
-      console.log(currency[1]);
+      console.log(currency);
       if (currency[0].length >= 1500) {
         currency[0] = currency[0].slice(-1500)
         currency[1] = currency[1].slice(-1500)
@@ -138,11 +139,11 @@ export function getIndicatorSagaActionCreator() {
 function* getIndicatorSaga() {
   yield put(startGetIndicator());
   try {
-    const symbol = yield select(state => state.selectedCurrency.selectedCurrency);
+    const symbol = yield select(state => state.selectedStock.symbol);
     if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol)
     yield put(SuccessGetIndicator(indicator))
-    const detailCurrency = yield select(state => state.detailCurrency)
+    const detailCurrency = yield select(state => state.detailStock)
     localStorage.setItem(symbol, JSON.stringify(detailCurrency))
   } catch (error) {
     console.log(error)

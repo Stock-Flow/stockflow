@@ -57,10 +57,10 @@ export default class DataProcessingService {
   static CurrencyGraphDataProcessing(data) {
 
     const date = Object.keys(data.currencyData).reverse();
-    const open = DataProcessingService.MakeCurrencyValueArray(data, "1b. open (USD)")
-    const high = DataProcessingService.MakeCurrencyValueArray(data, "2b. high (USD)")
-    const low = DataProcessingService.MakeCurrencyValueArray(data, "3b. low (USD)")
-    const close = DataProcessingService.MakeCurrencyValueArray(data, "4b. close (USD)")
+    const open = DataProcessingService.MakeCurrencyValueArray(data, "1a. open (USD)")
+    const high = DataProcessingService.MakeCurrencyValueArray(data, "2a. high (USD)")
+    const low = DataProcessingService.MakeCurrencyValueArray(data, "3a. low (USD)")
+    const close = DataProcessingService.MakeCurrencyValueArray(data, "4a. close (USD)")
 
     return date.map((item, i) => {
       return {
@@ -121,24 +121,6 @@ export default class DataProcessingService {
       }
     }
 
-    return processedData;
-  }
-  static AdjustCurrencySplitSingle(data) {
-    let processedData = data
-   
-    const date = Object.keys(data.currencyData)
-    let split = 0;
-    for (let j = 0; j < Object.keys(data.currencyData).length; j++) {
-      if (split !== 0) {
-        processedData.currencyData[date[j]]['1a. open (USD)'] /= split
-        processedData.currencyData[date[j]]['2a. high (USD)'] /= split
-        processedData.currencyData[date[j]]['3a. low (USD)'] /= split
-        processedData.currencyData[date[j]]['4a. close (USD)'] /= split
-      }
-      if (data.currencyData[date[j]]['8. split coefficient'] !== '1.0000') {
-        split = +data.currencyData[date[j]]['8. split coefficient'];
-      }
-    } 
     return processedData;
   }
 

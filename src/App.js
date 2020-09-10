@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import { useDispatch } from 'react-redux';
 import { getDJIASagaActionCreator } from './redux/modules/djia';
 import DetailStockGraphContainer from './containers/Detail/DetailStockGraphContainer';
+import 'normalize.css';
 
 const key = 'Time Series (1min)';
 
