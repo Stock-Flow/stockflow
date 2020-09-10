@@ -10,6 +10,7 @@ import sideBarStock from './sidebarstock';
 import sidebarCurrency from './sidebarCurrency';
 import currencyNow from './currencynow';
 import detailStock from './detailStock';
+import detailCurrency from './detailCurrency'
 import exchange from './exchange';
 import selectedStock from './selectedStock';
 import selectedSymbol from './selectedSymbol';
@@ -22,6 +23,7 @@ const reducer = (history) =>
     sideBarStock,
     sidebarCurrency,
     detailStock,
+    detailCurrency,
     selectedStock,
     compare,
     exchange,
