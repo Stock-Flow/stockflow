@@ -7,6 +7,9 @@ export default function DetailCurrencyGraphContainer({
   func = 'DIGITAL_CURRENCY_DAILY',
   symbol = 'BTC',
 }) {
+  const loading = useSelector((state) => state.detailCurrency.loading);
+  const currency = useSelector((state) => state.detailCurrency.currency);
+  const volume = useSelector((state => state.detailCurrency.volume))
 
   const dispatch = useDispatch();
 
@@ -19,12 +22,9 @@ export default function DetailCurrencyGraphContainer({
   return (
     <DetailCurrencyGraph
       getDetailCurrency={getDetailCurrency}
-      // movingAverage={movingAverage}
-      // rsiSignal={rsiSignal}
-      // indicators={indicators}
-      // loading={loading}
-      // stock={stock}
-      // volume={volume}
+      loading={loading}
+      currency={currency}
+      volume={volume}
       symbol={symbol}
     />
   )
