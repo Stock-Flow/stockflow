@@ -17,18 +17,14 @@ export default function StockList({
     getsidebarStock(search);
   }, [getsidebarStock, search]);
 
-  const sendSymbol = (e) => {
-    e.stopPropagation();
-    const selectedStock = e.target.querySelector('span').textContent;
-
-    // selectedSymbol.a(selectedStock);
-    dispatch(getSelectedStockSagaActionCreator(selectedStock));
-    dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
+  const sendSymbol = (selectedStock) => {
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
   };
 
   if (!loading) {
     return (
-      <div className="stock-sidebar">
+      <div className="sidebar stock">
         <ul className={menu ? '' : 'none'}>
           {stockList.map(
             (stock) => {
@@ -39,23 +35,36 @@ export default function StockList({
                 stocks.push({ date: item, price: values[i] });
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
+
+              function transSymbol(e) {
+                e.stopPropagation();
+                sendSymbol(stock.symbol);
+              }
+
               return (
-                <li onClick={sendSymbol}>
-                  <span>{stock.symbol}</span>
-                  {stock.change}
-                  {stock.name}
-                  <V.VictoryLine
-                    data={stocks}
-                    x="date"
-                    y="price"
-                    style={{
-                      data: { stroke: color },
-                      parent: {
-                        width: 50,
-                        height: 'auto',
-                      },
-                    }}
-                  />
+                <li onClick={transSymbol} className="clear-fix">
+                  <div className="sidebar-left">
+                    <span className="sidebar-symbol">{stock.symbol}</span>
+                    <br />
+                    <span className="sidebar-name">{stock.name}</span>
+                    <br />
+                  </div>
+                  <div className="sidebar-right">
+                    <V.VictoryLine
+                      data={stocks}
+                      x="date"
+                      y="price"
+                      style={{
+                        data: { stroke: color },
+                        parent: {
+                          width: 50,
+                          height: 'auto',
+                        },
+                      }}
+                    />
+
+                    <span className="sidebar-change">{stock.change}</span>
+                  </div>
                 </li>
               );
             },

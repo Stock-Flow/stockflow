@@ -1,16 +1,42 @@
-import { all } from 'redux-saga/effects';
-import { stockSaga } from '../modules/stock';
-import { DJIASaga } from '../modules/djia';
-import { sideBarStockSaga } from '../modules/sidebarstock';
-import { sideBarCurrencySaga } from '../modules/sidebarCurrency';
+import {
+  all
+} from 'redux-saga/effects';
+import {
+  stockSaga
+} from '../modules/stock';
+import {
+  DJIASaga
+} from '../modules/djia';
+import {
+  sideBarStockSaga
+} from '../modules/sidebarstock';
+import {
+  sideBarCurrencySaga
+} from '../modules/sidebarCurrency';
 
-import { currencyNowSaga } from '../modules/currencynow';
+import {
+  currencyNowSaga
+} from '../modules/currencynow';
 
-import { detailStockSaga } from '../modules/detailStock';
-import { exchangeSaga } from '../modules/exchange';
-import { selectedStockSaga } from '../modules/selectedStock';
+import {
+  detailStockSaga
+} from '../modules/detailStock';
+import {
+  detailCurrencySaga
+} from '../modules/detailCurrency';
+import {
+  exchangeSaga
+} from '../modules/exchange';
+import {
+  selectedStockSaga
+} from '../modules/selectedStock';
 
-import { selectedSymbolSaga } from '../modules/selectedSymbol';
+import {
+  selectedSymbolSaga
+} from '../modules/selectedSymbol';
+import {
+  compareSaga
+} from '../modules/compare';
 
 export default function* rootSaga() {
   yield all([
@@ -19,10 +45,10 @@ export default function* rootSaga() {
     sideBarCurrencySaga(),
     sideBarStockSaga(),
     detailStockSaga(),
-
+    detailCurrencySaga(),
     exchangeSaga(),
     selectedStockSaga(),
-
+    compareSaga(),
     selectedSymbolSaga(),
   ]);
 }

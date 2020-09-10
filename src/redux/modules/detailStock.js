@@ -1,9 +1,18 @@
 import DetailStockService from '../../services/DetailStockService';
-import { put, call, takeEvery, select } from 'redux-saga/effects';
+import {
+  put,
+  call,
+  takeEvery,
+  select
+} from 'redux-saga/effects';
 import DataProcessingService from '../../services/DataProcessingService';
 import IndicatorService from '../../services/IndicatorService';
-import { symbol } from 'd3-shape';
-import { useSelector } from 'react-redux';
+import {
+  symbol
+} from 'd3-shape';
+import {
+  useSelector
+} from 'react-redux';
 
 const prefix = 'stockflow/stock';
 
@@ -62,7 +71,11 @@ const getStockFromLocalStorage = (detailStock) => {
 // }
 
 function* getDetailStockSaga(action) {
-  const { func, symbol, date } = action.payload;
+  const {
+    func,
+    symbol,
+    date
+  } = action.payload;
   yield put(startGetDetailStock());
   try {
     let stock = JSON.parse(localStorage.getItem(symbol));
@@ -143,7 +156,7 @@ export function getIndicatorSagaActionCreator() {
 function* getIndicatorSaga() {
   yield put(startGetIndicator());
   try {
-    const symbol = yield select((state) => state.selectedStock.selectedStock);
+    const symbol = yield select((state) => state.selectedStock.symbol);
     if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol);
     yield put(SuccessGetIndicator(indicator));
@@ -154,6 +167,9 @@ function* getIndicatorSaga() {
     yield put(FailGetIndicator(error));
   }
 }
+
+
+
 
 export function* detailStockSaga() {
   yield takeEvery(GET_DETAILSTOCK_SAGA, getDetailStockSaga);
@@ -171,42 +187,42 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
         loading: true,
-        stock: action.stock,
-        error: null,
-        volume: action.volume,
+          stock: action.stock,
+          error: null,
+          volume: action.volume,
       };
     case GET_DETAILSTOCK_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
 
     case GET_INDICATOR_START:
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_INDICATOR_SUCCESS:
       return {
         ...prevState,
         loading: false,
-        indicator: action.indicator,
-        error: null,
+          indicator: action.indicator,
+          error: null,
       };
     case GET_INDICATOR_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
 
     default:

@@ -1,47 +1,86 @@
-.sidebar{
-  color: #ffffff;
-  width: 25vw;
-  min-width: 300px;
+.sidebar-wrap {
+  overflow: hidden;
+  width: 20%;
   min-height: 100vh;
-  background-color: #2D3746;
-  .logo{
-    text-indent:-10000px;
+  padding: 0 15px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #2d3746 0%, #282d33 100%);
+
+  .logo {
     display: block;
-    width: 90%;
-    height: 100px;
-    margin: 60px auto 10px auto;
-    background-image: url(../styles/logo.png);
-    background-repeat: no-repeat;
+    // width: 90%;
+    height: 48px;
+    margin: 60px auto 0;
     text-align: center;
   }
-  .menuBtn{
+  .menuBtn {
     display: flex;
-    justify-content: space-evenly;
-    .stockBtn{
-      color: #ffffff;
-      width: 140px;
-      height: 50px;
-      background: #212933;
+    justify-content: space-between;
+    margin-top: 50px;
+    button {
+      width: calc(50% - 7px);
+      height: 60px;
       border: 0px;
-    }
-    .currencyBtn{
+      font-size: 1.125rem;
       color: #ffffff;
-      width: 140px;
-      height: 50px;
       background: #212933;
-      border: 0px;
     }
   }
-  .search{
-    width: 80%;
+  .search {
     display: block;
-    margin: 10px auto;
+    width: 100%;
+    margin: 10px auto 0;
+    padding: 0 0 5px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    caret-color: #fff;
+    background: none;
+    &:before {
+      content: '';
+    }
   }
-  .sortBox{
+
+  .sortbox {
     float: right;
-    margin-right: 10px;
+    width: 102px;
+    height: 32px;
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 0.8462rem;
+    color: #fff;
+    background: #1c2024;
   }
+
   .none {
     display: none;
+  }
+
+  // list
+  .sidebar {
+    margin-top: 20px;
+    li {
+      padding: 12px 0;
+      border-bottom: 1px solid #444;
+      .sidebar-left {
+        float: left;
+        max-width: 65%;
+        .sidebar-name {
+          font-size: 0.6875rem;
+          color: #979797;
+        }
+      }
+      .sidebar-right {
+        float: right;
+        .sidebar-change {
+          margin-left: 10px;
+          font-size: 0.8462rem;
+          vertical-align: super;
+        }
+      }
+
+      .VictoryContainer {
+        display: inline-block;
+      }
+    }
   }
 }

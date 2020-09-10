@@ -4,7 +4,8 @@ const prefix = "stockflow/selectedStock";
 
 const initialState = {
   loading: true,
-  selectedStock: "",
+  kind : "",
+  symbol: "",
   error: null,
 };
 
@@ -33,7 +34,8 @@ const failGetelectedStock = (error) => {
 };
 
 function* getSelectedStockSaga(action) {
-  const { selectedStock } = action.payload;
+  const  selectedStock = action.payload;
+  console.log(selectedStock)
   yield put(startGetSelectedStock());
   try {
     yield put(successGetSelectedStock(selectedStock));
@@ -43,10 +45,11 @@ function* getSelectedStockSaga(action) {
 }
 
 const GET_SELECTEDSTOCK_SAGA = "GET_SELECTEDSTOCK_SAGA";
-export const getSelectedStockSagaActionCreator = (selectedStock) => ({
+export const getSelectedStockSagaActionCreator = (symbol, kind) => ({
   type: GET_SELECTEDSTOCK_SAGA,
   payload: {
-    selectedStock,
+    symbol,
+    kind
   },
 });
 
@@ -68,7 +71,8 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: false,
-        selectedStock: action.selectedStock,
+        kind : action.selectedStock.kind,
+        symbol: action.selectedStock.symbol,
         error: null,
       };
     case GET_SELECTEDSTOCK_FAIL:
