@@ -156,7 +156,7 @@ export function getIndicatorSagaActionCreator() {
 function* getIndicatorSaga() {
   yield put(startGetIndicator());
   try {
-    const symbol = yield select((state) => state.selectedStock.selectedStock);
+    const symbol = yield select((state) => state.selectedStock.symbol);
     if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol);
     yield put(SuccessGetIndicator(indicator));

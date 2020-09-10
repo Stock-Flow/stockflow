@@ -59,7 +59,7 @@ function* getSideBarStockSaga(action) {
       stocks = DataProcessingService.AdjustSplit(stocks);
       stocks = stocks.map(stock => ({
         ...stock,
-        stockData: DataProcessingService.GraphDataProcessing(stock)
+        stockData: DataProcessingService.sidebarGraphDataProcessing(stock)
       }))
       yield put(SuccessGetSideBarStock(stocks))
     } else {
@@ -127,6 +127,7 @@ function* initialSideBarStockSaga() {
   yield put(startGetSideBarStock());
   try {
     let stocks = yield select(state => state.djia.djia);
+    console.log(stocks);
     stocks = stocks.slice(0, 10);
     yield put(SuccessGetSideBarStock(stocks));
   } catch (error) {

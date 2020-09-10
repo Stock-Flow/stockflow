@@ -4,7 +4,7 @@ import {
 const DOW_DIVISOR = 0.14748071991788;
 export default class DataProcessingService {
   static DataProcessing(data, func) {
- 
+
     const ProcessedData = {
       symbol: data["Meta Data"]["2. Symbol"],
       stockData: data[func]
@@ -13,12 +13,12 @@ export default class DataProcessingService {
     return ProcessedData;
   }
   static CurrencyDataProcessing(data, func) {
-  
+
     const ProcessedData = {
       symbol: data["Meta Data"]["2. Digital Currency Code"],
       currencyData: data[func]
     }
-   
+
     return ProcessedData;
   }
 
@@ -43,14 +43,28 @@ export default class DataProcessingService {
     const high = DataProcessingService.MakeValueArray(data, "2. high")
     const low = DataProcessingService.MakeValueArray(data, "3. low")
     const close = DataProcessingService.MakeValueArray(data, "4. close")
-
+    const volume = DataProcessingService.MakeValueArray(data, "6. volume")
     return date.map((item, i) => {
       return {
         time: item,
         open: open[i],
         high: high[i],
         low: low[i],
-        close: close[i]
+        close: close[i],
+        volume: volume[i],
+      }
+    })
+  }
+  static sidebarGraphDataProcessing(data) {
+    const date = Object.keys(data.stockData).reverse();
+    const open = DataProcessingService.MakeValueArray(data, "1. open")
+    const volume = DataProcessingService.MakeValueArray(data, "6. volume")
+
+    return date.map((item, i) => {
+      return {
+        time: item,
+        open: open[i],
+        volume: volume[i],
       }
     })
   }
