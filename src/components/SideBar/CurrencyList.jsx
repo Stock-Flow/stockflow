@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import Plot from "react-plotly.js";
 import * as V from "victory";
 import { getSelectedSymbolActionCreator } from "../../redux/modules/selectedSymbol";
+import { getSelectedStockSagaActionCreator } from "../../redux/modules/selectedStock";
 
 export default function CurrencyList({
   currencyList,
@@ -18,9 +19,11 @@ export default function CurrencyList({
 
   const sendSymbol = (e) => {
     e.stopPropagation();
-    const selectedStock = e.target.querySelector("span").textContent;
-
-    dispatch(getSelectedSymbolActionCreator(selectedStock, "currency"));
+    // console.log(typeof(e.target.textContent));
+    // const selectedCurrency = e.target.textContent;
+    const selectedCurrency = e.target.querySelector("span").textContent
+    dispatch(getSelectedStockSagaActionCreator(selectedCurrency, "currency"));
+    dispatch(getSelectedSymbolActionCreator(selectedCurrency, "currency"));
   };
 
   return (

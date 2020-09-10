@@ -22,11 +22,13 @@ export default function StockList({
 
   const sendSymbol = (e) => {
     e.stopPropagation();
-    const selectedStock = e.target.querySelector("span").textContent;
+    // console.log(e.target.querySelector("span").textContent)
+    const selectedStock = e.target.querySelector("span").textContent
+    // const selectedStock = e.target.textContent
 
     // selectedSymbol.a(selectedStock);
-    dispatch(getSelectedStockSagaActionCreator(selectedStock));
-    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedSymbolActionCreator(selectedStock , "stock"));
   };
 
   if (!loading) {

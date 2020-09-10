@@ -4,7 +4,7 @@ import {
 const DOW_DIVISOR = 0.14748071991788;
 export default class DataProcessingService {
   static DataProcessing(data, func) {
-    console.log(data)
+ 
     const ProcessedData = {
       symbol: data["Meta Data"]["2. Symbol"],
       stockData: data[func]
@@ -12,17 +12,29 @@ export default class DataProcessingService {
 
     return ProcessedData;
   }
+  static CurrencyDataProcessing(data, func) {
+  
+    const ProcessedData = {
+      symbol: data["Meta Data"]["2. Digital Currency Code"],
+      currencyData: data[func]
+    }
+   
+    return ProcessedData;
+  }
 
 
 
   static SearchDataProcessing(data) {
-    console.log(data);
+
     const ProcessedData = data.bestMatches.map(match => match["1. symbol"]);
     return ProcessedData;
   }
 
   static MakeValueArray(data, func) {
     return Object.values(data.stockData).reverse().map(item => item[func]);
+  }
+  static MakeCurrencyValueArray(data, func) {
+    return Object.values(data.currencyData).reverse().map(item => item[func]);
   }
 
   static GraphDataProcessing(data) {
@@ -31,6 +43,24 @@ export default class DataProcessingService {
     const high = DataProcessingService.MakeValueArray(data, "2. high")
     const low = DataProcessingService.MakeValueArray(data, "3. low")
     const close = DataProcessingService.MakeValueArray(data, "4. close")
+
+    return date.map((item, i) => {
+      return {
+        time: item,
+        open: open[i],
+        high: high[i],
+        low: low[i],
+        close: close[i]
+      }
+    })
+  }
+  static CurrencyGraphDataProcessing(data) {
+
+    const date = Object.keys(data.currencyData).reverse();
+    const open = DataProcessingService.MakeCurrencyValueArray(data, "1b. open (USD)")
+    const high = DataProcessingService.MakeCurrencyValueArray(data, "2b. high (USD)")
+    const low = DataProcessingService.MakeCurrencyValueArray(data, "3b. low (USD)")
+    const close = DataProcessingService.MakeCurrencyValueArray(data, "4b. close (USD)")
 
     return date.map((item, i) => {
       return {
@@ -93,6 +123,25 @@ export default class DataProcessingService {
 
     return processedData;
   }
+  static AdjustCurrencySplitSingle(data) {
+    let processedData = data
+   
+    const date = Object.keys(data.currencyData)
+    let split = 0;
+    for (let j = 0; j < Object.keys(data.currencyData).length; j++) {
+      if (split !== 0) {
+        processedData.currencyData[date[j]]['1a. open (USD)'] /= split
+        processedData.currencyData[date[j]]['2a. high (USD)'] /= split
+        processedData.currencyData[date[j]]['3a. low (USD)'] /= split
+        processedData.currencyData[date[j]]['4a. close (USD)'] /= split
+      }
+      if (data.currencyData[date[j]]['8. split coefficient'] !== '1.0000') {
+        split = +data.currencyData[date[j]]['8. split coefficient'];
+      }
+    } 
+    return processedData;
+  }
+
   static IndicatorsProcessing(data, symbol) {
     if (symbol === "BBANDS") {
       const date = Object.keys(data[`Technical Analysis: ${symbol}`])

@@ -10,7 +10,6 @@ import DataProcessingService from "../../services/DataProcessingService";
 export default function DjiagraphContainer() {
   const DOW_DIVISOR = 0.14748071991788;
   const djia = useSelector((state) => state.djia.djia);
-  let djiaList = [];
   // const sum = useEffect(() => {
   //   sumOpenData()
   // }, [])

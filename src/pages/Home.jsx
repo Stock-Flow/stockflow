@@ -6,21 +6,25 @@ import SideBarContent from '../contents/SideBarContent';
 import './Home.scss';
 import { useSelector } from 'react-redux';
 import DetailStockGraphContainer from '../containers/Detail/DetailStockGraphContainer';
+import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGraphContainer';
 import ForeignExchangeContainer from '../containers/MainDjia/ForeignExchangeContainer';
 
 export default function Home() {
   const selectedStock = useSelector(
-    (state) => state.selectedStock.selectedStock,
-
+    (state) => state.selectedStock,
   );
   return (
     <div className="home">
       <SideBarContent />
-      {selectedStock.length !== 0 ? (
-        <DetailStockGraphContainer symbol={selectedStock} />
+      {
+      selectedStock.kind === 'stock' ? (
+        <DetailStockGraphContainer symbol={selectedStock.symbol} />
+      ) : selectedStock.kind === 'currency' ? (
+        <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
       ) : (
         <DjiagraphContainer />
-      )}
+      )
+      }
       <ForeignExchangeContainer />
     </div>
   );

@@ -8,6 +8,7 @@ import { sideBarCurrencySaga } from '../modules/sidebarCurrency';
 import { currencyNowSaga } from '../modules/currencynow';
 
 import { detailStockSaga } from '../modules/detailStock';
+import { detailCurrencySaga } from '../modules/detailCurrency';
 import { exchangeSaga } from '../modules/exchange';
 import { selectedStockSaga } from '../modules/selectedStock';
 
@@ -21,7 +22,7 @@ export default function* rootSaga() {
     sideBarCurrencySaga(),
     sideBarStockSaga(),
     detailStockSaga(),
-
+    detailCurrencySaga(),
     exchangeSaga(),
     selectedStockSaga(),
 

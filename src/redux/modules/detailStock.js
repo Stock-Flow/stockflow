@@ -1,5 +1,4 @@
 
-
 import DetailStockService from "../../services/DetailStockService";
 import {
   put,
@@ -109,7 +108,6 @@ function* getDetailStockSaga(action) {
 
 const GET_DETAILSTOCK_SAGA = "GET_DETAILSTOCK_SAGA";
 export const getDetailStockSagaActionCreator = (symbol, date) => ({
-
   type: GET_DETAILSTOCK_SAGA,
   payload: {
     func: 'TIME_SERIES_DAILY_ADJUSTED',
