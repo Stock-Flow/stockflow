@@ -9,7 +9,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   const chartposition = useRef();
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 700,
+      width: 650,
       height: 400,
     });
     chart.current.applyOptions({
@@ -41,5 +41,10 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     const lineSeries = chart.current.addCandlestickSeries({ title: 'DOW J' });
     lineSeries.setData(stockList);
   }
-  return <div ref={chartposition}></div>;
+  return (
+    <>
+      <h1>DOW J</h1>
+      <div ref={chartposition}></div>
+    </>
+  );
 }

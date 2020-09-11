@@ -12,7 +12,7 @@ import { selectedStockSaga } from '../modules/selectedStock';
 
 import { selectedSymbolSaga } from '../modules/selectedSymbol';
 
-export default function* rootSaga() {
+export default function* () {
   yield all([
     stockSaga(),
     DJIASaga(),

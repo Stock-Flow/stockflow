@@ -34,6 +34,7 @@ export default function SideBarContent() {
     setStockSearch('');
     setCurrencySearch('');
   }, []);
+
   return (
     <div className="sidebar-wrap">
       <Logo />

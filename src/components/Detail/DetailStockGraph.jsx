@@ -33,7 +33,7 @@ export default function DetailStockGraph({
   stock,
   volume,
   getMACDData,
-  getStochasticSlow
+  getStochasticSlow,
 }) {
   //chart ref
   const chart = useRef();
@@ -95,11 +95,10 @@ export default function DetailStockGraph({
   const [MACDSignalColor, setMACDSignalColor] = useState('#181818');
 
   const [macdOscCk, setMacdOscck] = useState(false);
-  const [MACDOSCColor, setMACDOSCColor] = useState('#651542')
+  const [MACDOSCColor, setMACDOSCColor] = useState('#651542');
 
   const [disparityCk, setDisparityck] = useState(false);
   const [disparityColor, setDisparityColor] = useState('#00ffff');
-
 
   const [stochasticSlowCk, setStochasticSlowck] = useState(false);
   const [slowDColor, setSlowDColor] = useState('#cccc00');
@@ -184,11 +183,12 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
-
-    })
-    disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
-    disparityChart.current.resize(0, 0)
+    });
+    disparityChart.current = createChart(disparityPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    disparityChart.current.resize(0, 0);
     disparityChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -198,9 +198,11 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
-    })
-    MACDChart.current = createChart(MACDPosition.current, { width: 0, height: 0 })
+    });
+    MACDChart.current = createChart(MACDPosition.current, {
+      width: 0,
+      height: 0,
+    });
     MACDChart.current.resize(0, 0);
 
     MACDChart.current.applyOptions({
@@ -212,10 +214,12 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
-    })
-    MACDOSCChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
-    MACDOSCChart.current.resize(0, 0)
+    });
+    MACDOSCChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    MACDOSCChart.current.resize(0, 0);
     MACDOSCChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -225,8 +229,11 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-    })
-    stochasticSlowChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
+    });
+    stochasticSlowChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
     stochasticSlowChart.current.resize(0, 0);
     stochasticSlowChart.current.applyOptions({
       priceScale: {
@@ -237,8 +244,8 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-    })
-  }, [])
+    });
+  }, []);
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
@@ -293,7 +300,7 @@ export default function DetailStockGraph({
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
         </>
       )}
-      <button onClick={openModal}>open Modal</button>
+      <button onClick={openModal}>Open Modal</button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -490,20 +497,33 @@ export default function DetailStockGraph({
           </label>
           <label>
             RSI
-
-          <input type="checkbox" checked={rsiCk} onChange={() => {
-              if (rsiChart.current) {
-                setRsick(false);
-                indicatorChart.current.removeSeries(rsiChart.current);
-                indicatorChart.current.removeSeries(rsiSignalChart.current);
-                indicatorChart.current.resize(0, 0);
-                rsiChart.current = null;
-              } else {
-                setRsick(true);
-                GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
-                GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
-              }
-            }} />
+            <input
+              type="checkbox"
+              checked={rsiCk}
+              onChange={() => {
+                if (rsiChart.current) {
+                  setRsick(false);
+                  indicatorChart.current.removeSeries(rsiChart.current);
+                  indicatorChart.current.removeSeries(rsiSignalChart.current);
+                  indicatorChart.current.resize(0, 0);
+                  rsiChart.current = null;
+                } else {
+                  setRsick(true);
+                  GraphService.graphColor(
+                    indicatorChart.current,
+                    rsiColor,
+                    rsiChart,
+                    indicators[0],
+                  );
+                  GraphService.graphColor(
+                    indicatorChart.current,
+                    rsiSignalColor,
+                    rsiSignalChart,
+                    rsiSignal,
+                  );
+                }
+              }}
+            />
           </label>
           <label>
             RSI Color
@@ -535,125 +555,202 @@ export default function DetailStockGraph({
           </label>
           <label>
             Disparity
-
-          <input type="checkbox" checked={disparityCk} onChange={() => {
-              if (disparityGraph.current) {
-                setDisparityck(false)
-                disparityChart.current.removeSeries(disparityGraph.current);
-                disparityChart.current.resize(0, 0);
-                disparityGraph.current = null;
-              } else {
-                setDisparityck(true)
-                GraphService.graphColor(disparityChart.current, disparityColor, disparityGraph, twentyDisparity)
-              }
-            }}
+            <input
+              type="checkbox"
+              checked={disparityCk}
+              onChange={() => {
+                if (disparityGraph.current) {
+                  setDisparityck(false);
+                  disparityChart.current.removeSeries(disparityGraph.current);
+                  disparityChart.current.resize(0, 0);
+                  disparityGraph.current = null;
+                } else {
+                  setDisparityck(true);
+                  GraphService.graphColor(
+                    disparityChart.current,
+                    disparityColor,
+                    disparityGraph,
+                    twentyDisparity,
+                  );
+                }
+              }}
             />
           </label>
           <label>
             Disparity Color
-            <input type="color" onChange={e => {
-              setDisparityColor(e.target.value)
-              if (disparityGraph.current) {
-                disparityGraph.current.applyOptions({ color: disparityColor })
-              }
-            }} value={disparityColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setDisparityColor(e.target.value);
+                if (disparityGraph.current) {
+                  disparityGraph.current.applyOptions({
+                    color: disparityColor,
+                  });
+                }
+              }}
+              value={disparityColor}
+            />
           </label>
           <label>
             MACD
-          <input type="checkbox" checked={macdCk} onChange={() => {
-              if (MACDGraph.current) {
-                setMacdck(false)
-                MACDChart.current.removeSeries(MACDGraph.current);
-                MACDChart.current.removeSeries(MACDSignalGraph.current);
-                MACDChart.current.resize(0, 0);
-                MACDGraph.current = null;
-                MACDSignalGraph.current = null;
-              } else {
-                setMacdck(true)
-                console.log(MACDData.current);
-                GraphService.graphColor(MACDChart.current, MACDColor, MACDGraph, MACDData.current[0])
-                GraphService.graphColor(MACDChart.current, MACDSignalColor, MACDSignalGraph, MACDData.current[1])
-              }
-            }}
+            <input
+              type="checkbox"
+              checked={macdCk}
+              onChange={() => {
+                if (MACDGraph.current) {
+                  setMacdck(false);
+                  MACDChart.current.removeSeries(MACDGraph.current);
+                  MACDChart.current.removeSeries(MACDSignalGraph.current);
+                  MACDChart.current.resize(0, 0);
+                  MACDGraph.current = null;
+                  MACDSignalGraph.current = null;
+                } else {
+                  setMacdck(true);
+                  console.log(MACDData.current);
+                  GraphService.graphColor(
+                    MACDChart.current,
+                    MACDColor,
+                    MACDGraph,
+                    MACDData.current[0],
+                  );
+                  GraphService.graphColor(
+                    MACDChart.current,
+                    MACDSignalColor,
+                    MACDSignalGraph,
+                    MACDData.current[1],
+                  );
+                }
+              }}
             />
           </label>
           <label>
             MACD Color
-            <input type="color" onChange={e => {
-              setMACDColor(e.target.value)
-              if (MACDGraph.current) {
-                MACDGraph.current.applyOptions({ color: MACDColor })
-              }
-            }} value={MACDColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setMACDColor(e.target.value);
+                if (MACDGraph.current) {
+                  MACDGraph.current.applyOptions({ color: MACDColor });
+                }
+              }}
+              value={MACDColor}
+            />
           </label>
           <label>
             MACD Signal Color
-            <input type="color" onChange={e => {
-              setMACDSignalColor(e.target.value)
-              if (MACDSignalGraph.current) {
-                MACDSignalGraph.current.applyOptions({ color: MACDSignalColor })
-              }
-            }} value={MACDSignalColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setMACDSignalColor(e.target.value);
+                if (MACDSignalGraph.current) {
+                  MACDSignalGraph.current.applyOptions({
+                    color: MACDSignalColor,
+                  });
+                }
+              }}
+              value={MACDSignalColor}
+            />
           </label>
           <label>
             MACD Oscillator
-          <input type="checkbox" chekced={macdOscCk} onChange={() => {
-              if (MACDOSCGraph.current) {
-                setMacdOscck(false);
-                MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
-                MACDOSCChart.current.resize(0, 0);
-                MACDOSCGraph.current = null;
-              } else {
-                setMacdOscck(true);
-                GraphService.setHistogramGraph(MACDOSCChart.current, MACDOSCColor, MACDOSCGraph, MACDData.current[2])
-              }
-            }}
+            <input
+              type="checkbox"
+              chekced={macdOscCk}
+              onChange={() => {
+                if (MACDOSCGraph.current) {
+                  setMacdOscck(false);
+                  MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
+                  MACDOSCChart.current.resize(0, 0);
+                  MACDOSCGraph.current = null;
+                } else {
+                  setMacdOscck(true);
+                  GraphService.setHistogramGraph(
+                    MACDOSCChart.current,
+                    MACDOSCColor,
+                    MACDOSCGraph,
+                    MACDData.current[2],
+                  );
+                }
+              }}
             />
           </label>
           <label>
             MACDO Oscillator Color
-            <input type="color" onChange={e => {
-              setMACDOSCColor(e.target.value)
-              if (MACDOSCGraph.current) {
-                MACDOSCGraph.current.applyOptions({ color: MACDOSCColor })
-              }
-            }} value={MACDOSCColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setMACDOSCColor(e.target.value);
+                if (MACDOSCGraph.current) {
+                  MACDOSCGraph.current.applyOptions({ color: MACDOSCColor });
+                }
+              }}
+              value={MACDOSCColor}
+            />
           </label>
           <label>
             Stochastic Slow
-          <input type="checkbox" checked={stochasticSlowCk} onChange={() => {
-              if (stochasticSlowDGraph.current) {
-                setStochasticSlowck(false);
-                stochasticSlowChart.current.removeSeries(stochasticSlowDGraph.current);
-                stochasticSlowChart.current.removeSeries(stochasticSlowKGraph.current);
-                stochasticSlowChart.current.resize(0, 0);
-                stochasticSlowDGraph.current = null;
-                stochasticSlowKGraph.current = null;
-              } else {
-                setStochasticSlowck(true);
-                GraphService.graphColor(stochasticSlowChart.current, slowDColor, stochasticSlowDGraph, stochasticSlowData.current[1])
-                GraphService.graphColor(stochasticSlowChart.current, slowKColor, stochasticSlowKGraph, stochasticSlowData.current[0])
-              }
-            }} />
+            <input
+              type="checkbox"
+              checked={stochasticSlowCk}
+              onChange={() => {
+                if (stochasticSlowDGraph.current) {
+                  setStochasticSlowck(false);
+                  stochasticSlowChart.current.removeSeries(
+                    stochasticSlowDGraph.current,
+                  );
+                  stochasticSlowChart.current.removeSeries(
+                    stochasticSlowKGraph.current,
+                  );
+                  stochasticSlowChart.current.resize(0, 0);
+                  stochasticSlowDGraph.current = null;
+                  stochasticSlowKGraph.current = null;
+                } else {
+                  setStochasticSlowck(true);
+                  GraphService.graphColor(
+                    stochasticSlowChart.current,
+                    slowDColor,
+                    stochasticSlowDGraph,
+                    stochasticSlowData.current[1],
+                  );
+                  GraphService.graphColor(
+                    stochasticSlowChart.current,
+                    slowKColor,
+                    stochasticSlowKGraph,
+                    stochasticSlowData.current[0],
+                  );
+                }
+              }}
+            />
           </label>
           <label>
             Stochastic Slow K Color
-          <input type="color" onChange={e => {
-              setSlowKColor(e.target.value)
-              if (stochasticSlowKGraph.current) {
-                stochasticSlowKGraph.current.applyOptions({ color: slowKColor })
-              }
-            }} value={slowKColor} />
+            <input
+              type="color"
+              onChange={(e) => {
+                setSlowKColor(e.target.value);
+                if (stochasticSlowKGraph.current) {
+                  stochasticSlowKGraph.current.applyOptions({
+                    color: slowKColor,
+                  });
+                }
+              }}
+              value={slowKColor}
+            />
           </label>
           <label>
             Stochastic Slow D Color
-          <input type="color" onChange={e => {
-              setSlowDColor(e.target.value)
-              if (stochasticSlowDGraph.current) {
-                stochasticSlowDGraph.current.applyOptions({ color: slowDColor })
-              }
-            }} value={slowDColor} />
-
+            <input
+              type="color"
+              onChange={(e) => {
+                setSlowDColor(e.target.value);
+                if (stochasticSlowDGraph.current) {
+                  stochasticSlowDGraph.current.applyOptions({
+                    color: slowDColor,
+                  });
+                }
+              }}
+              value={slowDColor}
+            />
           </label>
           <button onClick={closeModal}>Submit</button>
         </form>
