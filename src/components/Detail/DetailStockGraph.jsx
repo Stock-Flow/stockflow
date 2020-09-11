@@ -350,6 +350,15 @@ export default function DetailStockGraph({
       if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
       assistChart.current.removeSeries(volumeChart.current);
     }
+    indicatorChart.current.resize(0, 0);
+    setRsick(false);
+    stochasticSlowChart.current.resize(0, 0)
+    setStochasticSlowck(false);
+    MACDChart.current.resize(0, 0);
+    setMacdck(false)
+    MACDOSCChart.current.resize(0, 0);
+    setMacdOscCk(false);
+
   }, [symbol]);
 
   useEffect(() => {
