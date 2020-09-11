@@ -15,10 +15,7 @@ export default function CurrencyList({
 
   const dispatch = useDispatch();
 
-  const sendSymbol = (e) => {
-    e.stopPropagation();
-    const selectedStock = e.target.querySelector('span').textContent;
-
+  const sendSymbol = (selectedStock) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, "currency"));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
   };
@@ -41,8 +38,13 @@ export default function CurrencyList({
           });
           // let color = currency.change[0] === "-" ? "green" : "red"
 
+          function transSymbol(e) {
+            e.stopPropagation();
+            sendSymbol(currency['Meta Data']['2. Digital Currency Code']);
+          }
+
           return (
-            <li onClick={sendSymbol} className="clear-fix">
+            <li onClick={transSymbol} className="clear-fix">
               {/* {currency.change} */}
               <div className="sidebar-left">
                 <span className="sidebar-symbol">
