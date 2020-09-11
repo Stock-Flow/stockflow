@@ -13,7 +13,6 @@ import {
   createBrowserHistory
 } from 'history';
 import reducer from './modules/reducer'
-import rootSaga from "./middlewares/saga";
 
 export const history = createBrowserHistory();
 export const sagaMiddleware = createSagaMiddleware();

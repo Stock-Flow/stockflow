@@ -11,6 +11,7 @@ import DataProcessingService from '../../services/DataProcessingService'
 import {
   useDispatch
 } from 'react-redux'
+import LocalStorageService from '../../services/LocalStorageService'
 
 
 const prefix = "stockflow/sidebarstock/"
@@ -102,7 +103,7 @@ const failGetStockNow = (error) => {
 function* getStockNowSaga() {
   yield put(startGetStockNow());
   try {
-    const savedStocks = JSON.parse(localStorage.getItem("stockSideBar"));
+    const savedStocks = LocalStorageService.getItem("stockSideBar");
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
     if (stockNow.length === 0) {
       return;
@@ -111,7 +112,7 @@ function* getStockNowSaga() {
       yield put(successGetStockNow(savedStocks));
     } else {
       const stocks = yield call(StockService.getStockNow, stockNow);
-      localStorage.setItem("stockSideBar", JSON.stringify(stocks));
+      LocalStorageService.setItem("stockSideBar", stocks);
       yield put(successGetStockNow(stocks));
     }
   } catch (error) {

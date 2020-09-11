@@ -1,5 +1,9 @@
-import { put, takeEvery, takeLatest, select } from 'redux-saga/effects';
-import { useSelector } from 'react-redux';
+import {
+  put,
+  takeLatest,
+  select
+} from 'redux-saga/effects';
+
 
 const prefix = 'stockflow/selectedSymbol';
 
@@ -73,12 +77,12 @@ function* getSelectedSymbolSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol
-          ? {
-              ...symbol,
-              count: symbol.count + 1,
-            }
-          : symbol,
+        symbol.symbol === action.payload.selectedSymbol ?
+        {
+          ...symbol,
+          count: symbol.count + 1,
+        } :
+        symbol,
       );
     }
     yield put(selectedSymbolStart());
@@ -104,12 +108,12 @@ function* getSelectedSymbolSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol
-          ? {
-              ...symbol,
-              count: symbol.count + 1,
-            }
-          : symbol,
+        symbol.symbol === action.payload.selectedSymbol ?
+        {
+          ...symbol,
+          count: symbol.count + 1,
+        } :
+        symbol,
       );
     }
     yield put(selectedSymbolStart());
@@ -142,7 +146,7 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case SUCCESS:
@@ -161,15 +165,15 @@ export default function reducer(prevState = initialState, action) {
           error: null,
         };
       }
-    case FAIL:
-      return {
-        ...prevState,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return {
-        ...prevState,
-      };
+      case FAIL:
+        return {
+          ...prevState,
+          loading: false,
+            error: action.error,
+        };
+      default:
+        return {
+          ...prevState,
+        };
   }
 }

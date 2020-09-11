@@ -1,20 +1,25 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
 html {
   font-size: 16px;
+
   ul,
   li {
     margin: 0;
     padding: 0;
     list-style: none;
   }
+
   input:focus {
     outline: none;
   }
+
   select {
     border: none;
   }
+
   vertical-align: top;
+
   .clear-fix {
     &::after {
       content: '';
@@ -22,45 +27,71 @@ html {
       clear: both;
     }
   }
+
   .home {
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
     color: #fff;
     background: #1e1e1e;
+
     .detail-stock {
       display: block;
     }
   }
+
   // 사이드바를 제외한 메인 뷰
   main {
     width: 80%;
-    padding-left: 90px;
+    padding: 90px 70px 0 90px;
     .tv-lightweight-charts {
       display: inline-block;
     }
+
     > div {
       display: inline-block;
     }
   }
 }
-
+.ReactModal__Overlay {
+  background-color: rgba(41, 41, 41, 0.9) !important;
+}
+.ReactModal__Content {
+  box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
 .ReactModal__Content form label {
   display: block;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  input {
+    margin-left: 20px;
+  }
 }
 
 .home {
-
-
   .detail-stock {
     display: block;
+
+    .chart .tv-lightweight-charts {
+      margin: 10px 20px;
+    }
+
+    .detail-button {
+      background-color: #212933;
+      border: none;
+      color: #eeeeee;
+      margin: 20px;
+      width: 240px;
+      height: 50px;
+    }
+
+    h2 {
+      width: 800px;
+      margin-left: 20px;
+    }
   }
 
-
-
-
   .sidebar {
-    border: solid 2px black;
     box-sizing: border-box;
-    width: 25vw;
   }
 }

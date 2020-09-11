@@ -2,12 +2,10 @@ import StockService from '../../services/StockService'
 import {
   put,
   call,
-  select,
   takeLeading,
-  takeEvery,
-  all
 } from 'redux-saga/effects'
 import DataProcessingService from '../../services/DataProcessingService';
+import LocalStorageService from '../../services/LocalStorageService';
 
 
 
@@ -54,7 +52,7 @@ const failGetDJIA = (error) => {
 }
 
 function* getDJIASaga() {
-  const DJIAList = JSON.parse(localStorage.getItem('djia'));
+  const DJIAList = LocalStorageService.getDjia(initialState.date);
   yield put(startGetDJIA())
   try {
     yield
@@ -67,19 +65,9 @@ function* getDJIASaga() {
         ...djia,
         stockData: DataProcessingService.GraphDataProcessing(djia)
       }))
-      localStorage.setItem('djia', JSON.stringify(DJIAList));
-      yield put(successGetDJIA(DJIAList));
-    } else if (new Date().getDate() !== initialState.date) {
-      let DJIAList = yield call(StockService.getDJIA);
-      DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
-      DJIAList = DataProcessingService.AdjustSplit(DJIAList);
-      DJIAList = DJIAList.map(djia => ({
-        ...djia,
-        stockData: DataProcessingService.GraphDataProcessing(djia)
-      }))
+      LocalStorageService.setItem('djia', DJIAList);
       yield put(successGetDJIA(DJIAList));
     } else {
-      console.log(DJIAList);
       yield put(successGetDJIA(DJIAList));
     }
 

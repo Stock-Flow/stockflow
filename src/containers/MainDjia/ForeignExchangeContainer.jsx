@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ForeignExchange from '../../components/MainDjia/ForeignExchange';
 import { getExchangeSagaActionCreator } from '../../redux/modules/exchange';
-import { useEffect } from 'react';
 
 export default function ForeignExchangeContainer() {
   const loading = useSelector((state) => state.exchange.loading);

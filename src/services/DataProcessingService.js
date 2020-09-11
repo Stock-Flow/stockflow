@@ -1,6 +1,3 @@
-import {
-  concatSeries
-} from "async";
 const DOW_DIVISOR = 0.14748071991788;
 export default class DataProcessingService {
   static DataProcessing(data, func) {

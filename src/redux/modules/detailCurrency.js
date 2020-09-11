@@ -9,7 +9,7 @@ import IndicatorService from "../../services/IndicatorService";
 
 
 
-const prefix = 'currencyflow/currency';
+const prefix = 'stockflow/currency';
 
 const initialState = {
   loading: true,
@@ -44,10 +44,10 @@ const failGetDetailCurrency = (error) => {
     error,
   };
 };
-const getCurrencyFromLocalStorage = (detailCurrency) => {
+const getCurrencyFromLocalStorage = (currency) => {
   return {
     type: GET_CURRENCYFROMLOCALSTORAGE,
-    detailCurrency
+    currency
   }
 }
 
@@ -128,7 +128,7 @@ const FailGetIndicator = (error) => {
 
 const GET_INDICATOR_SAGA = 'GET_INDICATOR_SAGA'
 
-//사가색션생성자 함수
+// 사가색션생성자 함수
 export function getIndicatorSagaActionCreator() {
   return {
     type: GET_INDICATOR_SAGA,
@@ -143,7 +143,7 @@ function* getIndicatorSaga() {
     if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol)
     yield put(SuccessGetIndicator(indicator))
-    const detailCurrency = yield select(state => state.detailStock)
+    const detailCurrency = yield select(state => state.detailCurrency)
     localStorage.setItem(symbol, JSON.stringify(detailCurrency))
   } catch (error) {
     console.log(error)
@@ -164,7 +164,7 @@ function* getIndicatorSaga() {
 
 export function* detailCurrencySaga() {
   yield takeEvery(GET_DETAILCURRENCY_SAGA, getDetailCurrencySaga);
-  yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getIndicatorSaga);
+  // yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getIndicatorSaga);
 }
 
 
@@ -193,10 +193,10 @@ export default function reducer(prevState = initialState, action) {
     case GET_DETAILCURRENCY_SUCCESS:
       return {
 
-        loading: true,
-          currency: action.currency,
-          error: null,
-          volume: action.volume
+        loading: false,
+        currency: action.currency,
+        error: null,
+        volume: action.volume
       };
     case GET_DETAILCURRENCY_FAIL:
       return {
