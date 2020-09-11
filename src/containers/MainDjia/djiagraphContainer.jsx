@@ -6,7 +6,6 @@ import '../../components/MainDjia/MainDjia.scss';
 import DataProcessingService from '../../services/DataProcessingService';
 
 export default function DjiagraphContainer() {
-
   const djia = useSelector((state) => state.djia.djia);
   // const sum = useEffect(() => {
   //   sumOpenData()
