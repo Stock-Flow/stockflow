@@ -4,6 +4,9 @@ import { createChart } from 'lightweight-charts';
 import Modal from 'react-modal';
 import GraphService from '../../services/GraphService';
 import './DetailStockGraph.scss';
+import { dispatch } from 'd3';
+import SearchService from '../../services/SearchService';
+import { title } from 'process';
 
 const customStyles = {
   content: {
@@ -25,12 +28,14 @@ Modal.setAppElement(document.getElementById('option_modal'));
 // loading
 export default function DetailStockGraph({
   getDetailStock,
+  getCompare,
   loading,
   symbol,
   movingAverage,
   rsiSignal,
   indicators,
   stock,
+  compare,
   volume,
   getMACDData,
   getStochasticSlow,
@@ -49,6 +54,7 @@ export default function DetailStockGraph({
   const disparityPosition = useRef();
   const MACDPosition = useRef();
   //graph ref
+  const compareGraph = useRef();
   const candleSeries = useRef();
   const smaFive = useRef();
   const smaHundredTwenty = useRef();
@@ -127,12 +133,21 @@ export default function DetailStockGraph({
   }));
 
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+
+
+  function openAddModal() {
+    setAddModalIsOpen(true);
+  }
+  function closeAddModal() {
+    setAddModalIsOpen(false);
+  }
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -265,6 +280,12 @@ export default function DetailStockGraph({
   }, [symbol]);
 
   useEffect(() => {
+    if (compareGraph.current) chart.current.removeSeries(compareGraph.current)
+    compareGraph.current = chart.current.addCandlestickSeries({ title: search.current });
+    compareGraph.current.setData(compare);
+  }, [compare])
+
+  useEffect(() => {
     candleSeries.current = chart.current.addCandlestickSeries({
       title: symbol,
     });
@@ -286,7 +307,19 @@ export default function DetailStockGraph({
     MACDData.current = getMACDData(stock);
     stochasticSlowData.current = getStochasticSlow(stock, 12, 5, 5);
   }, [stock]);
+  const searchDone = useRef();
+  const searchValue = useRef();
+  const [searchList, setSearchList] = useState([]);
+  const search = useRef();
 
+
+  const checkSearchDone = async () => {
+
+    if (searchValue.current) {
+      search.current = searchValue.current.value;
+      setSearchList(await SearchService.searchingStock(search.current));
+    }
+  };
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
@@ -300,7 +333,40 @@ export default function DetailStockGraph({
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
         </>
       )}
+<<<<<<< HEAD
       <button onClick={openModal}>Open Modal</button>
+=======
+      <button onClick={openAddModal}>open Add Modal</button>
+      <button onClick={() => {
+        if (compareGraph.current) {
+          chart.current.removeSeries(compareGraph.current);
+          compareGraph.current = null;
+        }
+      }}>remove compare graph</button>
+      <Modal isOpen={addModalIsOpen} onAfterOpen={modalIsOpen} onRequestClose={closeAddModal} style={customStyles}>
+        <input
+          className="search"
+          type="text"
+          list="search-list"
+          onChange={() => {
+            checkSearchDone();
+          }}
+          ref={searchValue}
+        />
+
+        <datalist id='search-list'>
+          {searchList.length !== 0 && searchList.bestMatches.map(item => {
+            return <option value={item['1. symbol']}></option>
+          })}
+        </datalist>
+        <button onClick={() => {
+          getCompare(searchValue.current.value);
+          closeAddModal()
+        }}>close</button>
+      </Modal>
+
+      <button onClick={openModal}>open Modal</button>
+>>>>>>> f5eaa2d7671d4be0444c17d3f01f2635a525e453
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

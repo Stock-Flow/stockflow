@@ -17,13 +17,9 @@ export default function StockList({
     getsidebarStock(search);
   }, [getsidebarStock, search]);
 
-  const sendSymbol = (e) => {
-    e.stopPropagation();
-    const selectedStock = e.target.querySelector('span').textContent;
-
-    // selectedSymbol.a(selectedStock);
-    dispatch(getSelectedStockSagaActionCreator(selectedStock));
-    dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
+  const sendSymbol = (selectedStock) => {
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
   };
 
   if (!loading) {
@@ -39,8 +35,14 @@ export default function StockList({
                 stocks.push({ date: item, price: values[i] });
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
+
+              function transSymbol(e) {
+                e.stopPropagation();
+                sendSymbol(stock.symbol);
+              }
+
               return (
-                <li onClick={sendSymbol} className="clear-fix">
+                <li onClick={transSymbol} className="clear-fix">
                   <div className="sidebar-left">
                     <span className="sidebar-symbol">{stock.symbol}</span>
                     <br />

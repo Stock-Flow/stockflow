@@ -19,6 +19,8 @@ export default class IndicatorService {
     const promIndicator = indicatorsApi.map(api => getindicatorPromise(api));
     let indicators = await Promise.all(promIndicator)
       .then(result => result.map(item => item.data))
+
+
     console.log(indicators);
     indicators = indicators.map((indicator, i) => DataProcessingService.IndicatorsProcessing(indicator, indicatorSymbols[i]));
     return indicators;

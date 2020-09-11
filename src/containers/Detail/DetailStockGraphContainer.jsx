@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DetailStockGraph from '../../components/Detail/DetailStockGraph';
 import { getDetailStockSagaActionCreator } from '../../redux/modules/detailStock';
+import { getCompareSagaActionCreator } from '../../redux/modules/compare';
 
 export default function DetailStockGraphContainer({
   func = 'TIME_SERIES_DAILY_ADJUSTED',
@@ -12,6 +13,7 @@ export default function DetailStockGraphContainer({
   const stock = useSelector((state) => state.detailStock.stock);
   const indicators = useSelector((state) => state.detailStock.indicator);
   const volume = useSelector((state) => state.detailStock.volume);
+  const compare = useSelector((state) => state.compare.stock);
 
   const dispatch = useDispatch();
 
@@ -21,6 +23,9 @@ export default function DetailStockGraphContainer({
     },
     [dispatch],
   );
+  const getCompare = useCallback((symbol) => {
+    dispatch(getCompareSagaActionCreator(symbol))
+  }, [])
 
   const movingAverage = (stock, duration) => {
     const movingAverage = [];
@@ -111,6 +116,7 @@ export default function DetailStockGraphContainer({
   return (
     <DetailStockGraph
       getDetailStock={getDetailStock}
+      getCompare={getCompare}
       movingAverage={movingAverage}
       rsiSignal={rsiSig}
       getMACDData={getMACDData}
@@ -119,6 +125,7 @@ export default function DetailStockGraphContainer({
       loading={loading}
       stock={stock}
       volume={volume}
+      compare={compare}
       symbol={symbol}
     />
   );
