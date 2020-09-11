@@ -10,8 +10,8 @@ export default function FavoriteListContainer() {
   let favoriteCurrencyList = useSelector(
     (state) => state.selectedSymbol.selectedCurrencySymbol,
   );
-  // console.log(favoriteStockList);
-  // console.log(favoriteCurrencyList);
+  console.log(favoriteStockList);
+  console.log(favoriteCurrencyList);
 
   const dispatch = useDispatch();
 
