@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DjiaGraph from '../../components/MainDjia/djiagraph';
-import { useEffect } from 'react';
+
 import '../../components/MainDjia/MainDjia.scss';
 import DataProcessingService from '../../services/DataProcessingService';
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DetailStockGraph from '../../components/Detail/DetailStockGraph';
 import { getDetailStockSagaActionCreator } from '../../redux/modules/detailStock';
@@ -25,7 +25,7 @@ export default function DetailStockGraphContainer({
   );
   const getCompare = useCallback((symbol) => {
     dispatch(getCompareSagaActionCreator(symbol))
-  }, [])
+  }, [dispatch])
 
   const movingAverage = (stock, duration) => {
     const movingAverage = [];

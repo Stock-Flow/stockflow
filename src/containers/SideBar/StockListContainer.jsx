@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import StockList from '../../components/SideBar/StockList';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarstock';

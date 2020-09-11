@@ -1,0 +1,34 @@
+.reminding-stock-wrap {
+  .reminding-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    text-indent: -9999px;
+    background: #444 url(../../styles/bell.png) center no-repeat;
+    background-size: 60%;
+  }
+  .stocklist-wrap {
+    position: fixed;
+    bottom: 75px;
+    right: 50px;
+    background: #333;
+    .stocklist {
+    }
+    .stocklist-item {
+      padding: 15px 10px;
+      border-bottom: 1px solid #000;
+      transition: 0.3s all;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:hover {
+        background: #444;
+      }
+    }
+  }
+}

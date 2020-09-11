@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
-import { useSelector } from 'react-redux';
-import DataProcessingService from '../../services/DataProcessingService';
+
 import './MainDjia.scss';
 
 export default function DjiaGraph({ djiaList, djiaDate }) {
   const chart = useRef();
+  const lineSeries = useRef();
   const chartposition = useRef();
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
@@ -22,6 +22,8 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
         barSpacing: 10,
       },
     });
+
+    lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
   }, []);
 
   let stockList = [];
@@ -38,8 +40,11 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   }
 
   if (chart.current) {
-    const lineSeries = chart.current.addCandlestickSeries({ title: 'DOW J' });
-    lineSeries.setData(stockList);
+    lineSeries.current.setData(stockList);
+    chart.current.timeScale().setVisibleLogicalRange({
+      from: stockList.length - 60,
+      to: stockList.length,
+    });
   }
   return (
     <>

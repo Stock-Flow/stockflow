@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import * as V from 'victory';
-import { createChart } from 'lightweight-charts';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
 
@@ -18,8 +17,8 @@ export default function StockList({
   }, [getsidebarStock, search]);
 
   const sendSymbol = (selectedStock) => {
-    dispatch(getSelectedStockSagaActionCreator(selectedStock, "stock"));
-    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, 'stock'));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
   };
 
   if (!loading) {
