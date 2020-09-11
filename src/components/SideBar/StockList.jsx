@@ -17,8 +17,8 @@ export default function StockList({
   }, [getsidebarStock, search]);
 
   const sendSymbol = (selectedStock) => {
-    dispatch(getSelectedStockSagaActionCreator(selectedStock, "stock"));
-    dispatch(getSelectedSymbolActionCreator(selectedStock, "stock"));
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, 'stock'));
+    dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
   };
 
   if (!loading) {

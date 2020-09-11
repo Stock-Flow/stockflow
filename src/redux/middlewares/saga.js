@@ -33,7 +33,7 @@ import {
   compareSaga
 } from '../modules/compare';
 
-export default function* rootSaga() {
+export default function* () {
   yield all([
     stockSaga(),
     DJIASaga(),
