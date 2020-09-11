@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DjiaGraph from '../../components/MainDjia/djiagraph';
-import { useEffect } from 'react';
+
 import '../../components/MainDjia/MainDjia.scss';
 import DataProcessingService from '../../services/DataProcessingService';
 
 export default function DjiagraphContainer() {
-  const DOW_DIVISOR = 0.14748071991788;
+
   const djia = useSelector((state) => state.djia.djia);
   // const sum = useEffect(() => {
   //   sumOpenData()

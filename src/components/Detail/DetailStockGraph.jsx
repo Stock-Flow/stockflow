@@ -4,9 +4,8 @@ import { createChart } from 'lightweight-charts';
 import Modal from 'react-modal';
 import GraphService from '../../services/GraphService';
 import './DetailStockGraph.scss';
-import { dispatch } from 'd3';
 import SearchService from '../../services/SearchService';
-import { title } from 'process';
+
 
 const customStyles = {
   content: {
@@ -100,7 +99,7 @@ export default function DetailStockGraph({
   const [MACDColor, setMACDColor] = useState('#cc0c0c');
   const [MACDSignalColor, setMACDSignalColor] = useState('#181818');
 
-  const [macdOscCk, setMacdOscck] = useState(false);
+  const [macdOscCk, setMacdOscCk] = useState(false);
   const [MACDOSCColor, setMACDOSCColor] = useState('#651542')
 
   const [disparityCk, setDisparityck] = useState(false);
@@ -125,13 +124,13 @@ export default function DetailStockGraph({
         100,
     }))
     .reverse();
-  const sixtyDisparity = sixtyMovingAverageData.map((_, i) => ({
-    time: stock[stock.length - i - 1].time,
-    value:
-      (stock[stock.length - i - 1].open /
-        sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) *
-      100,
-  }));
+  // const sixtyDisparity = sixtyMovingAverageData.map((_, i) => ({
+  //   time: stock[stock.length - i - 1].time,
+  //   value:
+  //     (stock[stock.length - i - 1].open /
+  //       sixtyMovingAverageData[sixtyMovingAverageData.length - i - 1].value) *
+  //     100,
+  // }));
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
@@ -166,12 +165,26 @@ export default function DetailStockGraph({
       priceScale: {
         position: 'right',
         autoScale: true,
+        borderVisible: false,
+        scaleMargins: { bottom: 0.1, top: 0 },
       },
       timeScale: {
         rightOffset: 0,
         fixLeftEdge: true,
         barSpacing: 10,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          color: '#555555'
+        },
+        horzLines: {
+          color: '#555555'
+        }
+      }
     });
     assistChart.current = createChart(chartposition.current, {
       width: 800,
@@ -180,10 +193,23 @@ export default function DetailStockGraph({
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
+        borderVisible: false,
       },
       timeScale: {
         fixLeftEdge: true,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
     });
     indicatorChart.current = createChart(indicatorPosition.current, {
       width: 0,
@@ -199,7 +225,18 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
 
     })
     disparityChart.current = createChart(disparityPosition.current, { width: 0, height: 0 })
@@ -213,7 +250,18 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
     })
     MACDChart.current = createChart(MACDPosition.current, { width: 0, height: 0 })
     MACDChart.current.resize(0, 0);
@@ -227,7 +275,18 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
-
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
     })
     MACDOSCChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
     MACDOSCChart.current.resize(0, 0)
@@ -240,6 +299,18 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
         borderVisible: false,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
     })
     stochasticSlowChart.current = createChart(indicatorPosition.current, { width: 0, height: 0 })
     stochasticSlowChart.current.resize(0, 0);
@@ -247,11 +318,24 @@ export default function DetailStockGraph({
       priceScale: {
         position: 'right',
         borderVisible: false,
+
       },
       timeScale: {
         fixLeftEdge: true,
         borderVisible: false,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
     })
   }, [])
   useEffect(() => {
@@ -300,7 +384,6 @@ export default function DetailStockGraph({
     MACDData.current = getMACDData(stock);
     stochasticSlowData.current = getStochasticSlow(stock, 12, 5, 5);
   }, [stock]);
-  const searchDone = useRef();
   const searchValue = useRef();
   const [searchList, setSearchList] = useState([]);
   const search = useRef();
@@ -326,8 +409,8 @@ export default function DetailStockGraph({
           <button onClick={() => monthlyBtnClick()}>1달</button> */}
         </>
       )}
-      <button onClick={openAddModal}>open Add Modal</button>
-      <button onClick={() => {
+      <button className="detail-button" onClick={openAddModal}>Add Stock</button>
+      <button className="detail-button" onClick={() => {
         if (compareGraph.current) {
           chart.current.removeSeries(compareGraph.current);
           compareGraph.current = null;
@@ -355,7 +438,7 @@ export default function DetailStockGraph({
         }}>close</button>
       </Modal>
 
-      <button onClick={openModal}>open Modal</button>
+      <button className="detail-button" onClick={openModal}>Indicators</button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -659,14 +742,14 @@ export default function DetailStockGraph({
           </label>
           <label>
             MACD Oscillator
-          <input type="checkbox" chekced={macdOscCk} onChange={() => {
+          <input type="checkbox" checked={macdOscCk} onChange={() => {
               if (MACDOSCGraph.current) {
-                setMacdOscck(false);
+                setMacdOscCk(false);
                 MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
                 MACDOSCChart.current.resize(0, 0);
                 MACDOSCGraph.current = null;
               } else {
-                setMacdOscck(true);
+                setMacdOscCk(true);
                 GraphService.setHistogramGraph(MACDOSCChart.current, MACDOSCColor, MACDOSCGraph, MACDData.current[2])
               }
             }}
@@ -721,10 +804,10 @@ export default function DetailStockGraph({
         </form>
       </Modal>
 
-      <div ref={chartposition}></div>
-      <div ref={indicatorPosition}></div>
-      <div ref={disparityPosition}></div>
-      <div ref={MACDPosition}></div>
+      <div className="chart" ref={chartposition}></div>
+      <div className="chart" ref={indicatorPosition}></div>
+      <div className="chart" ref={disparityPosition}></div>
+      <div className="chart" ref={MACDPosition}></div>
     </div>
   );
 

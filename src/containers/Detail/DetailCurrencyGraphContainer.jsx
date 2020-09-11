@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDetailCurrencySagaActionCreator } from '../../redux/modules/detailCurrency';
 import DetailCurrencyGraph from '../../components/Detail/DetailCurrencyGraph';
@@ -13,7 +13,7 @@ export default function DetailCurrencyGraphContainer({
 
   const dispatch = useDispatch();
 
-  const getDetailCurrency= useCallback((symbol) => {
+  const getDetailCurrency = useCallback((symbol) => {
     dispatch(
       getDetailCurrencySagaActionCreator(symbol),
     );

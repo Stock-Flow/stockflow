@@ -3,7 +3,6 @@ import {
   apiKey
 } from '../key'
 import DataProcessingService from './DataProcessingService';
-const DOW_DIVISOR = 0.14748071991788;
 const DOW_ITEMS_SYMBOL = ["MMM", "IBM", "JPM", "AAPL", "GS", "NKE", "DOW", "MSFT", "MCD", "MRK", "VZ", "BA", "V", "CVX", "CSCO", "AXP", "XOM", "WMT", "DIS", "RTX", "UNH", "INTC", "WBA", "JNJ", "CAT", "KO", "TRV", "PG", "HD", "PFE"];
 
 export default class StockService {

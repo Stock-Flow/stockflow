@@ -13,11 +13,6 @@ import {
 import {
   sideBarCurrencySaga
 } from '../modules/sidebarCurrency';
-
-import {
-  currencyNowSaga
-} from '../modules/currencynow';
-
 import {
   detailStockSaga
 } from '../modules/detailStock';

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../key';
-import Logo from '../components/SideBar/Logo';
+import {
+  apiKey
+} from '../key';
 
 export default class ExchangeSerivice {
   static async getExchange(exchangeArr) {

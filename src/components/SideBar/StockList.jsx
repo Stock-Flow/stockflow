@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import * as V from 'victory';
-import { createChart } from 'lightweight-charts';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';

@@ -5,14 +5,8 @@ import {
   takeEvery,
   select
 } from 'redux-saga/effects';
-import DataProcessingService from '../../services/DataProcessingService';
 import IndicatorService from '../../services/IndicatorService';
-import {
-  symbol
-} from 'd3-shape';
-import {
-  useSelector
-} from 'react-redux';
+import LocalStorageService from '../../services/LocalStorageService';
 
 const prefix = 'stockflow/stock';
 
@@ -78,7 +72,8 @@ function* getDetailStockSaga(action) {
   } = action.payload;
   yield put(startGetDetailStock());
   try {
-    let stock = JSON.parse(localStorage.getItem(symbol));
+    const updateDate = yield select(state => state.djia.date);
+    let stock = LocalStorageService.getDetailStock(symbol, updateDate);
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
       console.log(stock[1]);
@@ -101,6 +96,7 @@ function* getDetailStockSaga(action) {
       yield put(getStockFromLocalStorage(stock));
     }
   } catch (error) {
+    console.log(error);
     yield put(failGetDetailStock(error));
   }
 }
@@ -157,11 +153,10 @@ function* getIndicatorSaga() {
   yield put(startGetIndicator());
   try {
     const symbol = yield select((state) => state.selectedStock.symbol);
-    if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol);
     yield put(SuccessGetIndicator(indicator));
     const detailStock = yield select((state) => state.detailStock);
-    localStorage.setItem(symbol, JSON.stringify(detailStock));
+    LocalStorageService.setItem(symbol, detailStock);
   } catch (error) {
     console.log(error);
     yield put(FailGetIndicator(error));
