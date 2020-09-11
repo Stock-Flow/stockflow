@@ -342,16 +342,12 @@ export default function DetailStockGraph({
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
       if (lowBBANDS.current) chart.current.removeSeries(lowBBANDS.current);
-
-      if (middleBBANDS.current)
-        chart.current.removeSeries(middleBBANDS.current);
+      if (middleBBANDS.current) chart.current.removeSeries(middleBBANDS.current);
       if (highBBANDS.current) chart.current.removeSeries(highBBANDS.current);
       if (smaFive.current) chart.current.removeSeries(smaFive.current);
       if (smaTwenty.current) chart.current.removeSeries(smaTwenty.current);
       if (smaSixty.current) chart.current.removeSeries(smaSixty.current);
-      if (smaHundredTwenty.current)
-        chart.current.removeSeries(smaHundredTwenty.current);
-
+      if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
       assistChart.current.removeSeries(volumeChart.current);
     }
   }, [symbol]);
