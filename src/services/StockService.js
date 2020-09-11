@@ -57,7 +57,6 @@ export default class StockService {
   }
 
   static async getSideBarStock(symbols) {
-<<<<<<< HEAD
     const getSideBarStockPromise = (symbol) => {
       return axios.get(
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${apiKey}`,
@@ -69,24 +68,14 @@ export default class StockService {
     let SideBarStocks = await Promise.all(promGetSideBarStock).then((result) =>
       result.map((item) => item.data),
     );
+
     SideBarStocks = SideBarStocks.filter(
       (stock) => stock['Meta Data'] !== undefined,
     );
     SideBarStocks = SideBarStocks.map((stock) =>
       DataProcessingService.DataProcessing(stock, 'Time Series (Daily)'),
     );
-=======
-    const getSideBarStockPromise = symbol => {
-      return axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${apiKey}`)
-    }
-    const promGetSideBarStock = symbols.map(symbol => getSideBarStockPromise(symbol["1. symbol"]));
-    let SideBarStocks = await Promise.all(promGetSideBarStock)
-      .then(result => result.map(item => item.data))
-
-    SideBarStocks = SideBarStocks.filter(stock => stock["Meta Data"] !== undefined)
-    SideBarStocks = SideBarStocks.map(stock => DataProcessingService.DataProcessing(stock, "Time Series (Daily)"))
     console.log(SideBarStocks);
->>>>>>> f5eaa2d7671d4be0444c17d3f01f2635a525e453
 
     return SideBarStocks;
   }
