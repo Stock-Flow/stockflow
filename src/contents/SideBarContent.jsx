@@ -89,7 +89,7 @@ export default function SideBarContent() {
     </div> */}
       <StockListContainer search={stockSearch} sort={sort} menu={menu} />
       <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
-      <FavoriteListContainer menu={menu} />
+      <FavoriteListContainer />
     </div>
   );
 }

@@ -11,11 +11,12 @@ export default function FavoriteListContainer({ menu }) {
     (state) => state.selectedSymbol.selectedCurrencySymbol,
   );
 
-  // let currencyList = useSelector(
-  //   (state) => state.sidebarCurrency.sideBarCurrency,
-  // );
+  let currencyList = useSelector(
+    (state) => state.sidebarCurrency.sideBarCurrency,
+  );
 
-  // let stockList = useSelector((state) => state.sideBarStock.sideBarStock);
+  console.log(currencyList);
+  let stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
   console.log(selectedStockSymbol);
   console.log(selectedCurrencySymbol);
@@ -25,8 +26,12 @@ export default function FavoriteListContainer({ menu }) {
   if (selectedStockSymbol.length !== 0) {
     localStorage.setItem('stockCount', JSON.stringify(selectedStockSymbol));
   }
+
   const getStockListElement = localStorage.getItem('stockCount');
-  const getLocalStockList = JSON.parse(getStockListElement);
+  let getLocalStockList = JSON.parse(getStockListElement);
+  if (getLocalStockList === null) {
+    getLocalStockList = [];
+  }
 
   if (selectedCurrencySymbol.length !== 0) {
     localStorage.setItem(
@@ -34,8 +39,12 @@ export default function FavoriteListContainer({ menu }) {
       JSON.stringify(selectedCurrencySymbol),
     );
   }
+
   const getCurrencyListElement = localStorage.getItem('currencyCount');
-  const getLocalCurrencyList = JSON.parse(getCurrencyListElement);
+  let getLocalCurrencyList = JSON.parse(getCurrencyListElement);
+  if (getLocalCurrencyList === null) {
+    getLocalCurrencyList = [];
+  }
 
   useEffect(() => {
     dispatch(
@@ -55,23 +64,23 @@ export default function FavoriteListContainer({ menu }) {
     },
   );
 
-  // if (currencyList.length !== 0) {
-  //   currencyList = currencyList.map((currency, i) => ({
-  //     ...currency,
-  //     price: Object.values(currency['Time Series (Digital Currency Daily)'])[0][
-  //       '1a. open (USD)'
-  //     ],
-  //   }));
-  // }
-  // console.log(currencyList);
+  if (currencyList.length !== 0) {
+    currencyList = currencyList.map((currency, i) => ({
+      ...currency,
+      price: Object.values(currency['Time Series (Digital Currency Daily)'])[0][
+        '1a. open (USD)'
+      ],
+    }));
+  }
+  console.log(currencyList);
 
   return (
     <FavoriteList
       favoriteStockList={favoriteStockList}
       favoriteCurrencyList={favoriteCurrencyList}
-      // currencyList={currencyList}
-      // stockList={stockList}
-      // menu={menu}
+      currencyList={currencyList}
+      stockList={stockList}
+      menu={menu}
     />
   );
 }

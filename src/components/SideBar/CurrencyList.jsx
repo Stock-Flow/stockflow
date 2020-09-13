@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import * as V from "victory";
-import { getSelectedSymbolActionCreator } from "../../redux/modules/selectedSymbol";
-import { getSelectedStockSagaActionCreator } from "../../redux/modules/selectedStock";
+import * as V from 'victory';
+import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
+import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 
 export default function CurrencyList({
   currencyList,
@@ -16,7 +16,7 @@ export default function CurrencyList({
   const dispatch = useDispatch();
 
   const sendSymbol = (selectedStock) => {
-    dispatch(getSelectedStockSagaActionCreator(selectedStock, "currency"));
+    dispatch(getSelectedStockSagaActionCreator(selectedStock, 'currency'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
   };
 
