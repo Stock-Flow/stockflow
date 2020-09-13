@@ -144,7 +144,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -349,18 +349,30 @@ export default function DetailStockGraph({
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
       if (lowBBANDS.current) chart.current.removeSeries(lowBBANDS.current);
-
-      if (middleBBANDS.current)
-        chart.current.removeSeries(middleBBANDS.current);
+      if (middleBBANDS.current) chart.current.removeSeries(middleBBANDS.current);
       if (highBBANDS.current) chart.current.removeSeries(highBBANDS.current);
+      setBBANDSCk(false)
       if (smaFive.current) chart.current.removeSeries(smaFive.current);
+      fiveCk(false)
       if (smaTwenty.current) chart.current.removeSeries(smaTwenty.current);
+      twentyCk(false)
       if (smaSixty.current) chart.current.removeSeries(smaSixty.current);
-      if (smaHundredTwenty.current)
-        chart.current.removeSeries(smaHundredTwenty.current);
-
+      sixtyCk(false)
+      if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
+      hundredTwentyCk(false)
       assistChart.current.removeSeries(volumeChart.current);
     }
+    indicatorChart.current.resize(0, 0);
+    setRsick(false);
+    stochasticSlowChart.current.resize(0, 0)
+    setStochasticSlowck(false);
+    MACDChart.current.resize(0, 0);
+    setMacdck(false)
+    MACDOSCChart.current.resize(0, 0);
+    setMacdOscCk(false);
+    disparityChart.current.resize(0, 0);
+    setDisparityck(false);
+
   }, [symbol]);
 
   useEffect(() => {
