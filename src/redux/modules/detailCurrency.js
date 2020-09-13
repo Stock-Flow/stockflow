@@ -58,10 +58,8 @@ function* getDetailCurrencySaga(action) {
   try {
 
     let currency = JSON.parse(localStorage.getItem(symbol))
-    console.log(currency)
     if (!currency) {
       currency = yield call(DetailCurrencyService.getCurrencyDaily, func, symbol, date);
-      console.log(currency);
       if (currency[0].length >= 1500) {
         currency[0] = currency[0].slice(-1500)
         currency[1] = currency[1].slice(-1500)
@@ -100,54 +98,54 @@ export const getDetailCurrencySagaActionCreator = (symbol, date) => ({
 //indicator
 
 //액션
-const GET_INDICATOR_START = `GET_INDICATOR_START`
-const GET_INDICATOR_SUCCESS = `GET_INDICATOR_SUCCESS`
-const GET_INDICATOR_FAIL = `GET_INDICATOR_FAIL`
+const GET_CURRENCYINDICATOR_START = `GET_CURRENCYINDICATOR_START`
+const GET_CURRENCYINDICATOR_SUCCESS = `GET_CURRENCYINDICATOR_SUCCESS`
+const GET_CURRENCYINDICATOR_FAIL = `GET_CURRENCYINDICATOR_FAIL`
 
 //액션생성자함수
 
-const startGetIndicator = () => {
+const startGetCurrencyIndicator = () => {
   return {
-    type: GET_INDICATOR_START,
+    type: GET_CURRENCYINDICATOR_START,
   }
 }
 
-const SuccessGetIndicator = (indicator) => {
+const SuccessGetCurrencyIndicator = (indicator) => {
   return {
-    type: GET_INDICATOR_SUCCESS,
+    type: GET_CURRENCYINDICATOR_SUCCESS,
     indicator
   }
 }
 
-const FailGetIndicator = (error) => {
+const FailGetCurrencyIndicator = (error) => {
   return {
-    type: GET_INDICATOR_FAIL,
+    type: GET_CURRENCYINDICATOR_FAIL,
     error
   }
 }
 
-const GET_INDICATOR_SAGA = 'GET_INDICATOR_SAGA'
+const GET_CURRENCYINDICATOR_SAGA = 'GET_CURRENCYINDICATOR_SAGA'
 
 // 사가색션생성자 함수
-export function getIndicatorSagaActionCreator() {
+export function getCurrencyIndicatorSagaActionCreator() {
   return {
-    type: GET_INDICATOR_SAGA,
+    type: GET_CURRENCYINDICATOR_SAGA,
   }
 }
 
 
-function* getIndicatorSaga() {
-  yield put(startGetIndicator());
+function* getCurrencyIndicatorSaga() {
+  yield put(startGetCurrencyIndicator());
   try {
     const symbol = yield select(state => state.selectedStock.symbol);
     if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol)
-    yield put(SuccessGetIndicator(indicator))
+    yield put(SuccessGetCurrencyIndicator(indicator))
     const detailCurrency = yield select(state => state.detailCurrency)
-    localStorage.setItem(symbol, JSON.stringify(detailCurrency))
+    localStorage.setItem(symbol, detailCurrency)
   } catch (error) {
     console.log(error)
-    yield put(FailGetIndicator(error));
+    yield put(FailGetCurrencyIndicator(error));
   }
 }
 
@@ -164,7 +162,7 @@ function* getIndicatorSaga() {
 
 export function* detailCurrencySaga() {
   yield takeEvery(GET_DETAILCURRENCY_SAGA, getDetailCurrencySaga);
-  // yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getIndicatorSaga);
+  yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getCurrencyIndicatorSaga);
 }
 
 
@@ -205,21 +203,21 @@ export default function reducer(prevState = initialState, action) {
         error: action.error,
       };
 
-    case GET_INDICATOR_START:
+    case GET_CURRENCYINDICATOR_START:
       return {
         ...prevState,
         loading: true,
           error: null,
       }
 
-      case GET_INDICATOR_SUCCESS:
+      case GET_CURRENCYINDICATOR_SUCCESS:
         return {
           ...prevState,
           loading: false,
             indicator: action.indicator,
             error: null,
         }
-        case GET_INDICATOR_FAIL:
+        case GET_CURRENCYINDICATOR_FAIL:
           return {
             ...prevState,
             loading: false,

@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import { useState, useRef } from 'react';
 import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
+import './DetailStockGraph.scss';
+import GraphService from '../../services/GraphService';
 
 const customStyles = {
   content: {
@@ -26,14 +28,18 @@ export default function DetailCurrencyGraph({
   symbol,
   currency,
   volume,
-  movingAverage
+  movingAverage,
+  indicators,
+  rsiSignal
 }){
  //chart ref
  const chart = useRef();
  const assistChart = useRef();
+ const indicatorChart = useRef();
 
   //chart position ref
   const chartposition = useRef();
+  const indicatorPosition = useRef();
   //graph ref
   const compareGraph = useRef();
   const candleSeries = useRef();
@@ -42,6 +48,11 @@ export default function DetailCurrencyGraph({
   const smaHundredTwenty = useRef();
   const smaTwenty = useRef();
   const smaSixty = useRef();
+  const rsiChart = useRef();
+  const rsiSignalChart = useRef();
+  const lowBBANDS = useRef();
+  const middleBBANDS = useRef();
+  const highBBANDS = useRef();
  
 
 //check
@@ -56,6 +67,14 @@ const [sixtyColor, setSixtyColor] = useState('#ff0000');
 
 const [smaHundredTwentyCk, hundredTwentyCk] = useState(false);
 const [hundredTwentyColor, setHundredTwentyColor] = useState('#ffc0cb');
+
+
+const [BBANDSCk, setBBANDSCk] = useState(false);
+const [BBANDSColor, setBBANDSColor] = useState('#00ff00');
+
+const [rsiCk, setRsick] = useState(false);
+const [rsiColor, setRsiColor] = useState('#ffff00');
+const [rsiSignalColor, setRsiSignalColor] = useState('#ff00ff');
 
 const fiveMovingAverageData = movingAverage(currency, 5);
   const twentyMovingAverageData = movingAverage(currency, 20);
@@ -96,12 +115,26 @@ useEffect(() => {
       priceScale: {
         position: 'right',
         autoScale: true,
+        borderVisible: false,
+        scaleMargins: { bottom: 0.1, top: 0 },
       },
       timeScale: {
         rightOffset: 0,
         fixLeftEdge: true,
         barSpacing: 10,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          color: '#555555'
+        },
+        horzLines: {
+          color: '#555555'
+        }
+      }
     });
     assistChart.current = createChart(chartposition.current, {
       width: 800,
@@ -110,11 +143,51 @@ useEffect(() => {
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
+        borderVisible: false,
       },
       timeScale: {
         fixLeftEdge: true,
       },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }     
     });
+    indicatorChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    indicatorChart.current.resize(0, 0);
+    indicatorChart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        borderVisible: false,
+      },
+      timeScale: {
+        fixLeftEdge: true,
+        borderVisible: false,
+      },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee'
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        }
+      }
+    })
   }, []);
 
 
@@ -122,6 +195,11 @@ useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
       
+      if (lowBBANDS.current) chart.current.removeSeries(lowBBANDS.current);
+
+      if (middleBBANDS.current)
+        chart.current.removeSeries(middleBBANDS.current);
+      if (highBBANDS.current) chart.current.removeSeries(highBBANDS.current);
       if (smaFive.current) chart.current.removeSeries(smaFive.current);
       if (smaTwenty.current) chart.current.removeSeries(smaTwenty.current);
       if (smaSixty.current) chart.current.removeSeries(smaSixty.current);
@@ -155,15 +233,15 @@ useEffect(() => {
 
   return( 
     <> 
-      <div className="detail-currency">
+      <div className="detail-stock">
       {!loading && (
         <>
           <h2>{symbol}</h2>
         </>
       )}
 
-      <button onClick={openAddModal}>open Add Modal</button>
-      <button onClick={() => {
+      <button className="detail-button" onClick={openAddModal}>open Add Modal</button>
+      <button className="detail-button" onClick={() => {
         if (compareGraph.current) {
           chart.current.removeSeries(compareGraph.current);
           compareGraph.current = null;
@@ -176,7 +254,7 @@ useEffect(() => {
         }}>close</button>
       </Modal>
 
-      <button onClick={openModal}>open Modal</button>
+      <button className="detail-button" onClick={openModal}>open Modal</button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -320,12 +398,108 @@ useEffect(() => {
                 }
               }}
             />
-          </label>         
+          </label>   
+          <label>
+            BBANDS
+            <input
+              type="checkbox"
+              checked={BBANDSCk}
+              onChange={() => {
+                if (lowBBANDS.current) {
+                  setBBANDSCk(false);
+                  chart.current.removeSeries(lowBBANDS.current);
+                  chart.current.removeSeries(middleBBANDS.current);
+                  chart.current.removeSeries(highBBANDS.current);
+                  lowBBANDS.current = null;
+                  middleBBANDS.current = null;
+                  highBBANDS.current = null;
+                } else {
+                  setBBANDSCk(true);
+                  lowBBANDS.current = chart.current.addLineSeries({
+                    title: 'BBANDS LOW',
+                    color: BBANDSColor,
+                  });
+                  lowBBANDS.current.setData(indicators[1][0]);
+                  middleBBANDS.current = chart.current.addLineSeries({
+                    title: 'BBANDS MIDDLE',
+                    color: BBANDSColor,
+                  });
+                  middleBBANDS.current.setData(indicators[1][1]);
+                  highBBANDS.current = chart.current.addLineSeries({
+                    title: 'BBANDS HIGH',
+                    color: BBANDSColor,
+                  });
+                  highBBANDS.current.setData(indicators[1][2]);
+                }
+              }}
+            />
+          </label>
+          <label>
+            BBANDS Color
+            <input
+              type="color"
+              value={BBANDSColor}
+              onChange={(e) => {
+                setBBANDSColor(e.target.value);
+                if (lowBBANDS.current) {
+                  lowBBANDS.current.applyOptions({ color: BBANDSColor });
+                  middleBBANDS.current.applyOptions({ color: BBANDSColor });
+                  highBBANDS.current.applyOptions({ color: BBANDSColor });
+                }
+              }}
+            />
+          </label>
+          <label>
+            RSI
+
+          <input type="checkbox" checked={rsiCk} onChange={() => {
+              if (rsiChart.current) {
+                setRsick(false);
+                indicatorChart.current.removeSeries(rsiChart.current);
+                indicatorChart.current.removeSeries(rsiSignalChart.current);
+                indicatorChart.current.resize(0, 0);
+                rsiChart.current = null;
+              } else {
+                setRsick(true);
+                GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
+                GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
+              }
+            }} />
+          </label>
+          <label>
+            RSI Color
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiColor(e.target.value);
+                if (rsiChart.current) {
+                  rsiChart.current.applyOptions({ color: rsiColor });
+                }
+              }}
+              value={rsiColor}
+            />
+          </label>
+          <label>
+            RSI Signal Color
+            <input
+              type="color"
+              onChange={(e) => {
+                setRsiSignalColor(e.target.value);
+                if (rsiSignalChart.current) {
+                  rsiSignalChart.current.applyOptions({
+                    color: rsiSignalColor,
+                  });
+                }
+              }}
+              value={rsiSignalColor}
+            />
+          </label>      
           <button onClick={closeModal}>Submit</button>
         </form>
       </Modal>
 
-      <div ref={chartposition}></div>
+      <div className="chart" ref={chartposition}></div>
+      <div className="chart" ref={indicatorPosition}></div>
     </div>
     </>
   )

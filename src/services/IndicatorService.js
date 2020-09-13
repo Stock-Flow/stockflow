@@ -20,7 +20,7 @@ export default class IndicatorService {
     let indicators = await Promise.all(promIndicator)
       .then(result => result.map(item => item.data))
 
-
+    console.log(getindicatorPromise)
     console.log(indicators);
     indicators = indicators.map((indicator, i) => DataProcessingService.IndicatorsProcessing(indicator, indicatorSymbols[i]));
     return indicators;
