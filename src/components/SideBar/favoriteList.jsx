@@ -117,7 +117,7 @@ export default function FavoriteList({
             {(favoriteStockList.length !== 0 && !loading) && favoriteStockList.map((symbol) => {
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
-              })[0]; // 누적으로
+              })[0];
               console.log(stock);
               let stocks = [];
               const keys = stock.stockData.map((date) => date.time);
