@@ -105,19 +105,32 @@ function* getStockNowSaga() {
   try {
     const savedStocks = LocalStorageService.getItem("stockSideBar");
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
+    console.log(savedStocks, stockNow);
     if (stockNow.length === 0) {
       return;
     }
-    if (savedStocks !== null && stockNow.filter((stock, i) => stock.symbol !== savedStocks[i].symbol).length === 0) {
-      yield put(successGetStockNow(savedStocks));
+    if (savedStocks !== null) {
+
+
+      if (stockNow.filter((stock, i) => {
+          if (i > savedStocks.length - 1) return false
+          return stock.symbol !== savedStocks[i].symbol
+
+        }).length === 0) {
+        yield put(successGetStockNow(savedStocks));
+      } else {
+        const stocks = yield call(StockService.getStockNow, stockNow);
+        LocalStorageService.setItem("stockSideBar", stocks);
+        yield put(successGetStockNow(stocks));
+      }
     } else {
       const stocks = yield call(StockService.getStockNow, stockNow);
       LocalStorageService.setItem("stockSideBar", stocks);
       yield put(successGetStockNow(stocks));
     }
   } catch (error) {
-    yield put(failGetStockNow(error));
     console.log(error);
+    yield put(failGetStockNow(error));
   }
 }
 

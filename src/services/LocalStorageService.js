@@ -8,6 +8,7 @@ export default class LocalStorageService {
 
   static getDjia(date) {
     const DJIAList = JSON.parse(localStorage.getItem('djia'));
+    console.log('a', +DJIAList[0].stockData[99].time.slice(-2), date)
     if (!DJIAList) return null;
     if (!DJIAList.length) return null;
     if (DJIAList.length !== 30) return null;

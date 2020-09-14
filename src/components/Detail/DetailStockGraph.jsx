@@ -463,6 +463,7 @@ export default function DetailStockGraph({
             searchList.bestMatches.map((item) => {
               return <option value={item['1. symbol']}></option>;
             })}
+
         </datalist>
         <button
           onClick={() => {

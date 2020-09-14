@@ -40,7 +40,7 @@
     }
   }
 
-  .favorite-btn {
+  .favorite-button {
     float: left;
     width: 102px;
     height: 32px;
@@ -60,6 +60,11 @@
     font-size: 0.8462rem;
     color: #fff;
     background: #1c2024;
+  }
+  .sortValuebox {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 20px;
   }
 
   .none {
