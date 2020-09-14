@@ -1,8 +1,8 @@
 .reminding-stock-wrap {
   .reminding-btn {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 45px;
+    right: 45px;
     z-index: 100;
     width: 50px;
     height: 50px;
@@ -11,13 +11,35 @@
     text-indent: -9999px;
     background: #444 url(../../styles/bell.png) center no-repeat;
     background-size: 60%;
+
+    .alert-color {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 18px;
+      height: 18px;
+      // border: 2px solid #fff;
+      border-radius: 50%;
+      font-size: 0.6875rem;
+      line-height: 18px;
+      font-weight: 400;
+      text-indent: 0;
+      color: #fff;
+      background: #a00b0b;
+    }
   }
   .stocklist-wrap {
+    .alert-msg {
+      margin: 0;
+      padding: 20px 30px;
+      text-align: center;
+      background: #333;
+    }
     position: fixed;
     bottom: 75px;
     right: 50px;
     z-index: 1;
-    background: #333;
+    background: #707070;
     .stocklist {
     }
     .stocklist-item {
@@ -28,7 +50,15 @@
         border-bottom: none;
       }
       &:hover {
-        background: #444;
+        background: #555;
+      }
+      .sidebar-symbol {
+        font-weight: 800;
+      }
+      .sidebar-name {
+        font-weight: 200;
+        font-size: 0.75rem;
+        color: #f6f6f6;
       }
     }
   }
