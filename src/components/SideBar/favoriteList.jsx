@@ -48,7 +48,7 @@ export default function FavoriteList({
   if (favoriteCurrencyList.length !== 0 && !currencyLoading) {
     return (
       <>
-        <select className="sortbox sortValuebox" id="sort-chocie" onChange={selectedValue} ref={selected}>
+        <select className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`} id="sort-chocie" onChange={selectedValue} ref={selected}>
           <option defaultValue="stock">stock</option>
           <option value="currency">currency</option>
         </select>
