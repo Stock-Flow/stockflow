@@ -4,19 +4,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getfavoriteListActionCreator } from '../../redux/modules/selectedSymbol';
 
 export default function FavoriteListContainer({ menu }) {
-  let selectedStockSymbol = useSelector(
+  const selectedStockSymbol = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
   );
-  let selectedCurrencySymbol = useSelector(
+  const selectedCurrencySymbol = useSelector(
     (state) => state.selectedSymbol.selectedCurrencySymbol,
   );
 
-  let currencyList = useSelector(
+  const currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
-
-  console.log(currencyList);
-  let stockList = useSelector((state) => state.sideBarStock.sideBarStock);
+  const currencyLoading = useSelector((state) => state.sidebarCurrency.loading);
+  const loading = useSelector((state) => state.sideBarStock.loading);
+  const stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
   console.log(selectedStockSymbol);
   console.log(selectedCurrencySymbol);
@@ -64,15 +64,15 @@ export default function FavoriteListContainer({ menu }) {
     },
   );
 
-  if (currencyList.length !== 0) {
-    currencyList = currencyList.map((currency, i) => ({
-      ...currency,
-      price: Object.values(currency['Time Series (Digital Currency Daily)'])[0][
-        '1a. open (USD)'
-      ],
-    }));
-  }
-  console.log(currencyList);
+  // if (currencyList.length !== 0) {
+  //   currencyList = currencyList.map((currency, i) => ({
+  //     ...currency,
+  //     price: Object.values(currency['Time Series (Digital Currency Daily)'])[0][
+  //       '1a. open (USD)'
+  //     ],
+  //   }));
+  // }
+  // console.log(currencyList);
 
   return (
     <FavoriteList
@@ -81,6 +81,8 @@ export default function FavoriteListContainer({ menu }) {
       currencyList={currencyList}
       stockList={stockList}
       menu={menu}
+      loading={loading}
+      currencyLoading={currencyLoading}
     />
   );
 }

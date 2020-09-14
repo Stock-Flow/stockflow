@@ -22,7 +22,7 @@ export default function CurrencyList({
 
   return (
     <div className="sidebar currency">
-      <ul className={menu ? 'none' : ''}>
+      <ul className={menu === 'currency' ? '' : 'none'}>
         {currencyList.map((currency) => {
           let currencys = [];
           const keys = Object.keys(
