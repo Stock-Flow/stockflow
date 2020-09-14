@@ -5,8 +5,9 @@ import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedS
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
 import './RemindingStock.scss';
 import { useRef } from 'react';
+import { useEffect } from 'react';
 
-export default function RemindingStock({ stockList }) {
+export default function RemindingStock({ remindinStockList, loading }) {
   const dispatch = useDispatch();
 
   const sendSymbol = (selectedStock) => {
@@ -15,49 +16,78 @@ export default function RemindingStock({ stockList }) {
   };
 
   const [remindingStock, setRemindingStock] = useState(false);
-  function click() {
-    setRemindingStock(!remindingStock);
-  }
+  const alertBtn = useRef();
+  const alertCount = remindinStockList.length;
 
-  const stocklistItem = useRef();
-  console.log(stocklistItem.current);
+  const handleClickOutside = ({ target }) => {
+    if (target === alertBtn.current) {
+      setRemindingStock(!remindingStock);
+    } else {
+      setRemindingStock(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [remindingStock]);
+  // 위의 deps는 alret아이콘 다시 눌러도 팝업없어지게하려고 설정함
 
   return (
     <>
-      <button className="reminding-btn" onClick={click}>
-        알림
-      </button>
-      {remindingStock && (
-        <div className="stocklist-wrap">
-          <ul className="stocklist">
-            {stockList.map((stock) => {
-              const volume = stock.stockData
-                .map((item) => item.volume)
-                .reverse();
+      {!loading && (
+        <>
+          <button className="reminding-btn" ref={alertBtn}>
+            {/* onClick={click} */}
+            {remindinStockList.length && alertCount && (
+              <div className="alert-color">{alertCount}</div>
+            )}
+            alert
+          </button>
+          {remindingStock && (
+            <div className="stocklist-wrap">
+              <>
+                {/* {!alertCount && <p className="alert-msg">No messages yet</p>} */}
 
-              function transSymbol(e) {
-                e.stopPropagation();
-                sendSymbol(stock.symbol);
-              }
+                <p className="alert-msg">
+                  {alertCount
+                    ? 'The trading volume of the stocks below is increasing.'
+                    : 'No messages yet'}
+                </p>
 
-              if (volume[0] < volume[1] || stock.symbol === 'DOW') return false;
-              console.log(stockList);
-              return (
-                <li
-                  onClick={transSymbol}
-                  className="clear-fix stocklist-item"
-                  ref={stocklistItem}
-                >
-                  <div className="sidebar-left">
-                    <span className="sidebar-symbol">{stock.symbol}</span>
-                    <br />
-                    <span className="sidebar-name">{stock.name}</span>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+                {remindinStockList && (
+                  <ul className="stocklist">
+                    {remindinStockList.map((stock) => {
+                      function transSymbol(e) {
+                        e.stopPropagation();
+                        sendSymbol(stock.symbol);
+                        setRemindingStock(!remindingStock);
+                      }
+                      return (
+                        <>
+                          <li
+                            onClick={transSymbol}
+                            className="clear-fix stocklist-item"
+                          >
+                            <div className="sidebar-left">
+                              <span className="sidebar-symbol">
+                                {stock.symbol}
+                              </span>
+                              <br />
+                              <span className="sidebar-name">{stock.name}</span>
+                            </div>
+                          </li>
+                        </>
+                      );
+                    })}
+                  </ul>
+                )}
+              </>
+            </div>
+          )}
+        </>
       )}
     </>
   );
