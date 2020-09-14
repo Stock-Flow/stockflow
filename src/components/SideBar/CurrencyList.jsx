@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
@@ -68,7 +68,12 @@ export default function CurrencyList({
                     },
                   }}
                 />
+                <div className='bookmark'>
+                  <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                  <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                </div>
               </div>
+
             </li>
           );
         })}

@@ -98,6 +98,35 @@
       .VictoryContainer {
         display: inline-block;
       }
+
+      .bookmark {
+        display: inline-block;
+        // padding: 5px 5px 5px 10px;
+        width: 25px;
+        height: 25px;
+        // background-color: white;
+        position: relative;
+        cursor: pointer;
+        img {
+          width: 18px;
+        }
+        .bookmark_false {
+          position: absolute;
+          top: 50%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+        }
+        .bookmark_true {
+          position: absolute;
+          top: 50%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+          // display: none;
+        }
+        .none {
+          display: none;
+        }
+      }
     }
   }
 }
