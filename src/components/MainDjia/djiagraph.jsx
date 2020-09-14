@@ -9,17 +9,21 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   const chartposition = useRef();
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 650,
+      width: 800,
       height: 400,
     });
     chart.current.applyOptions({
       priceScale: {
-        position: 'left',
-        autoScale: true,
+        position: 'right',
+        borderVisible: false,
       },
       timeScale: {
         fixLeftEdge: true,
-        barSpacing: 10,
+        borderVisible: false,
+      },
+      layout: {
+        backgroundColor: '#1e1e1e',
+        textColor: '#eeeeee',
       },
     });
 

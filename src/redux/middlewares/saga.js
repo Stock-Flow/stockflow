@@ -2,9 +2,6 @@ import {
   all
 } from 'redux-saga/effects';
 import {
-  stockSaga
-} from '../modules/stock';
-import {
   DJIASaga
 } from '../modules/djia';
 import {
@@ -35,7 +32,6 @@ import {
 
 export default function* () {
   yield all([
-    stockSaga(),
     DJIASaga(),
     sideBarCurrencySaga(),
     sideBarStockSaga(),

@@ -4,7 +4,6 @@ import {
 import {
   combineReducers
 } from 'redux';
-import stock from './stock';
 import djia from './djia';
 import sideBarStock from './sidebarstock';
 import sidebarCurrency from './sidebarCurrency';
@@ -17,7 +16,6 @@ import compare from './compare'
 
 const reducer = (history) =>
   combineReducers({
-    stock,
     djia,
     sideBarStock,
     sidebarCurrency,
