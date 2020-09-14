@@ -6,6 +6,7 @@ import {
   select
 } from "redux-saga/effects";
 import IndicatorService from "../../services/IndicatorService";
+import LocalStorageService from "../../services/LocalStorageService";
 
 
 
@@ -44,10 +45,10 @@ const failGetDetailCurrency = (error) => {
     error,
   };
 };
-const getCurrencyFromLocalStorage = (currency) => {
+const getCurrencyFromLocalStorage = (detailCurrency) => {
   return {
     type: GET_CURRENCYFROMLOCALSTORAGE,
-    currency
+    detailCurrency
   }
 }
 
@@ -56,8 +57,8 @@ function* getDetailCurrencySaga(action) {
   const { func, symbol, date } = action.payload;
   yield put(startGetDetailCurrency());
   try {
-
-    let currency = JSON.parse(localStorage.getItem(symbol))
+    const updateDate = yield select(state => state.djia.date);
+    let currency = LocalStorageService.getDetailCurrency(symbol, updateDate);
     if (!currency) {
       currency = yield call(DetailCurrencyService.getCurrencyDaily, func, symbol, date);
       if (currency[0].length >= 1500) {
@@ -138,11 +139,10 @@ function* getCurrencyIndicatorSaga() {
   yield put(startGetCurrencyIndicator());
   try {
     const symbol = yield select(state => state.selectedStock.symbol);
-    if (localStorage.getItem(symbol)) return;
     const indicator = yield call(IndicatorService.getIndicator, symbol)
     yield put(SuccessGetCurrencyIndicator(indicator))
     const detailCurrency = yield select(state => state.detailCurrency)
-    localStorage.setItem(symbol, detailCurrency)
+    LocalStorageService.setItem(symbol, detailCurrency)
   } catch (error) {
     console.log(error)
     yield put(FailGetCurrencyIndicator(error));
@@ -190,7 +190,7 @@ export default function reducer(prevState = initialState, action) {
 
     case GET_DETAILCURRENCY_SUCCESS:
       return {
-
+        ...prevState,
         loading: false,
         currency: action.currency,
         error: null,
@@ -220,8 +220,9 @@ export default function reducer(prevState = initialState, action) {
         case GET_CURRENCYINDICATOR_FAIL:
           return {
             ...prevState,
+            indicator: [],
             loading: false,
-              error: action.error
+            error: action.error
           }
 
           default:

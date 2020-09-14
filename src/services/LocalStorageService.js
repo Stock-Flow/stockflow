@@ -23,4 +23,12 @@ export default class LocalStorageService {
     if (+detailStock.stock[detailStock.stock.length - 1].time.day !== date - 1) return null;
     return detailStock;
   }
+
+  static getDetailCurrency(symbol, date) {
+    const detailCurrency = JSON.parse(localStorage.getItem(symbol));
+    if (!detailCurrency) return null;
+    if (!(detailCurrency.currency && detailCurrency.indicator && detailCurrency.volume && detailCurrency.indicator)) return null;
+    if (+detailCurrency.currency[detailCurrency.currency.length - 1].time.day !== date - 1) return null;
+    return detailCurrency;
+  }
 }
