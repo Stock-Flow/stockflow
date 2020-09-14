@@ -11,7 +11,7 @@ export default function SideBarContent() {
   const [sort, setSort] = useState('name');
   const [stockSearch, setStockSearch] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState('stock');
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
@@ -43,7 +43,7 @@ export default function SideBarContent() {
         <button
           className="stockBtn"
           onClick={() => {
-            changeMode(true);
+            changeMode('stock');
           }}
         >
           Stock
@@ -51,7 +51,7 @@ export default function SideBarContent() {
         <button
           className="currencyBtn"
           onClick={() => {
-            changeMode(false);
+            changeMode('currency');
           }}
         >
           Currency
@@ -70,7 +70,14 @@ export default function SideBarContent() {
       {/* <label htmlFor="sort-choice">Sort</label> */}
 
       <div className="sortbox-wrap clear-fix">
-        <FavoriteListContainer />
+        <button
+          className="favorite-button"
+          onClick={() => {
+            changeMode('favorite');
+          }}
+        >
+          Favorite
+        </button>
         <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
           <option defaultValue="name">name</option>
           <option value="expensive">expensive</option>
@@ -82,6 +89,7 @@ export default function SideBarContent() {
     </div> */}
       <StockListContainer search={stockSearch} sort={sort} menu={menu} />
       <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
+      <FavoriteListContainer menu={menu} />
     </div>
   );
 }
