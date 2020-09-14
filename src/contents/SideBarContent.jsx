@@ -16,9 +16,9 @@ export default function SideBarContent() {
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
     searchDone.current = setTimeout(() => {
-      if (menu) {
+      if (menu === 'stock') {
         setStockSearch(searchValue.current.value);
-      } else {
+      } else if (menu === 'currency') {
         setCurrencySearch(searchValue.current.value);
       }
     }, 1500);

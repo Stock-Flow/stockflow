@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import {
   connectRouter
 } from 'connected-react-router';
 import {
   combineReducers
 } from 'redux';
-=======
-import { connectRouter } from 'connected-react-router';
-import { combineReducers } from 'redux';
-import stock from './stock';
->>>>>>> 687fb8fe400d06a7c6a6ff67be15166bec440b50
 import djia from './djia';
 import sideBarStock from './sidebarstock';
 import sidebarCurrency from './sidebarCurrency';
