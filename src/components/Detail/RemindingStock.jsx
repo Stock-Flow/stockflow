@@ -7,7 +7,7 @@ import './RemindingStock.scss';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
-export default function RemindingStock({ remindinStockList, loading }) {
+export default function RemindingStock({ remindingStockList, loading }) {
   const dispatch = useDispatch();
 
   const sendSymbol = (selectedStock) => {
@@ -17,11 +17,14 @@ export default function RemindingStock({ remindinStockList, loading }) {
 
   const [remindingStock, setRemindingStock] = useState(false);
   const alertBtn = useRef();
-  const alertCount = remindinStockList.length;
+  const alertMsg = useRef();
+  const alertCount = remindingStockList.length;
 
   const handleClickOutside = ({ target }) => {
     if (target === alertBtn.current) {
       setRemindingStock(!remindingStock);
+    } else if (target === alertMsg.current) {
+      setRemindingStock(remindingStock);
     } else {
       setRemindingStock(false);
     }
@@ -41,7 +44,7 @@ export default function RemindingStock({ remindinStockList, loading }) {
         <>
           <button className="reminding-btn" ref={alertBtn}>
             {/* onClick={click} */}
-            {remindinStockList.length && alertCount && (
+            {remindingStockList.length && alertCount && (
               <div className="alert-color">{alertCount}</div>
             )}
             alert
@@ -51,15 +54,15 @@ export default function RemindingStock({ remindinStockList, loading }) {
               <>
                 {/* {!alertCount && <p className="alert-msg">No messages yet</p>} */}
 
-                <p className="alert-msg">
+                <p className="alert-msg" ref={alertMsg}>
                   {alertCount
                     ? 'The trading volume of the stocks below is increasing.'
                     : 'No messages yet'}
                 </p>
 
-                {remindinStockList && (
+                {remindingStockList && (
                   <ul className="stocklist">
-                    {remindinStockList.map((stock) => {
+                    {remindingStockList.map((stock) => {
                       function transSymbol(e) {
                         e.stopPropagation();
                         sendSymbol(stock.symbol);
