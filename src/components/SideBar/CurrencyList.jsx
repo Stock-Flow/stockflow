@@ -34,7 +34,7 @@ export default function CurrencyList({
             .map((item) => item['1a. open (USD)'])
             .reverse();
           keys.forEach((item, i) => {
-            currencys.push({ date: item, price: values[i] });
+            currencys.push({ date: item, price: Number(values[i]) });
           });
           // let color = currency.change[0] === "-" ? "green" : "red"
 
