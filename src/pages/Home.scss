@@ -43,29 +43,70 @@ html {
   main {
     width: 80%;
     padding: 90px 70px 0 90px;
+
     .tv-lightweight-charts {
       display: inline-block;
     }
 
-    > div {
+    >div {
       display: inline-block;
     }
   }
 }
+
 .ReactModal__Overlay {
   background-color: rgba(41, 41, 41, 0.9) !important;
 }
+
 .ReactModal__Content {
   box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
+
 .ReactModal__Content form label {
   display: block;
   padding: 5px 0;
   display: flex;
   align-items: center;
+
   input {
     margin-left: 20px;
   }
+}
+
+.ReactModal__Content form {
+  display: flex;
+}
+
+.ReactModal__Content form h3 {
+  margin-top: 0;
+  margin-right: 20px;
+}
+
+.ReactModal__Content form h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 20px;
+}
+
+.add-modal {}
+
+.ReactModal__Content .indicator-btn {
+  height: 30px;
+}
+
+.ReactModal__Content .search {
+  position: absolute;
+  top: 50%;
+  transform: translate(16%, -50%);
+  left: auto;
+}
+
+.ReactModal__Content .add-modal-btn {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translate(0%, -50%);
+  left: auto;
 }
 
 .home {
