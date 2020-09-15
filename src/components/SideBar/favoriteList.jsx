@@ -45,10 +45,10 @@ export default function FavoriteList({
   };
 
 
-  if (favoriteCurrencyList.length !== 0 && !currencyLoading) {
+  if (!currencyLoading) {
     return (
       <>
-        <select className="sortbox sortValuebox" id="sort-chocie" onChange={selectedValue} ref={selected}>
+        <select className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`} id="sort-chocie" onChange={selectedValue} ref={selected}>
           <option defaultValue="stock">stock</option>
           <option value="currency">currency</option>
         </select>
@@ -109,12 +109,16 @@ export default function FavoriteList({
                             },
                           }}
                         />
+                        {/* <div className='bookmark' value={stock.symbol}>
+                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                        </div> */}
                       </div>
                     </li>}
                 </>
               );
             })}
-            {(favoriteStockList.length !== 0 && !loading) && favoriteStockList.map((symbol) => {
+            {!loading && favoriteStockList.map((symbol) => {
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
@@ -156,8 +160,11 @@ export default function FavoriteList({
                             },
                           }}
                         />
-
                         <span className="sidebar-change">{stock.change}</span>
+                        {/* <div className='bookmark'>
+                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                        </div> */}
                       </div>
                     </li>}
                 </>

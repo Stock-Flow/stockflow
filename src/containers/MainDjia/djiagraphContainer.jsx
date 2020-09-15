@@ -15,8 +15,6 @@ export default function DjiagraphContainer() {
     return djia.stockData;
   });
 
-  // console.log(djia);
-
   let djiaList = [];
   let djiaDate = [];
 

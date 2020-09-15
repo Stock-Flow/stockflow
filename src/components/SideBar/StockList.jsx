@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as V from 'victory';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
@@ -21,6 +21,7 @@ export default function StockList({
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
   };
 
+
   if (!loading) {
     return (
       <div className="sidebar stock">
@@ -40,7 +41,15 @@ export default function StockList({
                 sendSymbol(stock.symbol);
               }
 
+              // const selectedBookmark = (e) => {
+              //   if (e.target.parentNode.previousElementSibling.firstElementChild.nodeValue === stock.symbol) {
+              //     console.log(e.target.value)
+              //     setMark(!mark)
+              //   }
+              // }
+
               return (
+
                 <li onClick={transSymbol} className="clear-fix">
                   <div className="sidebar-left">
                     <span className="sidebar-symbol">{stock.symbol}</span>
@@ -63,7 +72,12 @@ export default function StockList({
                     />
 
                     <span className="sidebar-change">{stock.change}</span>
+                    <div className='bookmark'>
+                      <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                      <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                    </div>
                   </div>
+
                 </li>
               );
             },
