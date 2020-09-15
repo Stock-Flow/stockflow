@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { render } from '@testing-library/react';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
