@@ -45,7 +45,7 @@ export default function FavoriteList({
   };
 
 
-  if (favoriteCurrencyList.length !== 0 && !currencyLoading) {
+  if (!currencyLoading) {
     return (
       <>
         <select className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`} id="sort-chocie" onChange={selectedValue} ref={selected}>
@@ -118,7 +118,7 @@ export default function FavoriteList({
                 </>
               );
             })}
-            {(favoriteStockList.length !== 0 && !loading) && favoriteStockList.map((symbol) => {
+            {!loading && favoriteStockList.map((symbol) => {
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
