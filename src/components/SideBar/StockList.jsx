@@ -24,7 +24,7 @@ export default function StockList({
   if (!loading) {
     return (
       <div className="sidebar stock">
-        <ul className={menu ? '' : 'none'}>
+        <ul className={menu === 'stock' ? '' : 'none'}>
           {stockList.map(
             (stock) => {
               let stocks = [];

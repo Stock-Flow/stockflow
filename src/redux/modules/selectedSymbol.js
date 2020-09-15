@@ -29,6 +29,8 @@ const initialState = {
   error: null,
 };
 
+// selectedSymbol
+
 // action creator
 const selectedSymbolStart = () => ({
   type: START,
@@ -138,6 +140,58 @@ export function* selectedSymbolSaga() {
   yield takeLatest(GET_SELECTEDSYMBOL_SAGA, getSelectedSymbolSaga);
 }
 
+// favorite
+
+const GET_FAVORITE_START = `GET_FAVORITE_START`;
+const GET_FAVORITE_SUCCESS = `GET_FAVORITE_SUCCESS`;
+const GET_FAVORITE_FAIL = `GET_FAVORITE_FAIL`;
+
+const CounterListStart = () => ({
+  type: GET_FAVORITE_START,
+});
+
+const CounterListSuccess = (getStockListElement, getCurrencyListElement) => ({
+  type: GET_FAVORITE_SUCCESS,
+  getStockListElement,
+  getCurrencyListElement,
+});
+
+const CounterListFail = (error) => ({
+  type: GET_FAVORITE_FAIL,
+  error,
+});
+
+function* getFavoriteListSaga(action) {
+  const getStockListElement = action.payload.getStockListElement;
+  const getCurrencyListElement = action.payload.getCurrencyListElement;
+
+  console.log(getStockListElement);
+  console.log(getCurrencyListElement);
+
+  yield put(CounterListStart());
+  try {
+    yield put(CounterListSuccess(getStockListElement, getCurrencyListElement));
+  } catch (error) {
+    yield put(CounterListFail(error));
+  }
+}
+
+const GET_FAVORITELIST_SAGA = 'GET_FAVORITELIST_SAGA';
+export const getfavoriteListActionCreator = (
+  getStockListElement,
+  getCurrencyListElement,
+) => ({
+  type: GET_FAVORITELIST_SAGA,
+  payload: {
+    getStockListElement,
+    getCurrencyListElement,
+  },
+});
+
+export function* favoriteSymbolSaga() {
+  yield takeLatest(GET_FAVORITELIST_SAGA, getFavoriteListSaga);
+}
+
 // reducer
 
 export default function reducer(prevState = initialState, action) {
@@ -166,6 +220,26 @@ export default function reducer(prevState = initialState, action) {
         };
       }
       case FAIL:
+        return {
+          ...prevState,
+          loading: false,
+            error: action.error,
+        };
+
+      case GET_FAVORITE_START:
+        return {
+          ...prevState,
+          loading: true,
+            error: null,
+        };
+      case GET_FAVORITE_SUCCESS:
+        return {
+          selectedStockSymbol: action.getStockListElement,
+            selectedCurrencySymbol: action.getCurrencyListElement,
+            loading: false,
+            error: null,
+        };
+      case GET_FAVORITE_FAIL:
         return {
           ...prevState,
           loading: false,
