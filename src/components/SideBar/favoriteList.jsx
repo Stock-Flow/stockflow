@@ -109,10 +109,10 @@ export default function FavoriteList({
                             },
                           }}
                         />
-                        <div className='bookmark'>
+                        {/* <div className='bookmark' value={stock.symbol}>
                           <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
                           <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                        </div>
+                        </div> */}
                       </div>
                     </li>}
                 </>
@@ -161,10 +161,10 @@ export default function FavoriteList({
                           }}
                         />
                         <span className="sidebar-change">{stock.change}</span>
-                        <div className='bookmark'>
+                        {/* <div className='bookmark'>
                           <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
                           <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                        </div>
+                        </div> */}
                       </div>
                     </li>}
                 </>
