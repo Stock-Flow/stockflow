@@ -3,6 +3,7 @@ import * as V from 'victory';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
+import { LoadingOutlined } from '@ant-design/icons'
 
 export default function StockList({
   stockList,
@@ -101,7 +102,7 @@ export default function StockList({
         </ul>
       </div>
     );
+  } else {
+    return <LoadingOutlined />
   }
-
-  return <h1>hi</h1>;
 }
