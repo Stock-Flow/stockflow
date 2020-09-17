@@ -23,7 +23,6 @@ export default class DetailCurrencyService {
 
     detailCurrency = DataProcessingService.CurrencyGraphDataProcessing(detailCurrency);
 
-    console.log(detailCurrency, volume)
     return [detailCurrency, volume.reverse()];
   }
 }

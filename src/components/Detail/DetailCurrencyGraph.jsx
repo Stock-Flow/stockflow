@@ -564,8 +564,6 @@ useEffect(() => {
               }}
             />
           </label> 
-          {indicators.length !== 0 ? 
-          <> 
           <label>
             BBANDS
             <input
@@ -661,8 +659,6 @@ useEffect(() => {
               value={rsiSignalColor}
             />
           </label>
-          </>
-          : ''}  
           <label>
             Disparity
             <input
