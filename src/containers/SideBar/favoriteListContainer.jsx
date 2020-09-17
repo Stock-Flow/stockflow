@@ -52,13 +52,13 @@ export default function FavoriteListContainer({ menu }) {
 
   const favoriteStockList = selectedStockSymbol.filter(
     (selectedStockSymbol) => {
-      return selectedStockSymbol.count >= 3;
+      return selectedStockSymbol.favorite === true;
     },
   );
 
   const favoriteCurrencyList = selectedCurrencySymbol.filter(
     (selectedCurrencySymbol) => {
-      return selectedCurrencySymbol.count >= 3;
+      return selectedCurrencySymbol.favorite === true;
     },
   );
 

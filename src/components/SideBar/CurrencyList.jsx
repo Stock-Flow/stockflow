@@ -26,21 +26,21 @@ export default function CurrencyList({
         {currencyList.map((currency) => {
           let currencys = [];
           const keys = Object.keys(
-            currency['Time Series (Digital Currency Daily)'],
+            currency.currencyData,
           ).reverse();
           const values = Object.values(
-            currency['Time Series (Digital Currency Daily)'],
+            currency.currencyData,
           )
-            .map((item) => item['1a. open (USD)'])
+            .map((item) => item.open)
             .reverse();
           keys.forEach((item, i) => {
-            currencys.push({ date: item, price: Number(values[i]) });
+            currencys.push({ date: item, price: values[i] });
           });
           // let color = currency.change[0] === "-" ? "green" : "red"
 
           function transSymbol(e) {
             e.stopPropagation();
-            sendSymbol(currency['Meta Data']['2. Digital Currency Code']);
+            sendSymbol(currency.symbol);
           }
 
           return (
@@ -48,11 +48,11 @@ export default function CurrencyList({
               {/* {currency.change} */}
               <div className="sidebar-left">
                 <span className="sidebar-symbol">
-                  {currency['Meta Data']['2. Digital Currency Code']}
+                  {currency.symbol}
                 </span>
                 <br />
                 <span className="sidebar-name">
-                  {currency['Meta Data']['3. Digital Currency Name']}
+                  {currency.name}
                 </span>
               </div>
               <div className="sidebar-right">
