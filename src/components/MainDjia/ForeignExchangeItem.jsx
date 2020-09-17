@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { createGetSelectedExchangeSaga } from '../../redux/modules/selectedExchange';
+import { useDispatch } from 'react-redux';
 // import ForeignExchange from './ForeignExchange';
 
 export default function ForeignExchangeItem({
@@ -9,6 +11,7 @@ export default function ForeignExchangeItem({
   toCurrenciesName,
   exchangeRate,
   fxIntradayArr,
+  fxIntraday,
 }) {
   let resultPercent = 0;
   let before = 0;
@@ -32,10 +35,35 @@ export default function ForeignExchangeItem({
 
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
+  const dispatch = useDispatch();
+
+  const transCode = useCallback(() => {
+    dispatch(
+      createGetSelectedExchangeSaga(
+        fromCurrenciesCode,
+        fromCurrenciesName,
+        toCurrenciesCode,
+        toCurrenciesName,
+        fxIntraday,
+      ),
+    );
+  }, []);
+
   return (
     <>
       {!loading && (
-        <div className="exchange-item">
+        <div
+          className="exchange-item"
+          onClick={() => {
+            transCode(
+              fromCurrenciesCode,
+              fromCurrenciesName,
+              toCurrenciesCode,
+              toCurrenciesName,
+              fxIntraday,
+            );
+          }}
+        >
           <div className="exchange-column icon">
             <span className="country-icon from">
               <img src={fromCountryIcon} alt={fromCurrenciesName} />
@@ -61,18 +89,21 @@ export default function ForeignExchangeItem({
               {before < after && (
                 <>
                   <span className="plus">+{resultPercent}%</span>
+                  <br />
                   <span className="plus">+{fxDiff}</span>
                 </>
               )}
               {before > after && (
                 <>
                   <span className="minus">-{resultPercent}%</span>
+                  <br />
                   <span className="minus">{fxDiff}</span>
                 </>
               )}
               {before === after && (
                 <>
                   <span className="zero">{resultPercent}%</span>
+                  <br />
                   <span className="zero">0</span>
                 </>
               )}
