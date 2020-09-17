@@ -3,6 +3,7 @@ import * as V from 'victory';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
+import { getfavoriteListButtonActionCreator } from '../../redux/modules/selectedSymbol'
 
 export default function StockList({
   stockList,
@@ -19,6 +20,8 @@ export default function StockList({
   const sendSymbol = (selectedStock) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'stock'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
+    dispatch(getfavoriteListButtonActionCreator(selectedStock, 'stock'))
+
   };
 
 
@@ -37,6 +40,11 @@ export default function StockList({
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
 
               function transSymbol(e) {
+                e.stopPropagation();
+                sendSymbol(stock.symbol);
+              }
+
+              function selectedFavorite(e) {
                 e.stopPropagation();
                 sendSymbol(stock.symbol);
               }
@@ -72,10 +80,10 @@ export default function StockList({
                     />
 
                     <span className="sidebar-change">{stock.change}</span>
-                    <div className='bookmark'>
-                      <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
-                      <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                    </div>
+                    <button className='bookmark' onClick={selectedFavorite}>
+                      {/* <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                      <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> */}
+                    </button>
                   </div>
 
                 </li>

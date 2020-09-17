@@ -44,6 +44,10 @@ export default function FavoriteList({
     setValue(selected.current.value)
   };
 
+  // const selectedFavorite = (e, symbol) => {
+
+  // }
+
 
   if (!currencyLoading) {
     return (
@@ -54,10 +58,10 @@ export default function FavoriteList({
         </select>
         <div className="sidebar favorite">
           <ul className={menu === 'favorite' ? '' : 'none'}>
-            {favoriteCurrencyList.map((favoriteCurrencyList) => {
+            {favoriteCurrencyList.map((symbol) => {
               const currency = currencyList.filter((currency) => {
                 return (
-                  favoriteCurrencyList.symbol ===
+                  symbol.symbol ===
                   currency['Meta Data']['2. Digital Currency Code']
                 );
               })[0];
@@ -84,7 +88,7 @@ export default function FavoriteList({
 
               return (
                 <>
-                  {value === 'currency' &&
+                  {value === 'currency' && symbol.favorite === true ?
                     <li onClick={transSymbol} className="clear-fix">
                       {/* {currency.change} */}
                       <div className="sidebar-left">
@@ -109,12 +113,12 @@ export default function FavoriteList({
                             },
                           }}
                         />
-                        {/* <div className='bookmark' value={stock.symbol}>
-                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
-                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                        </div> */}
+                        <div className='bookmark'>
+                          {symbol.favorite === false && <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                          {symbol.favorite === true && <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />}
+                        </div>
                       </div>
-                    </li>}
+                    </li> : <div></div>}
                 </>
               );
             })}
@@ -138,7 +142,7 @@ export default function FavoriteList({
 
               return (
                 <>
-                  {value === 'stock' &&
+                  {value === 'stock' && symbol.favorite === true ?
                     <li onClick={transSymbol} className="clear-fix">
 
                       <div className="sidebar-left">
@@ -161,12 +165,12 @@ export default function FavoriteList({
                           }}
                         />
                         <span className="sidebar-change">{stock.change}</span>
-                        {/* <div className='bookmark'>
-                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
-                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                        </div> */}
+                        <div className='bookmark'>
+                          {symbol.favorite === false && <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                          {symbol.favorite === true && <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />}
+                        </div>
                       </div>
-                    </li>}
+                    </li> : <div></div>}
                 </>
               );
             })}

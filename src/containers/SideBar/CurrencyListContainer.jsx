@@ -9,6 +9,8 @@ export default function CurrencyListContainer({ search, sort, menu }) {
   let currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
+  const currencyLoading = useSelector((state) => state.sidebarCurrency.loading);
+
 
   if (currencyList.length !== 0) {
     currencyList = currencyList.map((currency, i) => ({
@@ -27,12 +29,12 @@ export default function CurrencyListContainer({ search, sort, menu }) {
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
         a['Meta Data']['3. Digital Currency Name'] >
-        b['Meta Data']['3. Digital Currency Name']
+          b['Meta Data']['3. Digital Currency Name']
           ? 1
           : a['Meta Data']['3. Digital Currency Name'] <
             b['Meta Data']['3. Digital Currency Name']
-          ? -1
-          : 0,
+            ? -1
+            : 0,
       );
     } else if (sort === 'cheap') {
       currencyList = [...currencyList].sort((a, b) => {
@@ -53,6 +55,7 @@ export default function CurrencyListContainer({ search, sort, menu }) {
         currencyList={currencyList}
         renderCurrencyList={renderCurrencyList}
         menu={menu}
+        currencyLoading={currencyLoading}
       />
     </>
   );

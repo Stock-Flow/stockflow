@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getfavoriteListActionCreator } from '../../redux/modules/selectedSymbol';
 
 export default function FavoriteListContainer({ menu }) {
-  const selectedStockSymbol = useSelector(
+  let selectedStockSymbol = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
   );
   const selectedCurrencySymbol = useSelector(
@@ -23,6 +23,9 @@ export default function FavoriteListContainer({ menu }) {
 
   const dispatch = useDispatch();
 
+  // if (selectedStockSymbol === undefined) {
+  //   selectedStockSymbol = []
+  // }
   if (selectedStockSymbol.length !== 0) {
     localStorage.setItem('stockCount', JSON.stringify(selectedStockSymbol));
   }

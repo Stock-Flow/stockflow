@@ -53,10 +53,6 @@ function* getSelectedSymbolSaga(action) {
 
   let names = action.payload.names;
 
-  console.log(selectedStockSymbol);
-  console.log(selectedCurrencySymbol);
-  console.log(names);
-
   if (names === 'stock') {
     if (
       // 같은 symbol이 없을때 새로운 symbol 추가
@@ -187,6 +183,114 @@ export function* favoriteSymbolSaga() {
   yield takeLatest(GET_FAVORITELIST_SAGA, getFavoriteListSaga);
 }
 
+// favorite button
+
+const GET_FAVORITE_BUTTON_START = `GET_FAVORITE_BUTTON_START`;
+const GET_FAVORITE_BUTTON_SUCCESS = `GET_FAVORITE_BUTTON_SUCCESS`;
+const GET_FAVORITE_BUTTON_FAIL = `GET_FAVORITE_BUTTON_FAIL`;
+
+const favoriteButtonStart = () => ({
+  type: GET_FAVORITE_BUTTON_START,
+});
+
+const favoriteButtonSuccess = (selectedStock, names) => ({
+  type: GET_FAVORITE_BUTTON_SUCCESS,
+  selectedStock,
+  names,
+});
+
+const favoriteButtonFail = (error) => ({
+  type: GET_FAVORITE_BUTTON_FAIL,
+  error,
+});
+
+function* getFavoriteListButtonSaga(action) {
+  let selectedStockSymbol = yield select(
+    (state) => state.selectedSymbol.selectedStockSymbol,
+  );
+
+  let selectedCurrencySymbol = yield select(
+    (state) => state.selectedSymbol.selectedCurrencySymbol,
+  );
+
+  let names = action.payload.names;
+
+  if (names === 'stock') {
+    if (
+      selectedStockSymbol.filter(
+        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+      ).length === 0
+    ) {
+      selectedStockSymbol = [
+        ...selectedStockSymbol,
+        {
+          symbol: action.payload.selectedSymbol,
+          count: 3,
+          favorite: true,
+        },
+      ];
+    } else {
+      // 만약 이미 추가된 symbol이라면 count만 + 1
+      selectedStockSymbol = selectedStockSymbol.map((symbol) =>
+        symbol.symbol === action.payload.selectedSymbol
+          ? symbol.count < 2
+            ? { ...symbol, count: 3, favorite: true }
+            : { ...symbol, count: symbol.count + 1, favorite: true }
+          : symbol,
+      );
+    }
+    yield put(favoriteButtonStart());
+    try {
+      yield put(favoriteButtonSuccess(selectedStockSymbol, names));
+    } catch (error) {
+      yield put(favoriteButtonFail(error));
+    }
+  } else {
+    if (
+      // 같은 symbol이 없을때 새로운 symbol 추가
+      selectedCurrencySymbol.filter(
+        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+      ).length === 0
+    ) {
+      selectedCurrencySymbol = [
+        ...selectedCurrencySymbol,
+        {
+          symbol: action.payload.selectedSymbol,
+          count: 3,
+          favorite: true,
+        },
+      ];
+    } else {
+      // 만약 이미 추가된 symbol이라면 count만 + 1
+      selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
+        symbol.symbol === action.payload.selectedSymbol
+          ? symbol.count < 2
+            ? { ...symbol, count: 3, favorite: true }
+            : { ...symbol, count: symbol.count + 1, favorite: true }
+          : symbol,
+      );
+    }
+    yield put(favoriteButtonStart());
+    try {
+      yield put(favoriteButtonSuccess(selectedCurrencySymbol, names));
+    } catch (error) {
+      yield put(favoriteButtonFail(error));
+    }
+  }
+}
+
+const GET_FAVORITELIST_BUTTON_SAGA = 'GET_FAVORITELIST_BUTTON_SAGA';
+export const getfavoriteListButtonActionCreator = (selectedStock, names) => ({
+  type: GET_FAVORITELIST_BUTTON_SAGA,
+  payload: {
+    selectedStock,
+    names,
+  },
+});
+
+export function* favoriteButtonSaga() {
+  yield takeLatest(GET_FAVORITELIST_BUTTON_SAGA, getFavoriteListButtonSaga);
+}
 // reducer
 
 export default function reducer(prevState = initialState, action) {
@@ -239,6 +343,35 @@ export default function reducer(prevState = initialState, action) {
         ...prevState,
         loading: false,
         error: action.error,
+      };
+
+    case GET_FAVORITE_BUTTON_START:
+      return {
+        ...prevState,
+        loading: true,
+        error: null,
+      };
+    case GET_FAVORITE_BUTTON_SUCCESS:
+      if (action.names === 'stock') {
+        return {
+          ...prevState,
+          loading: false,
+          selectedStockSymbol: action.selectedStock,
+          error: null,
+        };
+      } else {
+        return {
+          ...prevState,
+          loading: false,
+          selectedCurrencySymbol: action.selectedStock,
+          error: null,
+        };
+      }
+    case GET_FAVORITE_BUTTON_FAIL:
+      return {
+        ...prevState,
+        loading: true,
+        error: null,
       };
     default:
       return {
