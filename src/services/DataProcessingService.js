@@ -203,4 +203,74 @@ export default class DataProcessingService {
 
     return processedIndicators.reverse();
   }
+
+  static currencyIndicatorProcessing(currencyData) {
+    //rsi
+    const indicators = [[],[[],[],[]]]  
+    let change = '';
+    let U = 0;
+    let D = 0;
+    let AU = 0;
+    let AD = 0;
+    for(let i = currencyData.length-1; i > 13; i --){
+      U = 0;
+      D = 0;
+      for(let j = 0; j < 14; j++){
+        change = currencyData[i-j]['close'] > currencyData[i-j-1]['close'] ? 'up' : 'down';
+        if(change === 'up') {
+          U += currencyData[i-j]['close'] - currencyData[i-j-1]['close']
+        } else if(change === 'down') {
+          D += currencyData[i-j-1]['close'] - currencyData[i-j]['close']
+        }
+      }
+      AU = U/14;
+      AD = D/14;
+      indicators[0].unshift({
+        time: currencyData[i-1]['time'],
+        value: AU/(AU+AD)*100,
+      })
+    }
+
+    const upBBANDS = [];
+    const middleBBANDS =[];
+    const lowBBANDS = [];
+    let avg = 0;
+    let SD = 0;
+    for(let i = currencyData.length-1; i > 19; i --){
+      let sum = 0;
+
+      for(let j = 0; j < 20; j++){
+        sum += currencyData[i-j]['close']
+      }
+      avg = sum/20;
+      middleBBANDS.unshift({
+        time: currencyData[i-1]['time'],
+        value: avg,
+      })
+
+      sum = 0;
+    
+      for(let k = 0; k < 20; k++){
+        sum += (currencyData[i-k]['close'] - avg)**2;
+      }  
+      SD = Math.sqrt(sum/20)
+
+      upBBANDS.unshift({
+        time: currencyData[i-1]['time'],
+        value: avg+SD,
+      })
+      lowBBANDS.unshift({
+        time: currencyData[i-1]['time'],
+        value: avg-SD,
+      })
+    }
+    indicators[1][0] = upBBANDS;
+    indicators[1][1] = middleBBANDS;
+    indicators[1][2] = lowBBANDS;
+
+    console.log(indicators)
+    return indicators;
+  }
 }
+
+

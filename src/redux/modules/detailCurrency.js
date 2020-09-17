@@ -7,6 +7,7 @@ import {
 } from "redux-saga/effects";
 import IndicatorService from "../../services/IndicatorService";
 import LocalStorageService from "../../services/LocalStorageService";
+import DataProcessingService from "../../services/DataProcessingService";
 
 
 
@@ -31,10 +32,11 @@ const startGetDetailCurrency = () => {
   };
 };
 
-const successGetDetailCurrency = (currency, volume) => {
+const successGetDetailCurrency = (currency, volume, indicator) => {
   return {
     type: GET_DETAILCURRENCY_SUCCESS,
     currency,
+    indicator,
     volume,
   };
 };
@@ -75,12 +77,13 @@ function* getDetailCurrencySaga(action) {
         ...item,
         color: barColor[i]
       }))
-      yield put(successGetDetailCurrency(currency[0], volumeData));
+      const indicator = DataProcessingService.currencyIndicatorProcessing(currency[0])
+      yield put(successGetDetailCurrency(currency[0], volumeData, indicator));
     } else {
       yield put(getCurrencyFromLocalStorage(currency))
-
     }
   } catch (error) {
+    console.log(error)
     yield put(failGetDetailCurrency(error));
   }
 }
@@ -96,58 +99,58 @@ export const getDetailCurrencySagaActionCreator = (symbol, date) => ({
   },
 });
 
-//indicator
+// //indicator
 
-//액션
-const GET_CURRENCYINDICATOR_START = `GET_CURRENCYINDICATOR_START`
-const GET_CURRENCYINDICATOR_SUCCESS = `GET_CURRENCYINDICATOR_SUCCESS`
-const GET_CURRENCYINDICATOR_FAIL = `GET_CURRENCYINDICATOR_FAIL`
+// //액션
+// const GET_CURRENCYINDICATOR_START = `GET_CURRENCYINDICATOR_START`
+// const GET_CURRENCYINDICATOR_SUCCESS = `GET_CURRENCYINDICATOR_SUCCESS`
+// const GET_CURRENCYINDICATOR_FAIL = `GET_CURRENCYINDICATOR_FAIL`
 
-//액션생성자함수
+// //액션생성자함수
 
-const startGetCurrencyIndicator = () => {
-  return {
-    type: GET_CURRENCYINDICATOR_START,
-  }
-}
+// const startGetCurrencyIndicator = () => {
+//   return {
+//     type: GET_CURRENCYINDICATOR_START,
+//   }
+// }
 
-const SuccessGetCurrencyIndicator = (indicator) => {
-  return {
-    type: GET_CURRENCYINDICATOR_SUCCESS,
-    indicator
-  }
-}
+// const SuccessGetCurrencyIndicator = (indicator) => {
+//   return {
+//     type: GET_CURRENCYINDICATOR_SUCCESS,
+//     indicator
+//   }
+// }
 
-const FailGetCurrencyIndicator = (error) => {
-  return {
-    type: GET_CURRENCYINDICATOR_FAIL,
-    error
-  }
-}
+// const FailGetCurrencyIndicator = (error) => {
+//   return {
+//     type: GET_CURRENCYINDICATOR_FAIL,
+//     error
+//   }
+// }
 
-const GET_CURRENCYINDICATOR_SAGA = 'GET_CURRENCYINDICATOR_SAGA'
+// const GET_CURRENCYINDICATOR_SAGA = 'GET_CURRENCYINDICATOR_SAGA'
 
-// 사가색션생성자 함수
-export function getCurrencyIndicatorSagaActionCreator() {
-  return {
-    type: GET_CURRENCYINDICATOR_SAGA,
-  }
-}
+// // 사가색션생성자 함수
+// export function getCurrencyIndicatorSagaActionCreator() {
+//   return {
+//     type: GET_CURRENCYINDICATOR_SAGA,
+//   }
+// }
 
 
-function* getCurrencyIndicatorSaga() {
-  yield put(startGetCurrencyIndicator());
-  try {
-    const symbol = yield select(state => state.selectedStock.symbol);
-    const indicator = yield call(IndicatorService.getIndicator, symbol)
-    yield put(SuccessGetCurrencyIndicator(indicator))
-    const detailCurrency = yield select(state => state.detailCurrency)
-    LocalStorageService.setItem(symbol, detailCurrency)
-  } catch (error) {
-    console.log(error)
-    yield put(FailGetCurrencyIndicator(error));
-  }
-}
+// function* getCurrencyIndicatorSaga() {
+//   yield put(startGetCurrencyIndicator());
+//   try {
+//     const symbol = yield select(state => state.selectedStock.symbol);
+//     const indicator = yield call(IndicatorService.getIndicator, symbol)
+//     yield put(SuccessGetCurrencyIndicator(indicator))
+//     const detailCurrency = yield select(state => state.detailCurrency)
+//     LocalStorageService.setItem(symbol, detailCurrency)
+//   } catch (error) {
+//     console.log(error)
+//     yield put(FailGetCurrencyIndicator(error));
+//   }
+// }
 
 
 
@@ -162,7 +165,7 @@ function* getCurrencyIndicatorSaga() {
 
 export function* detailCurrencySaga() {
   yield takeEvery(GET_DETAILCURRENCY_SAGA, getDetailCurrencySaga);
-  yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getCurrencyIndicatorSaga);
+  // yield takeEvery(GET_DETAILCURRENCY_SUCCESS, getCurrencyIndicatorSaga);
 }
 
 
@@ -193,6 +196,7 @@ export default function reducer(prevState = initialState, action) {
         ...prevState,
         loading: false,
         currency: action.currency,
+        indicator: action.indicator,
         error: null,
         volume: action.volume
       };
@@ -203,27 +207,27 @@ export default function reducer(prevState = initialState, action) {
         error: action.error,
       };
 
-    case GET_CURRENCYINDICATOR_START:
-      return {
-        ...prevState,
-        loading: true,
-          error: null,
-      }
+    // case GET_CURRENCYINDICATOR_START:
+    //   return {
+    //     ...prevState,
+    //     loading: true,
+    //       error: null,
+    //   }
 
-      case GET_CURRENCYINDICATOR_SUCCESS:
-        return {
-          ...prevState,
-          loading: false,
-            indicator: action.indicator,
-            error: null,
-        }
-        case GET_CURRENCYINDICATOR_FAIL:
-          return {
-            ...prevState,
-            indicator: [],
-            loading: false,
-            error: action.error
-          }
+    //   case GET_CURRENCYINDICATOR_SUCCESS:
+    //     return {
+    //       ...prevState,
+    //       loading: false,
+    //         indicator: action.indicator,
+    //         error: null,
+    //     }
+    //     case GET_CURRENCYINDICATOR_FAIL:
+    //       return {
+    //         ...prevState,
+    //         indicator: [],
+    //         loading: false,
+    //         error: action.error
+    //       }
 
           default:
             return {
