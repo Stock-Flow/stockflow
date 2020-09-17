@@ -61,18 +61,18 @@ export default function FavoriteList({
             {favoriteCurrencyList.map((symbol) => {
               const currency = currencyList.filter((currency) => {
                 return (
-                  symbol.symbol ===
-                  currency['Meta Data']['2. Digital Currency Code']
+                  favoriteCurrencyList.symbol ===
+                  currency.symbol
                 );
               })[0];
               let currencys = [];
               const keys = Object.keys(
-                currency['Time Series (Digital Currency Daily)'],
+                currency.currencyData,
               ).reverse();
               const values = Object.values(
-                currency['Time Series (Digital Currency Daily)'],
+                currency.currencyData,
               )
-                .map((item) => item['1a. open (USD)'])
+                .map((item) => item.open)
                 .reverse();
               keys.forEach((item, i) => {
                 currencys.push({ date: item, price: values[i] });
@@ -82,7 +82,7 @@ export default function FavoriteList({
               function transSymbol(e) {
                 e.stopPropagation();
                 sendCurrencySymbol(
-                  currency['Meta Data']['2. Digital Currency Code'],
+                  currency.symbol,
                 );
               }
 
@@ -93,11 +93,11 @@ export default function FavoriteList({
                       {/* {currency.change} */}
                       <div className="sidebar-left">
                         <span className="sidebar-symbol">
-                          {currency['Meta Data']['2. Digital Currency Code']}
+                          {currency.symbol}
                         </span>
                         <br />
                         <span className="sidebar-name">
-                          {currency['Meta Data']['3. Digital Currency Name']}
+                          {currency.name}
                         </span>
                       </div>
                       <div className="sidebar-right">
@@ -126,7 +126,6 @@ export default function FavoriteList({
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
-              console.log(stock);
               let stocks = [];
               const keys = stock.stockData.map((date) => date.time);
               const values = stock.stockData.map((item) => +item.open);

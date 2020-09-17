@@ -15,24 +15,22 @@ export default function CurrencyListContainer({ search, sort, menu }) {
   if (currencyList.length !== 0) {
     currencyList = currencyList.map((currency, i) => ({
       ...currency,
-      price: Object.values(currency['Time Series (Digital Currency Daily)'])[0][
-        '1a. open (USD)'
-      ],
+      price: Object.values(currency.currencyData[0].open)
     }));
 
     if (search) {
       const regexp = new RegExp(search, 'i');
       currencyList = currencyList.filter((currency) =>
-        regexp.test(currency['Meta Data']['3. Digital Currency Name']),
+        regexp.test(currency.name),
       );
     }
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
-        a['Meta Data']['3. Digital Currency Name'] >
-          b['Meta Data']['3. Digital Currency Name']
+        a.name >
+          b.name
           ? 1
-          : a['Meta Data']['3. Digital Currency Name'] <
-            b['Meta Data']['3. Digital Currency Name']
+          : a.name <
+            b.name
             ? -1
             : 0,
       );

@@ -13,8 +13,8 @@ export default function ForeignExchange({
   toCurrenciesName,
   exchangeRate,
   fxIntradayArr,
+  fxIntraday,
 }) {
-  // console.log(exchangeArr);
   useEffect(() => {
     getExchange(exchangeArr);
   }, []);
@@ -31,6 +31,7 @@ export default function ForeignExchange({
       toCurrenciesName={toCurrenciesName[i]}
       exchangeRate={exchangeRate[i]}
       fxIntradayArr={fxIntradayArr[i]}
+      fxIntraday={fxIntraday[i]}
     />
   ));
 

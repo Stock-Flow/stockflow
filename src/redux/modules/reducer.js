@@ -10,6 +10,8 @@ import selectedStock from './selectedStock';
 import selectedSymbol from './selectedSymbol';
 import compare from './compare';
 // import favoriteList from './favoriteList';
+import favoriteList from './favoriteList';
+import selectedExchange from './selectedExchange';
 
 const reducer = (history) =>
   combineReducers({
@@ -23,6 +25,7 @@ const reducer = (history) =>
     exchange,
 
     selectedSymbol,
+    selectedExchange,
     // favoriteList,
     router: connectRouter(history),
   });

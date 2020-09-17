@@ -51,7 +51,6 @@ function* getSideBarStockSaga(action) {
   const {
     searchvalue
   } = action.payload
-  console.log(searchvalue);
   yield put(startGetSideBarStock());
   try {
     if (searchvalue) {
@@ -105,7 +104,6 @@ function* getStockNowSaga() {
   try {
     const savedStocks = LocalStorageService.getItem("stockSideBar");
     const stockNow = yield select(state => state.sideBarStock.sideBarStock)
-    console.log(savedStocks, stockNow);
     if (stockNow.length === 0) {
       return;
     }
@@ -141,7 +139,6 @@ function* initialSideBarStockSaga() {
   yield put(startGetSideBarStock());
   try {
     let stocks = yield select(state => state.djia.djia);
-    console.log(stocks);
     stocks = stocks.slice(0, 10);
     yield put(SuccessGetSideBarStock(stocks));
   } catch (error) {

@@ -76,7 +76,6 @@ function* getDetailStockSaga(action) {
     let stock = LocalStorageService.getDetailStock(symbol, updateDate);
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
-      console.log(stock[1]);
       if (stock[0].length >= 1500) {
         stock[0] = stock[0].slice(-1500);
         stock[1] = stock[1].slice(-1500);

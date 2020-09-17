@@ -89,7 +89,6 @@ export default function DetailCurrencyGraphContainer({
   }, []);
 
   const getStochasticSlow = useCallback((currency, duration, n, m) => {
-    console.log(currency);
     const data = [...currency].reverse();
     const fastK = []
     for (let i = 0; i < data.length - 1 - duration; i++) {

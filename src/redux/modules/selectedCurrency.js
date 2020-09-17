@@ -70,7 +70,6 @@ export default function reducer(prevState = initialState, action) {
       };
 
     case GET_SELECTEDCURRENCY_SUCCESS:
-      console.log(action.selectedCurrency);
       return {
         ...prevState,
         loading: false,

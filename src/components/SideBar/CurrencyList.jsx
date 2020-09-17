@@ -35,18 +35,7 @@ export default function CurrencyList({
   // console.log(favoriteData)
 
 
-  // const selectedFavorite = (e, symbol) => {
-  //   console.log(e.target.value)
-  //   if (e.target.value === symbol) {
-  //     setFavorite(!favorite)
-  //   }
-  // }
 
-  // const selectedFavorite = useCallback((e, symbol) => {
-  //   if (e.target.value === symbol) {
-  //     dispatch(action(favorite))
-  //   }
-  // })
 
   if (!currencyLoading) {
     return (

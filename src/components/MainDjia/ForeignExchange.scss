@@ -37,7 +37,7 @@
       width: 45%;
       .currency-name {
         font-size: 0.8rem;
-        color: #666;
+        color: #ddd;
       }
     }
     .exchange-column.rate {
@@ -46,15 +46,15 @@
     }
     .exchange-column.percent {
       .plus {
-        color: rgb(59, 151, 74);
+        color: rgb(184, 53, 53);
       }
 
       .minus {
-        color: rgb(184, 53, 53);
+        color: rgb(59, 151, 74);
       }
     }
     &:hover {
-      background: rgb(227, 238, 255);
+      background: #444;
     }
   }
 

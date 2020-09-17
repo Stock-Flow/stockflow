@@ -73,8 +73,16 @@ function* getSelectedSymbolSaga(action) {
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol
           ? symbol.count < 2
-            ? { ...symbol, count: symbol.count + 1, favorite: false }
-            : { ...symbol, count: symbol.count + 1, favorite: true }
+            ? {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: false,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: true,
+              }
           : symbol,
       );
     }
@@ -104,8 +112,16 @@ function* getSelectedSymbolSaga(action) {
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol
           ? symbol.count < 2
-            ? { ...symbol, count: symbol.count + 1, favorite: false }
-            : { ...symbol, count: symbol.count + 1, favorite: true }
+            ? {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: false,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: true,
+              }
           : symbol,
       );
     }
@@ -155,9 +171,6 @@ const CounterListFail = (error) => ({
 function* getFavoriteListSaga(action) {
   const getStockListElement = action.payload.getStockListElement;
   const getCurrencyListElement = action.payload.getCurrencyListElement;
-
-  console.log(getStockListElement);
-  console.log(getCurrencyListElement);
 
   yield put(CounterListStart());
   try {

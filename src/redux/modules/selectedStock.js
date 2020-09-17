@@ -38,7 +38,6 @@ const failGetelectedStock = (error) => {
 
 function* getSelectedStockSaga(action) {
   const selectedStock = action.payload;
-  console.log(selectedStock)
   yield put(startGetSelectedStock());
   try {
     yield put(successGetSelectedStock(selectedStock));
@@ -70,7 +69,6 @@ export default function reducer(prevState = initialState, action) {
       };
 
     case GET_SELECTEDSTOCK_SUCCESS:
-      console.log(action.selectedStock);
       return {
         ...prevState,
         loading: false,

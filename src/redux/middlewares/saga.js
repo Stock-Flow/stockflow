@@ -12,6 +12,7 @@ import { compareSaga } from '../modules/compare';
 import { favoriteSymbolSaga } from '../modules/selectedSymbol';
 import { favoriteButtonSaga } from '../modules/selectedSymbol';
 
+import { selectedExchangeSaga } from '../modules/selectedExchange';
 export default function* () {
   yield all([
     DJIASaga(),
@@ -25,5 +26,6 @@ export default function* () {
     selectedSymbolSaga(),
     favoriteSymbolSaga(),
     favoriteButtonSaga(),
+    selectedExchangeSaga(),
   ]);
 }
