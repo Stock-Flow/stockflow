@@ -13,11 +13,11 @@ export default function ForeignExchangeItem({
   let resultPercent = 0;
   let before = 0;
   let after = 0;
+
   if (fxIntradayArr) {
     before = fxIntradayArr['beforefxClose'];
     after = fxIntradayArr['afterfxClose'];
-    before = 1187.3;
-    after = 1187.6;
+
     if (before === after) resultPercent = 0;
 
     if (before < after) {
@@ -28,7 +28,7 @@ export default function ForeignExchangeItem({
     }
   }
   resultPercent = resultPercent.toFixed(2);
-  let fxDiff = (after - before).toFixed(2);
+  let fxDiff = (after - before).toFixed(3);
 
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
@@ -57,7 +57,6 @@ export default function ForeignExchangeItem({
             <p className="exchange-rate">{exchangeRate}</p>
           </div>
           <div className="exchange-column percent">
-            {/* <p className="exchange-percent">{resultPercent}%</p> */}
             <p className="exchange-percent">
               {before < after && (
                 <>
