@@ -18,8 +18,6 @@ export default function ForeignExchangeContainer() {
     dispatch(getExchangeSagaActionCreator(exchangeArr));
   }, [dispatch, exchangeArr]);
 
-  console.log(exchange);
-
   const fromCurrenciesCode = exchange.exchange.map(
     (exchange, i) => exchange['1. From_Currency Code'],
   );
@@ -35,24 +33,26 @@ export default function ForeignExchangeContainer() {
   const exchangeRate = exchange.exchange.map(
     (exchange) => exchange['5. Exchange Rate'],
   );
+
+  console.log(exchange);
   let fxIntraday = exchange.exchange.map((exchange) => exchange['fxIntraday']);
   let fxIntradayArr = [];
   let beforefxClose = 0;
   let afterfxClose = 0;
+  console.log(fxIntraday);
 
-  if (!fromCurrenciesName) {
-    fxIntraday = fxIntraday.forEach((v, i) => {
-      const beforefx = Object.keys(v)[1];
-      const afterfx = Object.keys(v)[0];
-      beforefxClose = Number(v[beforefx]['4. close']);
-      afterfxClose = Number(v[afterfx]['4. close']);
+  fxIntraday = fxIntraday.forEach((v, i) => {
+    // console.log(Object.keys(v)[1]);
+    const beforefx = Object.keys(v)[1];
+    const afterfx = Object.keys(v)[0];
+    beforefxClose = Number(v[beforefx]['4. close']);
+    afterfxClose = Number(v[afterfx]['4. close']);
 
-      fxIntradayArr.push({
-        beforefxClose,
-        afterfxClose,
-      });
+    return fxIntradayArr.push({
+      beforefxClose,
+      afterfxClose,
     });
-  }
+  });
 
   return (
     <>
