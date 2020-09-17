@@ -22,6 +22,5 @@ export default class currencyService {
 
   static async getData() {
     const a = await axios.get(`https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=100&api_key=${key}`)
-    console.log(a);
   }
 }

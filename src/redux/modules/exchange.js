@@ -1,4 +1,8 @@
-import { put, call, takeEvery } from 'redux-saga/effects';
+import {
+  put,
+  call,
+  takeEvery
+} from 'redux-saga/effects';
 import ExchangeSerivice from '../../services/ExchangeService';
 
 const prefix = 'stockflow/exchange';
@@ -31,12 +35,13 @@ const failGetExchange = (error) => {
 };
 
 function* getExchangeSaga(action) {
-  const { exchangeArray } = action.payload;
+  const {
+    exchangeArray
+  } = action.payload;
   yield put(startGetExchange());
   try {
     // delay(1000);
     let exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
-    console.log(exchange);
 
     yield put(successGetExchange(exchange));
   } catch (error) {
@@ -64,20 +69,20 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_EXCHANGE_SUCCESS:
       return {
         loading: false,
-        exchange: action.exchange,
-        error: null,
+          exchange: action.exchange,
+          error: null,
       };
     case GET_EXCHANGE_ERROR:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     default:
       return {

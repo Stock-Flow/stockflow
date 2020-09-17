@@ -14,7 +14,6 @@ export default function ForeignExchange({
   exchangeRate,
   fxIntradayArr,
 }) {
-  // console.log(exchangeArr);
   useEffect(() => {
     getExchange(exchangeArr);
   }, []);

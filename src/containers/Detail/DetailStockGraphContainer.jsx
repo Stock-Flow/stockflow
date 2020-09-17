@@ -98,7 +98,6 @@ export default function DetailStockGraphContainer({
   }, []);
 
   const getStochasticSlow = useCallback((stock, duration, n, m) => {
-    console.log(stock);
     const data = [...stock].reverse();
     const fastK = []
     for (let i = 0; i < data.length - 1 - duration; i++) {

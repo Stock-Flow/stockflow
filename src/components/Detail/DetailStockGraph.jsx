@@ -524,7 +524,6 @@ export default function DetailStockGraph({
                       smaFive.current = chart.current.addLineSeries({
                         color: fiveColor,
                       });
-                      console.log(fiveMovingAverageData);
                       smaFive.current.setData(fiveMovingAverageData);
                     }
                   }}
@@ -825,7 +824,6 @@ export default function DetailStockGraph({
                       MACDSignalGraph.current = null;
                     } else {
                       setMacdck(true);
-                      console.log(MACDData.current);
                       GraphService.graphColor(
                         MACDChart.current,
                         MACDColor,

@@ -117,7 +117,6 @@ export default class DataProcessingService {
           processedData[i].stockData[date[j]]['4. close'] /= split;
         }
         if (data[i].stockData[date[j]]['8. split coefficient'] !== '1.0000') {
-          console.log('hi');
           split = +data[i].stockData[date[j]]['8. split coefficient'];
         }
       }
@@ -136,7 +135,6 @@ export default class DataProcessingService {
         processedData.stockData[date[j]]['4. close'] /= split;
       }
       if (data.stockData[date[j]]['8. split coefficient'] !== '1.0000') {
-        console.log('hi');
         split = +data.stockData[date[j]]['8. split coefficient'];
       }
     }

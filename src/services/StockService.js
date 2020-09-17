@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../key';
+import {
+  apiKey
+} from '../key';
 import DataProcessingService from './DataProcessingService';
 const DOW_ITEMS_SYMBOL = [
   'MMM',
@@ -12,6 +14,9 @@ const DOW_ITEMS_SYMBOL = [
   'MSFT',
   'MCD',
   'MRK',
+];
+
+const DOW_ITEMS_SYMBOL2 = [
   'VZ',
   'BA',
   'V',
@@ -22,6 +27,8 @@ const DOW_ITEMS_SYMBOL = [
   'WMT',
   'DIS',
   'RTX',
+]
+const DOW_ITEMS_SYMBOL3 = [
   'UNH',
   'INTC',
   'WBA',
@@ -32,7 +39,7 @@ const DOW_ITEMS_SYMBOL = [
   'PG',
   'HD',
   'PFE',
-];
+]
 
 export default class StockService {
   static async getStockIntra(func, symbol) {
@@ -49,8 +56,16 @@ export default class StockService {
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&interval=1min&apikey=${apiKey}`,
       );
     };
-    const promDjia = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
-    DJIAList = await Promise.all(promDjia).then((result) => {
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
+    const promDjia1 = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
+    sleep(100)
+    const promDjia2 = DOW_ITEMS_SYMBOL2.map((symbol) => getDjiaPromise(symbol));
+    sleep(100)
+    const promDjia3 = DOW_ITEMS_SYMBOL3.map((symbol) => getDjiaPromise(symbol));
+    DJIAList = await Promise.all([...promDjia1, ...promDjia2, ...promDjia3]).then((result) => {
       return result.map((item) => item.data);
     });
     return DJIAList;
@@ -75,7 +90,6 @@ export default class StockService {
     SideBarStocks = SideBarStocks.map((stock) =>
       DataProcessingService.DataProcessing(stock, 'Time Series (Daily)'),
     );
-    console.log(SideBarStocks);
 
     return SideBarStocks;
   }
