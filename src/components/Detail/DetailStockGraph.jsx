@@ -5,6 +5,8 @@ import Modal from 'react-modal';
 import GraphService from '../../services/GraphService';
 import './DetailStockGraph.scss';
 import SearchService from '../../services/SearchService';
+import { LoadingOutlined } from '@ant-design/icons'
+
 
 const customStyles = {
   content: {
@@ -435,7 +437,7 @@ export default function DetailStockGraph({
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <div className="detail-stock">
-      {!loading && (
+      {loading ? <LoadingOutlined /> : (
         <>
           <h2>{symbol}</h2>
 
