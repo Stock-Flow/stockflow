@@ -30,6 +30,11 @@ export default class DataProcessingService {
   static MakeCurrencyValueArray(data, func) {
     return Object.values(data.currencyData)
       .reverse()
+      .map((item) => Number(item[func]));
+  }
+  static MakeSidebarCurrencyValueArray(data, func) {
+    return Object.values(data['Time Series (Digital Currency Daily)'])
+      .reverse()
       .map((item) => item[func]);
   }
 
@@ -82,6 +87,10 @@ export default class DataProcessingService {
       data,
       '4a. close (USD)',
     );
+    const volume = DataProcessingService.MakeCurrencyValueArray(
+      data,
+      '5. volume',
+    );
 
     return date.map((item, i) => {
       return {
@@ -90,9 +99,24 @@ export default class DataProcessingService {
         high: high[i],
         low: low[i],
         close: close[i],
+        volume : volume[i]
       };
     });
   }
+  
+  static sidebarCurrencyProcessing(currencys) {
+    return currencys.map(currency => {
+      // const price = Object.values(currency['Time Series (Digital Currency Daily)'])
+      return {
+          symbol: currency['Meta Data']['2. Digital Currency Code'],
+          currencyData: currency['Time Series (Digital Currency Daily)'],
+          name: currency['Meta Data']['3. Digital Currency Name'],
+          // price: (Number(price[0]['2a. high (USD)']) + Number(price[0]['3a. low (USD)']))/2,
+      };
+    })
+  }
+
+  
 
   static GetDJiaProcessing(data) {
     const djia = [];
@@ -117,7 +141,7 @@ export default class DataProcessingService {
           processedData[i].stockData[date[j]]['4. close'] /= split;
         }
         if (data[i].stockData[date[j]]['8. split coefficient'] !== '1.0000') {
-          console.log('hi');
+          // console.log('hi');
           split = +data[i].stockData[date[j]]['8. split coefficient'];
         }
       }
