@@ -4,7 +4,6 @@ import {
   select
 } from 'redux-saga/effects';
 
-
 const prefix = 'stockflow/selectedSymbol';
 
 // action type
@@ -58,9 +57,6 @@ function* getSelectedSymbolSaga(action) {
 
   let names = action.payload.names;
 
-  console.log(selectedStockSymbol);
-  console.log(selectedCurrencySymbol);
-  console.log(names);
 
   if (names === 'stock') {
     if (
@@ -74,15 +70,23 @@ function* getSelectedSymbolSaga(action) {
         {
           symbol: action.payload.selectedSymbol,
           count: 1,
+          favorite: false,
         },
       ];
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol ?
+        symbol.count < 2 ?
         {
           ...symbol,
           count: symbol.count + 1,
+          favorite: false
+        } :
+        {
+          ...symbol,
+          count: symbol.count + 1,
+          favorite: true
         } :
         symbol,
       );
@@ -105,15 +109,23 @@ function* getSelectedSymbolSaga(action) {
         {
           symbol: action.payload.selectedSymbol,
           count: 1,
+          favorite: false,
         },
       ];
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol ?
+        symbol.count < 2 ?
         {
           ...symbol,
           count: symbol.count + 1,
+          favorite: false
+        } :
+        {
+          ...symbol,
+          count: symbol.count + 1,
+          favorite: true
         } :
         symbol,
       );
@@ -165,8 +177,6 @@ function* getFavoriteListSaga(action) {
   const getStockListElement = action.payload.getStockListElement;
   const getCurrencyListElement = action.payload.getCurrencyListElement;
 
-  console.log(getStockListElement);
-  console.log(getCurrencyListElement);
 
   yield put(CounterListStart());
   try {

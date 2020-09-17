@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../key';
+import {
+  apiKey
+} from '../key';
 
 export default class ExchangeSerivice {
   static async getExchange(exchangeArr) {
@@ -34,14 +36,11 @@ export default class ExchangeSerivice {
       (res) => res,
     );
 
-    console.log('exchangePromise', exchangePromise);
-    console.log('returnIntraday', returnIntraday);
 
     const exchangeArrState = [...exchangePromise];
     let combineExchangeArray = await exchangeArr.map((exchange, i) => {
       return (exchangeArrState[i].fxIntraday = exchangeIntraPromise[i]);
     });
-    console.log(exchangeArrState);
     return exchangeArrState;
   }
 }

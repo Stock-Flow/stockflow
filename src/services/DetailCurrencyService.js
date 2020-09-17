@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../key';
+import {
+  apiKey
+} from '../key';
 import DataProcessingService from './DataProcessingService';
 
 export default class DetailCurrencyService {

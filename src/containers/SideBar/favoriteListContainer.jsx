@@ -18,8 +18,6 @@ export default function FavoriteListContainer({ menu }) {
   const loading = useSelector((state) => state.sideBarStock.loading);
   const stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
-  console.log(selectedStockSymbol);
-  console.log(selectedCurrencySymbol);
 
   const dispatch = useDispatch();
 
@@ -54,13 +52,13 @@ export default function FavoriteListContainer({ menu }) {
 
   const favoriteStockList = selectedStockSymbol.filter(
     (selectedStockSymbol) => {
-      return selectedStockSymbol.count >= 3;
+      return selectedStockSymbol.favorite === true;
     },
   );
 
   const favoriteCurrencyList = selectedCurrencySymbol.filter(
     (selectedCurrencySymbol) => {
-      return selectedCurrencySymbol.count >= 3;
+      return selectedCurrencySymbol.favorite === true;
     },
   );
 

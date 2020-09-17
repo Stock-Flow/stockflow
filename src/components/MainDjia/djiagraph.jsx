@@ -43,6 +43,8 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     });
   }
 
+  console.log(stockList)
+
   if (chart.current) {
     lineSeries.current.setData(stockList);
     chart.current.timeScale().setVisibleLogicalRange({
