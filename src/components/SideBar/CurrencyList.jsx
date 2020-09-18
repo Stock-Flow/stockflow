@@ -26,8 +26,8 @@ export default function CurrencyList({
     dispatch(getfavoriteListButtonActionCreator(selectedStock, 'currency'))
   }
 
-  let favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
-  let favoriteDataList = ''
+  const favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
+
 
   console.log(favoriteData)
 
@@ -54,15 +54,19 @@ export default function CurrencyList({
             sendSymbol(currency.symbol);
           }
 
-          // const symbol = currency.symbol
+          const symbol = currency.symbol
+          let favoriteDataList = false;
+          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            console.log(favoriteDataList)
+          }
 
           function selectedFavorite(e) {
             e.stopPropagation();
             sendToSymbol(currency.symbol);
-            // if (favoriteData.length !== 0) {
-            //   favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
-            // }
-            // console.log(favoriteDataList)
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = !favoriteDataList
+            }
           }
 
           return (
