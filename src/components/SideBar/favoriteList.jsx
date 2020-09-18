@@ -44,10 +44,6 @@ export default function FavoriteList({
     setValue(selected.current.value)
   };
 
-  // const selectedFavorite = (e, symbol) => {
-
-  // }
-
 
   if (!currencyLoading) {
     return (
@@ -58,7 +54,7 @@ export default function FavoriteList({
         </select>
         <div className="sidebar favorite">
           <ul className={menu === 'favorite' ? '' : 'none'}>
-            {favoriteCurrencyList.map((symbol) => {
+            {favoriteCurrencyList.map((favoriteCurrencyList) => {
               const currency = currencyList.filter((currency) => {
                 return (
                   favoriteCurrencyList.symbol ===
@@ -88,7 +84,7 @@ export default function FavoriteList({
 
               return (
                 <>
-                  {value === 'currency' && symbol.favorite === true ?
+                  {value === 'currency' &&
                     <li onClick={transSymbol} className="clear-fix">
                       {/* {currency.change} */}
                       <div className="sidebar-left">
@@ -113,12 +109,12 @@ export default function FavoriteList({
                             },
                           }}
                         />
-                        <div className='bookmark'>
-                          {symbol.favorite === false && <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                          {symbol.favorite === true && <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />}
-                        </div>
+                        {/* <div className='bookmark' value={stock.symbol}>
+                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                        </div> */}
                       </div>
-                    </li> : <div></div>}
+                    </li>}
                 </>
               );
             })}
@@ -126,6 +122,7 @@ export default function FavoriteList({
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
+              console.log(stock)
               let stocks = [];
               const keys = stock.stockData.map((date) => date.time);
               const values = stock.stockData.map((item) => +item.open);
@@ -133,17 +130,14 @@ export default function FavoriteList({
                 stocks.push({ date: item, price: values[i] });
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
-
               function transSymbol(e) {
                 e.stopPropagation();
                 sendStockSymbol(stock.symbol);
               }
-
               return (
                 <>
-                  {value === 'stock' && symbol.favorite === true ?
+                  {value === 'stock' &&
                     <li onClick={transSymbol} className="clear-fix">
-
                       <div className="sidebar-left">
                         <span className="sidebar-symbol">{stock.symbol}</span>
                         <br />
@@ -164,12 +158,12 @@ export default function FavoriteList({
                           }}
                         />
                         <span className="sidebar-change">{stock.change}</span>
-                        <div className='bookmark'>
-                          {symbol.favorite === false && <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                          {symbol.favorite === true && <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />}
-                        </div>
+                        {/* <div className='bookmark'>
+                          <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
+                          <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
+                        </div> */}
                       </div>
-                    </li> : <div></div>}
+                    </li>}
                 </>
               );
             })}

@@ -111,7 +111,7 @@ function* getSelectedSymbolSaga(action) {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol
-          ? symbol.count < 2
+          ? symbol.count === 3
             ? {
                 ...symbol,
                 count: symbol.count + 1,
@@ -198,10 +198,12 @@ export function* favoriteSymbolSaga() {
 
 // favorite button
 
+// action type
 const GET_FAVORITE_BUTTON_START = `GET_FAVORITE_BUTTON_START`;
 const GET_FAVORITE_BUTTON_SUCCESS = `GET_FAVORITE_BUTTON_SUCCESS`;
 const GET_FAVORITE_BUTTON_FAIL = `GET_FAVORITE_BUTTON_FAIL`;
 
+// action creator
 const favoriteButtonStart = () => ({
   type: GET_FAVORITE_BUTTON_START,
 });
@@ -231,13 +233,13 @@ function* getFavoriteListButtonSaga(action) {
   if (names === 'stock') {
     if (
       selectedStockSymbol.filter(
-        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+        (symbol) => symbol.symbol === action.payload.selectedStock,
       ).length === 0
     ) {
       selectedStockSymbol = [
         ...selectedStockSymbol,
         {
-          symbol: action.payload.selectedSymbol,
+          symbol: action.payload.selectedStock,
           count: 3,
           favorite: true,
         },
@@ -245,10 +247,14 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol
+        symbol.symbol === action.payload.selectedStock
           ? symbol.count < 2
             ? { ...symbol, count: 3, favorite: true }
-            : { ...symbol, count: symbol.count + 1, favorite: true }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: !action.payload.favoriteDataList,
+              }
           : symbol,
       );
     }
@@ -262,13 +268,13 @@ function* getFavoriteListButtonSaga(action) {
     if (
       // 같은 symbol이 없을때 새로운 symbol 추가
       selectedCurrencySymbol.filter(
-        (symbol) => symbol.symbol === action.payload.selectedSymbol,
+        (symbol) => symbol.symbol === action.payload.selectedStock,
       ).length === 0
     ) {
       selectedCurrencySymbol = [
         ...selectedCurrencySymbol,
         {
-          symbol: action.payload.selectedSymbol,
+          symbol: action.payload.selectedStock,
           count: 3,
           favorite: true,
         },
@@ -276,10 +282,14 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol
-          ? symbol.count < 2
+        symbol.symbol === action.payload.selectedStock
+          ? symbol.count === 3
             ? { ...symbol, count: 3, favorite: true }
-            : { ...symbol, count: symbol.count + 1, favorite: true }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: !action.payload.favoriteDataList,
+              }
           : symbol,
       );
     }
@@ -293,10 +303,15 @@ function* getFavoriteListButtonSaga(action) {
 }
 
 const GET_FAVORITELIST_BUTTON_SAGA = 'GET_FAVORITELIST_BUTTON_SAGA';
-export const getfavoriteListButtonActionCreator = (selectedStock, names) => ({
+export const getfavoriteListButtonActionCreator = (
+  selectedStock,
+  favoriteDataList,
+  names,
+) => ({
   type: GET_FAVORITELIST_BUTTON_SAGA,
   payload: {
     selectedStock,
+    favoriteDataList,
     names,
   },
 });
@@ -384,7 +399,7 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+        error: action.error,
       };
     default:
       return {

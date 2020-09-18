@@ -9,7 +9,6 @@ import exchange from './exchange';
 import selectedStock from './selectedStock';
 import selectedSymbol from './selectedSymbol';
 import compare from './compare';
-// import favoriteList from './favoriteList';
 import favoriteList from './favoriteList';
 import selectedExchange from './selectedExchange';
 

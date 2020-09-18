@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  apiKey
-} from '../key';
+import { apiKey } from '../key';
 import DataProcessingService from './DataProcessingService';
 const DOW_ITEMS_SYMBOL = [
   'MMM',
@@ -27,7 +25,7 @@ const DOW_ITEMS_SYMBOL2 = [
   'WMT',
   'DIS',
   'RTX',
-]
+];
 const DOW_ITEMS_SYMBOL3 = [
   'UNH',
   'INTC',
@@ -39,7 +37,7 @@ const DOW_ITEMS_SYMBOL3 = [
   'PG',
   'HD',
   'PFE',
-]
+];
 
 export default class StockService {
   static async getStockIntra(func, symbol) {
@@ -58,14 +56,18 @@ export default class StockService {
     };
 
     function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
+      return new Promise((resolve) => setTimeout(resolve, ms));
     }
     const promDjia1 = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
-    sleep(100)
+    sleep(100);
     const promDjia2 = DOW_ITEMS_SYMBOL2.map((symbol) => getDjiaPromise(symbol));
-    sleep(100)
+    sleep(100);
     const promDjia3 = DOW_ITEMS_SYMBOL3.map((symbol) => getDjiaPromise(symbol));
-    DJIAList = await Promise.all([...promDjia1, ...promDjia2, ...promDjia3]).then((result) => {
+    DJIAList = await Promise.all([
+      ...promDjia1,
+      ...promDjia2,
+      ...promDjia3,
+    ]).then((result) => {
       return result.map((item) => item.data);
     });
     return DJIAList;

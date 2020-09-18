@@ -10,9 +10,8 @@ import { selectedStockSaga } from '../modules/selectedStock';
 import { selectedSymbolSaga } from '../modules/selectedSymbol';
 import { compareSaga } from '../modules/compare';
 import { favoriteSymbolSaga } from '../modules/selectedSymbol';
-import { favoriteButtonSaga } from '../modules/selectedSymbol';
-
 import { selectedExchangeSaga } from '../modules/selectedExchange';
+import { favoriteButtonSaga } from '../modules/selectedSymbol';
 export default function* () {
   yield all([
     DJIASaga(),
@@ -25,7 +24,7 @@ export default function* () {
     compareSaga(),
     selectedSymbolSaga(),
     favoriteSymbolSaga(),
-    favoriteButtonSaga(),
     selectedExchangeSaga(),
+    favoriteButtonSaga(),
   ]);
 }

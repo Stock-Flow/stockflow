@@ -9,8 +9,6 @@ export default function CurrencyListContainer({ search, sort, menu }) {
   let currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
-  const currencyLoading = useSelector((state) => state.sidebarCurrency.loading);
-
 
   if (currencyList.length !== 0) {
     currencyList = currencyList.map((currency, i) => ({
@@ -53,7 +51,6 @@ export default function CurrencyListContainer({ search, sort, menu }) {
         currencyList={currencyList}
         renderCurrencyList={renderCurrencyList}
         menu={menu}
-        currencyLoading={currencyLoading}
       />
     </>
   );
