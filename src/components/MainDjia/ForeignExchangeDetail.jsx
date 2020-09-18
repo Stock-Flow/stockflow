@@ -37,6 +37,7 @@ export default function ForeignExchangeDetail({
 
   if (chartExchange.current) {
     exchangeLineSeries.current.setData(selectExchangeListResult);
+    console.log(selectExchangeListResult)
     chartExchange.current.timeScale().setVisibleLogicalRange({
       from: selectExchangeListResult.length - 60,
       to: selectExchangeListResult.length,

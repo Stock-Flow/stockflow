@@ -3,20 +3,59 @@ import {
   apiKey
 } from '../key';
 import DataProcessingService from './DataProcessingService';
+// const DOW_ITEMS_SYMBOL = [
+//   'MMM',
+//   'IBM',
+//   'JPM',
+//   'AAPL',
+//   'GS',
+
+// ];
+// const DOW_ITEMS_SYMBOL11 = [
+//   'NKE',
+//   'DOW',
+//   'MSFT',
+//   'MCD',
+//   'MRK',
+// ];
+
+// const DOW_ITEMS_SYMBOL2 = [
+//   'VZ',
+//   'BA',
+//   'V',
+//   'CVX',
+//   'CSCO',
+
+// ]
+
+// const DOW_ITEMS_SYMBOL22 = [
+//   'AXP',
+//   'XOM',
+//   'WMT',
+//   'DIS',
+//   'RTX',
+// ]
+// const DOW_ITEMS_SYMBOL3 = [
+//   'UNH',
+//   'INTC',
+//   'WBA',
+//   'JNJ',
+//   'CAT',
+// ]
+// const DOW_ITEMS_SYMBOL33 = [
+//   'KO',
+//   'TRV',
+//   'PG',
+//   'HD',
+//   'PFE',
+// ]
+
 const DOW_ITEMS_SYMBOL = [
-  'MMM',
-  'IBM',
-  'JPM',
-  'AAPL',
-  'GS',
   'NKE',
   'DOW',
   'MSFT',
   'MCD',
   'MRK',
-];
-
-const DOW_ITEMS_SYMBOL2 = [
   'VZ',
   'BA',
   'V',
@@ -27,8 +66,6 @@ const DOW_ITEMS_SYMBOL2 = [
   'WMT',
   'DIS',
   'RTX',
-]
-const DOW_ITEMS_SYMBOL3 = [
   'UNH',
   'INTC',
   'WBA',
@@ -57,15 +94,19 @@ export default class StockService {
       );
     };
 
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
-    }
-    const promDjia1 = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
-    sleep(100)
-    const promDjia2 = DOW_ITEMS_SYMBOL2.map((symbol) => getDjiaPromise(symbol));
-    sleep(100)
-    const promDjia3 = DOW_ITEMS_SYMBOL3.map((symbol) => getDjiaPromise(symbol));
-    DJIAList = await Promise.all([...promDjia1, ...promDjia2, ...promDjia3]).then((result) => {
+
+    // const promDjia1 = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
+    // const promDjia11 = DOW_ITEMS_SYMBOL11.map((symbol) => getDjiaPromise(symbol));
+    // const promDjia2 = DOW_ITEMS_SYMBOL2.map((symbol) => getDjiaPromise(symbol));
+    // const promDjia22 = DOW_ITEMS_SYMBOL22.map((symbol) => getDjiaPromise(symbol));
+    // const promDjia3 = DOW_ITEMS_SYMBOL3.map((symbol) => getDjiaPromise(symbol));
+    // const promDjia33 = DOW_ITEMS_SYMBOL33.map((symbol) => getDjiaPromise(symbol));
+    const promDjia = DOW_ITEMS_SYMBOL.map((symbol) => getDjiaPromise(symbol));
+
+    // DJIAList = await Promise.all([...promDjia1, ...promDjia2, ...promDjia3, ...promDjia11, ...promDjia22, ...promDjia33]).then((result) => {
+    //   return result.map((item) => item.data);
+    // });
+    DJIAList = await Promise.all(promDjia).then((result) => {
       return result.map((item) => item.data);
     });
     return DJIAList;
