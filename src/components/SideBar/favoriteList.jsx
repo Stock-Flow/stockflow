@@ -122,6 +122,7 @@ export default function FavoriteList({
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
+              console.log(stock)
               let stocks = [];
               const keys = stock.stockData.map((date) => date.time);
               const values = stock.stockData.map((item) => +item.open);
@@ -129,17 +130,14 @@ export default function FavoriteList({
                 stocks.push({ date: item, price: values[i] });
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
-
               function transSymbol(e) {
                 e.stopPropagation();
                 sendStockSymbol(stock.symbol);
               }
-
               return (
                 <>
                   {value === 'stock' &&
                     <li onClick={transSymbol} className="clear-fix">
-
                       <div className="sidebar-left">
                         <span className="sidebar-symbol">{stock.symbol}</span>
                         <br />
