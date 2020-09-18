@@ -16,7 +16,7 @@ export default function CurrencyList({
 
   const dispatch = useDispatch();
 
-  const sendSymbol = (selectedStock, favoriteDataList) => {
+  const sendSymbol = (selectedStock) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'currency'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
     // dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
@@ -27,7 +27,6 @@ export default function CurrencyList({
   }
 
   const favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
-
 
   console.log(favoriteData)
 
