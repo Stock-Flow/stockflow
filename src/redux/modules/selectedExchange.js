@@ -33,9 +33,8 @@ const failGetSelectedExchange = (error) => {
 };
 
 function* getSelectedExchangeSaga(action) {
-  console.log(action);
   const selectedExchange = action.payload;
-  console.log(selectedExchange);
+
   yield put(startGetSelectedExchange());
   try {
     yield put(successGetSelectedExchange(selectedExchange));
