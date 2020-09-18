@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
+import { getfavoriteListButtonActionCreator } from '../../redux/modules/selectedSymbol'
 
 export default function CurrencyList({
   currencyList,
@@ -15,10 +16,20 @@ export default function CurrencyList({
 
   const dispatch = useDispatch();
 
-  const sendSymbol = (selectedStock) => {
+  const sendSymbol = (selectedStock, favoriteDataList) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'currency'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
+    // dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
   };
+
+  const sendToSymbol = (selectedStock) => {
+    dispatch(getfavoriteListButtonActionCreator(selectedStock, 'currency'))
+  }
+
+  let favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
+  let favoriteDataList = ''
+
+  console.log(favoriteData)
 
   return (
     <div className="sidebar currency">
@@ -41,6 +52,17 @@ export default function CurrencyList({
           function transSymbol(e) {
             e.stopPropagation();
             sendSymbol(currency.symbol);
+          }
+
+          // const symbol = currency.symbol
+
+          function selectedFavorite(e) {
+            e.stopPropagation();
+            sendToSymbol(currency.symbol);
+            // if (favoriteData.length !== 0) {
+            //   favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            // }
+            // console.log(favoriteDataList)
           }
 
           return (
@@ -68,10 +90,9 @@ export default function CurrencyList({
                     },
                   }}
                 />
-                <div className='bookmark'>
-                  <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
-                  <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                </div>
+                <button className='bookmark' onClick={selectedFavorite}>
+                  {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                </button>
               </div>
 
             </li>

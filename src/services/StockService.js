@@ -76,7 +76,7 @@ const DOW_ITEMS_SYMBOL = [
   'PG',
   'HD',
   'PFE',
-]
+];
 
 export default class StockService {
   static async getStockIntra(func, symbol) {

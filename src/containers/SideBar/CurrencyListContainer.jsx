@@ -25,12 +25,12 @@ export default function CurrencyListContainer({ search, sort, menu }) {
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
         a.name >
-        b.name
+          b.name
           ? 1
           : a.name <
             b.name
-          ? -1
-          : 0,
+            ? -1
+            : 0,
       );
     } else if (sort === 'cheap') {
       currencyList = [...currencyList].sort((a, b) => {

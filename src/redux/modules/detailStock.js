@@ -1,10 +1,5 @@
 import DetailStockService from '../../services/DetailStockService';
-import {
-  put,
-  call,
-  takeEvery,
-  select
-} from 'redux-saga/effects';
+import { put, call, takeEvery, select } from 'redux-saga/effects';
 import IndicatorService from '../../services/IndicatorService';
 import LocalStorageService from '../../services/LocalStorageService';
 
@@ -65,14 +60,10 @@ const getStockFromLocalStorage = (detailStock) => {
 // }
 
 function* getDetailStockSaga(action) {
-  const {
-    func,
-    symbol,
-    date
-  } = action.payload;
+  const { func, symbol, date } = action.payload;
   yield put(startGetDetailStock());
   try {
-    const updateDate = yield select(state => state.djia.date);
+    const updateDate = yield select((state) => state.djia.date);
     let stock = LocalStorageService.getDetailStock(symbol, updateDate);
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
@@ -162,9 +153,6 @@ function* getIndicatorSaga() {
   }
 }
 
-
-
-
 export function* detailStockSaga() {
   yield takeEvery(GET_DETAILSTOCK_SAGA, getDetailStockSaga);
   yield takeEvery(GET_DETAILSTOCK_SUCCESS, getIndicatorSaga);
@@ -181,42 +169,42 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-          error: null,
+        error: null,
       };
 
     case GET_DETAILSTOCK_SUCCESS:
       return {
         loading: true,
-          stock: action.stock,
-          error: null,
-          volume: action.volume,
+        stock: action.stock,
+        error: null,
+        volume: action.volume,
       };
     case GET_DETAILSTOCK_FAIL:
       return {
         ...prevState,
         loading: false,
-          error: action.error,
+        error: action.error,
       };
 
     case GET_INDICATOR_START:
       return {
         ...prevState,
         loading: true,
-          error: null,
+        error: null,
       };
 
     case GET_INDICATOR_SUCCESS:
       return {
         ...prevState,
         loading: false,
-          indicator: action.indicator,
-          error: null,
+        indicator: action.indicator,
+        error: null,
       };
     case GET_INDICATOR_FAIL:
       return {
         ...prevState,
         loading: false,
-          error: action.error,
+        error: action.error,
       };
 
     default:
