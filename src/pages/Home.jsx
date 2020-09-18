@@ -8,9 +8,14 @@ import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGra
 import ForeignExchangeContainer from '../containers/MainDjia/ForeignExchangeContainer';
 import './Home.scss';
 import RemindingStockContainer from '../containers/Detail/RemindingStockContainer';
+import ForeignExchangeDetailContainer from '../containers/MainDjia/ForeignExchangeDetailContainer';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
+  const selectedExchange = useSelector(
+    (state) => state.selectedExchange.fxIntraday.fxIntraday,
+  );
+  console.log(selectedExchange);
   return (
     <div className="home">
       <SideBarContent />
@@ -18,12 +23,14 @@ export default function Home() {
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
+      ) : selectedExchange ? (
+        <ForeignExchangeDetailContainer />
       ) : (
-            <>
-              <DjiagraphContainer />
-              <ForeignExchangeContainer />
-            </>
-          )}
+        <>
+          <DjiagraphContainer />
+          <ForeignExchangeContainer />
+        </>
+      )}
 
       <RemindingStockContainer />
     </div>

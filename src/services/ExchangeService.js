@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  apiKey
-} from '../key';
+import { apiKey } from '../key';
 
 export default class ExchangeSerivice {
   static async getExchange(exchangeArr) {
@@ -27,15 +25,14 @@ export default class ExchangeSerivice {
       const toSymbol = exchangeArr[index][1];
       return axios
         .get(
-          `https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=${fromSymbol}&to_symbol=${toSymbol}&interval=5min&apikey=${apiKey}`,
+          `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=${fromSymbol}&to_symbol=${toSymbol}&interval=5min&apikey=${apiKey}`,
         )
-        .then((res) => res.data['Time Series FX (5min)'])
+        .then((res) => res.data['Time Series FX (Daily)'])
         .catch((e) => console.error(e));
     });
     const exchangeIntraPromise = await Promise.all(returnIntraday).then(
       (res) => res,
     );
-
 
     const exchangeArrState = [...exchangePromise];
     let combineExchangeArray = await exchangeArr.map((exchange, i) => {
