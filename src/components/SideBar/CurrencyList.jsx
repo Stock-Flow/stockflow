@@ -26,10 +26,10 @@ export default function CurrencyList({
     dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
   }
 
-  let favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
+  const favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
+
 
   console.log(favoriteData)
-  let favoriteDataList = false
 
   return (
     <div className="sidebar currency">
@@ -55,14 +55,18 @@ export default function CurrencyList({
           }
 
           const symbol = currency.symbol
+          let favoriteDataList = false;
+          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            console.log(favoriteDataList)
+          }
 
           function selectedFavorite(e) {
             e.stopPropagation();
             sendToSymbol(currency.symbol);
-            if (favoriteData.length !== 0) {
-              favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = !favoriteDataList
             }
-            console.log(typeof favoriteDataList)
           }
 
           return (
