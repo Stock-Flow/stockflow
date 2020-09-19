@@ -38,14 +38,16 @@ export default function SideBarContent() {
   return (
     <div className="sidebar-wrap">
       <div className="menuBar">
-
+        <button className="home-button">
+          <img src="./images/home.png" alt="home" />
+        </button>
         <button
           className="stockBtn"
           onClick={() => {
             changeMode('stock');
           }}
         >
-          Stock
+          <img src="./images/chartarrow.png" alt="home" />
         </button>
 
         <button
@@ -54,7 +56,7 @@ export default function SideBarContent() {
             changeMode('currency');
           }}
         >
-          Currency
+          <img src="./images/currency-icon.png" alt="home" />
         </button>
 
         <button
@@ -63,7 +65,7 @@ export default function SideBarContent() {
             changeMode('favorite');
           }}
         >
-          Favorite
+          <img src="./images/star-click-icon.png" alt="home" />
         </button>
 
       </div>
