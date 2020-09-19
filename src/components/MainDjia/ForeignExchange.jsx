@@ -36,6 +36,13 @@ export default function ForeignExchange({
   ));
 
   return (
-    <>{!loading && <div className="foreign-exchange-wrap">{itemList}</div>}</>
+    <>
+      {!loading && (
+        <div className="foreign-exchange-list-wrap">
+          <h2>Foriegn Exchange</h2>
+          {itemList}
+        </div>
+      )}
+    </>
   );
 }

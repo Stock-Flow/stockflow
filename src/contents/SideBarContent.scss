@@ -7,7 +7,7 @@
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
-  background: linear-gradient(180deg, #2d3746 0%, #282d33 100%);
+  background: #2b2d3c;
   box-shadow: 5px 5px 25px #272936;
 
   .menuBar {
@@ -78,17 +78,17 @@
       margin: 10px auto 0;
       padding: 0 0 0 25px;
       border-radius: 5px;
-      border: #1F202B;
+      border: #1f202b;
       caret-color: #fff;
       box-shadow: none;
-      color: #727AA0;   
-      background: #1F202B url(../styles/search_icon.png) no-repeat 5px center;  
+      color: #727aa0;
+      background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
       &:before {
         content: '';
       }
     }
     .search::placeholder {
-      color: #727AA0;
+      color: #727aa0;
     }
     .sortbox {
       float: right;
@@ -107,22 +107,22 @@
       margin-bottom: 20px;
     }
 
-    .list_values{
+    .list_values {
       margin-top: 20px;
-      span{
+      span {
         display: inline-block;
-        color: #727AA0;
+        color: #727aa0;
       }
-      span:nth-child(1){
+      span:nth-child(1) {
         width: 43%;
       }
-      span:nth-child(2){
+      span:nth-child(2) {
         width: 10%;
       }
-      span:nth-child(3){
+      span:nth-child(3) {
         padding-left: 10%;
       }
-      span:nth-child(4){
+      span:nth-child(4) {
         float: right;
         padding-right: 20px;
       }
@@ -149,17 +149,17 @@
           .VictoryContainer {
             display: inline-block;
           }
-        } 
-        span:first-child{
+        }
+        span:first-child {
           width: 20%;
           text-align: right;
           white-space: nowrap;
         }
-        span:last-child{
+        span:last-child {
           text-align: right;
           white-space: nowrap;
         }
-  
+
         .bookmark {
           background: none;
           border: none;
@@ -191,7 +191,7 @@
       }
     }
   }
-  
+
   .none {
     display: none;
   }

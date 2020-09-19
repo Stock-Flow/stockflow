@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createChart } from 'lightweight-charts';
 
 export default function ForeignExchangeDetail({
@@ -11,10 +11,18 @@ export default function ForeignExchangeDetail({
   const chartExchange = useRef();
   const exchangeLineSeries = useRef();
   const excahngeChartposition = useRef();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth);
+    if (chartExchange.current) {
+      chartExchange.current.resize(windowWidth * 0.36 - 100, 260);
+    }
+  };
   useEffect(() => {
     chartExchange.current = createChart(excahngeChartposition.current, {
-      width: 800,
-      height: 400,
+      width: windowWidth * 0.36 - 100,
+      height: 260,
     });
     chartExchange.current.applyOptions({
       priceScale: {
@@ -26,25 +34,25 @@ export default function ForeignExchangeDetail({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
         textColor: '#eeeeee',
       },
     });
-    exchangeLineSeries.current = chartExchange.current.addCandlestickSeries({
+    exchangeLineSeries.current = chartExchange.current.addLineSeries({
       title: 'exchange',
+      color: '#2196f3',
     });
   }, []);
 
   if (chartExchange.current) {
     exchangeLineSeries.current.setData(selectExchangeListResult);
-    console.log(selectExchangeListResult)
     chartExchange.current.timeScale().setVisibleLogicalRange({
       from: selectExchangeListResult.length - 60,
       to: selectExchangeListResult.length,
     });
   }
   return (
-    <div>
+    <div className="foreign-exchange-detail-wrap">
       <h2>
         {fromCurrenciesCode} {toCurrenciesCode}
       </h2>
