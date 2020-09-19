@@ -2,14 +2,23 @@ import React, { useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
 
 import './MainDjia.scss';
+import { useState } from 'react';
+import ForeignExchangeContainer from '../../containers/MainDjia/ForeignExchangeContainer';
 
 export default function DjiaGraph({ djiaList, djiaDate }) {
   const chart = useRef();
   const lineSeries = useRef();
   const chartposition = useRef();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth);
+    if (chart.current) {
+      chart.current.resize(windowWidth * 0.72 - 100, 400);
+    }
+  }
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 800,
+      width: windowWidth * 0.72 - 100,
       height: 400,
     });
     chart.current.applyOptions({
@@ -22,7 +31,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
     });
@@ -54,6 +63,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     <>
       <h1>DOW J</h1>
       <div ref={chartposition}></div>
+      <ForeignExchangeContainer />
     </>
   );
 }

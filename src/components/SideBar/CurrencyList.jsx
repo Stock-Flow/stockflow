@@ -18,25 +18,28 @@ export default function CurrencyList({
 
   const dispatch = useDispatch();
 
-  const sendSymbol = (selectedStock, favoriteDataList) => {
+  const sendSymbol = (selectedStock) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'currency'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
   };
 
-  const sendToSymbol = (selectedStock) => {
-    dispatch(getfavoriteListButtonActionCreator(selectedStock, 'currency'))
+  const sendToSymbol = (selectedStock, favoriteDataList) => {
+    dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
   }
 
   const favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
 
 
- 
+
+
   if (!loading) {
+
   return (
     <div className="sidebar currency">
       <ul className={menu === 'currency' ? '' : 'none'}>
         {currencyList.map((currency) => {
           let currencys = [];
+       
           const keys = Object.keys(
             currency.currencyData,
           ).reverse();
@@ -46,7 +49,7 @@ export default function CurrencyList({
             .map((item) => item.open)
             .reverse();
           keys.forEach((item, i) => {
-            currencys.push({ date: item, price: values[i] });
+            currencys.push({ date: item, pricee: values[i] });
           });
           let color = currency.change === "-" ? "green" : "red"
 
@@ -68,10 +71,12 @@ export default function CurrencyList({
               favoriteDataList = !favoriteDataList
             }
           }
-
+          
           return (
             <li onClick={transSymbol} className="clear-fix">
-              {/* {currency.change} */}
+              <button className='bookmark' onClick={selectedFavorite}>
+                  {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+              </button>
               <div className="sidebar-left">
                 <span className="sidebar-symbol">
                   {currency.symbol}
@@ -94,13 +99,9 @@ export default function CurrencyList({
                     },
                   }}
                 />
-                <span className='sidebar-change' >{currency.price}%</span>
-                <span className='sidebar-change' >{currency.change}%</span>
-                <button className='bookmark' onClick={selectedFavorite}>
-                  {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                </button>
               </div>
-
+              <span className='sidebar-change' >{currency.price}</span>
+              <span className='sidebar-change' >{currency.change}%</span>                   
             </li>
           );
         })}

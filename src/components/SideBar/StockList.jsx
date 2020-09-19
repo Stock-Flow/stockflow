@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import * as V from 'victory';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
 import { LoadingOutlined } from '@ant-design/icons'
+import { getfavoriteListButtonActionCreator } from '../../redux/modules/selectedSymbol'
 
 export default function StockList({
   stockList,
@@ -22,6 +23,12 @@ export default function StockList({
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
   };
 
+  const sendToSymbol = (selectedStock, favoriteDataList) => {
+    dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'stock'))
+  }
+
+
+  const favoriteData = useSelector(state => state.selectedSymbol.selectedStockSymbol)
 
   if (!loading) {
     return (
@@ -49,9 +56,28 @@ export default function StockList({
               //   }
               // }
 
+              const symbol = stock.symbol
+              let favoriteDataList = false;
+              if (favoriteData.filter((stock) => stock.symbol === symbol).length !== 0) {
+                favoriteDataList = favoriteData.filter((stock) => stock.symbol === symbol)[0].favorite
+                // console.log(favoriteDataList)
+              }
+
+
+              function selectedFavorite(e) {
+                e.stopPropagation();
+                sendToSymbol(stock.symbol);
+                if (favoriteData.filter((stock) => stock.symbol === symbol).length !== 0) {
+                  favoriteDataList = !favoriteDataList
+                }
+              }
+
               return (
 
                 <li onClick={transSymbol} className="clear-fix">
+                  <button className='bookmark' onClick={selectedFavorite}>
+                    {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                  </button>
                   <div className="sidebar-left">
                     <span className="sidebar-symbol">{stock.symbol}</span>
                     <br />
@@ -71,14 +97,9 @@ export default function StockList({
                         },
                       }}
                     />
-
-                    <span className="sidebar-change">{stock.change}</span>
-                    <div className='bookmark'>
-                      <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />
-                      <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' />
-                    </div>
                   </div>
-
+                  <span className="sidebar-change">{stock.price}</span>
+                  <span className="sidebar-change">{stock.change}</span>   
                 </li>
               );
             },
