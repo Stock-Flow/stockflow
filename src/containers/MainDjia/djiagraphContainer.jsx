@@ -47,7 +47,7 @@ export default function DjiagraphContainer() {
   }
 
   return (
-    <div>
+    <div className = 'djiagraphBox'>
       <DjiaGraph djiaList={djiaList} djiaDate={djiaDate} djia={djia} />
     </div>
   );

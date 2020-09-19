@@ -36,37 +36,37 @@
     }
   }
 
-  .sortbox {
-    float: right;
-    width: 102px;
-    height: 32px;
-    margin-top: 20px;
-    padding-left: 8px;
-    font-size: 0.8462rem;
-    color: #fff;
-    background: #1c2024;
-  }
-  .sortValuebox {
-    width: 100%;
-    margin-top: 0px;
-    margin-bottom: 20px;
-  }
+  // .sortbox {
+  //   float: right;
+  //   width: 102px;
+  //   height: 32px;
+  //   margin-top: 20px;
+  //   padding-left: 8px;
+  //   font-size: 0.8462rem;
+  //   color: #fff;
+  //   background: #1c2024;
+  // }
+  // .sortValuebox {
+  //   width: 100%;
+  //   margin-top: 0px;
+  //   margin-bottom: 20px;
+  // }
 
-  .none {
-    display: none;
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    button {
-      width: calc(50% - 7px);
-      height: 60px;
-      border: 0px;
-      font-size: 1.125rem;
-      color: #ffffff;
-      background: #212933;
-      margin: 10px auto 0;
-    }
-  }
+  // .none {
+  //   display: none;
+  //   background-color: red;
+  //   display: flex;
+  //   flex-direction: column;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //     margin: 10px auto 0;
+  //   }
+  // }
 
   .sidebarList {
     padding: 15px;
@@ -103,12 +103,12 @@
     }
     .sortValuebox {
       width: 100%;
-      margin-top: 0px;
+      margin-top: 15px;
       margin-bottom: 20px;
     }
 
     .list_values {
-      margin-top: 20px;
+      margin: 20px 0;
       span {
         display: inline-block;
         color: #727aa0;

@@ -4,6 +4,8 @@ import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 import Logo from '../components/SideBar/Logo';
 import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
+import { useDispatch } from 'react-redux';
+import { getSelectedStockSagaActionCreator } from '../redux/modules/selectedStock';
 
 export default function SideBarContent() {
   const searchValue = useRef();
@@ -12,6 +14,8 @@ export default function SideBarContent() {
   const [stockSearch, setStockSearch] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
   const [menu, setMenu] = useState('stock');
+
+  const dispatch = useDispatch();
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
@@ -35,11 +39,15 @@ export default function SideBarContent() {
     setCurrencySearch('');
   }, []);
 
+  const goHome = () => {
+    dispatch(getSelectedStockSagaActionCreator('',''))
+  }
+
   return (
     <div className="sidebar-wrap">
       <div className="menuBar">
 
-        <button className="home-button">
+        <button className="home-button" onClick={goHome}>
           <img src="./images/home.png" alt="home" />
         </button>
 
@@ -71,6 +79,7 @@ export default function SideBarContent() {
         </button>
 
       </div>
+
 
       <div className="sidebarList">
 
