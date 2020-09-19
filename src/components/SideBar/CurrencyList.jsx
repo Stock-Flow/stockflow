@@ -94,6 +94,7 @@ export default function CurrencyList({
                     },
                   }}
                 />
+                <span className='sidebar-change' >{currency.price}%</span>
                 <span className='sidebar-change' >{currency.change}%</span>
                 <button className='bookmark' onClick={selectedFavorite}>
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
