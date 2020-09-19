@@ -61,10 +61,10 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     });
   }
   return (
-    <>
+    <div className='djia'>
       <h1>DOW J</h1>
       <div ref={chartposition}></div>
       <ForeignExchangeContainer />
-    </>
+    </div>
   );
 }
