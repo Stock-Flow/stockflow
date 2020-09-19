@@ -49,7 +49,7 @@ export default function CurrencyList({
             .map((item) => item.open)
             .reverse();
           keys.forEach((item, i) => {
-            currencys.push({ date: item, pricee: values[i] });
+            currencys.push({ date: item, price: values[i] });
           });
           let color = currency.change === "-" ? "green" : "red"
 
