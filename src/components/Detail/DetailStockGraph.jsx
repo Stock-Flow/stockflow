@@ -215,7 +215,7 @@ export default function DetailStockGraph({
         barSpacing: 10,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -240,7 +240,7 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -267,7 +267,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -294,7 +294,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -322,7 +322,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -349,7 +349,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -376,7 +376,7 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
