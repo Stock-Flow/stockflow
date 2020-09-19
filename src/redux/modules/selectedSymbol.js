@@ -284,7 +284,7 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) => {
-        console.log('hi', symbol)
+        // console.log('hi', symbol)
         return symbol.symbol === action.payload.selectedStock ?
           symbol.count < 3 ? {
             ...symbol,
