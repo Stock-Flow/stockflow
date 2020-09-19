@@ -1,6 +1,6 @@
 .foreign-exchange-wrap {
   display: inline-block;
-  width: 30%;
+  width: 50%;
   margin-top: 50px;
 
   .exchange-item {
@@ -10,9 +10,11 @@
     padding: 5px;
     border-bottom: 1px solid #ededed;
     transition: 0.3s all;
+
     &:first-child {
       border-top: 1px solid #ededed;
     }
+
     .exchange-column.icon {
       position: relative;
       width: 10%;
@@ -20,30 +22,37 @@
       .country-icon {
         position: absolute;
         transform: translate(0, -50%);
+
         img {
           border-radius: 50%;
           border: 2px solid #fff;
         }
       }
+
       .to {
         top: 10px;
       }
+
       .from {
         left: -10px;
         z-index: 1;
       }
     }
+
     .exchange-column.name {
       width: 45%;
+
       .currency-name {
         font-size: 0.8rem;
         color: #ddd;
       }
     }
+
     .exchange-column.rate {
       width: 26%;
       padding-left: 10px;
     }
+
     .exchange-column.percent {
       .plus {
         color: rgb(184, 53, 53);
@@ -53,6 +62,7 @@
         color: rgb(59, 151, 74);
       }
     }
+
     &:hover {
       background: #444;
     }

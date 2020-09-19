@@ -1,55 +1,56 @@
 .sidebar-wrap {
   overflow: hidden;
-  width: 20%;
+  display: flex;
+  flex-direction: row;
+  width: 28%;
+  min-width: 550px;
   min-height: 100vh;
-  padding: 0 15px;
+  padding: 0px;
   color: #ffffff;
   background: linear-gradient(180deg, #2d3746 0%, #282d33 100%);
 
-  .logo {
-    display: block;
-    // width: 90%;
-    height: 48px;
-    margin: 60px auto 0;
-    text-align: center;
+  .menuBar {
+    width: 17%;
+    min-width: 80px;
+    background-color: red;
   }
-  .menuBtn {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 50px;
-    button {
-      width: calc(50% - 7px);
-      height: 60px;
-      border: 0px;
-      font-size: 1.125rem;
-      color: #ffffff;
-      background: #212933;
-    }
-  }
-  .search {
-    display: block;
-    width: 100%;
-    margin: 10px auto 0;
-    padding: 0 0 5px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    caret-color: #fff;
-    background: none;
-    &:before {
-      content: '';
-    }
-  }
+  // .menuBtn {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   margin-top: 50px;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //   }
+  // }
+  // .search {
+  //   display: block;
+  //   width: 100%;
+  //   margin: 10px auto 0;
+  //   padding: 0 0 5px;
+  //   border: none;
+  //   border-bottom: 1px solid #fff;
+  //   caret-color: #fff;
+  //   background: none;
+  //   &:before {
+  //     content: '';
+  //   }
+  // }
 
-  .favorite-button {
-    float: left;
-    width: 102px;
-    height: 32px;
-    margin-top: 20px;
-    font-size: 0.8462rem;
-    color: #fff;
-    background: #1c2024;
-    border: 0;
-  }
+  // .favorite-button {
+  //   float: left;
+  //   width: 102px;
+  //   height: 32px;
+  //   margin-top: 20px;
+  //   font-size: 0.8462rem;
+  //   color: #fff;
+  //   background: #1c2024;
+  //   border: 0;
+  // }
 
   .sortbox {
     float: right;
