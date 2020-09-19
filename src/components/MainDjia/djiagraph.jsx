@@ -9,8 +9,9 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   const chartposition = useRef();
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 800,
-      height: 400,
+      width: 400,
+      height: 200,
+
     });
     chart.current.applyOptions({
       priceScale: {
