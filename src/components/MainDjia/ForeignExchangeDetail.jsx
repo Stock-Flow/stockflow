@@ -54,7 +54,11 @@ export default function ForeignExchangeDetail({
   return (
     <div className="foreign-exchange-detail-wrap">
       <h2>
-        {fromCurrenciesCode} {toCurrenciesCode}
+        {fromCurrenciesCode && (
+          <>
+            {fromCurrenciesCode}/{toCurrenciesCode} Chart
+          </>
+        )}
       </h2>
       <div ref={excahngeChartposition}></div>
     </div>
