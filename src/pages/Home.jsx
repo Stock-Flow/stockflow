@@ -22,8 +22,6 @@ export default function Home() {
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
-      ) : selectedExchange ? (
-        <ForeignExchangeDetailContainer />
       ) : (
         <>
           <DjiagraphContainer />
