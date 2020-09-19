@@ -30,10 +30,12 @@ export default function ForeignExchangeDetailContainer() {
   let low = [];
   let close = [];
 
+  let keyTime = [];
+  // console.log(exchangeIntraday);
   if (exchangeIntraday) {
-    time = Object.keys(exchangeIntraday);
-    time.map((v, i) => {
-      time.push(v);
+    keyTime = Object.keys(exchangeIntraday);
+    keyTime.map((v, i) => {
+      time.push(keyTime[i]);
       open.push(Number(exchangeIntraday[v]['1. open']));
       high.push(Number(exchangeIntraday[v]['2. high']));
       low.push(Number(exchangeIntraday[v]['3. low']));
@@ -52,7 +54,7 @@ export default function ForeignExchangeDetailContainer() {
   });
 
   selectExchangeListResult.reverse();
-
+  // console.log(selectExchangeListResult);
   const dispatch = useDispatch();
   const getExchangeDaily = useCallback(() => {
     dispatch(
@@ -75,8 +77,6 @@ export default function ForeignExchangeDetailContainer() {
   useEffect(() => {
     getExchangeDaily();
   }, []);
-
-  // console.log(exchangeState);
 
   return (
     <ForeignExchangeDetail

@@ -15,7 +15,6 @@ export default function Home() {
   const selectedExchange = useSelector(
     (state) => state.selectedExchange.fxIntraday.fxIntraday,
   );
-  console.log(selectedExchange);
   return (
     <div className="home">
       <SideBarContent />
