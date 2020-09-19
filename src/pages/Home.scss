@@ -37,10 +37,12 @@ html {
     .detail-stock {
       display: block;
     }
+    padding-top: 96px;
   }
 
   // 사이드바를 제외한 메인 뷰
   main {
+    margin-top: 100px;
     width: 80%;
     padding: 90px 70px 0 90px;
 

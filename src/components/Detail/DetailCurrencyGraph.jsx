@@ -126,6 +126,33 @@ export default function DetailCurrencyGraph({
   const [slowDColor, setSlowDColor] = useState('#cccc00');
   const [slowKColor, setSlowKColor] = useState('#0000cc');
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth)
+    if (chart.current) {
+      chart.current.resize(windowWidth * 0.72 - 100, 400);
+    }
+    if (assistChart.current) {
+      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (indicatorChart.current) {
+      indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (disparityChart.current) {
+      disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (MACDChart.current) {
+      MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (MACDOSCChart.current) {
+      MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (stochasticSlowChart.current) {
+      stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+  }
+
+
   const fiveMovingAverageData = movingAverage(currency, 5);
   const twentyMovingAverageData = movingAverage(currency, 20);
   const sixtyMovingAverageData = movingAverage(currency, 60);
@@ -167,7 +194,7 @@ export default function DetailCurrencyGraph({
 
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 800,
+      width: windowWidth * 0.72 - 100,
       height: 400,
     });
     chart.current.applyOptions({
@@ -183,7 +210,7 @@ export default function DetailCurrencyGraph({
         barSpacing: 10,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee'
       },
       grid: {
@@ -196,7 +223,7 @@ export default function DetailCurrencyGraph({
       }
     });
     assistChart.current = createChart(chartposition.current, {
-      width: 800,
+      width: windowWidth * 0.72 - 100,
       height: 200,
     });
     assistChart.current.applyOptions({
@@ -208,7 +235,7 @@ export default function DetailCurrencyGraph({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee'
       },
       grid: {
@@ -235,7 +262,7 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee'
       },
       grid: {
@@ -262,7 +289,7 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -290,7 +317,7 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -317,7 +344,7 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -344,7 +371,7 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2F3242',
         textColor: '#eeeeee',
       },
       grid: {
@@ -379,10 +406,18 @@ export default function DetailCurrencyGraph({
     smaFive.current = null;
     smaTwenty.current = null;
     smaSixty.current = null;
-    smaHundredTwenty.current = null;
     lowBBANDS.current = null;
     middleBBANDS.current = null;
     highBBANDS.current = null;
+    smaHundredTwenty.current = null;
+    // rsiChart.current = null;
+    // disparityGraph.current = null;
+    // MACDGraph.current = null;
+    // MACDSignalGraph.current = null;
+    // MACDOSCGraph.current = null;
+    // stochasticSlowDGraph.current = null;
+    // stochasticSlowKGraph.current = null;
+
     setBBANDSCk(false);
     fiveCk(false);
     twentyCk(false);
@@ -671,8 +706,20 @@ export default function DetailCurrencyGraph({
                       rsiChart.current = null;
                     } else {
                       setRsick(true);
-                      GraphService.graphColor(indicatorChart.current, rsiColor, rsiChart, indicators[0])
-                      GraphService.graphColor(indicatorChart.current, rsiSignalColor, rsiSignalChart, rsiSignal)
+                      GraphService.graphColor(
+                        indicatorChart.current,
+                        rsiColor,
+                        rsiChart,
+                        indicators[0],
+                        windowWidth
+                      );
+                      GraphService.graphColor(
+                        indicatorChart.current,
+                        rsiSignalColor,
+                        rsiSignalChart,
+                        rsiSignal,
+                        windowWidth
+                      );
                     }
                   }} />
                 </label>
@@ -724,6 +771,7 @@ export default function DetailCurrencyGraph({
                       disparityColor,
                       disparityGraph,
                       twentyDisparity,
+                      windowWidth
                     );
                   }
                 }}
@@ -766,12 +814,14 @@ export default function DetailCurrencyGraph({
                       MACDColor,
                       MACDGraph,
                       MACDData.current[0],
+                      windowWidth
                     );
                     GraphService.graphColor(
                       MACDChart.current,
                       MACDSignalColor,
                       MACDSignalGraph,
                       MACDData.current[1],
+                      windowWidth
                     );
                   }
                 }}
@@ -823,6 +873,7 @@ export default function DetailCurrencyGraph({
                       MACDOSCColor,
                       MACDOSCGraph,
                       MACDData.current[2],
+                      windowWidth
                     );
                   }
                 }}
@@ -867,12 +918,14 @@ export default function DetailCurrencyGraph({
                       slowDColor,
                       stochasticSlowDGraph,
                       stochasticSlowData.current[1],
+                      windowWidth
                     );
                     GraphService.graphColor(
                       stochasticSlowChart.current,
                       slowKColor,
                       stochasticSlowKGraph,
                       stochasticSlowData.current[0],
+                      windowWidth
                     );
                   }
                 }}
