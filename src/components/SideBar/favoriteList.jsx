@@ -58,8 +58,8 @@ export default function FavoriteList({
   const favoriteStockData = useSelector(state => state.selectedSymbol.selectedStockSymbol)
   const favoriteCurrencyData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
 
-  console.log(currencyList)
-  console.log(favoriteCurrencyList)
+  // console.log(currencyList)
+  // console.log(favoriteCurrencyList)
 
   if (!currencyLoading) {
     return (
@@ -70,8 +70,8 @@ export default function FavoriteList({
         </select>
         <div className="sidebar favorite">
           <ul className={menu === 'favorite' ? '' : 'none'}>
-            {console.log(currencyList)}
-            {console.log(favoriteCurrencyList, 'a')}
+            {/* {console.log(currencyList)}
+            {console.log(favoriteCurrencyList, 'a')} */}
 
             {favoriteCurrencyList.map((favoriteCurrencyList) => {
               const currency = currencyList.filter((currency) => {
@@ -80,7 +80,7 @@ export default function FavoriteList({
                   currency.symbol
                 );
               })[0];
-              console.log(currency)
+              // console.log(currency)
               let currencys = [];
               const keys = Object.keys(
                 currency.currencyData,
@@ -106,7 +106,7 @@ export default function FavoriteList({
               let favoriteCurrencyDataList = false;
               if (favoriteCurrencyData.filter((currency) => currency.symbol === Currencysymbol).length !== 0) {
                 favoriteCurrencyDataList = favoriteCurrencyData.filter((currency) => currency.symbol === Currencysymbol)[0].favorite
-                console.log(favoriteCurrencyDataList)
+                // console.log(favoriteCurrencyDataList)
               }
 
               function selectedCurrencyFavorite(e) {
@@ -121,7 +121,10 @@ export default function FavoriteList({
                 <>
                   {value === 'currency' &&
                     <li onClick={transSymbol} className="clear-fix">
-                      {/* {currency.change} */}
+                      <button className='bookmark' onClick={selectedCurrencyFavorite}>
+                        {favoriteCurrencyDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                      </button>
+
                       <div className="sidebar-left">
                         <span className="sidebar-symbol">
                           {currency.symbol}
@@ -131,6 +134,7 @@ export default function FavoriteList({
                           {currency.name}
                         </span>
                       </div>
+
                       <div className="sidebar-right">
                         <V.VictoryLine
                           data={currencys}
@@ -143,11 +147,10 @@ export default function FavoriteList({
                               height: 'auto',
                             },
                           }}
-                        />
-                        <button className='bookmark' onClick={selectedCurrencyFavorite}>
-                          {favoriteCurrencyDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                        </button>
+                        />                
                       </div>
+                      <span className='sidebar-change' >{currency.price}</span>
+                      <span className='sidebar-change' >{currency.change}%</span>                   
                     </li>}
                 </>
               );
@@ -172,7 +175,7 @@ export default function FavoriteList({
               let favoriteStockDataList = false;
               if (favoriteStockData.filter((stock) => stock.symbol === symbolStock).length !== 0) {
                 favoriteStockDataList = favoriteStockData.filter((stock) => stock.symbol === symbolStock)[0].favorite
-                console.log(favoriteStockDataList)
+                // console.log(favoriteStockDataList)
               }
 
 
@@ -188,12 +191,17 @@ export default function FavoriteList({
                 <>
                   {value === 'stock' &&
                     <li onClick={transSymbol} className="clear-fix">
+                      <button className='bookmark' onClick={selectedStockFavorite}>
+                        {favoriteStockDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+                      </button>
+
                       <div className="sidebar-left">
                         <span className="sidebar-symbol">{stock.symbol}</span>
                         <br />
                         <span className="sidebar-name">{stock.name}</span>
                         <br />
                       </div>
+
                       <div className="sidebar-right">
                         <V.VictoryLine
                           data={stocks}
@@ -206,12 +214,11 @@ export default function FavoriteList({
                               height: 'auto',
                             },
                           }}
-                        />
-                        <span className="sidebar-change">{stock.change}</span>
-                        <button className='bookmark' onClick={selectedStockFavorite}>
-                          {favoriteStockDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                        </button>
+                        />                                          
                       </div>
+                      
+                      <span className="sidebar-change">{stock.price}</span>
+                      <span className="sidebar-change">{stock.change}</span>
                     </li>}
                 </>
               );

@@ -11,12 +11,7 @@ export default function CurrencyListContainer({ search, sort, menu }) {
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
 
-  if (currencyList.length !== 0) {
-    currencyList = currencyList.map((currency, i) => ({
-      ...currency,
-      price: Object.values(currency.currencyData[0].open)
-    }));
-    
+  if (currencyList.length !== 0) { 
     if (search) {
       const regexp = new RegExp(search, 'i');
       currencyList = currencyList.filter((currency) =>
@@ -45,6 +40,7 @@ export default function CurrencyListContainer({ search, sort, menu }) {
   const renderCurrencyList = useCallback(() => {
     dispatch(getSideBarCurrencySagaActionCreator());
   }, [dispatch]);
+
 
   return (
     <>
