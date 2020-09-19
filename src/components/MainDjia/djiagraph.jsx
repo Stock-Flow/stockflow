@@ -20,6 +20,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     chart.current = createChart(chartposition.current, {
       width: windowWidth * 0.72 - 100,
       height: 400,
+
     });
     chart.current.applyOptions({
       priceScale: {

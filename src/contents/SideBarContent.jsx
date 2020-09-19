@@ -38,13 +38,18 @@ export default function SideBarContent() {
   return (
     <div className="sidebar-wrap">
       <div className="menuBar">
+
+        <button className="home-button">
+          <img src="./images/home.png" alt="home" />
+        </button>
+
         <button
           className="stockBtn"
           onClick={() => {
             changeMode('stock');
           }}
         >
-          Stock
+          <img src="./images/chartarrow.png" alt="home" />
         </button>
 
         <button
@@ -53,7 +58,7 @@ export default function SideBarContent() {
             changeMode('currency');
           }}
         >
-          Currency
+          <img src="./images/currency-icon.png" alt="home" />
         </button>
 
         <button
@@ -62,17 +67,13 @@ export default function SideBarContent() {
             changeMode('favorite');
           }}
         >
-          Favorite
+          <img src="./images/star-click-icon.png" alt="home" />
         </button>
-        
+
       </div>
-     
-
-
- 
 
       <div className="sidebarList">
-     
+
         <input
           className="search"
           type="text"
@@ -80,12 +81,16 @@ export default function SideBarContent() {
             checkSearchDone(menu);
           }}
           ref={searchValue}
+
+        />
+
+        <label htmlFor="sort-choice">Sort</label>
+
           placeholder='Search'
         />
 
       
-        {/* <label htmlFor="sort-choice">Sort</label> */}
-
+       
         <div className="sortbox-wrap clear-fix">
           <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
             <option defaultValue="name">name</option>
@@ -93,12 +98,14 @@ export default function SideBarContent() {
             <option value="cheap">cheap</option>
           </select>
         </div>
+
         <div className="list_values">
           <span>Symbol</span>
           <span>Graph</span>
           <span>Price</span>
           <span>Change</span>
         </div>
+
         <StockListContainer search={stockSearch} sort={sort} menu={menu} />
         <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
         <FavoriteListContainer menu={menu} />
