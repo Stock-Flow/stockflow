@@ -37,9 +37,8 @@ export default function SideBarContent() {
 
   return (
     <div className="sidebar-wrap">
-      <Logo />
+      <div className="menuBar">
 
-      <div className="menuBtn">
         <button
           className="stockBtn"
           onClick={() => {
@@ -48,6 +47,7 @@ export default function SideBarContent() {
         >
           Stock
         </button>
+
         <button
           className="currencyBtn"
           onClick={() => {
@@ -56,20 +56,7 @@ export default function SideBarContent() {
         >
           Currency
         </button>
-      </div>
 
-      <input
-        className="search"
-        type="text"
-        onChange={() => {
-          checkSearchDone(menu);
-        }}
-        ref={searchValue}
-      />
-
-      {/* <label htmlFor="sort-choice">Sort</label> */}
-
-      <div className="sortbox-wrap clear-fix">
         <button
           className="favorite-button"
           onClick={() => {
@@ -78,18 +65,36 @@ export default function SideBarContent() {
         >
           Favorite
         </button>
+        
+      </div>
+     
+
+
+ 
+
+      <div className="sidebarList">
+      <input
+        className="search"
+        type="text"
+        onChange={() => {
+          checkSearchDone(menu);
+        }}
+        ref={searchValue}
+      />
+      
+      <label htmlFor="sort-choice">Sort</label>
+
+      <div className="sortbox-wrap clear-fix">
         <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
           <option defaultValue="name">name</option>
           <option value="expensive">expensive</option>
           <option value="cheap">cheap</option>
         </select>
       </div>
-
-      {/* {menu ? <StockListContainer search={search} sort={sort} /> : <CurrencyListContainer search={search} sort={sort} />}
-    </div> */}
       <StockListContainer search={stockSearch} sort={sort} menu={menu} />
       <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
       <FavoriteListContainer menu={menu} />
+      </div>
     </div>
   );
 }

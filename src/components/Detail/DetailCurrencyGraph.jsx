@@ -5,9 +5,26 @@ import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import './DetailStockGraph.scss';
 import GraphService from '../../services/GraphService';
+import { LoadingOutlined } from '@ant-design/icons'
 
 const customStyles = {
   content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 100,
+  },
+  overlay: {
+    zIndex: 100,
+  },
+};
+const addCustomStyles = {
+  content: {
+    width: 300,
+    height: 100,
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -359,6 +376,19 @@ export default function DetailCurrencyGraph({
 
       assistChart.current.removeSeries(volumeChart.current);
     }
+    smaFive.current = null;
+    smaTwenty.current = null;
+    smaSixty.current = null;
+    smaHundredTwenty.current = null;
+    lowBBANDS.current = null;
+    middleBBANDS.current = null;
+    highBBANDS.current = null;
+    setBBANDSCk(false);
+    fiveCk(false);
+    twentyCk(false);
+    sixtyCk(false);
+    hundredTwentyCk(false);
+    
     indicatorChart.current.resize(0, 0);
     setRsick(false);
     stochasticSlowChart.current.resize(0, 0)
@@ -399,7 +429,7 @@ export default function DetailCurrencyGraph({
   return (
     <>
       <div className="detail-stock">
-        {!loading && (
+        {loading ? <LoadingOutlined /> : (
           <>
             <h2>{symbol}</h2>
           </>
@@ -412,7 +442,7 @@ export default function DetailCurrencyGraph({
             compareGraph.current = null;
           }
         }}>remove compare graph</button>
-        <Modal isOpen={addModalIsOpen} onAfterOpen={modalIsOpen} onRequestClose={closeAddModal} style={customStyles}>
+        <Modal isOpen={addModalIsOpen} onAfterOpen={modalIsOpen} onRequestClose={closeAddModal} style={addCustomStyles}>
 
           <button onClick={() => {
             closeAddModal()
@@ -427,6 +457,9 @@ export default function DetailCurrencyGraph({
           style={customStyles}
         >
           <form>
+            <h3>Moving Average</h3>
+            <ul>
+              <li>
             <label>
               5 Moving Average
             <input
@@ -460,6 +493,8 @@ export default function DetailCurrencyGraph({
                 }}
               />
             </label>
+            </li>
+            <li>
             <label>
               20 Moving Average
             <input
@@ -493,6 +528,8 @@ export default function DetailCurrencyGraph({
                 }}
               />
             </label>
+            </li>
+            <li>
             <label>
               60 Moving Average
             <input
@@ -526,6 +563,8 @@ export default function DetailCurrencyGraph({
                 }}
               />
             </label>
+            </li>
+            <li>
             <label>
               120 Moving Average
             <input
@@ -563,11 +602,14 @@ export default function DetailCurrencyGraph({
                 }}
               />
             </label>
-            {indicators.length !== 0 ?
-              <>
+            </li>
+            </ul>
+            <h3>Indicators</h3>
+            <ul>
+              <li>
                 <label>
                   BBANDS
-            <input
+                  <input
                     type="checkbox"
                     checked={BBANDSCk}
                     onChange={() => {
@@ -615,6 +657,8 @@ export default function DetailCurrencyGraph({
                     }}
                   />
                 </label>
+                </li>
+                <li>
                 <label>
                   RSI
 
@@ -660,8 +704,8 @@ export default function DetailCurrencyGraph({
                     value={rsiSignalColor}
                   />
                 </label>
-              </>
-              : ''}
+                </li>
+                <li>
             <label>
               Disparity
             <input
@@ -700,6 +744,8 @@ export default function DetailCurrencyGraph({
                 value={disparityColor}
               />
             </label>
+            </li>
+            <li>
             <label>
               MACD
             <input
@@ -795,6 +841,8 @@ export default function DetailCurrencyGraph({
                 value={MACDOSCColor}
               />
             </label>
+            </li>
+            <li>
             <label>
               Stochastic Slow
             <input
@@ -860,7 +908,9 @@ export default function DetailCurrencyGraph({
                 value={slowDColor}
               />
             </label>
-            <button onClick={closeModal}>Submit</button>
+            </li>
+            </ul>
+            <button className="indicator-btn" onClick={closeModal}>Submit</button>
           </form>
         </Modal>
 
