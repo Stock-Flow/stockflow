@@ -12,6 +12,84 @@
   .menuBar {
     width: 17%;
     min-width: 80px;
+
+    box-sizing: border-box;
+    background-color: #2f3242;
+    display: flex;
+    flex-direction: column;
+    padding: 125px 10px 0 10px;
+    box-shadow: 5px 5px 10px #272936;
+
+    button {
+      background: none;
+      margin-bottom: 40px;
+      padding: 17px;
+      border: none;
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  // .menuBtn {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   margin-top: 50px;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //   }
+  // }
+  // .search {
+  //   display: block;
+  //   width: 100%;
+  //   margin: 10px auto 0;
+  //   padding: 0 0 5px;
+  //   border: none;
+  //   border-bottom: 1px solid #fff;
+  //   caret-color: #fff;
+  //   background: none;
+  //   &:before {
+  //     content: '';
+  //   }
+  // }
+
+  // .favorite-button {
+  //   float: left;
+  //   width: 102px;
+  //   height: 32px;
+  //   margin-top: 20px;
+  //   font-size: 0.8462rem;
+  //   color: #fff;
+  //   background: #1c2024;
+  //   border: 0;
+  // }
+
+  .sortbox {
+    float: right;
+    width: 102px;
+    height: 32px;
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 0.8462rem;
+    color: #fff;
+    background: #1c2024;
+  }
+  .sortValuebox {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+
+  .none {
+    display: none;
     background-color: red;
     display: flex;
     flex-direction: column;
