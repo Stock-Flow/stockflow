@@ -31,7 +31,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
         textColor: '#eeeeee',
       },
     });
