@@ -65,35 +65,31 @@ export default function SideBarContent() {
         >
           Favorite
         </button>
-        
+
       </div>
-     
-
-
- 
 
       <div className="sidebarList">
-      <input
-        className="search"
-        type="text"
-        onChange={() => {
-          checkSearchDone(menu);
-        }}
-        ref={searchValue}
-      />
-      
-      <label htmlFor="sort-choice">Sort</label>
+        <input
+          className="search"
+          type="text"
+          onChange={() => {
+            checkSearchDone(menu);
+          }}
+          ref={searchValue}
+        />
 
-      <div className="sortbox-wrap clear-fix">
-        <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
-          <option defaultValue="name">name</option>
-          <option value="expensive">expensive</option>
-          <option value="cheap">cheap</option>
-        </select>
-      </div>
-      <StockListContainer search={stockSearch} sort={sort} menu={menu} />
-      <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
-      <FavoriteListContainer menu={menu} />
+        <label htmlFor="sort-choice">Sort</label>
+
+        <div className="sortbox-wrap clear-fix">
+          <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
+            <option defaultValue="name">name</option>
+            <option value="expensive">expensive</option>
+            <option value="cheap">cheap</option>
+          </select>
+        </div>
+        <StockListContainer search={stockSearch} sort={sort} menu={menu} />
+        <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
+        <FavoriteListContainer menu={menu} />
       </div>
     </div>
   );
