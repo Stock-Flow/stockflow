@@ -77,6 +77,7 @@ export default function CurrencyList({
               <button className='bookmark' onClick={selectedFavorite}>
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
               </button>
+
               <div className="sidebar-left">
                 <span className="sidebar-symbol">
                   {currency.symbol}
@@ -85,7 +86,9 @@ export default function CurrencyList({
                 <span className="sidebar-name">
                   {currency.name}
                 </span>
+                <br />
               </div>
+
               <div className="sidebar-right">
                 <V.VictoryLine
                   data={currencys}
@@ -100,6 +103,7 @@ export default function CurrencyList({
                   }}
                 />
               </div>
+
               <span className='sidebar-change' >{currency.price}</span>
               <span className='sidebar-change' >{currency.change}%</span>                   
             </li>

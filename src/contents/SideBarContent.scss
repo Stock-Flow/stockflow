@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 28%;
-  min-width: 550px;
+  min-width: 400px;
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
@@ -68,10 +68,14 @@
     .list_values{
       margin-top: 20px;
       span{
+        display: inline-block;
         color: #727AA0;
       }
+      span:nth-child(1){
+        width: 43%;
+      }
       span:nth-child(2){
-        padding-left: 30%;
+        width: 10%;
       }
       span:nth-child(3){
         padding-left: 10%;
@@ -85,27 +89,32 @@
     .sidebar {
       width: 100%;
       li {
+        width: 100%;
         padding: 12px 0;
+        display: flex;
+        justify-content: space-between;
         // border-bottom: 1px solid #444;
         .sidebar-left {
           float: left;
           max-width: 50%;
+          width: 31%;
           .sidebar-name {
             font-size: 0.6875rem;
             color: #979797;
           }
         }
         .sidebar-right {
+          width: 15%;
           float: right;
-        }
-        .VictoryContainer {
-          display: inline-block;
-        }
+          .VictoryContainer {
+            display: inline-block;
+          }
+        } 
         span:first-child{
-          padding-left: 10%;
+          width: 0%;
         }
         span:last-child{
-          float: right;
+          // padding-right: 10px;
         }
   
         .bookmark {

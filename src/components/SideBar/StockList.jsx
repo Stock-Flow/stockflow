@@ -75,15 +75,18 @@ export default function StockList({
               return (
 
                 <li onClick={transSymbol} className="clear-fix">
+
                   <button className='bookmark' onClick={selectedFavorite}>
                     {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
                   </button>
+
                   <div className="sidebar-left">
                     <span className="sidebar-symbol">{stock.symbol}</span>
                     <br />
                     <span className="sidebar-name">{stock.name}</span>
                     <br />
                   </div>
+
                   <div className="sidebar-right">
                     <V.VictoryLine
                       data={stocks}
@@ -98,6 +101,7 @@ export default function StockList({
                       }}
                     />
                   </div>
+                  
                   <span className="sidebar-change">{stock.price}</span>
                   <span className="sidebar-change">{stock.change}</span>   
                 </li>
