@@ -81,15 +81,11 @@ export default function SideBarContent() {
             checkSearchDone(menu);
           }}
           ref={searchValue}
-
-        />
-
-        <label htmlFor="sort-choice">Sort</label>
-
           placeholder='Search'
+
         />
 
-      
+        {/* <label htmlFor="sort-choice">Sort</label>   */}
        
         <div className="sortbox-wrap clear-fix">
           <select className="sortbox" id="sort-chocie" onChange={selectedValue}>

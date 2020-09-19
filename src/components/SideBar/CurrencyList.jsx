@@ -34,6 +34,7 @@ export default function CurrencyList({
 
   if (!loading) {
 
+<<<<<<< HEAD
     return (
       <div className="sidebar currency">
         <ul className={menu === 'currency' ? '' : 'none'}>
@@ -60,6 +61,41 @@ export default function CurrencyList({
 
             const symbol = currency.symbol
             let favoriteDataList = false;
+=======
+  return (
+    <div className="sidebar currency">
+      <ul className={menu === 'currency' ? '' : 'none'}>
+        {currencyList.map((currency) => {
+          let currencys = [];
+       
+          const keys = Object.keys(
+            currency.currencyData,
+          ).reverse();
+          const values = Object.values(
+            currency.currencyData,
+          )
+            .map((item) => item.open)
+            .reverse();
+          keys.forEach((item, i) => {
+            currencys.push({ date: item, price: values[i] });
+          });
+          let color = currency.change === "-" ? "green" : "red"
+
+          function transSymbol(e) {
+            e.stopPropagation();
+            sendSymbol(currency.symbol);
+          }
+
+          const symbol = currency.symbol
+          let favoriteDataList = false;
+          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+          }
+
+          function selectedFavorite(e) {
+            e.stopPropagation();
+            sendToSymbol(currency.symbol);
+>>>>>>> 50cebe16bdb0444bf603e084b0a2b9062777bb2d
             if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
               favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
             }

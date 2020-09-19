@@ -3,12 +3,17 @@
   display: flex;
   flex-direction: row;
   width: 28%;
+<<<<<<< HEAD
   margin-top: 100px;
   min-width: 400px;
+=======
+  // min-width: 400px;
+>>>>>>> 50cebe16bdb0444bf603e084b0a2b9062777bb2d
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
   background: linear-gradient(180deg, #2d3746 0%, #282d33 100%);
+  box-shadow: 5px 5px 25px #272936;
 
   .menuBar {
     width: 17%;
@@ -34,43 +39,6 @@
       }
     }
   }
-  // .menuBtn {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   margin-top: 50px;
-  //   button {
-  //     width: calc(50% - 7px);
-  //     height: 60px;
-  //     border: 0px;
-  //     font-size: 1.125rem;
-  //     color: #ffffff;
-  //     background: #212933;
-  //   }
-  // }
-  // .search {
-  //   display: block;
-  //   width: 100%;
-  //   margin: 10px auto 0;
-  //   padding: 0 0 5px;
-  //   border: none;
-  //   border-bottom: 1px solid #fff;
-  //   caret-color: #fff;
-  //   background: none;
-  //   &:before {
-  //     content: '';
-  //   }
-  // }
-
-  // .favorite-button {
-  //   float: left;
-  //   width: 102px;
-  //   height: 32px;
-  //   margin-top: 20px;
-  //   font-size: 0.8462rem;
-  //   color: #fff;
-  //   background: #1c2024;
-  //   border: 0;
-  // }
 
   .sortbox {
     float: right;
@@ -187,8 +155,12 @@
         }
         .sidebar-left {
           float: left;
+<<<<<<< HEAD
           max-width: 50%;
           width: 50%;
+=======
+          width: 31%;
+>>>>>>> 50cebe16bdb0444bf603e084b0a2b9062777bb2d
           .sidebar-name {
             font-size: 0.6875rem;
             color: #979797;
@@ -199,6 +171,7 @@
           }
         }
         .sidebar-right {
+<<<<<<< HEAD
           width: 50%;
           float: right;
 
@@ -224,6 +197,21 @@
         }
         span:last-child {
           // padding-right: 10px;
+=======
+          width: 15%;
+          .VictoryContainer {
+            display: inline-block;
+          }
+        } 
+        span:first-child{
+          width: 20%;
+          text-align: right;
+          white-space: nowrap;
+        }
+        span:last-child{
+          text-align: right;
+          white-space: nowrap;
+>>>>>>> 50cebe16bdb0444bf603e084b0a2b9062777bb2d
         }
 
         .bookmark {
