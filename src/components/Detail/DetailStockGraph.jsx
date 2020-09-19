@@ -126,6 +126,32 @@ export default function DetailStockGraph({
   const [slowDColor, setSlowDColor] = useState('#cccc00');
   const [slowKColor, setSlowKColor] = useState('#0000cc');
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth)
+    if (chart.current) {
+      chart.current.resize(windowWidth * 0.72 - 100, 400);
+    }
+    if (assistChart.current) {
+      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (indicatorChart.current) {
+      indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (disparityChart.current) {
+      disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (MACDChart.current) {
+      MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (MACDOSCChart.current) {
+      MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (stochasticSlowChart.current) {
+      stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+  }
+
   const fiveMovingAverageData = movingAverage(stock, 5);
   const twentyMovingAverageData = movingAverage(stock, 20);
   const sixtyMovingAverageData = movingAverage(stock, 60);
@@ -173,7 +199,7 @@ export default function DetailStockGraph({
 
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
-      width: 800,
+      width: windowWidth * 0.72 - 100,
       height: 400,
     });
     chart.current.applyOptions({
@@ -202,7 +228,7 @@ export default function DetailStockGraph({
       },
     });
     assistChart.current = createChart(chartposition.current, {
-      width: 800,
+      width: windowWidth * 0.72 - 100,
       height: 200,
     });
     assistChart.current.applyOptions({
@@ -380,6 +406,21 @@ export default function DetailStockGraph({
       hundredTwentyCk(false)
       assistChart.current.removeSeries(volumeChart.current);
     }
+    smaFive.current = null;
+    smaTwenty.current = null;
+    smaSixty.current = null;
+    lowBBANDS.current = null;
+    middleBBANDS.current = null;
+    highBBANDS.current = null;
+    smaHundredTwenty.current = null;
+    rsiChart.current = null;
+    disparityGraph.current = null;
+    MACDGraph.current = null;
+    MACDSignalGraph.current = null;
+    MACDOSCGraph.current = null;
+    stochasticSlowDGraph.current = null;
+    stochasticSlowKGraph.current = null;
+
     indicatorChart.current.resize(0, 0);
     setRsick(false);
     stochasticSlowChart.current.resize(0, 0)
@@ -728,12 +769,14 @@ export default function DetailStockGraph({
                         rsiColor,
                         rsiChart,
                         indicators[0],
+                        windowWidth
                       );
                       GraphService.graphColor(
                         indicatorChart.current,
                         rsiSignalColor,
                         rsiSignalChart,
                         rsiSignal,
+                        windowWidth
                       );
                     }
                   }}
@@ -787,6 +830,7 @@ export default function DetailStockGraph({
                         disparityColor,
                         disparityGraph,
                         twentyDisparity,
+                        windowWidth
                       );
                     }
                   }}
@@ -829,12 +873,14 @@ export default function DetailStockGraph({
                         MACDColor,
                         MACDGraph,
                         MACDData.current[0],
+                        windowWidth
                       );
                       GraphService.graphColor(
                         MACDChart.current,
                         MACDSignalColor,
                         MACDSignalGraph,
                         MACDData.current[1],
+                        windowWidth
                       );
                     }
                   }}
@@ -888,6 +934,7 @@ export default function DetailStockGraph({
                         MACDOSCColor,
                         MACDOSCGraph,
                         MACDData.current[2],
+                        windowWidth
                       );
                     }
                   }}
@@ -932,12 +979,14 @@ export default function DetailStockGraph({
                         slowDColor,
                         stochasticSlowDGraph,
                         stochasticSlowData.current[1],
+                        windowWidth
                       );
                       GraphService.graphColor(
                         stochasticSlowChart.current,
                         slowKColor,
                         stochasticSlowKGraph,
                         stochasticSlowData.current[0],
+                        windowWidth
                       );
                     }
                   }}

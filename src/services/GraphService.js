@@ -1,6 +1,6 @@
 export default class GraphService {
-  static graphColor(chart, color, graph, data) {
-    chart.resize(800, 200);
+  static graphColor(chart, color, graph, data, windowWidth) {
+    chart.resize(windowWidth * 0.72 - 100, 200);
     graph.current = chart.addLineSeries({
       color: color
     });
@@ -11,8 +11,8 @@ export default class GraphService {
       to: data.length,
     });
   }
-  static setHistogramGraph(chart, color, graph, data) {
-    chart.resize(800, 200);
+  static setHistogramGraph(chart, color, graph, data, windowWidth) {
+    chart.resize(windowWidth * 0.72 - 100, 200);
     graph.current = chart.addHistogramSeries({
       color: color,
       base: 0
