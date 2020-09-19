@@ -40,7 +40,6 @@ export default function ForeignExchangeContainer() {
   let afterfxClose = 0;
 
   const fxIntradayClose = fxIntraday.forEach((v, i) => {
-    // console.log(Object.keys(v)[1]);
     const beforefx = Object.keys(v)[1];
     const afterfx = Object.keys(v)[0];
     beforefxClose = Number(v[beforefx]['4. close']);
@@ -52,12 +51,6 @@ export default function ForeignExchangeContainer() {
     });
   });
 
-  // ["1173.16000000", "11.17800000", "104.70500000", "1.17908000", "0.72938000"]
-  // ["1173.08000000", "11.17800000", "104.70000000", "1.17931000", "0.72958000"]
-
-  // 5분마다 intraday데이터 제공
-  // 만약 환율(exchangeRate)이 바뀌면 다시호출하고싶음
-  // deps 안에 exchangeRate를 넣으면 무한루프 도는느낌
   useEffect(() => {
     getExchange(exchangeArr);
   }, []);

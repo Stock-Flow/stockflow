@@ -1,75 +1,85 @@
 .foreign-exchange-wrap {
-  display: inline-block;
-  width: 50%;
-  margin-top: 50px;
+  > div {
+    float: left;
+    margin-top: 50px;
+    vertical-align: top;
+  }
+  .foreign-exchange-detail-wrap {
+    margin-left: 50px;
+  }
+  .foreign-exchange-list-wrap {
+    display: inline-block;
+    width: 50%;
 
-  .exchange-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border-bottom: 1px solid #ededed;
-    transition: 0.3s all;
+    .exchange-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      border-bottom: 1px solid #3a3e50;
+      transition: 0.3s all;
 
-    &:first-child {
-      border-top: 1px solid #ededed;
-    }
+      &:first-child {
+        border-top: 1px solid #3a3e50;
+      }
 
-    .exchange-column.icon {
-      position: relative;
-      width: 10%;
+      .exchange-column.icon {
+        position: relative;
+        width: 10%;
 
-      .country-icon {
-        position: absolute;
-        transform: translate(0, -50%);
+        .country-icon {
+          position: absolute;
+          transform: translate(0, -50%);
 
-        img {
-          border-radius: 50%;
-          border: 2px solid #fff;
+          img {
+            border-radius: 50%;
+            border: 2px solid #fff;
+          }
+        }
+
+        .to {
+          top: 10px;
+        }
+
+        .from {
+          left: -10px;
+          z-index: 1;
         }
       }
 
-      .to {
-        top: 10px;
+      .exchange-column.name {
+        width: 45%;
+
+        .currency-name {
+          line-height: 1.8;
+          font-size: 0.8rem;
+          color: #c9c9c9;
+        }
       }
 
-      .from {
-        left: -10px;
-        z-index: 1;
-      }
-    }
-
-    .exchange-column.name {
-      width: 45%;
-
-      .currency-name {
-        font-size: 0.8rem;
-        color: #ddd;
-      }
-    }
-
-    .exchange-column.rate {
-      width: 26%;
-      padding-left: 10px;
-    }
-
-    .exchange-column.percent {
-      .plus {
-        color: rgb(184, 53, 53);
+      .exchange-column.rate {
+        width: 26%;
+        padding-left: 10px;
       }
 
-      .minus {
-        color: rgb(59, 151, 74);
+      .exchange-column.percent {
+        .plus {
+          color: #2baa65;
+        }
+
+        .minus {
+          color: #c52d3c;
+        }
+      }
+
+      &:hover {
+        background: #41455c;
       }
     }
 
-    &:hover {
-      background: #444;
+    // common
+    p {
+      margin: 0;
     }
-  }
-
-  // common
-  p {
-    margin: 0;
   }
 }
