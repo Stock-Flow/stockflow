@@ -1,8 +1,4 @@
-import {
-  put,
-  takeLatest,
-  select
-} from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 
 const prefix = 'stockflow/selectedSymbol';
 
@@ -75,17 +71,19 @@ function* getSelectedSymbolSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol ?
-        symbol.count < 2 ? {
-          ...symbol,
-          count: symbol.count + 1,
-          favorite: false,
-        } : {
-          ...symbol,
-          count: symbol.count + 1,
-          favorite: true,
-        } :
-        symbol,
+        symbol.symbol === action.payload.selectedSymbol
+          ? symbol.count < 2
+            ? {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: false,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: true,
+              }
+          : symbol,
       );
     }
     yield put(selectedSymbolStart());
@@ -112,17 +110,19 @@ function* getSelectedSymbolSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedSymbol ?
-        symbol.count === 3 ? {
-          ...symbol,
-          count: symbol.count + 1,
-          favorite: false,
-        } : {
-          ...symbol,
-          count: symbol.count + 1,
-          favorite: true,
-        } :
-        symbol,
+        symbol.symbol === action.payload.selectedSymbol
+          ? symbol.count === 3
+            ? {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: false,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: true,
+              }
+          : symbol,
       );
     }
     yield put(selectedSymbolStart());
@@ -247,17 +247,19 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedStockSymbol = selectedStockSymbol.map((symbol) =>
-        symbol.symbol === action.payload.selectedStock ?
-        symbol.count < 2 ? {
-          ...symbol,
-          count: 3,
-          favorite: true
-        } : {
-          ...symbol,
-          count: symbol.count + 1,
-          favorite: !action.payload.favoriteDataList,
-        } :
-        symbol,
+        symbol.symbol === action.payload.selectedStock
+          ? symbol.count < 2
+            ? {
+                ...symbol,
+                count: 3,
+                favorite: true,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: !symbol.favorite,
+              }
+          : symbol,
       );
     }
     yield put(favoriteButtonStart());
@@ -284,6 +286,7 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) => {
+
         // console.log('hi', symbol)
         return symbol.symbol === action.payload.selectedStock ?
           symbol.count < 3 ? {
@@ -296,6 +299,7 @@ function* getFavoriteListButtonSaga(action) {
             favorite: !symbol.favorite,
           } :
           symbol
+
       });
     }
     yield put(favoriteButtonStart());
@@ -332,7 +336,7 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-          error: null,
+        error: null,
       };
 
     case SUCCESS:
@@ -351,64 +355,64 @@ export default function reducer(prevState = initialState, action) {
           error: null,
         };
       }
-      case FAIL:
+    case FAIL:
+      return {
+        ...prevState,
+        loading: false,
+        error: action.error,
+      };
+
+    case GET_FAVORITE_START:
+      return {
+        ...prevState,
+        loading: true,
+        error: null,
+      };
+    case GET_FAVORITE_SUCCESS:
+      return {
+        selectedStockSymbol: action.getStockListElement,
+        selectedCurrencySymbol: action.getCurrencyListElement,
+        loading: false,
+        error: null,
+      };
+    case GET_FAVORITE_FAIL:
+      return {
+        ...prevState,
+        loading: false,
+        error: action.error,
+      };
+
+    case GET_FAVORITE_BUTTON_START:
+      return {
+        ...prevState,
+        loading: true,
+        error: null,
+      };
+    case GET_FAVORITE_BUTTON_SUCCESS:
+      if (action.names === 'stock') {
         return {
           ...prevState,
           loading: false,
-            error: action.error,
+          selectedStockSymbol: action.selectedStock,
+          error: null,
         };
-
-      case GET_FAVORITE_START:
-        return {
-          ...prevState,
-          loading: true,
-            error: null,
-        };
-      case GET_FAVORITE_SUCCESS:
-        return {
-          selectedStockSymbol: action.getStockListElement,
-            selectedCurrencySymbol: action.getCurrencyListElement,
-            loading: false,
-            error: null,
-        };
-      case GET_FAVORITE_FAIL:
+      } else {
         return {
           ...prevState,
           loading: false,
-            error: action.error,
+          selectedCurrencySymbol: action.selectedStock,
+          error: null,
         };
-
-      case GET_FAVORITE_BUTTON_START:
-        return {
-          ...prevState,
-          loading: true,
-            error: null,
-        };
-      case GET_FAVORITE_BUTTON_SUCCESS:
-        if (action.names === 'stock') {
-          return {
-            ...prevState,
-            loading: false,
-            selectedStockSymbol: action.selectedStock,
-            error: null,
-          };
-        } else {
-          return {
-            ...prevState,
-            loading: false,
-            selectedCurrencySymbol: action.selectedStock,
-            error: null,
-          };
-        }
-        case GET_FAVORITE_BUTTON_FAIL:
-          return {
-            ...prevState,
-            loading: true,
-              error: action.error,
-          };
-        default:
-          return {
-            ...prevState,
-          };
+      }
+    case GET_FAVORITE_BUTTON_FAIL:
+      return {
+        ...prevState,
+        loading: true,
+        error: action.error,
+      };
+    default:
+      return {
+        ...prevState,
+      };
   }
 }

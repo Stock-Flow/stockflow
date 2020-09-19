@@ -102,10 +102,11 @@
 
       .bookmark {
         display: inline-block;
-        // padding: 5px 5px 5px 10px;
         width: 25px;
         height: 25px;
-        // background-color: white;
+        background: none;
+        border: 0;
+        outline: none;
         position: relative;
         cursor: pointer;
         z-index: 10;
@@ -115,13 +116,13 @@
         .bookmark_false {
           position: absolute;
           top: 50%;
-          left: 60%;
+          left: 70%;
           transform: translate(-50%, -50%);
         }
         .bookmark_true {
           position: absolute;
           top: 50%;
-          left: 60%;
+          left: 70%;
           transform: translate(-50%, -50%);
           // display: none;
         }
