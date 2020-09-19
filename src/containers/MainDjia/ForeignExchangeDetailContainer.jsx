@@ -31,7 +31,7 @@ export default function ForeignExchangeDetailContainer() {
   let close = [];
 
   let keyTime = [];
-  console.log(exchangeIntraday);
+  // console.log(exchangeIntraday);
   if (exchangeIntraday) {
     keyTime = Object.keys(exchangeIntraday);
     keyTime.map((v, i) => {
@@ -54,7 +54,7 @@ export default function ForeignExchangeDetailContainer() {
   });
 
   selectExchangeListResult.reverse();
-  console.log(selectExchangeListResult);
+  // console.log(selectExchangeListResult);
   const dispatch = useDispatch();
   const getExchangeDaily = useCallback(() => {
     dispatch(

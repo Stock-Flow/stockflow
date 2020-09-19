@@ -106,12 +106,14 @@ export default class DataProcessingService {
 
   static sidebarCurrencyProcessing(currencys) {
     return currencys.map(currency => {
-      // const price = Object.values(currency['Time Series (Digital Currency Daily)'])
+      const price = Object.values(currency['Time Series (Digital Currency Daily)'])
+      console.log()
       return {
         symbol: currency['Meta Data']['2. Digital Currency Code'],
         currencyData: currency['Time Series (Digital Currency Daily)'],
         name: currency['Meta Data']['3. Digital Currency Name'],
-        // price: (Number(price[0]['2a. high (USD)']) + Number(price[0]['3a. low (USD)']))/2,
+        price: (Number(price[0]['2a. high (USD)']) + Number(price[0]['3a. low (USD)']))/2,
+        change: ((Number(price[0]['4a. close (USD)']) - Number(price[1]['4a. close (USD)']))/Number(price[1]['4a. close (USD)'])*100).toFixed(4),
       };
     })
   }
@@ -268,11 +270,10 @@ export default class DataProcessingService {
         value: avg - SD,
       })
     }
-    indicators[1][0] = upBBANDS;
+    indicators[1][2] = upBBANDS;
     indicators[1][1] = middleBBANDS;
-    indicators[1][2] = lowBBANDS;
+    indicators[1][0] = lowBBANDS;
 
-    console.log(indicators)
     return indicators;
   }
 }
