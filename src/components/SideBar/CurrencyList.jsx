@@ -4,11 +4,13 @@ import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getfavoriteListButtonActionCreator } from '../../redux/modules/selectedSymbol'
+import { LoadingOutlined } from '@ant-design/icons'
 
 export default function CurrencyList({
   currencyList,
   renderCurrencyList,
   menu,
+  loading,
 }) {
   useEffect(() => {
     renderCurrencyList();
@@ -16,26 +18,28 @@ export default function CurrencyList({
 
   const dispatch = useDispatch();
 
-  const sendSymbol = (selectedStock, favoriteDataList) => {
+  const sendSymbol = (selectedStock) => {
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'currency'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'currency'));
-    // dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
   };
 
-  const sendToSymbol = (selectedStock) => {
-    dispatch(getfavoriteListButtonActionCreator(selectedStock, 'currency'))
+  const sendToSymbol = (selectedStock, favoriteDataList) => {
+    dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
   }
 
-  let favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
-  let favoriteDataList = ''
+  const favoriteData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
 
-  console.log(favoriteData)
+
+
+
+  if (!loading) {
 
   return (
     <div className="sidebar currency">
       <ul className={menu === 'currency' ? '' : 'none'}>
         {currencyList.map((currency) => {
           let currencys = [];
+       
           const keys = Object.keys(
             currency.currencyData,
           ).reverse();
@@ -45,29 +49,35 @@ export default function CurrencyList({
             .map((item) => item.open)
             .reverse();
           keys.forEach((item, i) => {
-            currencys.push({ date: item, price: values[i] });
+            currencys.push({ date: item, pricee: values[i] });
           });
-          // let color = currency.change[0] === "-" ? "green" : "red"
+          let color = currency.change === "-" ? "green" : "red"
 
           function transSymbol(e) {
             e.stopPropagation();
             sendSymbol(currency.symbol);
           }
 
-          // const symbol = currency.symbol
+          const symbol = currency.symbol
+          let favoriteDataList = false;
+          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+          }
 
           function selectedFavorite(e) {
             e.stopPropagation();
             sendToSymbol(currency.symbol);
-            // if (favoriteData.length !== 0) {
-            //   favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
-            // }
-            // console.log(favoriteDataList)
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = !favoriteDataList
+            }
           }
-
+          
           return (
             <li onClick={transSymbol} className="clear-fix">
-              {/* {currency.change} */}
+              <button className='bookmark' onClick={selectedFavorite}>
+                  {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+              </button>
+
               <div className="sidebar-left">
                 <span className="sidebar-symbol">
                   {currency.symbol}
@@ -76,49 +86,34 @@ export default function CurrencyList({
                 <span className="sidebar-name">
                   {currency.name}
                 </span>
+                <br />
               </div>
+
               <div className="sidebar-right">
                 <V.VictoryLine
                   data={currencys}
                   x="date"
                   y="price"
                   style={{
-                    data: { stroke: 'yellow' },
+                    data: { stroke: color },
                     parent: {
                       width: 50,
                       height: 'auto',
                     },
                   }}
                 />
-                <button className='bookmark' onClick={selectedFavorite}>
-                  {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                </button>
               </div>
 
+              <span className='sidebar-change' >{currency.price}</span>
+              <span className='sidebar-change' >{currency.change}%</span>                   
             </li>
           );
         })}
       </ul>
     </div>
-  );
+  );   
+      } else {
+        return <LoadingOutlined />
+      }
 }
 
-// <ul className={menu ? "none" : ""}>
-//   {
-//     currencyList.length && (currencyList.map((currency, i) => (
-
-//       i < 10 && (<li><Plot
-//         data={[
-//           {
-//             x: Object.keys(currency["Time Series (Digital Currency Daily)"]),
-//             y: Object.values(currency["Time Series (Digital Currency Daily)"]).map(item => item["1a. open (USD)"]),
-//             type: 'scatter',
-//             mode: 'lines',
-//           },
-//         ]}
-//         layout={{ width: 400, height: 250, title: currency["Meta Data"]["3. Digital Currency Name"] }}
-//       />
-//       </li>))
-//     ))
-//   }
-// </ul>

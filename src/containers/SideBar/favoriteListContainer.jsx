@@ -14,6 +14,7 @@ export default function FavoriteListContainer({ menu }) {
   const currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
+  // console.log(currencyList)
   const currencyLoading = useSelector((state) => state.sidebarCurrency.loading);
   const loading = useSelector((state) => state.sideBarStock.loading);
   const stockList = useSelector((state) => state.sideBarStock.sideBarStock);

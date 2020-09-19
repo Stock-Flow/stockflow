@@ -27,11 +27,14 @@ export default function Home() {
       ) : selectedExchange ? (
         <ForeignExchangeDetailContainer />
       ) : (
-        <>
-          <DjiagraphContainer />
-          <ForeignExchangeContainer />
-        </>
-      )}
+
+              <>
+                <DjiagraphContainer />
+
+              </>
+            )}
+
+      <RemindingStockContainer />
     </div>
   );
 }

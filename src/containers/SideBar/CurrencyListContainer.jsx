@@ -6,16 +6,12 @@ import { getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebar
 
 export default function CurrencyListContainer({ search, sort, menu }) {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.sidebarCurrency.loading);
   let currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
 
-  if (currencyList.length !== 0) {
-    currencyList = currencyList.map((currency, i) => ({
-      ...currency,
-      price: Object.values(currency.currencyData[0].open)
-    }));
-
+  if (currencyList.length !== 0) { 
     if (search) {
       const regexp = new RegExp(search, 'i');
       currencyList = currencyList.filter((currency) =>
@@ -25,12 +21,12 @@ export default function CurrencyListContainer({ search, sort, menu }) {
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
         a.name >
-          b.name
+        b.name
           ? 1
           : a.name <
             b.name
-            ? -1
-            : 0,
+          ? -1
+          : 0,
       );
     } else if (sort === 'cheap') {
       currencyList = [...currencyList].sort((a, b) => {
@@ -45,12 +41,14 @@ export default function CurrencyListContainer({ search, sort, menu }) {
     dispatch(getSideBarCurrencySagaActionCreator());
   }, [dispatch]);
 
+
   return (
     <>
       <CurrencyList
         currencyList={currencyList}
         renderCurrencyList={renderCurrencyList}
         menu={menu}
+        loading={loading}
       />
     </>
   );

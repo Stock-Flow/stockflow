@@ -1,4 +1,7 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import {
+  takeLatest,
+  put
+} from 'redux-saga/effects';
 
 const prefix = `stockflow/selectedExchange`;
 const initialState = {
@@ -71,24 +74,24 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: null,
+          error: null,
       };
     case GET_SELECTEDEXCHANGE_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: null,
-        fromCurrenciesCode: action.fromCurrenciesCode,
-        fromCurrenciesName: action.fromCurrenciesName,
-        toCurrenciesCode: action.toCurrenciesCode,
-        toCurrenciesName: action.toCurrenciesName,
-        fxIntraday: action.fxIntraday,
+          error: null,
+          fromCurrenciesCode: action.fromCurrenciesCode,
+          fromCurrenciesName: action.fromCurrenciesName,
+          toCurrenciesCode: action.toCurrenciesCode,
+          toCurrenciesName: action.toCurrenciesName,
+          fxIntraday: action.fxIntraday,
       };
     case GET_SELECTEDEXCHANGE_FAIL:
       return {
         ...state,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     default: {
       return state;
