@@ -1,0 +1,20 @@
+.header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 96px;
+  z-index: 100;
+  padding: 0 28px;
+  box-sizing: border-box;
+  background: #2f3242;
+
+  h1 {
+    width: 150px;
+    img {
+      width: 100%;
+    }
+  }
+}

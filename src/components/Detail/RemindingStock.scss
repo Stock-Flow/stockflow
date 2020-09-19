@@ -1,23 +1,22 @@
 .reminding-stock-wrap {
   .reminding-btn {
-    position: fixed;
-    bottom: 45px;
-    right: 45px;
-    z-index: 100;
-    width: 50px;
-    height: 50px;
+    position: relative;
+    width: 35px;
+    height: 35px;
     border: none;
     border-radius: 50%;
     text-indent: -9999px;
-    background: #444 url(../../styles/bell.png) center no-repeat;
+    cursor: pointer;
+    outline-style: none;
+    background: url(../../styles/bell.png) center no-repeat;
     background-size: 60%;
 
     .alert-color {
       position: absolute;
-      top: -2px;
-      right: -2px;
-      width: 18px;
-      height: 18px;
+      top: 2px;
+      right: 2px;
+      width: 15px;
+      height: 15px;
       // border: 2px solid #fff;
       border-radius: 50%;
       font-size: 0.6875rem;
@@ -25,41 +24,60 @@
       font-weight: 400;
       text-indent: 0;
       color: #fff;
-      background: #a00b0b;
+      background: #2196f3;
     }
   }
   .stocklist-wrap {
+    box-shadow: 2px 2px 5px 0 #181921;
+    border: 1px solid #3a3e50;
     .alert-msg {
       margin: 0;
-      padding: 20px 30px;
-      text-align: center;
-      background: #333;
+      padding: 20px 10px;
+      // text-align: center;
+      border-bottom: 1px solid #3a3e50;
+      font-size: 0.875rem;
+      background: #2f3242;
     }
     position: fixed;
-    bottom: 75px;
-    right: 50px;
+    top: 85px;
+    right: 28px;
     z-index: 1;
-    background: #707070;
+    background: #2f3242;
     .stocklist {
     }
     .stocklist-item {
-      padding: 15px 10px;
-      border-bottom: 1px solid #000;
+      padding: 10px 10px;
+      // border-bottom: 1px solid #3a3e50;
       transition: 0.3s all;
       &:last-child {
         border-bottom: none;
       }
       &:hover {
-        background: #555;
+        background: #41455c;
       }
       .sidebar-symbol {
-        font-weight: 800;
+        font-size: 0.75rem;
+        font-weight: 500;
       }
       .sidebar-name {
         font-weight: 200;
-        font-size: 0.75rem;
-        color: #f6f6f6;
+        font-size: 0.6875rem;
+        color: #c9c9c9;
       }
+    }
+    &::before {
+      content: '';
+      width: 13px;
+      height: 13px;
+      position: absolute;
+      z-index: -1;
+      top: -8px;
+      right: 3%;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+      background: #2f3242;
+      border-top: 1px solid #3a3e50;
+      border-left: 1px solid #3a3e50;
     }
   }
 }

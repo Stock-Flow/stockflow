@@ -9,6 +9,7 @@ import ForeignExchangeContainer from '../containers/MainDjia/ForeignExchangeCont
 import './Home.scss';
 import RemindingStockContainer from '../containers/Detail/RemindingStockContainer';
 import ForeignExchangeDetailContainer from '../containers/MainDjia/ForeignExchangeDetailContainer';
+import Header from '../contents/Header';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
@@ -17,6 +18,7 @@ export default function Home() {
   );
   return (
     <div className="home">
+      <Header />
       <SideBarContent />
       {selectedStock.kind === 'stock' ? (
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
@@ -30,8 +32,6 @@ export default function Home() {
           <ForeignExchangeContainer />
         </>
       )}
-
-      <RemindingStockContainer />
     </div>
   );
 }
