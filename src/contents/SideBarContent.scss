@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 28%;
-  // min-width: 400px;
+  // min-width: 300px;
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
@@ -12,7 +12,7 @@
 
   .menuBar {
     width: 17%;
-    min-width: 80px;
+    min-width: 70px;
     box-sizing: border-box;
     background-color: #2f3242;
     display: flex;
@@ -113,24 +113,25 @@
         color: #727aa0;
       }
       span:nth-child(1) {
-
-        width: 30%;
+        width: 35%;
+        // background-color: violet;
       }
       span:nth-child(2) {
-        width: 10%;
+        width: 15%;
         text-align: center;
+        // background-color: yellowgreen;
       }
       span:nth-child(3) {
-        width: 20%;
+        width: 30%;
         // padding-left: 10%;
         text-align: center;
-         padding-left: 10%;
-        width: 43%;
+        // background-color: blue;
       }
       span:nth-child(4) {
         float: right;
-        width: 25%;
+        width: 20%;
         // padding-right: 20px;
+        // background-color: blueviolet;
         text-align: right;
       }
     }
@@ -163,6 +164,8 @@
             text-overflow: ellipsis;
             width: 100%;
             display: inline-block;
+            // background-color: orange;
+            text-align: left;
           }
         }
         .sidebar-right {
@@ -173,7 +176,6 @@
             display: inline-block;
             background-color: pink;
           }
-
 
           .sidebar-price {
             display: inline-block;
@@ -188,45 +190,42 @@
             font-size: 0.8rem;
           }
         }
+      }
+      span:first-child {
+        width: 20%;
+        text-align: right;
+        white-space: nowrap;
+      }
+      span:last-child {
+        text-align: right;
+        white-space: nowrap;
+      }
 
+      .bookmark {
+        background: none;
+        border: none;
+        display: inline-block;
+        outline: none;
+        width: 25px;
+        height: 25px;
+        position: relative;
+        cursor: pointer;
+        z-index: 10;
+        img {
+          width: 18px;
         }
-        span:first-child {
-          width: 20%;
-          text-align: right;
-          white-space: nowrap;
+        .bookmark_false {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-70%, 0);
         }
-        span:last-child {
-          text-align: right;
-          white-space: nowrap;
-
-        }
-
-        .bookmark {
-          background: none;
-          border: none;
-          display: inline-block;
-          outline: none;
-          width: 25px;
-          height: 25px;
-          position: relative;
-          cursor: pointer;
-          z-index: 10;
-          img {
-            width: 18px;
-          }
-          .bookmark_false {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-70%, 0);
-          }
-          .bookmark_true {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-70%, 0);
-            // display: none;
-          }
+        .bookmark_true {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-70%, 0);
+          // display: none;
         }
       }
     }

@@ -153,7 +153,7 @@ export default function FavoriteList({
                       </div>
 
                       <div className="sidebar-right">
-                        <span className='sidebar-change' >{currency.price}</span>
+                        <span className='sidebar-price' >{currency.price}</span>
                         <span className='sidebar-change' >{currency.change}%</span>
                       </div>
 
@@ -225,7 +225,7 @@ export default function FavoriteList({
                         </div>
                       </div>
                       <div className="sidebar-right">
-                        <span className="sidebar-change">{stock.price}</span>
+                        <span className="sidebar-price">{stock.price}</span>
                         <span className="sidebar-change">{stock.change}</span>
                       </div>
                     </li>}
