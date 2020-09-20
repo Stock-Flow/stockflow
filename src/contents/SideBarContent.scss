@@ -94,16 +94,12 @@
         text-align: center;
       }
       span:nth-child(3) {
-        width: 20%;
-        // padding-left: 10%;
-        text-align: center;
-         padding-left: 10%;
-        width: 43%;
+        width: 30%;
+        text-align: right;
       }
       span:nth-child(4) {
         float: right;
         width: 25%;
-        // padding-right: 20px;
         text-align: right;
       }
     }
@@ -203,11 +199,12 @@
         }
       }
     }
-  }
 
   .none {
     display: none;
   }
+}
+
     // .none {
   //   display: none;
   //   background-color: red;
@@ -223,4 +220,3 @@
   //     margin: 10px auto 0;
   //   }
   // }
-}

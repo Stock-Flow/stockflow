@@ -84,44 +84,48 @@ export default function CurrencyList({
               <li onClick={transSymbol} className="clear-fix">
                 <button className='bookmark' onClick={selectedFavorite}>
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-<<<<<<< HEAD
               </button>
 
               <div className="sidebar-left">
-                <span className="sidebar-symbol">
-                  {currency.symbol}
-                </span>
-                <br />
-                <span className="sidebar-name">
-                  {currency.name}
-                </span>
-                <br />
+                <div className="inner-sidebar-left">
+                  <span className="sidebar-symbol">
+                    {currency.symbol}
+                  </span>
+                  <br />
+                  <span className="sidebar-name">
+                    {currency.name}
+                  </span>
+                  <br />
+                </div>
+
+                <div className="inner-sidebar-right">
+                  <V.VictoryLine
+                    data={currencys}
+                    x="date"
+                    y="price"
+                    style={{
+                      data: { stroke: color },
+                      parent: {
+                        width: 50,
+                        height: 'auto',
+                        margin: `${0} auto`
+                      },
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="sidebar-right">
-                <V.VictoryLine
-                  data={currencys}
-                  x="date"
-                  y="price"
-                  style={{
-                    data: { stroke: color },
-                    parent: {
-                      width: 50,
-                      height: 'auto',
-                    },
-                  }}
-                />
-              </div>
-
-              <span className='sidebar-change' >{currency.price}</span>
-              <span className='sidebar-change' >{currency.change}%</span>                   
+                <span className='sidebar-price' >{currency.price}</span>
+                <span className='sidebar-change' >{currency.change}%</span>
+              </div>                   
             </li>
           );
         })}
       </ul>
     </div>
   );   
-      } else  {
+    } else  {
         return (
           <div className="sidebar currency">
               <ul className={menu === 'currency' ? '' : 'none'}>
@@ -130,52 +134,6 @@ export default function CurrencyList({
           </div>
         )
       }
-=======
-                </button>
-                <div className="sidebar-left">
-                  <div className="inner-sidebar-left">
-                    <span className="sidebar-symbol">
-                      {currency.symbol}
-                    </span>
-                    <br />
-                    <span className="sidebar-name">
-                      {currency.name}
-                    </span>
-                    <br />
-                  </div>
-                  <div className="inner-sidebar-right">
-                    <V.VictoryLine
-                      data={currencys}
-                      x="date"
-                      y="price"
-                      style={{
-                        data: { stroke: color },
-                        parent: {
-                          width: 50,
-                          height: 'auto',
-                          margin: `${0} auto`
-                        },
-                      }}
-                    />
-                  </div>
-
-                </div>
-
-                <div className="sidebar-right">
-                  <span className='sidebar-price' >{currency.price}</span>
-                  <span className='sidebar-change' >{currency.change}%</span>
-                </div>
-
-
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  } else {
-    return <LoadingOutlined />
-  }
->>>>>>> c3466a9916f38d2dcd9f3423f41708ac81c46e62
+    
 }
 
