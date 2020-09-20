@@ -5,7 +5,12 @@
     vertical-align: top;
   }
   .foreign-exchange-detail-wrap {
-    margin-left: 50px;
+    margin-left: 48px;
+    float: right;
+  }
+  .exchange-item-wrap {
+    border: 1px solid #3a3e50;
+    background: #2d303e;
   }
   .foreign-exchange-list-wrap {
     display: inline-block;

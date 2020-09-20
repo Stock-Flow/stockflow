@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { createGetSelectedExchangeSaga } from '../../redux/modules/selectedExchange';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
 // import ForeignExchange from './ForeignExchange';
 
 export default function ForeignExchangeItem({
@@ -12,6 +14,12 @@ export default function ForeignExchangeItem({
   exchangeRate,
   fxIntradayArr,
   fxIntraday,
+
+  firstFromCurrenciesCode,
+  firstFromCurrenciesName,
+  firstToCurrenciesCode,
+  firstToCurrenciesName,
+  firstFxIntraday,
 }) {
   let resultPercent = 0;
   let before = 0;
@@ -33,9 +41,22 @@ export default function ForeignExchangeItem({
   resultPercent = resultPercent.toFixed(2);
   let fxDiff = (after - before).toFixed(3);
 
+  const dispatch = useDispatch();
+
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      createGetSelectedExchangeSaga(
+        firstFromCurrenciesCode,
+        firstFromCurrenciesName,
+        firstToCurrenciesCode,
+        firstToCurrenciesName,
+        firstFxIntraday,
+      ),
+    );
+  }, []);
 
   const transCode = useCallback(() => {
     dispatch(

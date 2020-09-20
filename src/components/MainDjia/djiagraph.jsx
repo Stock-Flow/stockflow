@@ -32,7 +32,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
         borderVisible: false,
       },
       layout: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
+        backgroundColor: '#2d303e',
         textColor: '#eeeeee',
       },
     });

@@ -3,8 +3,11 @@
   width: 75vw;
   padding: 0 15px;
 }
-.djia{
+.djia {
   padding: 0 20px;
+  .tv-lightweight-charts {
+    border: 1px solid #3a3e50;
+  }
 }
 .djiagraph {
   // width: 70%;
