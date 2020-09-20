@@ -1,3 +1,4 @@
+@import '../../responsive.scss';
 .foreign-exchange-wrap {
   > div {
     float: left;
@@ -110,5 +111,16 @@
     p {
       margin: 0;
     }
+  }
+}
+
+@include tablet {
+  .foreign-exchange-detail-wrap {
+    display: block;
+    width: 100%;
+  }
+  .foreign-exchange-list-wrap {
+    display: block;
+    width: 100% !important;
   }
 }

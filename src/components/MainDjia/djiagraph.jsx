@@ -16,14 +16,28 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     setWindowWidth(window.innerWidth);
     console.log('hi');
     if (chart.current) {
-      chart.current.resize(windowWidth * 0.72 - 100, 400);
+      if (windowWidth >= 1200) {
+        chart.current.resize(windowWidth * 0.72 - 100, 400);
+      }
+      if (windowWidth < 1200) {
+        chart.current.resize(windowWidth * 0.72, 400);
+      }
     }
   }, [windowWidth]))
   useEffect(() => {
-    chart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 400,
-    });
+    if (windowWidth > 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 400,
+      });
+    }
+    if (windowWidth < 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 400,
+      });
+    }
+
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
