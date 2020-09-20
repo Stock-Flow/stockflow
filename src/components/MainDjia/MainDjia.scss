@@ -1,8 +1,8 @@
 .djiagraphBox {
   width: 75vw;
   padding: 0 15px;
-  .djia{
-    padding: 0 20px;   
+  .djia {
+    padding: 0 20px;
     .djiagraph {
       // width: 70%;
       // margin: 0 auto;
@@ -23,10 +23,10 @@
       .main-svg {
         background: none !important;
       }
-      .tv-lightweight-charts {
-        width: 50% !important;
-        border: 1px solid #3a3e50;
-      }
+    }
+    .tv-lightweight-charts {
+      // width: 50% !important;
+      border: 1px solid #3a3e50;
     }
   }
 }
