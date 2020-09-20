@@ -182,8 +182,8 @@ export default class StockService {
     const stockList = stockNow.map((stock, i) => ({
       ...stock,
       name: info[i].Name,
-      price: stocks[i]['Global Quote']['05. price'],
-      change: stocks[i]['Global Quote']['10. change percent'],
+      price: (+stocks[i]['Global Quote']['05. price']).toFixed(2),
+      change: (stocks[i]['Global Quote']['10. change percent'])
     }));
     return stockList;
   }

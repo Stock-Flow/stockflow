@@ -3,7 +3,11 @@
   display: flex;
   flex-direction: row;
   width: 28%;
+<<<<<<< HEAD
   // min-width: 300px;
+=======
+  min-width: 432px;
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
@@ -28,6 +32,7 @@
       background-position: center;
       background-size: contain;
       cursor: pointer;
+
       img {
         width: 100%;
         height: 100%;
@@ -35,60 +40,39 @@
     }
   }
 
-  .sortbox {
-    float: right;
-    width: 102px;
-    height: 32px;
-    margin-top: 20px;
-    padding-left: 8px;
-    font-size: 0.8462rem;
-    color: #fff;
-    background: #1c2024;
-  }
-  .sortValuebox {
-    width: 100%;
-    margin-top: 20px !important;
-    margin-bottom: 20px;
-  }
 
-  .none {
-    display: none;
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    button {
-      width: calc(50% - 7px);
-      height: 60px;
-      border: 0px;
-      font-size: 1.125rem;
-      color: #ffffff;
-      background: #212933;
-      margin: 10px auto 0;
-    }
-  }
+
+
 
   .sidebarList {
     padding: 15px;
     width: 100%;
+    min-width: 342px;
+    // padding: 15px;
+    // width: 83%;
+    // box-sizing: border-box;
     .search {
       display: block;
-      width: 95%;
+      width: 92%;
       height: 30px;
       margin: 10px auto 0;
-      padding: 0 0 0 25px;
+      padding: 0 0 0 8%;
       border-radius: 5px;
       border: #1f202b;
       caret-color: #fff;
       box-shadow: none;
       color: #727aa0;
       background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
+
       &:before {
         content: '';
       }
     }
+
     .search::placeholder {
       color: #727aa0;
     }
+
     .sortbox {
       float: right;
       width: 102px;
@@ -100,38 +84,65 @@
       background: #1c2024;
       border-radius: 3px;
     }
+
     .sortValuebox {
       width: 100%;
-      margin-top: 0px;
+      margin-top: 20px !important;
       margin-bottom: 20px;
     }
 
     .list_values {
-      margin-top: 20px;
+      margin: 20px 0;
+      // width: 100%;
+      // margin-top: 20px;
+
       span {
         display: inline-block;
         color: #727aa0;
       }
+<<<<<<< HEAD
       span:nth-child(1) {
         width: 35%;
         // background-color: violet;
+=======
+
+      span:nth-child(1) {
+        width: 20%;
+        padding-left: 5%;
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
       }
+
       span:nth-child(2) {
+<<<<<<< HEAD
         width: 15%;
+=======
+        width: 10%;
+        padding-left: 10%;
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
         text-align: center;
         // background-color: yellowgreen;
       }
+
       span:nth-child(3) {
         width: 30%;
+<<<<<<< HEAD
         // padding-left: 10%;
         text-align: center;
         // background-color: blue;
+=======
+        text-align: right;
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
       }
+
       span:nth-child(4) {
         float: right;
+<<<<<<< HEAD
         width: 20%;
         // padding-right: 20px;
         // background-color: blueviolet;
+=======
+        width: 25%;
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
         text-align: right;
       }
     }
@@ -141,36 +152,45 @@
 
       li {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 100%;
         padding: 12px 0;
+
         .inner-sidebar-left {
           width: 50%;
-          float: left;
+          // float: left;
         }
+
         .inner-sidebar-right {
-          float: right;
+          // float: right;
           width: 50%;
         }
+
         .sidebar-left {
-          float: left;
-          max-width: 50%;
+          display: flex;
+          justify-content: space-between;
           width: 50%;
+          // max-width: 50%;
+
           .sidebar-name {
+            position: absolute;
             font-size: 0.6875rem;
             color: #979797;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: 100%;
+            width: 5%;
             display: inline-block;
             // background-color: orange;
             text-align: left;
           }
         }
+
         .sidebar-right {
+          display: flex;
+          justify-content: space-between;
           width: 50%;
-          float: right;
+          // float: right;
 
           .VictoryContainer {
             display: inline-block;
@@ -180,9 +200,11 @@
           .sidebar-price {
             display: inline-block;
             width: 50%;
-            text-align: center;
+            padding-left: 5%;
+            // text-align: left;
             font-size: 0.8rem;
           }
+
           .sidebar-change {
             display: inline-block;
             width: 50%;
@@ -201,11 +223,18 @@
         white-space: nowrap;
       }
 
+<<<<<<< HEAD
+=======
+      }
+
+
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
       .bookmark {
         background: none;
         border: none;
         display: inline-block;
         outline: none;
+<<<<<<< HEAD
         width: 25px;
         height: 25px;
         position: relative;
@@ -214,17 +243,39 @@
         img {
           width: 18px;
         }
+=======
+        position: relative;
+        cursor: pointer;
+        z-index: 10;
+        width: 25px;
+        height: 25px;
+
+        img {
+          width: 100%;
+        }
+
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
         .bookmark_false {
           position: absolute;
           top: 50%;
           left: 50%;
+<<<<<<< HEAD
           transform: translate(-70%, 0);
         }
+=======
+          transform: translate(-70%, -50%);
+        }
+
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
         .bookmark_true {
           position: absolute;
           top: 50%;
           left: 50%;
+<<<<<<< HEAD
           transform: translate(-70%, 0);
+=======
+          transform: translate(-70%, -50%);
+>>>>>>> 39fbcf6cb2336bf766252aa52bf3111cc74a41a6
           // display: none;
         }
       }
@@ -235,3 +286,19 @@
     display: none;
   }
 }
+
+    // .none {
+  //   display: none;
+  //   background-color: red;
+  //   display: flex;
+  //   flex-direction: column;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //     margin: 10px auto 0;
+  //   }
+  // }

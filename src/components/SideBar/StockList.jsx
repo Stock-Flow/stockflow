@@ -42,7 +42,7 @@ export default function StockList({
               keys.forEach((item, i) => {
                 stocks.push({ date: item, price: values[i] });
               });
-              let color = stock.change[0] === '-' ? 'yellow' : 'red';
+              let color = stock.change < 0 ? 'yellow' : 'red';
 
               function transSymbol(e) {
                 e.stopPropagation();
@@ -132,7 +132,13 @@ export default function StockList({
         </ul>
       </div>
     );
-  } else {
-    return <LoadingOutlined />
+  } else  {
+    return (
+    <div className="sidebar stock">
+        <ul className={menu === 'stock' ? '' : 'none'}>
+          <LoadingOutlined />
+        </ul>
+      </div>
+    )
   }
 }
