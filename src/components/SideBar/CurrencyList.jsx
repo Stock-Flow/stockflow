@@ -34,7 +34,6 @@ export default function CurrencyList({
 
   if (!loading) {
 
-<<<<<<< HEAD
     return (
       <div className="sidebar currency">
         <ul className={menu === 'currency' ? '' : 'none'}>
@@ -50,7 +49,7 @@ export default function CurrencyList({
               .map((item) => item.open)
               .reverse();
             keys.forEach((item, i) => {
-              currencys.push({ date: item, pricee: values[i] });
+              currencys.push({ date: item, price: values[i] });
             });
             let color = currency.change === "-" ? "green" : "red"
 
@@ -61,41 +60,14 @@ export default function CurrencyList({
 
             const symbol = currency.symbol
             let favoriteDataList = false;
-=======
-  return (
-    <div className="sidebar currency">
-      <ul className={menu === 'currency' ? '' : 'none'}>
-        {currencyList.map((currency) => {
-          let currencys = [];
-       
-          const keys = Object.keys(
-            currency.currencyData,
-          ).reverse();
-          const values = Object.values(
-            currency.currencyData,
-          )
-            .map((item) => item.open)
-            .reverse();
-          keys.forEach((item, i) => {
-            currencys.push({ date: item, price: values[i] });
-          });
-          let color = currency.change === "-" ? "green" : "red"
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            }
 
-          function transSymbol(e) {
-            e.stopPropagation();
-            sendSymbol(currency.symbol);
-          }
-
-          const symbol = currency.symbol
-          let favoriteDataList = false;
-          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
-            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
-          }
-
-          function selectedFavorite(e) {
-            e.stopPropagation();
-            sendToSymbol(currency.symbol);
->>>>>>> 50cebe16bdb0444bf603e084b0a2b9062777bb2d
+            function selectedFavorite(e) {
+              e.stopPropagation();
+              sendToSymbol(currency.symbol);
+            }
             if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
               favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
             }
@@ -114,27 +86,32 @@ export default function CurrencyList({
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
                 </button>
                 <div className="sidebar-left">
+                  <div className="inner-sidebar-left">
+                    <span className="sidebar-symbol">
+                      {currency.symbol}
+                    </span>
+                    <br />
+                    <span className="sidebar-name">
+                      {currency.name}
+                    </span>
+                    <br />
+                  </div>
+                  <div className="inner-sidebar-right">
+                    <V.VictoryLine
+                      data={currencys}
+                      x="date"
+                      y="price"
+                      style={{
+                        data: { stroke: color },
+                        parent: {
+                          width: 50,
+                          height: 'auto',
+                          margin: `${0} auto`
+                        },
+                      }}
+                    />
+                  </div>
 
-                  <span className="sidebar-symbol">
-                    {currency.symbol}
-                  </span>
-                  <br />
-                  <span className="sidebar-name">
-                    {currency.name}
-                  </span>
-                  <br />
-                  <V.VictoryLine
-                    data={currencys}
-                    x="date"
-                    y="price"
-                    style={{
-                      data: { stroke: color },
-                      parent: {
-                        width: 50,
-                        height: 'auto',
-                      },
-                    }}
-                  />
                 </div>
 
                 <div className="sidebar-right">

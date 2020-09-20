@@ -97,6 +97,7 @@ export default function StockList({
                           parent: {
                             width: 50,
                             height: 'auto',
+                            margin: `${0} auto`
                           },
                         }}
                       />
