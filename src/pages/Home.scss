@@ -37,7 +37,24 @@ html {
     .detail-stock {
       display: block;
     }
+
     padding-top: 96px;
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      transform: translate(0, -50%);
+      z-index: 300;
+      width: 100px;
+      height: 100px;
+    }
+
+    .anticon-spin {
+      font-size: 100px;
+      width: 100px;
+      height: 100px;
+    }
   }
 
   // 사이드바를 제외한 메인 뷰

@@ -127,7 +127,13 @@ export default function StockList({
         </ul>
       </div>
     );
-  } else {
-    return <LoadingOutlined />
+  } else  {
+    return (
+    <div className="sidebar stock">
+        <ul className={menu === 'stock' ? '' : 'none'}>
+          <LoadingOutlined />
+        </ul>
+      </div>
+    )
   }
 }

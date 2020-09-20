@@ -446,7 +446,7 @@ export default function DetailStockGraph({
     candleSeries.current = chart.current.addCandlestickSeries({
       title: symbol,
     });
-    candleSeries.current.setData(stock);
+
     chart.current.timeScale().setVisibleLogicalRange({
       from: stock.length - 60,
       to: stock.length,
@@ -455,7 +455,6 @@ export default function DetailStockGraph({
     volumeChart.current = assistChart.current.addHistogramSeries({
       title: 'volume',
     });
-    volumeChart.current.setData(volume);
     assistChart.current.timeScale().setVisibleLogicalRange({
       from: volume.length - 60,
       to: volume.length,
@@ -463,7 +462,12 @@ export default function DetailStockGraph({
 
     MACDData.current = getMACDData(stock);
     stochasticSlowData.current = getStochasticSlow(stock, 12, 5, 5);
-  }, [stock]);
+
+    if (!loading) {
+      candleSeries.current.setData(stock);
+      volumeChart.current.setData(volume);
+    }
+  }, [stock, loading]);
   const searchValue = useRef();
   const [searchList, setSearchList] = useState([]);
   const search = useRef();
@@ -478,29 +482,29 @@ export default function DetailStockGraph({
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <div className="detail-stock">
-      {loading ? <LoadingOutlined /> : (
+      {loading ? <LoadingOutlined className="loading" /> : (
         <>
           <h2>{symbol}</h2>
-
-          {/* <button onClick={() => dailyBtnClick()}>1일</button>
-          <button onClick={() => weeklyBtnClick()}>1주</button>
-          <button onClick={() => monthlyBtnClick()}>1달</button> */}
+          <button className="detail-button" onClick={openAddModal}>
+            Add Stock
+      </button>
+          <button
+            className="detail-button"
+            onClick={() => {
+              if (compareGraph.current) {
+                chart.current.removeSeries(compareGraph.current);
+                compareGraph.current = null;
+              }
+            }}
+          >
+            remove compare graph
+      </button>
+          <button className="detail-button" onClick={openModal}>
+            Indicators
+      </button>
         </>
       )}
-      <button className="detail-button" onClick={openAddModal}>
-        Add Stock
-      </button>
-      <button
-        className="detail-button"
-        onClick={() => {
-          if (compareGraph.current) {
-            chart.current.removeSeries(compareGraph.current);
-            compareGraph.current = null;
-          }
-        }}
-      >
-        remove compare graph
-      </button>
+
       <Modal
         isOpen={addModalIsOpen}
         onAfterOpen={modalIsOpen}
@@ -525,20 +529,10 @@ export default function DetailStockGraph({
             })}
 
         </datalist>
-        <button
-          className="add-modal-btn"
-          onClick={() => {
-            getCompare(searchValue.current.value);
-            closeAddModal();
-          }}
-        >
-          close
-        </button>
+
       </Modal>
 
-      <button className="detail-button" onClick={openModal}>
-        Indicators
-      </button>
+
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

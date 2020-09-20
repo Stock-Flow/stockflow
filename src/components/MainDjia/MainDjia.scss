@@ -1,5 +1,4 @@
 .djiagraphBox {
-  background-color: #252525;
   width: 75vw;
   padding: 0 15px;
   .djia{
@@ -26,8 +25,8 @@
       }
       .tv-lightweight-charts {
         width: 50% !important;
+        border: 1px solid #3a3e50;
       }
     }
   }
 }
-

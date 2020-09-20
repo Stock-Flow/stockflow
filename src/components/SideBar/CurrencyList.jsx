@@ -112,8 +112,14 @@ export default function CurrencyList({
       </ul>
     </div>
   );   
-      } else {
-        return <LoadingOutlined />
+      } else  {
+        return (
+          <div className="sidebar currency">
+              <ul className={menu === 'currency' ? '' : 'none'}>
+                <LoadingOutlined />
+              </ul>
+          </div>
+        )
       }
 }
 

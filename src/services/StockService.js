@@ -1,5 +1,11 @@
 import axios from 'axios';
 import {
+  store
+} from '../index'
+import {
+  useDispatch
+} from 'react-redux';
+import {
   apiKey
 } from '../key';
 import DataProcessingService from './DataProcessingService';
@@ -51,6 +57,11 @@ import DataProcessingService from './DataProcessingService';
 // ]
 
 const DOW_ITEMS_SYMBOL = [
+  'MMM',
+  'IBM',
+  'JPM',
+  'AAPL',
+  'GS',
   'NKE',
   'DOW',
   'MSFT',
@@ -87,11 +98,17 @@ export default class StockService {
   }
 
   static async getDJIA() {
+    localStorage.setItem('count', 0);
     let DJIAList = [];
     const getDjiaPromise = (symbol) => {
       return axios.get(
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&interval=1min&apikey=${apiKey}`,
-      );
+      ).then(result => {
+        store.dispatch({
+          type: "GET_DJIA_PROGRESS"
+        })
+        return result
+      })
     };
 
 
@@ -107,7 +124,10 @@ export default class StockService {
     //   return result.map((item) => item.data);
     // });
     DJIAList = await Promise.all(promDjia).then((result) => {
-      return result.map((item) => item.data);
+      return result.map((item) => {
+
+        return item.data
+      });
     });
     return DJIAList;
   }

@@ -7,6 +7,8 @@ import DataProcessingService from '../../services/DataProcessingService';
 
 export default function DjiagraphContainer() {
   const djia = useSelector((state) => state.djia.djia);
+  const loading = useSelector((state) => state.djia.loading);
+  let done = useSelector((state) => state.djia.done)
   // const sum = useEffect(() => {
   //   sumOpenData()
   // }, [])
@@ -47,8 +49,8 @@ export default function DjiagraphContainer() {
   }
 
   return (
-    <div className = 'djiagraphBox'>
-      <DjiaGraph djiaList={djiaList} djiaDate={djiaDate} djia={djia} />
+    <div className="djiagraphBox">
+      <DjiaGraph djiaList={djiaList} djiaDate={djiaDate} djia={djia} loading={loading} done={done} />
     </div>
   );
 }
