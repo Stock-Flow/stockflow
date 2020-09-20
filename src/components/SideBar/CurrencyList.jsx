@@ -131,7 +131,7 @@ export default function CurrencyList({
     return (
       <div className="sidebar currency">
         <ul className={menu === 'currency' ? '' : 'none'}>
-          <LoadingOutlined />
+          <LoadingOutlined className='loading_icon' />
         </ul>
       </div>
     )
