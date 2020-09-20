@@ -12,13 +12,13 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const lineSeries = useRef();
   const chartposition = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  window.onresize = useCallback(() => {
+  window.addEventListener('resize', useCallback(() => {
     setWindowWidth(window.innerWidth);
     console.log('hi');
     if (chart.current) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
-  }, [windowWidth]);
+  }, [windowWidth]))
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
       width: windowWidth * 0.72 - 100,
