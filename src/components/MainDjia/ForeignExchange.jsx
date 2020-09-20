@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import ForeignExchangeItem from './ForeignExchangeItem';
 import './ForeignExchange.scss';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function ForeignExchange({
   getExchange,
@@ -42,10 +43,19 @@ export default function ForeignExchange({
 
   return (
     <>
-      {!loading && (
-        <div className="foreign-exchange-list-wrap">
-          <h2>Foriegn Exchange</h2>
-          <div className="exchange-item-wrap">{itemList}</div>
+      <div className="foreign-exchange-list-wrap">
+        {!loading && (
+          <>
+            <h2>Foriegn Exchange</h2>
+            <div className="exchange-item-wrap">{itemList}</div>
+          </>
+        )}
+      </div>
+      {loading && (
+        <div className="exchange-item-wrap-loading">
+          <div className="exchange-loading">
+            <LoadingOutlined />
+          </div>
         </div>
       )}
     </>

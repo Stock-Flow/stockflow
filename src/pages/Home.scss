@@ -67,7 +67,7 @@ html {
       display: inline-block;
     }
 
-    > div {
+    >div {
       display: inline-block;
     }
   }
@@ -149,10 +149,18 @@ html {
 //   display: flex;
 //   align-items: center;
 
+<<<<<<< HEAD
 //   input {
 //     margin-left: 20px;
 //   }
 // }
+=======
+.add-modal {}
+
+.ReactModal__Content .indicator-btn {
+  height: 30px;
+}
+>>>>>>> b39a33770c1754ceb15330c6fd46f1103d685ab8
 
 .ReactModal__Content .search {
   position: absolute;
@@ -178,8 +186,7 @@ html {
     }
 
     .detail-button {
-      // background-color: #212933;
-      background-color: #3b55ff;
+      background-color: #1F202B;
       border: none;
       color: #eeeeee;
       margin: 20px;
