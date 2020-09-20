@@ -17,7 +17,7 @@
     background-color: #2f3242;
     display: flex;
     flex-direction: column;
-    padding: 12px 10px 0 10px;
+    padding: 20px 10px 0 10px;
     box-shadow: 5px 5px 10px #272936;
 
     button {
@@ -35,37 +35,9 @@
     }
   }
 
-  // .sortbox {
-  //   float: right;
-  //   width: 102px;
-  //   height: 32px;
-  //   margin-top: 20px;
-  //   padding-left: 8px;
-  //   font-size: 0.8462rem;
-  //   color: #fff;
-  //   background: #1c2024;
-  // }
-  // .sortValuebox {
-  //   width: 100%;
-  //   margin-top: 0px;
-  //   margin-bottom: 20px;
-  // }
 
-  // .none {
-  //   display: none;
-  //   background-color: red;
-  //   display: flex;
-  //   flex-direction: column;
-  //   button {
-  //     width: calc(50% - 7px);
-  //     height: 60px;
-  //     border: 0px;
-  //     font-size: 1.125rem;
-  //     color: #ffffff;
-  //     background: #212933;
-  //     margin: 10px auto 0;
-  //   }
-  // }
+
+
 
   .sidebarList {
     padding: 15px;
@@ -103,7 +75,7 @@
     }
     .sortValuebox {
       width: 100%;
-      margin-top: 15px;
+      margin-top: 20px !important;
       margin-bottom: 20px;
     }
 
@@ -114,41 +86,82 @@
         color: #727aa0;
       }
       span:nth-child(1) {
-        width: 43%;
+
+        width: 30%;
       }
       span:nth-child(2) {
         width: 10%;
+        text-align: center;
       }
       span:nth-child(3) {
-        padding-left: 10%;
+        width: 20%;
+        // padding-left: 10%;
+        text-align: center;
+         padding-left: 10%;
+        width: 43%;
       }
       span:nth-child(4) {
         float: right;
-        padding-right: 20px;
+        width: 25%;
+        // padding-right: 20px;
+        text-align: right;
       }
     }
 
     .sidebar {
       width: 100%;
+
       li {
+        display: flex;
+        justify-content: space-around;
         width: 100%;
         padding: 12px 0;
-        display: flex;
-        justify-content: space-between;
-        // border-bottom: 1px solid #444;
+        .inner-sidebar-left {
+          width: 50%;
+          float: left;
+        }
+        .inner-sidebar-right {
+          float: right;
+          width: 50%;
+        }
         .sidebar-left {
           float: left;
-          width: 31%;
+          max-width: 50%;
+          width: 50%;
           .sidebar-name {
             font-size: 0.6875rem;
             color: #979797;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+            display: inline-block;
           }
         }
         .sidebar-right {
-          width: 15%;
+          width: 50%;
+          float: right;
+
           .VictoryContainer {
             display: inline-block;
+            background-color: pink;
           }
+
+
+          .sidebar-price {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            font-size: 0.8rem;
+          }
+          .sidebar-change {
+            display: inline-block;
+            width: 50%;
+            text-align: right;
+            font-size: 0.8rem;
+          }
+        }
+
         }
         span:first-child {
           width: 20%;
@@ -158,16 +171,16 @@
         span:last-child {
           text-align: right;
           white-space: nowrap;
+
         }
 
         .bookmark {
           background: none;
           border: none;
           display: inline-block;
-          // padding: 5px 5px 5px 10px;
+          outline: none;
           width: 25px;
           height: 25px;
-          // background-color: white;
           position: relative;
           cursor: pointer;
           z-index: 10;
@@ -177,14 +190,14 @@
           .bookmark_false {
             position: absolute;
             top: 50%;
-            left: 60%;
-            transform: translate(-50%, -50%);
+            left: 50%;
+            transform: translate(-70%, 0);
           }
           .bookmark_true {
             position: absolute;
             top: 50%;
-            left: 60%;
-            transform: translate(-50%, -50%);
+            left: 50%;
+            transform: translate(-70%, 0);
             // display: none;
           }
         }
@@ -195,4 +208,19 @@
   .none {
     display: none;
   }
+    // .none {
+  //   display: none;
+  //   background-color: red;
+  //   display: flex;
+  //   flex-direction: column;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //     margin: 10px auto 0;
+  //   }
+  // }
 }

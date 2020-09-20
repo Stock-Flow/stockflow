@@ -34,48 +34,57 @@ export default function CurrencyList({
 
   if (!loading) {
 
-  return (
-    <div className="sidebar currency">
-      <ul className={menu === 'currency' ? '' : 'none'}>
-        {currencyList.map((currency) => {
-          let currencys = [];
-       
-          const keys = Object.keys(
-            currency.currencyData,
-          ).reverse();
-          const values = Object.values(
-            currency.currencyData,
-          )
-            .map((item) => item.open)
-            .reverse();
-          keys.forEach((item, i) => {
-            currencys.push({ date: item, price: values[i] });
-          });
-          let color = currency.change === "-" ? "green" : "red"
+    return (
+      <div className="sidebar currency">
+        <ul className={menu === 'currency' ? '' : 'none'}>
+          {currencyList.map((currency) => {
+            let currencys = [];
 
-          function transSymbol(e) {
-            e.stopPropagation();
-            sendSymbol(currency.symbol);
-          }
+            const keys = Object.keys(
+              currency.currencyData,
+            ).reverse();
+            const values = Object.values(
+              currency.currencyData,
+            )
+              .map((item) => item.open)
+              .reverse();
+            keys.forEach((item, i) => {
+              currencys.push({ date: item, price: values[i] });
+            });
+            let color = currency.change === "-" ? "green" : "red"
 
-          const symbol = currency.symbol
-          let favoriteDataList = false;
-          if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
-            favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
-          }
-
-          function selectedFavorite(e) {
-            e.stopPropagation();
-            sendToSymbol(currency.symbol);
-            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
-              favoriteDataList = !favoriteDataList
+            function transSymbol(e) {
+              e.stopPropagation();
+              sendSymbol(currency.symbol);
             }
-          }
-          
-          return (
-            <li onClick={transSymbol} className="clear-fix">
-              <button className='bookmark' onClick={selectedFavorite}>
+
+            const symbol = currency.symbol
+            let favoriteDataList = false;
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            }
+
+            function selectedFavorite(e) {
+              e.stopPropagation();
+              sendToSymbol(currency.symbol);
+            }
+            if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+              favoriteDataList = favoriteData.filter((currency) => currency.symbol === symbol)[0].favorite
+            }
+
+            function selectedFavorite(e) {
+              e.stopPropagation();
+              sendToSymbol(currency.symbol);
+              if (favoriteData.filter((currency) => currency.symbol === symbol).length !== 0) {
+                favoriteDataList = !favoriteDataList
+              }
+            }
+
+            return (
+              <li onClick={transSymbol} className="clear-fix">
+                <button className='bookmark' onClick={selectedFavorite}>
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
+<<<<<<< HEAD
               </button>
 
               <div className="sidebar-left">
@@ -121,5 +130,52 @@ export default function CurrencyList({
           </div>
         )
       }
+=======
+                </button>
+                <div className="sidebar-left">
+                  <div className="inner-sidebar-left">
+                    <span className="sidebar-symbol">
+                      {currency.symbol}
+                    </span>
+                    <br />
+                    <span className="sidebar-name">
+                      {currency.name}
+                    </span>
+                    <br />
+                  </div>
+                  <div className="inner-sidebar-right">
+                    <V.VictoryLine
+                      data={currencys}
+                      x="date"
+                      y="price"
+                      style={{
+                        data: { stroke: color },
+                        parent: {
+                          width: 50,
+                          height: 'auto',
+                          margin: `${0} auto`
+                        },
+                      }}
+                    />
+                  </div>
+
+                </div>
+
+                <div className="sidebar-right">
+                  <span className='sidebar-price' >{currency.price}</span>
+                  <span className='sidebar-change' >{currency.change}%</span>
+                </div>
+
+
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  } else {
+    return <LoadingOutlined />
+  }
+>>>>>>> c3466a9916f38d2dcd9f3423f41708ac81c46e62
 }
 
