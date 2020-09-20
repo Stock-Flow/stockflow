@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 28%;
-  // min-width: 400px;
+  min-width: 400px;
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
@@ -28,6 +28,7 @@
       background-position: center;
       background-size: contain;
       cursor: pointer;
+
       img {
         width: 100%;
         height: 100%;
@@ -45,6 +46,7 @@
     color: #fff;
     background: #1c2024;
   }
+
   .sortValuebox {
     width: 100%;
     margin-top: 20px !important;
@@ -56,6 +58,7 @@
     background-color: red;
     display: flex;
     flex-direction: column;
+
     button {
       width: calc(50% - 7px);
       height: 60px;
@@ -69,26 +72,31 @@
 
   .sidebarList {
     padding: 15px;
-    width: 100%;
+    width: 83%;
+    box-sizing: border-box;
+
     .search {
       display: block;
-      width: 95%;
+      width: 92%;
       height: 30px;
       margin: 10px auto 0;
-      padding: 0 0 0 25px;
+      padding: 0 0 0 8%;
       border-radius: 5px;
       border: #1f202b;
       caret-color: #fff;
       box-shadow: none;
       color: #727aa0;
       background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
+
       &:before {
         content: '';
       }
     }
+
     .search::placeholder {
       color: #727aa0;
     }
+
     .sortbox {
       float: right;
       width: 102px;
@@ -100,6 +108,7 @@
       background: #1c2024;
       border-radius: 3px;
     }
+
     .sortValuebox {
       width: 100%;
       margin-top: 0px;
@@ -107,30 +116,38 @@
     }
 
     .list_values {
+      width: 100%;
       margin-top: 20px;
+
       span {
         display: inline-block;
         color: #727aa0;
       }
+
       span:nth-child(1) {
-        width: 30%;
+        width: 20%;
+        padding-left: 5%;
       }
+
       span:nth-child(2) {
         width: 10%;
+        padding-left: 10%;
         text-align: center;
       }
+
       span:nth-child(3) {
         width: 20%;
-        // padding-left: 10%;
+        padding-left: 8%;
         text-align: center;
-        padding-left: 10%;
-        width: 43%;
+        // padding-left: 10%;
       }
+
       span:nth-child(4) {
         float: right;
-        width: 25%;
+        width: 20%;
+        padding-left: 5%;
         // padding-right: 20px;
-        text-align: right;
+        // text-align: right;
       }
     }
 
@@ -139,34 +156,43 @@
 
       li {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 100%;
         padding: 12px 0;
+
         .inner-sidebar-left {
           width: 50%;
-          float: left;
+          // float: left;
         }
+
         .inner-sidebar-right {
-          float: right;
+          // float: right;
           width: 50%;
         }
+
         .sidebar-left {
-          float: left;
-          max-width: 50%;
+          display: flex;
+          justify-content: space-between;
           width: 50%;
+          // max-width: 50%;
+
           .sidebar-name {
+            position: absolute;
             font-size: 0.6875rem;
             color: #979797;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: 100%;
+            width: 5%;
             display: inline-block;
           }
         }
+
         .sidebar-right {
+          display: flex;
+          justify-content: space-between;
           width: 50%;
-          float: right;
+          // float: right;
 
           .VictoryContainer {
             display: inline-block;
@@ -176,9 +202,11 @@
           .sidebar-price {
             display: inline-block;
             width: 50%;
-            text-align: center;
+            padding-left: 5%;
+            // text-align: left;
             font-size: 0.8rem;
           }
+
           .sidebar-change {
             display: inline-block;
             width: 50%;
@@ -196,33 +224,36 @@
         text-align: right;
         white-space: nowrap;
       }
+    }
 
-      .bookmark {
-        background: none;
-        border: none;
-        display: inline-block;
-        outline: none;
-        width: 25px;
-        height: 25px;
-        position: relative;
-        cursor: pointer;
-        z-index: 10;
-        img {
-          width: 18px;
-        }
-        .bookmark_false {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-70%, 0);
-        }
-        .bookmark_true {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-70%, 0);
-          // display: none;
-        }
+    .bookmark {
+      background: none;
+      border: none;
+      display: inline-block;
+      outline: none;
+      position: relative;
+      cursor: pointer;
+      z-index: 10;
+      width: 25px;
+      height: 25px;
+
+      img {
+        width: 100%;
+      }
+
+      .bookmark_false {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+      }
+
+      .bookmark_true {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+        // display: none;
       }
     }
   }
