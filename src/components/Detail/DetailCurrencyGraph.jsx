@@ -129,8 +129,11 @@ export default function DetailCurrencyGraph({
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   window.onresize = () => {
     setWindowWidth(window.innerWidth)
-    if (chart.current) {
+    if (windowWidth >= 1200) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
+    }
+    if (windowWidth < 1200) {
+      chart.current.resize(windowWidth * 0.72, 400);
     }
     if (assistChart.current) {
       assistChart.current.resize(windowWidth * 0.72 - 100, 200);
@@ -193,10 +196,18 @@ export default function DetailCurrencyGraph({
   }, [symbol, getDetailCurrency]);
 
   useEffect(() => {
-    chart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 400,
-    });
+    if (windowWidth >= 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 400,
+      });
+    }
+    if (windowWidth < 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 400,
+      });
+    }
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -423,7 +434,7 @@ export default function DetailCurrencyGraph({
     twentyCk(false);
     sixtyCk(false);
     hundredTwentyCk(false);
-    
+
     indicatorChart.current.resize(0, 0);
     setRsick(false);
     stochasticSlowChart.current.resize(0, 0)
@@ -467,45 +478,48 @@ export default function DetailCurrencyGraph({
         {loading ? <LoadingOutlined className="loading" /> : (
           <>
             <h2>{symbol}</h2>
-            <button className="detail-button" onClick={openAddModal}>Add Currenc</button>
-        <button className="detail-button" onClick={() => {
-          if (compareGraph.current) {
-            chart.current.removeSeries(compareGraph.current);
-            compareGraph.current = null;
-          }
-        }}>remove compare graph</button>
-        <button className="detail-button" onClick={openModal}>Indicators</button>
+            <div className="detail-stock-button">
+              <button className="detail-button" onClick={openAddModal}>Add Currenc</button>
+              <button className="detail-button" onClick={() => {
+                if (compareGraph.current) {
+                  chart.current.removeSeries(compareGraph.current);
+                  compareGraph.current = null;
+                }
+              }}>remove compare graph</button>
+              <button className="detail-button" onClick={openModal}>Indicators</button>
+            </div>
+
           </>
         )}
 
-        
-        <Modal 
-          isOpen={addModalIsOpen} 
+
+        <Modal
+          isOpen={addModalIsOpen}
           onAfterOpen={modalIsOpen}
-          onRequestClose={closeAddModal} 
+          onRequestClose={closeAddModal}
           style={addCustomStyles}
         >
 
           <input
-          className="search"
-          type="text"
-          list="search-list"
-          // onChange={() => {
-          //   checkSearchDone();
-          // }}
-          // ref={searchValue}
-          placeholder="type to find Symbol"
+            className="search"
+            type="text"
+            list="search-list"
+            // onChange={() => {
+            //   checkSearchDone();
+            // }}
+            // ref={searchValue}
+            placeholder="type to find Symbol"
           />
           <datalist id="search-list">
-          {/* {searchList.length !== 0 &&
+            {/* {searchList.length !== 0 &&
             searchList.bestMatches.map((item) => {
               return <option value={item['1. symbol']}></option>;
             })} */}
 
-        </datalist>
+          </datalist>
         </Modal>
 
-        
+
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -514,493 +528,493 @@ export default function DetailCurrencyGraph({
         >
           <form>
             <div>
-            <h3>Moving Average</h3>
-            <ul>
-              <li>
-            <label>
-            <input
-                type="checkbox"
-                checked={smaFiveCk}
-                onChange={() => {
-                  if (smaFive.current) {
-                    fiveCk(false);
-                    chart.current.removeSeries(smaFive.current);
-                    smaFive.current = null;
-                  } else {
-                    fiveCk(true);
-                    smaFive.current = chart.current.addLineSeries({
-                      color: fiveColor,
-                    });
-                    smaFive.current.setData(fiveMovingAverageData);
-                  }
-                }}
-              />
-              <h4>5 Moving Average</h4>
-            </label>
-            <label>
-  
-            <input
-                type="color"
-                value={fiveColor}
-                onChange={(e) => {
-                  setFiveColor(e.target.value);
-                  if (smaFive.current) {
-                    smaFive.current.applyOptions({ color: fiveColor });
-                  }
-                }}
-              />
-            </label>
-            </li>
-            <li>
-            <label>
+              <h3>Moving Average</h3>
+              <ul>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={smaFiveCk}
+                      onChange={() => {
+                        if (smaFive.current) {
+                          fiveCk(false);
+                          chart.current.removeSeries(smaFive.current);
+                          smaFive.current = null;
+                        } else {
+                          fiveCk(true);
+                          smaFive.current = chart.current.addLineSeries({
+                            color: fiveColor,
+                          });
+                          smaFive.current.setData(fiveMovingAverageData);
+                        }
+                      }}
+                    />
+                    <h4>5 Moving Average</h4>
+                  </label>
+                  <label>
 
-            <input
-                type="checkbox"
-                checked={smaTwentyCk}
-                onChange={() => {
-                  if (smaTwenty.current) {
-                    twentyCk(false);
-                    chart.current.removeSeries(smaTwenty.current);
-                    smaTwenty.current = null;
-                  } else {
-                    twentyCk(true);
-                    smaTwenty.current = chart.current.addLineSeries({
-                      color: twentyColor,
-                    });
-                    smaTwenty.current.setData(twentyMovingAverageData);
-                  }
-                }}
-              />
-              <h4>20 Moving Average</h4> 
-            </label>
-            <label>
-     
-            <input
-                type="color"
-                value={twentyColor}
-                onChange={(e) => {
-                  setTwentyColor(e.target.value);
-                  if (smaTwenty.current) {
-                    smaTwenty.current.applyOptions({ color: twentyColor });
-                  }
-                }}
-              />
-            </label>
-            </li>
-            <li>
-            <label>
-          
-            <input
-                type="checkbox"
-                checked={smaSixtyCk}
-                onChange={() => {
-                  if (smaSixty.current) {
-                    sixtyCk(false);
-                    chart.current.removeSeries(smaSixty.current);
-                    smaSixty.current = null;
-                  } else {
-                    sixtyCk(true);
-                    smaSixty.current = chart.current.addLineSeries({
-                      color: sixtyColor,
-                    });
-                    smaSixty.current.setData(sixtyMovingAverageData);
-                  }
-                }}
-              />
-              <h4>60 Moving Average</h4>  
-            </label>
-            <label>
-       
-            <input
-                type="color"
-                value={sixtyColor}
-                onChange={(e) => {
-                  setSixtyColor(e.target.value);
-                  if (smaSixty.current) {
-                    smaSixty.current.applyOptions({ color: sixtyColor });
-                  }
-                }}
-              />
-            </label>
-            </li>
-            <li>
-            <label>
+                    <input
+                      type="color"
+                      value={fiveColor}
+                      onChange={(e) => {
+                        setFiveColor(e.target.value);
+                        if (smaFive.current) {
+                          smaFive.current.applyOptions({ color: fiveColor });
+                        }
+                      }}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
 
-            <input
-                type="checkbox"
-                checked={smaHundredTwentyCk}
-                onChange={() => {
-                  if (smaHundredTwenty.current) {
-                    hundredTwentyCk(false);
-                    chart.current.removeSeries(smaHundredTwenty.current);
-                    smaHundredTwenty.current = null;
-                  } else {
-                    hundredTwentyCk(true);
-                    smaHundredTwenty.current = chart.current.addLineSeries({
-                      color: hundredTwentyColor,
-                    });
-                    smaHundredTwenty.current.setData(
-                      hundredTwentyMovingAverageData,
-                    );
-                  }
-                }}
-              />
-              <h4>120 Moving Average</h4>   
-            </label>
-            <label>
-            <input
-                type="color"
-                value={hundredTwentyColor}
-                onChange={(e) => {
-                  setHundredTwentyColor(e.target.value);
-                  if (smaHundredTwenty.current) {
-                    smaHundredTwenty.current.applyOptions({
-                      color: hundredTwentyColor,
-                    });
-                  }
-                }}
-              />
-            </label>
-            </li>
-            </ul>
+                    <input
+                      type="checkbox"
+                      checked={smaTwentyCk}
+                      onChange={() => {
+                        if (smaTwenty.current) {
+                          twentyCk(false);
+                          chart.current.removeSeries(smaTwenty.current);
+                          smaTwenty.current = null;
+                        } else {
+                          twentyCk(true);
+                          smaTwenty.current = chart.current.addLineSeries({
+                            color: twentyColor,
+                          });
+                          smaTwenty.current.setData(twentyMovingAverageData);
+                        }
+                      }}
+                    />
+                    <h4>20 Moving Average</h4>
+                  </label>
+                  <label>
+
+                    <input
+                      type="color"
+                      value={twentyColor}
+                      onChange={(e) => {
+                        setTwentyColor(e.target.value);
+                        if (smaTwenty.current) {
+                          smaTwenty.current.applyOptions({ color: twentyColor });
+                        }
+                      }}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      checked={smaSixtyCk}
+                      onChange={() => {
+                        if (smaSixty.current) {
+                          sixtyCk(false);
+                          chart.current.removeSeries(smaSixty.current);
+                          smaSixty.current = null;
+                        } else {
+                          sixtyCk(true);
+                          smaSixty.current = chart.current.addLineSeries({
+                            color: sixtyColor,
+                          });
+                          smaSixty.current.setData(sixtyMovingAverageData);
+                        }
+                      }}
+                    />
+                    <h4>60 Moving Average</h4>
+                  </label>
+                  <label>
+
+                    <input
+                      type="color"
+                      value={sixtyColor}
+                      onChange={(e) => {
+                        setSixtyColor(e.target.value);
+                        if (smaSixty.current) {
+                          smaSixty.current.applyOptions({ color: sixtyColor });
+                        }
+                      }}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      checked={smaHundredTwentyCk}
+                      onChange={() => {
+                        if (smaHundredTwenty.current) {
+                          hundredTwentyCk(false);
+                          chart.current.removeSeries(smaHundredTwenty.current);
+                          smaHundredTwenty.current = null;
+                        } else {
+                          hundredTwentyCk(true);
+                          smaHundredTwenty.current = chart.current.addLineSeries({
+                            color: hundredTwentyColor,
+                          });
+                          smaHundredTwenty.current.setData(
+                            hundredTwentyMovingAverageData,
+                          );
+                        }
+                      }}
+                    />
+                    <h4>120 Moving Average</h4>
+                  </label>
+                  <label>
+                    <input
+                      type="color"
+                      value={hundredTwentyColor}
+                      onChange={(e) => {
+                        setHundredTwentyColor(e.target.value);
+                        if (smaHundredTwenty.current) {
+                          smaHundredTwenty.current.applyOptions({
+                            color: hundredTwentyColor,
+                          });
+                        }
+                      }}
+                    />
+                  </label>
+                </li>
+              </ul>
             </div>
 
-    
+
             <div>
-            <h3>Indicators</h3>
-            <ul>
-              <li>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={BBANDSCk}
-                    onChange={() => {
-                      if (lowBBANDS.current) {
-                        setBBANDSCk(false);
-                        chart.current.removeSeries(lowBBANDS.current);
-                        chart.current.removeSeries(middleBBANDS.current);
-                        chart.current.removeSeries(highBBANDS.current);
-                        lowBBANDS.current = null;
-                        middleBBANDS.current = null;
-                        highBBANDS.current = null;
-                      } else {
-                        setBBANDSCk(true);
-                        lowBBANDS.current = chart.current.addLineSeries({
-                          title: 'BBANDS LOW',
-                          color: BBANDSColor,
-                        });
-                        lowBBANDS.current.setData(indicators[1][0]);
-                        middleBBANDS.current = chart.current.addLineSeries({
-                          title: 'BBANDS MIDDLE',
-                          color: BBANDSColor,
-                        });
-                        middleBBANDS.current.setData(indicators[1][1]);
-                        highBBANDS.current = chart.current.addLineSeries({
-                          title: 'BBANDS HIGH',
-                          color: BBANDSColor,
-                        });
-                        highBBANDS.current.setData(indicators[1][2]);
-                      }
-                    }}
-                  />
-                  <h4>BBANDS</h4>  
-                </label>
-                <label>
-            <input
-                    type="color"
-                    value={BBANDSColor}
-                    onChange={(e) => {
-                      setBBANDSColor(e.target.value);
-                      if (lowBBANDS.current) {
-                        lowBBANDS.current.applyOptions({ color: BBANDSColor });
-                        middleBBANDS.current.applyOptions({ color: BBANDSColor });
-                        highBBANDS.current.applyOptions({ color: BBANDSColor });
-                      }
-                    }}
-                  />
-                </label>
+              <h3>Indicators</h3>
+              <ul>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={BBANDSCk}
+                      onChange={() => {
+                        if (lowBBANDS.current) {
+                          setBBANDSCk(false);
+                          chart.current.removeSeries(lowBBANDS.current);
+                          chart.current.removeSeries(middleBBANDS.current);
+                          chart.current.removeSeries(highBBANDS.current);
+                          lowBBANDS.current = null;
+                          middleBBANDS.current = null;
+                          highBBANDS.current = null;
+                        } else {
+                          setBBANDSCk(true);
+                          lowBBANDS.current = chart.current.addLineSeries({
+                            title: 'BBANDS LOW',
+                            color: BBANDSColor,
+                          });
+                          lowBBANDS.current.setData(indicators[1][0]);
+                          middleBBANDS.current = chart.current.addLineSeries({
+                            title: 'BBANDS MIDDLE',
+                            color: BBANDSColor,
+                          });
+                          middleBBANDS.current.setData(indicators[1][1]);
+                          highBBANDS.current = chart.current.addLineSeries({
+                            title: 'BBANDS HIGH',
+                            color: BBANDSColor,
+                          });
+                          highBBANDS.current.setData(indicators[1][2]);
+                        }
+                      }}
+                    />
+                    <h4>BBANDS</h4>
+                  </label>
+                  <label>
+                    <input
+                      type="color"
+                      value={BBANDSColor}
+                      onChange={(e) => {
+                        setBBANDSColor(e.target.value);
+                        if (lowBBANDS.current) {
+                          lowBBANDS.current.applyOptions({ color: BBANDSColor });
+                          middleBBANDS.current.applyOptions({ color: BBANDSColor });
+                          highBBANDS.current.applyOptions({ color: BBANDSColor });
+                        }
+                      }}
+                    />
+                  </label>
                 </li>
                 <li>
-                <label>
-          <input type="checkbox" checked={rsiCk} onChange={() => {
-                    if (rsiChart.current) {
-                      setRsick(false);
-                      indicatorChart.current.removeSeries(rsiChart.current);
-                      indicatorChart.current.removeSeries(rsiSignalChart.current);
-                      indicatorChart.current.resize(0, 0);
-                      rsiChart.current = null;
-                    } else {
-                      setRsick(true);
-                      GraphService.graphColor(
-                        indicatorChart.current,
-                        rsiColor,
-                        rsiChart,
-                        indicators[0],
-                        windowWidth
-                      );
-                      GraphService.graphColor(
-                        indicatorChart.current,
-                        rsiSignalColor,
-                        rsiSignalChart,
-                        rsiSignal,
-                        windowWidth
-                      );
-                    }
-                  }} />
-                  <h4>RSI</h4>
-                </label>
-
-                <label className="signal">
-                <label>
-                  <span>RSI Color</span>
-            <input
-                    type="color"
-                    onChange={(e) => {
-                      setRsiColor(e.target.value);
+                  <label>
+                    <input type="checkbox" checked={rsiCk} onChange={() => {
                       if (rsiChart.current) {
-                        rsiChart.current.applyOptions({ color: rsiColor });
+                        setRsick(false);
+                        indicatorChart.current.removeSeries(rsiChart.current);
+                        indicatorChart.current.removeSeries(rsiSignalChart.current);
+                        indicatorChart.current.resize(0, 0);
+                        rsiChart.current = null;
+                      } else {
+                        setRsick(true);
+                        GraphService.graphColor(
+                          indicatorChart.current,
+                          rsiColor,
+                          rsiChart,
+                          indicators[0],
+                          windowWidth
+                        );
+                        GraphService.graphColor(
+                          indicatorChart.current,
+                          rsiSignalColor,
+                          rsiSignalChart,
+                          rsiSignal,
+                          windowWidth
+                        );
                       }
-                    }}
-                    value={rsiColor}
-                  />
-                </label>
-                <label>
-                <span>RSI Signal Color</span>
-            <input
-                    type="color"
-                    onChange={(e) => {
-                      setRsiSignalColor(e.target.value);
-                      if (rsiSignalChart.current) {
-                        rsiSignalChart.current.applyOptions({
-                          color: rsiSignalColor,
-                        });
-                      }
-                    }}
-                    value={rsiSignalColor}
-                  />
-                </label>
-                </label>
+                    }} />
+                    <h4>RSI</h4>
+                  </label>
+
+                  <label className="signal">
+                    <label>
+                      <span>RSI Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setRsiColor(e.target.value);
+                          if (rsiChart.current) {
+                            rsiChart.current.applyOptions({ color: rsiColor });
+                          }
+                        }}
+                        value={rsiColor}
+                      />
+                    </label>
+                    <label>
+                      <span>RSI Signal Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setRsiSignalColor(e.target.value);
+                          if (rsiSignalChart.current) {
+                            rsiSignalChart.current.applyOptions({
+                              color: rsiSignalColor,
+                            });
+                          }
+                        }}
+                        value={rsiSignalColor}
+                      />
+                    </label>
+                  </label>
                 </li>
                 <li>
-            <label>
-            <input
-                type="checkbox"
-                checked={disparityCk}
-                onChange={() => {
-                  if (disparityGraph.current) {
-                    setDisparityck(false);
-                    disparityChart.current.removeSeries(disparityGraph.current);
-                    disparityChart.current.resize(0, 0);
-                    disparityGraph.current = null;
-                  } else {
-                    setDisparityck(true);
-                    GraphService.graphColor(
-                      disparityChart.current,
-                      disparityColor,
-                      disparityGraph,
-                      twentyDisparity,
-                      windowWidth
-                    );
-                  }
-                }}
-              />
-              <h4>Disparity</h4> 
-            </label>
-            <label>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setDisparityColor(e.target.value);
-                  if (disparityGraph.current) {
-                    disparityGraph.current.applyOptions({
-                      color: disparityColor,
-                    });
-                  }
-                }}
-                value={disparityColor}
-              />
-            </label>
-            </li>
-            <li>
-            <label>
-    
-            <input
-                type="checkbox"
-                checked={macdCk}
-                onChange={() => {
-                  if (MACDGraph.current) {
-                    setMacdck(false);
-                    MACDChart.current.removeSeries(MACDGraph.current);
-                    MACDChart.current.removeSeries(MACDSignalGraph.current);
-                    MACDChart.current.resize(0, 0);
-                    MACDGraph.current = null;
-                    MACDSignalGraph.current = null;
-                  } else {
-                    setMacdck(true);
-                    GraphService.graphColor(
-                      MACDChart.current,
-                      MACDColor,
-                      MACDGraph,
-                      MACDData.current[0],
-                      windowWidth
-                    );
-                    GraphService.graphColor(
-                      MACDChart.current,
-                      MACDSignalColor,
-                      MACDSignalGraph,
-                      MACDData.current[1],
-                      windowWidth
-                    );
-                  }
-                }}
-              />
-              <h4>MACD</h4>  
-            </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={disparityCk}
+                      onChange={() => {
+                        if (disparityGraph.current) {
+                          setDisparityck(false);
+                          disparityChart.current.removeSeries(disparityGraph.current);
+                          disparityChart.current.resize(0, 0);
+                          disparityGraph.current = null;
+                        } else {
+                          setDisparityck(true);
+                          GraphService.graphColor(
+                            disparityChart.current,
+                            disparityColor,
+                            disparityGraph,
+                            twentyDisparity,
+                            windowWidth
+                          );
+                        }
+                      }}
+                    />
+                    <h4>Disparity</h4>
+                  </label>
+                  <label>
+                    <input
+                      type="color"
+                      onChange={(e) => {
+                        setDisparityColor(e.target.value);
+                        if (disparityGraph.current) {
+                          disparityGraph.current.applyOptions({
+                            color: disparityColor,
+                          });
+                        }
+                      }}
+                      value={disparityColor}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      checked={macdCk}
+                      onChange={() => {
+                        if (MACDGraph.current) {
+                          setMacdck(false);
+                          MACDChart.current.removeSeries(MACDGraph.current);
+                          MACDChart.current.removeSeries(MACDSignalGraph.current);
+                          MACDChart.current.resize(0, 0);
+                          MACDGraph.current = null;
+                          MACDSignalGraph.current = null;
+                        } else {
+                          setMacdck(true);
+                          GraphService.graphColor(
+                            MACDChart.current,
+                            MACDColor,
+                            MACDGraph,
+                            MACDData.current[0],
+                            windowWidth
+                          );
+                          GraphService.graphColor(
+                            MACDChart.current,
+                            MACDSignalColor,
+                            MACDSignalGraph,
+                            MACDData.current[1],
+                            windowWidth
+                          );
+                        }
+                      }}
+                    />
+                    <h4>MACD</h4>
+                  </label>
 
 
-            <label className="signal">
-            <label>
-            <span>MACD Color</span>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setMACDColor(e.target.value);
-                  if (MACDGraph.current) {
-                    MACDGraph.current.applyOptions({ color: MACDColor });
-                  }
-                }}
-                value={MACDColor}
-              />
-            </label>
-            <label>
-            <span>MACD Signal Color</span>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setMACDSignalColor(e.target.value);
-                  if (MACDSignalGraph.current) {
-                    MACDSignalGraph.current.applyOptions({
-                      color: MACDSignalColor,
-                    });
-                  }
-                }}
-                value={MACDSignalColor}
-              />
-              </label>
-            </label>
-            </li>
-            <li>
-            <label>
-            <input
-                type="checkbox"
-                checked={macdOscCk}
-                onChange={() => {
-                  if (MACDOSCGraph.current) {
-                    setMacdOscCk(false);
-                    MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
-                    MACDOSCChart.current.resize(0, 0);
-                    MACDOSCGraph.current = null;
-                  } else {
-                    setMacdOscCk(true);
-                    GraphService.setHistogramGraph(
-                      MACDOSCChart.current,
-                      MACDOSCColor,
-                      MACDOSCGraph,
-                      MACDData.current[2],
-                      windowWidth
-                    );
-                  }
-                }}
-              />
-              <h4>MACD Oscillator </h4>
-            </label>
-            <label>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setMACDOSCColor(e.target.value);
-                  if (MACDOSCGraph.current) {
-                    MACDOSCGraph.current.applyOptions({ color: MACDOSCColor });
-                  }
-                }}
-                value={MACDOSCColor}
-              />
-            </label>
-            </li>
-            <li>
-            <label>
-            <input
-                type="checkbox"
-                checked={stochasticSlowCk}
-                onChange={() => {
-                  if (stochasticSlowDGraph.current) {
-                    setStochasticSlowck(false);
-                    stochasticSlowChart.current.removeSeries(
-                      stochasticSlowDGraph.current,
-                    );
-                    stochasticSlowChart.current.removeSeries(
-                      stochasticSlowKGraph.current,
-                    );
-                    stochasticSlowChart.current.resize(0, 0);
-                    stochasticSlowDGraph.current = null;
-                    stochasticSlowKGraph.current = null;
-                  } else {
-                    setStochasticSlowck(true);
-                    GraphService.graphColor(
-                      stochasticSlowChart.current,
-                      slowDColor,
-                      stochasticSlowDGraph,
-                      stochasticSlowData.current[1],
-                      windowWidth
-                    );
-                    GraphService.graphColor(
-                      stochasticSlowChart.current,
-                      slowKColor,
-                      stochasticSlowKGraph,
-                      stochasticSlowData.current[0],
-                      windowWidth
-                    );
-                  }
-                }}
-              />
-              <h4>Stochastic Slow</h4> 
-            </label>
+                  <label className="signal">
+                    <label>
+                      <span>MACD Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setMACDColor(e.target.value);
+                          if (MACDGraph.current) {
+                            MACDGraph.current.applyOptions({ color: MACDColor });
+                          }
+                        }}
+                        value={MACDColor}
+                      />
+                    </label>
+                    <label>
+                      <span>MACD Signal Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setMACDSignalColor(e.target.value);
+                          if (MACDSignalGraph.current) {
+                            MACDSignalGraph.current.applyOptions({
+                              color: MACDSignalColor,
+                            });
+                          }
+                        }}
+                        value={MACDSignalColor}
+                      />
+                    </label>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={macdOscCk}
+                      onChange={() => {
+                        if (MACDOSCGraph.current) {
+                          setMacdOscCk(false);
+                          MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
+                          MACDOSCChart.current.resize(0, 0);
+                          MACDOSCGraph.current = null;
+                        } else {
+                          setMacdOscCk(true);
+                          GraphService.setHistogramGraph(
+                            MACDOSCChart.current,
+                            MACDOSCColor,
+                            MACDOSCGraph,
+                            MACDData.current[2],
+                            windowWidth
+                          );
+                        }
+                      }}
+                    />
+                    <h4>MACD Oscillator </h4>
+                  </label>
+                  <label>
+                    <input
+                      type="color"
+                      onChange={(e) => {
+                        setMACDOSCColor(e.target.value);
+                        if (MACDOSCGraph.current) {
+                          MACDOSCGraph.current.applyOptions({ color: MACDOSCColor });
+                        }
+                      }}
+                      value={MACDOSCColor}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={stochasticSlowCk}
+                      onChange={() => {
+                        if (stochasticSlowDGraph.current) {
+                          setStochasticSlowck(false);
+                          stochasticSlowChart.current.removeSeries(
+                            stochasticSlowDGraph.current,
+                          );
+                          stochasticSlowChart.current.removeSeries(
+                            stochasticSlowKGraph.current,
+                          );
+                          stochasticSlowChart.current.resize(0, 0);
+                          stochasticSlowDGraph.current = null;
+                          stochasticSlowKGraph.current = null;
+                        } else {
+                          setStochasticSlowck(true);
+                          GraphService.graphColor(
+                            stochasticSlowChart.current,
+                            slowDColor,
+                            stochasticSlowDGraph,
+                            stochasticSlowData.current[1],
+                            windowWidth
+                          );
+                          GraphService.graphColor(
+                            stochasticSlowChart.current,
+                            slowKColor,
+                            stochasticSlowKGraph,
+                            stochasticSlowData.current[0],
+                            windowWidth
+                          );
+                        }
+                      }}
+                    />
+                    <h4>Stochastic Slow</h4>
+                  </label>
 
-            <label className="signal">
-            <label>
-            <span>K Color</span>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setSlowKColor(e.target.value);
-                  if (stochasticSlowKGraph.current) {
-                    stochasticSlowKGraph.current.applyOptions({
-                      color: slowKColor,
-                    });
-                  }
-                }}
-                value={slowKColor}
-              />
-            </label>
-            <label>
-            <span>D Color</span>
-            <input
-                type="color"
-                onChange={(e) => {
-                  setSlowDColor(e.target.value);
-                  if (stochasticSlowDGraph.current) {
-                    stochasticSlowDGraph.current.applyOptions({
-                      color: slowDColor,
-                    });
-                  }
-                }}
-                value={slowDColor}
-              />
-            </label>
-            </label>
-            </li>
-            </ul>
-            </div>      
+                  <label className="signal">
+                    <label>
+                      <span>K Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setSlowKColor(e.target.value);
+                          if (stochasticSlowKGraph.current) {
+                            stochasticSlowKGraph.current.applyOptions({
+                              color: slowKColor,
+                            });
+                          }
+                        }}
+                        value={slowKColor}
+                      />
+                    </label>
+                    <label>
+                      <span>D Color</span>
+                      <input
+                        type="color"
+                        onChange={(e) => {
+                          setSlowDColor(e.target.value);
+                          if (stochasticSlowDGraph.current) {
+                            stochasticSlowDGraph.current.applyOptions({
+                              color: slowDColor,
+                            });
+                          }
+                        }}
+                        value={slowDColor}
+                      />
+                    </label>
+                  </label>
+                </li>
+              </ul>
+            </div>
           </form>
           <button className="indicator-btn" onClick={closeModal}>Submit</button>
         </Modal>
