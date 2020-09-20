@@ -464,7 +464,7 @@ export default function DetailCurrencyGraph({
   return (
     <>
       <div className="detail-stock">
-        {loading ? <LoadingOutlined /> : (
+        {loading ? <LoadingOutlined className="loading" /> : (
           <>
             <h2>{symbol}</h2>
           </>

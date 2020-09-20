@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 28%;
-  min-width: 400px;
+  min-width: 432px;
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
@@ -12,7 +12,7 @@
 
   .menuBar {
     width: 17%;
-    min-width: 80px;
+    min-width: 70px;
     box-sizing: border-box;
     background-color: #2f3242;
     display: flex;
@@ -36,45 +36,17 @@
     }
   }
 
-  .sortbox {
-    float: right;
-    width: 102px;
-    height: 32px;
-    margin-top: 20px;
-    padding-left: 8px;
-    font-size: 0.8462rem;
-    color: #fff;
-    background: #1c2024;
-  }
 
-  .sortValuebox {
-    width: 100%;
-    margin-top: 20px !important;
-    margin-bottom: 20px;
-  }
 
-  .none {
-    display: none;
-    background-color: red;
-    display: flex;
-    flex-direction: column;
 
-    button {
-      width: calc(50% - 7px);
-      height: 60px;
-      border: 0px;
-      font-size: 1.125rem;
-      color: #ffffff;
-      background: #212933;
-      margin: 10px auto 0;
-    }
-  }
 
   .sidebarList {
     padding: 15px;
-    width: 83%;
-    box-sizing: border-box;
-
+    width: 100%;
+    min-width: 342px;
+    // padding: 15px;
+    // width: 83%;
+    // box-sizing: border-box;
     .search {
       display: block;
       width: 92%;
@@ -111,13 +83,14 @@
 
     .sortValuebox {
       width: 100%;
-      margin-top: 0px;
+      margin-top: 20px !important;
       margin-bottom: 20px;
     }
 
     .list_values {
-      width: 100%;
-      margin-top: 20px;
+      margin: 20px 0;
+      // width: 100%;
+      // margin-top: 20px;
 
       span {
         display: inline-block;
@@ -136,19 +109,14 @@
       }
 
       span:nth-child(3) {
-        width: 20%;
-        padding-left: 8%;
-        text-align: center;
-        // padding-left: 10%;
-
+        width: 30%;
+        text-align: right;
       }
 
       span:nth-child(4) {
         float: right;
-        width: 20%;
-        padding-left: 5%;
-        // padding-right: 20px;
-        // text-align: right;
+        width: 25%;
+        text-align: right;
       }
     }
 
@@ -252,8 +220,24 @@
       }
     }
   }
+
+  .none {
+    display: none;
+  }
 }
 
-.none {
-  display: none;
-}
+    // .none {
+  //   display: none;
+  //   background-color: red;
+  //   display: flex;
+  //   flex-direction: column;
+  //   button {
+  //     width: calc(50% - 7px);
+  //     height: 60px;
+  //     border: 0px;
+  //     font-size: 1.125rem;
+  //     color: #ffffff;
+  //     background: #212933;
+  //     margin: 10px auto 0;
+  //   }
+  // }

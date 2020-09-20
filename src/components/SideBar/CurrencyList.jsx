@@ -84,50 +84,55 @@ export default function CurrencyList({
               <li onClick={transSymbol} className="clear-fix">
                 <button className='bookmark' onClick={selectedFavorite}>
                   {favoriteDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                </button>
-                <div className="sidebar-left">
-                  <div className="inner-sidebar-left">
-                    <span className="sidebar-symbol">
-                      {currency.symbol}
-                    </span>
-                    <br />
-                    <span className="sidebar-name">
-                      {currency.name}
-                    </span>
-                    <br />
-                  </div>
-                  <div className="inner-sidebar-right">
-                    <V.VictoryLine
-                      data={currencys}
-                      x="date"
-                      y="price"
-                      style={{
-                        data: { stroke: color },
-                        parent: {
-                          width: 50,
-                          height: 'auto',
-                          margin: `${0} auto`
-                        },
-                      }}
-                    />
-                  </div>
+              </button>
 
+              <div className="sidebar-left">
+                <div className="inner-sidebar-left">
+                  <span className="sidebar-symbol">
+                    {currency.symbol}
+                  </span>
+                  <br />
+                  <span className="sidebar-name">
+                    {currency.name}
+                  </span>
+                  <br />
                 </div>
 
-                <div className="sidebar-right">
-                  <span className='sidebar-price' >{currency.price}</span>
-                  <span className='sidebar-change' >{currency.change}%</span>
+                <div className="inner-sidebar-right">
+                  <V.VictoryLine
+                    data={currencys}
+                    x="date"
+                    y="price"
+                    style={{
+                      data: { stroke: color },
+                      parent: {
+                        width: 50,
+                        height: 'auto',
+                        margin: `${0} auto`
+                      },
+                    }}
+                  />
                 </div>
+              </div>
 
-
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  } else {
-    return <LoadingOutlined />
-  }
+              <div className="sidebar-right">
+                <span className='sidebar-price' >{currency.price}</span>
+                <span className='sidebar-change' >{currency.change}%</span>
+              </div>                   
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );   
+    } else  {
+        return (
+          <div className="sidebar currency">
+              <ul className={menu === 'currency' ? '' : 'none'}>
+                <LoadingOutlined />
+              </ul>
+          </div>
+        )
+      }   
 }
 
