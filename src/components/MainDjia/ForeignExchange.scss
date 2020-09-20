@@ -4,7 +4,31 @@
     margin-top: 50px;
     vertical-align: top;
   }
+  // 로딩상태
+  .exchange-item-wrap-loading {
+    position: relative;
+    width: 50%;
+    height: 260px;
+    border: 1px solid #3a3e50;
+    background: #2d303e;
+  }
+  .exchange-loading {
+    .anticon-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      .anticon-spin {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+      }
+    }
+  }
+
   .foreign-exchange-detail-wrap {
+    position: relative;
     margin-left: 48px;
     float: right;
   }

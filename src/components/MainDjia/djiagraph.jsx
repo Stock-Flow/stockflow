@@ -12,13 +12,13 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const lineSeries = useRef();
   const chartposition = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  window.onresize = useCallback(() => {
+  window.addEventListener('resize', useCallback(() => {
     setWindowWidth(window.innerWidth);
     console.log('hi');
     if (chart.current) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
-  }, [windowWidth]);
+  }, [windowWidth]))
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
       width: windowWidth * 0.72 - 100,
@@ -66,10 +66,13 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     <div className="djia">
       <h2>DOW J</h2>
       <div ref={chartposition}></div>
-      {loading ? <progress max="30" value={done} className="djia-progress"></progress> : <div className="foreign-exchange-wrap">
-        <ForeignExchangeContainer />
-        <ForeignExchangeDetailContainer />
-      </div>}
+      {loading ? <>
+        <h1 className="progress-percent">{(done * (100 / 30)).toFixed(0)}%</h1>
+        <progress max="30" value={done} className="djia-progress">
+        </progress> </> : <div className="foreign-exchange-wrap">
+          <ForeignExchangeContainer />
+          <ForeignExchangeDetailContainer />
+        </div>}
 
     </div>
   );
