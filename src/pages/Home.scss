@@ -74,11 +74,11 @@ html {
 }
 
 .ReactModal__Overlay {
-  background-color: rgba(41, 41, 41, 0.9) !important;
+  background-color: rgba(41, 41, 41, 0.6) !important;
   color: #727aa0;
 
   .ReactModal__Content { 
-    background: rgba(51, 47, 47, 0.3) !important; 
+    background: rgba(51, 47, 47, 1) !important; 
     box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
 
     form {
@@ -106,8 +106,9 @@ html {
             align-items: left;
 
             input {
-             margin-right: 10px;
+             margin: 0 10px;
              cursor: pointer;
+             background-color: #131212;           
             }
             
             h4 {
@@ -119,6 +120,8 @@ html {
           .signal {
             display: flex;
             flex-direction: column;
+            font-size: 10px;
+            text-align: center;
             label {
               display: flex;
               justify-content: space-between;
@@ -131,51 +134,43 @@ html {
       background: #727aa0;
       display: block;
       height: 40px;
-      margin: 50px auto 0;
+      margin: 70px auto 10px;
       border-radius: 15px;
       color: #ffffff;
       cursor: pointer;
+      padding: 0 15px;
     }
   }
 }
 
-// .ReactModal__Content {
-//   box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
+.ReactModal__Content {
+ .search {
+    color: #727aa0;
+    padding: 0 0 0 8%;
+    caret-color: #fff;
+    box-shadow: none;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translate(16%, -50%);
+    left: auto;
+    background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
+  }
+  .search::placeholder {
+    color: #727aa0;
+  }
+}
+
+
+// .ReactModal__Content .add-modal-btn {
+//   position: absolute;
+//   top: 50%;
+//   right: 15%;
+//   transform: translate(0%, -50%);
+//   left: auto;
 // }
-
-// .ReactModal__Content form label {
-//   display: block;
-//   padding: 5px 0;
-//   display: flex;
-//   align-items: center;
-
-<<<<<<< HEAD
-//   input {
-//     margin-left: 20px;
-//   }
-// }
-=======
-.add-modal {}
-
-.ReactModal__Content .indicator-btn {
-  height: 30px;
-}
->>>>>>> b39a33770c1754ceb15330c6fd46f1103d685ab8
-
-.ReactModal__Content .search {
-  position: absolute;
-  top: 50%;
-  transform: translate(16%, -50%);
-  left: auto;
-}
-
-.ReactModal__Content .add-modal-btn {
-  position: absolute;
-  top: 50%;
-  right: 15%;
-  transform: translate(0%, -50%);
-  left: auto;
-}
 
 .home {
   .detail-stock {
