@@ -133,7 +133,6 @@ export default function CurrencyList({
               </ul>
           </div>
         )
-      }
-    
+      }   
 }
 
