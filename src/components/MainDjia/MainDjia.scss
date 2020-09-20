@@ -1,11 +1,16 @@
 .djiagraphBox {
   width: 75vw;
   padding: 0 15px;
+<<<<<<< HEAD
 
   .djia {
     position: relative;
     padding: 0 20px;
 
+=======
+  .djia {
+    padding: 0 20px;
+>>>>>>> eaf375ec413c8cd255f42b0a9678322af6da1ee2
     .djiagraph {
       // width: 70%;
       // margin: 0 auto;
@@ -29,6 +34,7 @@
       .main-svg {
         background: none !important;
       }
+<<<<<<< HEAD
 
     }
 
@@ -51,6 +57,12 @@
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 300;
+=======
+    }
+    .tv-lightweight-charts {
+      // width: 50% !important;
+      border: 1px solid #3a3e50;
+>>>>>>> eaf375ec413c8cd255f42b0a9678322af6da1ee2
     }
   }
 }

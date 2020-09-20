@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createChart } from 'lightweight-charts';
 import { useSelector } from 'react-redux';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function ForeignExchangeDetail({
   selectExchangeListResult,
@@ -66,6 +67,11 @@ export default function ForeignExchangeDetail({
           </h2>
         )}
         <div ref={excahngeChartposition}></div>
+        {exchangeLoading && (
+          <div className="exchange-loading">
+            <LoadingOutlined />
+          </div>
+        )}
       </div>
     </>
   );

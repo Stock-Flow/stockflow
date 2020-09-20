@@ -36,10 +36,6 @@
     }
   }
 
-
-
-
-
   .sidebarList {
     padding: 15px;
     width: 100%;
@@ -170,7 +166,6 @@
             background-color: pink;
           }
 
-
           .sidebar-price {
             display: inline-block;
             width: 50%;
@@ -186,39 +181,46 @@
             font-size: 0.8rem;
           }
         }
+      }
+      span:first-child {
+        width: 20%;
+        text-align: right;
+        white-space: nowrap;
+      }
+      span:last-child {
+        text-align: right;
+        white-space: nowrap;
+      }
+    }
 
+    .bookmark {
+      background: none;
+      border: none;
+      display: inline-block;
+      outline: none;
+      position: relative;
+      cursor: pointer;
+      z-index: 10;
+      width: 25px;
+      height: 25px;
+
+      img {
+        width: 100%;
       }
 
+      .bookmark_false {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+      }
 
-      .bookmark {
-        background: none;
-        border: none;
-        display: inline-block;
-        outline: none;
-        position: relative;
-        cursor: pointer;
-        z-index: 10;
-        width: 25px;
-        height: 25px;
-
-        img {
-          width: 100%;
-        }
-
-        .bookmark_false {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-70%, -50%);
-        }
-
-        .bookmark_true {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-70%, -50%);
-          // display: none;
-        }
+      .bookmark_true {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+        // display: none;
       }
     }
   }
@@ -242,4 +244,8 @@
 //     background: #212933;
 //     margin: 10px auto 0;
 //   }
+<<<<<<< HEAD
 // }
+=======
+// }
+>>>>>>> eaf375ec413c8cd255f42b0a9678322af6da1ee2
