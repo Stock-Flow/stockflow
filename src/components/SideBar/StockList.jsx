@@ -136,7 +136,7 @@ export default function StockList({
     return (
     <div className="sidebar stock">
         <ul className={menu === 'stock' ? '' : 'none'}>
-          <LoadingOutlined />
+          <LoadingOutlined className='loading_icon'/>
         </ul>
       </div>
     )
