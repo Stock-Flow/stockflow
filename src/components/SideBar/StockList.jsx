@@ -81,29 +81,34 @@ export default function StockList({
                   </button>
 
                   <div className="sidebar-left">
-                    <span className="sidebar-symbol">{stock.symbol}</span>
-                    <br />
-                    <span className="sidebar-name">{stock.name}</span>
-                    <br />
+                    <div className="inner-sidebar-left">
+                      <span className="sidebar-symbol">{stock.symbol}</span>
+                      <br />
+                      <span className="sidebar-name">{stock.name}</span>
+                      <br />
+                    </div>
+                    <div className="inner-sidebar-right">
+                      <V.VictoryLine
+                        data={stocks}
+                        x="date"
+                        y="price"
+                        style={{
+                          data: { stroke: color },
+                          parent: {
+                            width: 50,
+                            height: 'auto',
+                            margin: `${0} auto`
+                          },
+                        }}
+                      />
+                    </div>
+
                   </div>
 
                   <div className="sidebar-right">
-                    <V.VictoryLine
-                      data={stocks}
-                      x="date"
-                      y="price"
-                      style={{
-                        data: { stroke: color },
-                        parent: {
-                          width: 50,
-                          height: 'auto',
-                        },
-                      }}
-                    />
+                    <span className="sidebar-price">{stock.price}</span>
+                    <span className="sidebar-change">{stock.change}</span>
                   </div>
-                  
-                  <span className="sidebar-change">{stock.price}</span>
-                  <span className="sidebar-change">{stock.change}</span>   
                 </li>
               );
             },
