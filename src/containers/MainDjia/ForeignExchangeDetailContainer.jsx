@@ -28,33 +28,32 @@ export default function ForeignExchangeDetailContainer() {
   let open = [];
   let high = [];
   let low = [];
-  let close = [];
+  let value = [];
 
   let keyTime = [];
-  // console.log(exchangeIntraday);
   if (exchangeIntraday) {
     keyTime = Object.keys(exchangeIntraday);
     keyTime.map((v, i) => {
       time.push(keyTime[i]);
-      open.push(Number(exchangeIntraday[v]['1. open']));
-      high.push(Number(exchangeIntraday[v]['2. high']));
-      low.push(Number(exchangeIntraday[v]['3. low']));
-      close.push(Number(exchangeIntraday[v]['4. close']));
+      // open.push(Number(exchangeIntraday[v]['1. open']));
+      // high.push(Number(exchangeIntraday[v]['2. high']));
+      // low.push(Number(exchangeIntraday[v]['3. low']));
+      value.push(Number(exchangeIntraday[v]['4. close']));
     });
   }
 
   let selectExchangeListResult = time.map((item, i) => {
     return {
       time: item,
-      open: open[i],
-      high: high[i],
-      low: low[i],
-      close: close[i],
+      // open: open[i],
+      // high: high[i],
+      // low: low[i],
+      value: value[i],
     };
   });
 
   selectExchangeListResult.reverse();
-  // console.log(selectExchangeListResult);
+
   const dispatch = useDispatch();
   const getExchangeDaily = useCallback(() => {
     dispatch(

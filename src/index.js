@@ -7,7 +7,7 @@ import create, { sagaMiddleware } from './redux/create';
 import { Provider } from 'react-redux';
 import rootSaga from './redux/middlewares/saga';
 
-const store = create();
+export const store = create();
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(

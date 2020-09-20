@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createChart } from 'lightweight-charts';
+import { useSelector } from 'react-redux';
 
 export default function ForeignExchangeDetail({
   selectExchangeListResult,
@@ -8,13 +9,25 @@ export default function ForeignExchangeDetail({
   toCurrenciesCode,
   toCurrenciesName,
 }) {
+  const exchangeLoading = useSelector((state) => state.exchange.loading);
+
   const chartExchange = useRef();
   const exchangeLineSeries = useRef();
   const excahngeChartposition = useRef();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth);
+    if (chartExchange.current) {
+      chartExchange.current.resize(windowWidth * 0.36 - 100, 260);
+    }
+  };
+
   useEffect(() => {
+    // if (!exchangeLoading) {
     chartExchange.current = createChart(excahngeChartposition.current, {
-      width: 800,
-      height: 400,
+      width: windowWidth * 0.36 - 100,
+      height: 260,
     });
     chartExchange.current.applyOptions({
       priceScale: {
@@ -26,29 +39,34 @@ export default function ForeignExchangeDetail({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2d303e',
         textColor: '#eeeeee',
       },
     });
-    exchangeLineSeries.current = chartExchange.current.addCandlestickSeries({
+    exchangeLineSeries.current = chartExchange.current.addLineSeries({
       title: 'exchange',
+      color: '#2196f3',
     });
+    // }
   }, []);
 
   if (chartExchange.current) {
     exchangeLineSeries.current.setData(selectExchangeListResult);
-    console.log(selectExchangeListResult)
     chartExchange.current.timeScale().setVisibleLogicalRange({
       from: selectExchangeListResult.length - 60,
       to: selectExchangeListResult.length,
     });
   }
   return (
-    <div>
-      <h2>
-        {fromCurrenciesCode} {toCurrenciesCode}
-      </h2>
-      <div ref={excahngeChartposition}></div>
-    </div>
+    <>
+      <div className="foreign-exchange-detail-wrap">
+        {!exchangeLoading && (
+          <h2>
+            {fromCurrenciesCode}/{toCurrenciesCode} Chart
+          </h2>
+        )}
+        <div ref={excahngeChartposition}></div>
+      </div>
+    </>
   );
 }

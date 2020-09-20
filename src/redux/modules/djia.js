@@ -17,6 +17,7 @@ const initialState = {
   djia: [],
   error: null,
   date: new Date().getDate(),
+  done: 0
 }
 
 
@@ -28,6 +29,7 @@ const initialState = {
 const GET_DJIA_START = `${prefix}/GET_DJIA_START`;
 const GET_DJIA_SUCCESS = `${prefix}/GET_DJIA_SUCCESS`;
 const GET_DJIA_FAIL = `${prefix}/GET_DJIA_FAIL`;
+
 
 const startGetDJIA = () => {
   return {
@@ -111,9 +113,15 @@ export default function reducer(prevState = initialState, action) {
             loading: false,
               error: action.error
           }
-          default:
+          case "GET_DJIA_PROGRESS":
             return {
-              ...prevState
+              ...prevState,
+              loading: true,
+                done: prevState.done + 1
             }
+            default:
+              return {
+                ...prevState
+              }
   }
 }

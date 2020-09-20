@@ -7,8 +7,7 @@
   min-height: 100vh;
   padding: 0px;
   color: #ffffff;
-  // background: linear-gradient(180deg, #2d3746 0%, #282d33 100%);
-  background-color: #2b2d3c;
+  background: #2b2d3c;
   box-shadow: 5px 5px 25px #272936;
 
   .menuBar {
@@ -114,16 +113,19 @@
         color: #727aa0;
       }
       span:nth-child(1) {
+
         width: 30%;
       }
       span:nth-child(2) {
-        width: 25%;
+        width: 10%;
         text-align: center;
       }
       span:nth-child(3) {
         width: 20%;
         // padding-left: 10%;
         text-align: center;
+         padding-left: 10%;
+        width: 43%;
       }
       span:nth-child(4) {
         float: right;
@@ -172,6 +174,7 @@
             background-color: pink;
           }
 
+
           .sidebar-price {
             display: inline-block;
             width: 50%;
@@ -185,11 +188,17 @@
             font-size: 0.8rem;
           }
         }
+
+        }
         span:first-child {
-          width: 0%;
+          width: 20%;
+          text-align: right;
+          white-space: nowrap;
         }
         span:last-child {
-          // padding-right: 10px;
+          text-align: right;
+          white-space: nowrap;
+
         }
 
         .bookmark {
