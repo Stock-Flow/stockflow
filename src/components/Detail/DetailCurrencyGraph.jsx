@@ -467,24 +467,45 @@ export default function DetailCurrencyGraph({
         {loading ? <LoadingOutlined className="loading" /> : (
           <>
             <h2>{symbol}</h2>
-          </>
-        )}
-
-        <button className="detail-button" onClick={openAddModal}>open Add Modal</button>
+            <button className="detail-button" onClick={openAddModal}>Add Currenc</button>
         <button className="detail-button" onClick={() => {
           if (compareGraph.current) {
             chart.current.removeSeries(compareGraph.current);
             compareGraph.current = null;
           }
         }}>remove compare graph</button>
-        <Modal isOpen={addModalIsOpen} onAfterOpen={modalIsOpen} onRequestClose={closeAddModal} style={addCustomStyles}>
+        <button className="detail-button" onClick={openModal}>Indicators</button>
+          </>
+        )}
 
-          <button onClick={() => {
-            closeAddModal()
-          }}>close</button>
+        
+        <Modal 
+          isOpen={addModalIsOpen} 
+          onAfterOpen={modalIsOpen}
+          onRequestClose={closeAddModal} 
+          style={addCustomStyles}
+        >
+
+          <input
+          className="search"
+          type="text"
+          list="search-list"
+          // onChange={() => {
+          //   checkSearchDone();
+          // }}
+          // ref={searchValue}
+          placeholder="type to find Symbol"
+          />
+          <datalist id="search-list">
+          {/* {searchList.length !== 0 &&
+            searchList.bestMatches.map((item) => {
+              return <option value={item['1. symbol']}></option>;
+            })} */}
+
+        </datalist>
         </Modal>
 
-        <button className="detail-button" onClick={openModal}>open Modal</button>
+        
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -492,11 +513,11 @@ export default function DetailCurrencyGraph({
           style={customStyles}
         >
           <form>
+            <div>
             <h3>Moving Average</h3>
             <ul>
               <li>
             <label>
-              5 Moving Average
             <input
                 type="checkbox"
                 checked={smaFiveCk}
@@ -514,9 +535,10 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>5 Moving Average</h4>
             </label>
             <label>
-              Five Moving Average Color
+  
             <input
                 type="color"
                 value={fiveColor}
@@ -531,7 +553,7 @@ export default function DetailCurrencyGraph({
             </li>
             <li>
             <label>
-              20 Moving Average
+
             <input
                 type="checkbox"
                 checked={smaTwentyCk}
@@ -549,9 +571,10 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>20 Moving Average</h4> 
             </label>
             <label>
-              Twenty Moving Average Color
+     
             <input
                 type="color"
                 value={twentyColor}
@@ -566,7 +589,7 @@ export default function DetailCurrencyGraph({
             </li>
             <li>
             <label>
-              60 Moving Average
+          
             <input
                 type="checkbox"
                 checked={smaSixtyCk}
@@ -584,9 +607,10 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>60 Moving Average</h4>  
             </label>
             <label>
-              Sixty Moving Average Color
+       
             <input
                 type="color"
                 value={sixtyColor}
@@ -601,7 +625,7 @@ export default function DetailCurrencyGraph({
             </li>
             <li>
             <label>
-              120 Moving Average
+
             <input
                 type="checkbox"
                 checked={smaHundredTwentyCk}
@@ -621,9 +645,9 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>120 Moving Average</h4>   
             </label>
             <label>
-              HundredTwenty Moving Average Color
             <input
                 type="color"
                 value={hundredTwentyColor}
@@ -639,11 +663,14 @@ export default function DetailCurrencyGraph({
             </label>
             </li>
             </ul>
+            </div>
+
+    
+            <div>
             <h3>Indicators</h3>
             <ul>
               <li>
                 <label>
-                  BBANDS
                   <input
                     type="checkbox"
                     checked={BBANDSCk}
@@ -676,9 +703,9 @@ export default function DetailCurrencyGraph({
                       }
                     }}
                   />
+                  <h4>BBANDS</h4>  
                 </label>
                 <label>
-                  BBANDS Color
             <input
                     type="color"
                     value={BBANDSColor}
@@ -695,8 +722,6 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                 <label>
-                  RSI
-
           <input type="checkbox" checked={rsiCk} onChange={() => {
                     if (rsiChart.current) {
                       setRsick(false);
@@ -722,9 +747,12 @@ export default function DetailCurrencyGraph({
                       );
                     }
                   }} />
+                  <h4>RSI</h4>
                 </label>
+
+                <label className="signal">
                 <label>
-                  RSI Color
+                  <span>RSI Color</span>
             <input
                     type="color"
                     onChange={(e) => {
@@ -737,7 +765,7 @@ export default function DetailCurrencyGraph({
                   />
                 </label>
                 <label>
-                  RSI Signal Color
+                <span>RSI Signal Color</span>
             <input
                     type="color"
                     onChange={(e) => {
@@ -751,10 +779,10 @@ export default function DetailCurrencyGraph({
                     value={rsiSignalColor}
                   />
                 </label>
+                </label>
                 </li>
                 <li>
             <label>
-              Disparity
             <input
                 type="checkbox"
                 checked={disparityCk}
@@ -776,9 +804,9 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>Disparity</h4> 
             </label>
             <label>
-              Disparity Color
             <input
                 type="color"
                 onChange={(e) => {
@@ -795,7 +823,7 @@ export default function DetailCurrencyGraph({
             </li>
             <li>
             <label>
-              MACD
+    
             <input
                 type="checkbox"
                 checked={macdCk}
@@ -826,9 +854,13 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>MACD</h4>  
             </label>
+
+
+            <label className="signal">
             <label>
-              MACD Color
+            <span>MACD Color</span>
             <input
                 type="color"
                 onChange={(e) => {
@@ -841,7 +873,7 @@ export default function DetailCurrencyGraph({
               />
             </label>
             <label>
-              MACD Signal Color
+            <span>MACD Signal Color</span>
             <input
                 type="color"
                 onChange={(e) => {
@@ -854,9 +886,11 @@ export default function DetailCurrencyGraph({
                 }}
                 value={MACDSignalColor}
               />
+              </label>
             </label>
+            </li>
+            <li>
             <label>
-              MACD Oscillator
             <input
                 type="checkbox"
                 checked={macdOscCk}
@@ -878,9 +912,9 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>MACD Oscillator </h4>
             </label>
             <label>
-              MACDO Oscillator Color
             <input
                 type="color"
                 onChange={(e) => {
@@ -895,7 +929,6 @@ export default function DetailCurrencyGraph({
             </li>
             <li>
             <label>
-              Stochastic Slow
             <input
                 type="checkbox"
                 checked={stochasticSlowCk}
@@ -930,9 +963,12 @@ export default function DetailCurrencyGraph({
                   }
                 }}
               />
+              <h4>Stochastic Slow</h4> 
             </label>
+
+            <label className="signal">
             <label>
-              Stochastic Slow K Color
+            <span>K Color</span>
             <input
                 type="color"
                 onChange={(e) => {
@@ -947,7 +983,7 @@ export default function DetailCurrencyGraph({
               />
             </label>
             <label>
-              Stochastic Slow D Color
+            <span>D Color</span>
             <input
                 type="color"
                 onChange={(e) => {
@@ -961,10 +997,12 @@ export default function DetailCurrencyGraph({
                 value={slowDColor}
               />
             </label>
+            </label>
             </li>
             </ul>
-            <button className="indicator-btn" onClick={closeModal}>Submit</button>
+            </div>      
           </form>
+          <button className="indicator-btn" onClick={closeModal}>Submit</button>
         </Modal>
 
         <div className="chart" ref={chartposition}></div>
