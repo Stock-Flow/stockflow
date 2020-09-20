@@ -6,7 +6,7 @@ import { useState } from 'react';
 import ForeignExchangeContainer from '../../containers/MainDjia/ForeignExchangeContainer';
 import ForeignExchangeDetailContainer from '../../containers/MainDjia/ForeignExchangeDetailContainer';
 
-export default function DjiaGraph({ djiaList, djiaDate }) {
+export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const chart = useRef();
   const lineSeries = useRef();
   const chartposition = useRef();
@@ -63,6 +63,7 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
   return (
     <div className="djia">
       <h2>DOW J</h2>
+      {loading && <progress max="30" value={done}></progress>}
       <div ref={chartposition}></div>
       <div className="foreign-exchange-wrap">
         <ForeignExchangeContainer />

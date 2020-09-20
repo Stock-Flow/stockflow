@@ -23,10 +23,10 @@ export default function Home() {
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
       ) : (
-        <>
-          <DjiagraphContainer />
-        </>
-      )}
+            <>
+              <DjiagraphContainer />
+            </>
+          )}
     </div>
   );
 }
