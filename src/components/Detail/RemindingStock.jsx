@@ -44,7 +44,7 @@ export default function RemindingStock({ remindingStockList, loading }) {
           <button className="reminding-btn" ref={alertBtn}>
             {/* onClick={click} */}
             {remindingStockList.length && alertCount && (
-              <div className="alert-color">{alertCount}</div>
+              <span className="alert-color">{alertCount}</span>
             )}
             alert
           </button>
