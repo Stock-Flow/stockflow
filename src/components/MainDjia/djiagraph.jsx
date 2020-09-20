@@ -66,10 +66,13 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     <div className="djia">
       <h2>DOW J</h2>
       <div ref={chartposition}></div>
-      {loading ? <progress max="30" value={done} className="djia-progress"></progress> : <div className="foreign-exchange-wrap">
-        <ForeignExchangeContainer />
-        <ForeignExchangeDetailContainer />
-      </div>}
+      {loading ? <>
+        <h1 className="progress-percent">{(done * (100 / 30)).toFixed(0)}%</h1>
+        <progress max="30" value={done} className="djia-progress">
+        </progress> </> : <div className="foreign-exchange-wrap">
+          <ForeignExchangeContainer />
+          <ForeignExchangeDetailContainer />
+        </div>}
 
     </div>
   );
