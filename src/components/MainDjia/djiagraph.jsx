@@ -5,18 +5,20 @@ import './MainDjia.scss';
 import { useState } from 'react';
 import ForeignExchangeContainer from '../../containers/MainDjia/ForeignExchangeContainer';
 import ForeignExchangeDetailContainer from '../../containers/MainDjia/ForeignExchangeDetailContainer';
+import { useCallback } from 'react';
 
 export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const chart = useRef();
   const lineSeries = useRef();
   const chartposition = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  window.onresize = () => {
+  window.onresize = useCallback(() => {
     setWindowWidth(window.innerWidth);
+    console.log('hi');
     if (chart.current) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
-  };
+  }, [windowWidth]);
   useEffect(() => {
     chart.current = createChart(chartposition.current, {
       width: windowWidth * 0.72 - 100,
@@ -63,12 +65,12 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   return (
     <div className="djia">
       <h2>DOW J</h2>
-      {loading && <progress max="30" value={done}></progress>}
       <div ref={chartposition}></div>
-      <div className="foreign-exchange-wrap">
+      {loading ? <progress max="30" value={done} className="djia-progress"></progress> : <div className="foreign-exchange-wrap">
         <ForeignExchangeContainer />
         <ForeignExchangeDetailContainer />
-      </div>
+      </div>}
+
     </div>
   );
 }
