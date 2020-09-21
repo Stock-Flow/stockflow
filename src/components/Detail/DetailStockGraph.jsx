@@ -540,12 +540,11 @@ export default function DetailStockGraph({
         style={customStyles}
       >
         <form>
+          <div>
           <h3>Moving Average</h3>
-          <ul>
-
+          <ul>  
             <li>
               <label>
-                <h4>5 Moving Average</h4>
                 <input
                   type="checkbox"
                   checked={smaFiveCk}
@@ -563,11 +562,12 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>5 Moving Average</h4>            
               </label>
 
               <label>
-                Five Moving Average Color
-            <input
+
+                <input
                   type="color"
                   value={fiveColor}
                   onChange={(e) => {
@@ -581,7 +581,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>20 Moving Average</h4>
                 <input
                   type="checkbox"
                   checked={smaTwentyCk}
@@ -599,9 +598,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>20 Moving Average</h4>          
               </label>
               <label>
-                Twenty Moving Average Color
               <input
                   type="color"
                   value={twentyColor}
@@ -616,7 +615,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>60 Moving Average</h4>
                 <input
                   type="checkbox"
                   checked={smaSixtyCk}
@@ -634,9 +632,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>60 Moving Average</h4>            
               </label>
               <label>
-                Sixty Moving Average Color
               <input
                   type="color"
                   value={sixtyColor}
@@ -651,7 +649,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>120 Moving Average</h4>
                 <input
                   type="checkbox"
                   checked={smaHundredTwentyCk}
@@ -671,9 +668,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>120 Moving Average</h4>         
               </label>
               <label>
-                HundredTwenty Moving Average Color
               <input
                   type="color"
                   value={hundredTwentyColor}
@@ -689,11 +686,15 @@ export default function DetailStockGraph({
               </label>
             </li>
           </ul>
+          </div>
+          <div>
+
+
+            
           <h3>Indicators</h3>
-          <ul>
+          <ul>  
             <li>
               <label>
-                <h4>BBANDS</h4>
                 <input
                   type="checkbox"
                   checked={BBANDSCk}
@@ -726,9 +727,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>BBANDS</h4>               
               </label>
               <label>
-                BBANDS Color
                 <input
                   type="color"
                   value={BBANDSColor}
@@ -745,7 +746,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>RSI</h4>
                 <input
                   type="checkbox"
                   checked={rsiCk}
@@ -775,9 +775,11 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>RSI</h4>               
               </label>
+              <label className="signal">
               <label>
-                RSI Color
+                <span>RSI Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -790,7 +792,7 @@ export default function DetailStockGraph({
                 />
               </label>
               <label>
-                RSI Signal Color
+                <span>RSI Signal Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -804,10 +806,10 @@ export default function DetailStockGraph({
                   value={rsiSignalColor}
                 />
               </label>
+              </label>
             </li>
             <li>
               <label>
-                <h4>Disparity</h4>
                 <input
                   type="checkbox"
                   checked={disparityCk}
@@ -829,9 +831,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>Disparity</h4>          
               </label>
               <label>
-                Disparity Color
                 <input
                   type="color"
                   onChange={(e) => {
@@ -848,7 +850,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>MACD</h4>
                 <input
                   type="checkbox"
                   checked={macdCk}
@@ -879,9 +880,12 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>MACD</h4>               
               </label>
+
+              <label className="signal">
               <label>
-                MACD Color
+                <span>MACD Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -894,7 +898,7 @@ export default function DetailStockGraph({
                 />
               </label>
               <label>
-                MACD Signal Color
+                <span>MACD Signal Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -908,10 +912,10 @@ export default function DetailStockGraph({
                   value={MACDSignalColor}
                 />
               </label>
+              </label>
             </li>
             <li>
               <label>
-                <h4>MACD Oscillator </h4>
                 <input
                   type="checkbox"
                   checked={macdOscCk}
@@ -933,9 +937,9 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>MACD Oscillator </h4>               
               </label>
               <label>
-                MACDO Oscillator Color
                 <input
                   type="color"
                   onChange={(e) => {
@@ -950,7 +954,6 @@ export default function DetailStockGraph({
             </li>
             <li>
               <label>
-                <h4>Stochastic Slow</h4>
                 <input
                   type="checkbox"
                   checked={stochasticSlowCk}
@@ -985,9 +988,12 @@ export default function DetailStockGraph({
                     }
                   }}
                 />
+                <h4>Stochastic Slow</h4>               
               </label>
+
+              <label className="signal">
               <label>
-                Stochastic Slow K Color
+              <span>K Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -1002,7 +1008,7 @@ export default function DetailStockGraph({
                 />
               </label>
               <label>
-                Stochastic Slow D Color
+                <span>D Color</span>
                 <input
                   type="color"
                   onChange={(e) => {
@@ -1016,10 +1022,12 @@ export default function DetailStockGraph({
                   value={slowDColor}
                 />
               </label>
+              </label>
             </li>
-          </ul>
-          <button className="indicator-btn" onClick={closeModal}>Submit</button>
+          </ul>   
+          </div>
         </form>
+        <button className="indicator-btn" onClick={closeModal}>Submit</button>
       </Modal>
 
       <div className="chart" ref={chartposition}></div>
