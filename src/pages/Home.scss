@@ -166,15 +166,24 @@ html {
   .search::placeholder {
     color: #727aa0;
   }
+  .add-modal-btn {
+    position: absolute;
+    bottom: 0%;
+    right: 40%;
+    transform: translate(0%, -50%);
+    left: auto;
+
+    background: #727aa0;
+    display: block;
+    height: 30px;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0 15px;
+  }
 }
 
-// .ReactModal__Content .add-modal-btn {
-//   position: absolute;
-//   top: 50%;
-//   right: 15%;
-//   transform: translate(0%, -50%);
-//   left: auto;
-// }
+
 
 .home {
   .detail-stock {

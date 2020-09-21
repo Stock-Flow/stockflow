@@ -167,7 +167,9 @@ export default function FavoriteList({
               const stock = stockList.filter((stock) => {
                 return symbol.symbol === stock.symbol;
               })[0];
+              if (!stock) return null;
               let stocks = [];
+
               const keys = stock.stockData.map((date) => date.time);
               const values = stock.stockData.map((item) => +item.open);
               keys.forEach((item, i) => {
