@@ -311,7 +311,7 @@
     position: relative;
     .sidebar-wrap {
       // display: none;
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
       z-index: 100;
@@ -319,7 +319,9 @@
       width: 90%;
       min-height: 100%;
       transform: translateX(100%);
+      margin-right: -100%;
       transition: all 1.5s;
+      overflow: hidden;
       .menu-bar {
         min-width: 60px;
         .mobile-close-button {
@@ -338,6 +340,7 @@
     .mobile-sidebar-show {
       z-index: 100 !important;
       transform: translateX(0);
+      margin-right: 0;
       transition: all 1.5s;
       box-shadow: none;
     }
