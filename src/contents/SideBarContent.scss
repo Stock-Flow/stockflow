@@ -54,7 +54,8 @@
       display: block;
       width: 92%;
       height: 30px;
-      margin: 25px auto 0;
+      margin: 25px 15px;
+      box-sizing: border-box;
       padding: 0 0 0 8%;
       border-radius: 5px;
       border: #1f202b;
@@ -77,6 +78,7 @@
       width: 102px;
       height: 32px;
       margin-top: 20px;
+      margin-right: 15px;
       padding-left: 8px;
       font-size: 0.8462rem;
       color: #fff;

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { createChart } from 'lightweight-charts';
 import './DetailStockGraph.scss';
 import GraphService from '../../services/GraphService';
-import { LoadingOutlined } from '@ant-design/icons'
+import { LoadingOutlined } from '@ant-design/icons';
 
 const customStyles = {
   content: {
@@ -104,7 +104,6 @@ export default function DetailCurrencyGraph({
   const [smaHundredTwentyCk, hundredTwentyCk] = useState(false);
   const [hundredTwentyColor, setHundredTwentyColor] = useState('#ffc0cb');
 
-
   const [BBANDSCk, setBBANDSCk] = useState(false);
   const [BBANDSColor, setBBANDSColor] = useState('#00ff00');
 
@@ -128,7 +127,7 @@ export default function DetailCurrencyGraph({
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   window.onresize = () => {
-    setWindowWidth(window.innerWidth)
+    setWindowWidth(window.innerWidth);
     if (windowWidth >= 1200) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
@@ -153,8 +152,7 @@ export default function DetailCurrencyGraph({
     if (stochasticSlowChart.current) {
       stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
     }
-  }
-
+  };
 
   const fiveMovingAverageData = movingAverage(currency, 5);
   const twentyMovingAverageData = movingAverage(currency, 20);
@@ -174,7 +172,6 @@ export default function DetailCurrencyGraph({
   const [modalIsOpen, setIsOpen] = useState(false);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
-
   function openAddModal() {
     setAddModalIsOpen(true);
   }
@@ -186,7 +183,7 @@ export default function DetailCurrencyGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() { }
+  function afterOpenModal() {}
   function closeModal() {
     setIsOpen(false);
   }
@@ -222,16 +219,20 @@ export default function DetailCurrencyGraph({
       },
       layout: {
         backgroundColor: '#2F3242',
-        textColor: '#eeeeee'
+        textColor: '#eeeeee',
       },
       grid: {
         vertLines: {
-          color: '#555555'
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
         },
         horzLines: {
-          color: '#555555'
-        }
-      }
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+      },
     });
     assistChart.current = createChart(chartposition.current, {
       width: windowWidth * 0.72 - 100,
@@ -247,7 +248,7 @@ export default function DetailCurrencyGraph({
       },
       layout: {
         backgroundColor: '#2F3242',
-        textColor: '#eeeeee'
+        textColor: '#eeeeee',
       },
       grid: {
         vertLines: {
@@ -255,8 +256,8 @@ export default function DetailCurrencyGraph({
         },
         horzLines: {
           visible: false,
-        }
-      }
+        },
+      },
     });
     indicatorChart.current = createChart(indicatorPosition.current, {
       width: 0,
@@ -274,7 +275,7 @@ export default function DetailCurrencyGraph({
       },
       layout: {
         backgroundColor: '#2F3242',
-        textColor: '#eeeeee'
+        textColor: '#eeeeee',
       },
       grid: {
         vertLines: {
@@ -282,9 +283,9 @@ export default function DetailCurrencyGraph({
         },
         horzLines: {
           visible: false,
-        }
-      }
-    })
+        },
+      },
+    });
     disparityChart.current = createChart(disparityPosition.current, {
       width: 0,
       height: 0,
@@ -396,7 +397,6 @@ export default function DetailCurrencyGraph({
     });
   }, []);
 
-
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
@@ -437,16 +437,15 @@ export default function DetailCurrencyGraph({
 
     indicatorChart.current.resize(0, 0);
     setRsick(false);
-    stochasticSlowChart.current.resize(0, 0)
+    stochasticSlowChart.current.resize(0, 0);
     setStochasticSlowck(false);
     MACDChart.current.resize(0, 0);
-    setMacdck(false)
+    setMacdck(false);
     MACDOSCChart.current.resize(0, 0);
     setMacdOscCk(false);
     disparityChart.current.resize(0, 0);
     setDisparityck(false);
   }, [symbol]);
-
 
   useEffect(() => {
     candleSeries.current = chart.current.addCandlestickSeries({
@@ -469,29 +468,37 @@ export default function DetailCurrencyGraph({
 
     MACDData.current = getMACDData(currency);
     stochasticSlowData.current = getStochasticSlow(currency, 12, 5, 5);
-
   }, [currency]);
 
   return (
     <>
       <div className="detail-stock">
-        {loading ? <LoadingOutlined className="loading" /> : (
+        {loading ? (
+          <LoadingOutlined className="loading" />
+        ) : (
           <>
             <h2>{symbol}</h2>
             <div className="detail-stock-button">
-              <button className="detail-button" onClick={openAddModal}>Add Currenc</button>
-              <button className="detail-button" onClick={() => {
-                if (compareGraph.current) {
-                  chart.current.removeSeries(compareGraph.current);
-                  compareGraph.current = null;
-                }
-              }}>remove compare graph</button>
-              <button className="detail-button" onClick={openModal}>Indicators</button>
+              <button className="detail-button" onClick={openAddModal}>
+                Add Currenc
+              </button>
+              <button
+                className="detail-button"
+                onClick={() => {
+                  if (compareGraph.current) {
+                    chart.current.removeSeries(compareGraph.current);
+                    compareGraph.current = null;
+                  }
+                }}
+              >
+                remove compare graph
+              </button>
+              <button className="detail-button" onClick={openModal}>
+                Indicators
+              </button>
             </div>
-
           </>
         )}
- 
 
         <Modal
           isOpen={addModalIsOpen}
@@ -499,7 +506,6 @@ export default function DetailCurrencyGraph({
           onRequestClose={closeAddModal}
           style={addCustomStyles}
         >
-
           <input
             className="search"
             type="text"
@@ -515,20 +521,18 @@ export default function DetailCurrencyGraph({
             searchList.bestMatches.map((item) => {
               return <option value={item['1. symbol']}></option>;
             })} */}
-
           </datalist>
 
           <button
-          className="add-modal-btn"
-          // onClick={() => {
-          //   getCompare(searchValue.current.value);
-          //   closeAddModal();
-          // }}
-        >
-          Add
-        </button>
+            className="add-modal-btn"
+            // onClick={() => {
+            //   getCompare(searchValue.current.value);
+            //   closeAddModal();
+            // }}
+          >
+            Add
+          </button>
         </Modal>
-
 
         <Modal
           isOpen={modalIsOpen}
@@ -562,7 +566,6 @@ export default function DetailCurrencyGraph({
                     <h4>5 Moving Average</h4>
                   </label>
                   <label>
-
                     <input
                       type="color"
                       value={fiveColor}
@@ -577,7 +580,6 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                   <label>
-
                     <input
                       type="checkbox"
                       checked={smaTwentyCk}
@@ -598,14 +600,15 @@ export default function DetailCurrencyGraph({
                     <h4>20 Moving Average</h4>
                   </label>
                   <label>
-
                     <input
                       type="color"
                       value={twentyColor}
                       onChange={(e) => {
                         setTwentyColor(e.target.value);
                         if (smaTwenty.current) {
-                          smaTwenty.current.applyOptions({ color: twentyColor });
+                          smaTwenty.current.applyOptions({
+                            color: twentyColor,
+                          });
                         }
                       }}
                     />
@@ -613,7 +616,6 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                   <label>
-
                     <input
                       type="checkbox"
                       checked={smaSixtyCk}
@@ -634,7 +636,6 @@ export default function DetailCurrencyGraph({
                     <h4>60 Moving Average</h4>
                   </label>
                   <label>
-
                     <input
                       type="color"
                       value={sixtyColor}
@@ -649,7 +650,6 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                   <label>
-
                     <input
                       type="checkbox"
                       checked={smaHundredTwentyCk}
@@ -660,9 +660,11 @@ export default function DetailCurrencyGraph({
                           smaHundredTwenty.current = null;
                         } else {
                           hundredTwentyCk(true);
-                          smaHundredTwenty.current = chart.current.addLineSeries({
-                            color: hundredTwentyColor,
-                          });
+                          smaHundredTwenty.current = chart.current.addLineSeries(
+                            {
+                              color: hundredTwentyColor,
+                            },
+                          );
                           smaHundredTwenty.current.setData(
                             hundredTwentyMovingAverageData,
                           );
@@ -688,7 +690,6 @@ export default function DetailCurrencyGraph({
                 </li>
               </ul>
             </div>
-
 
             <div>
               <h3>Indicators</h3>
@@ -736,9 +737,15 @@ export default function DetailCurrencyGraph({
                       onChange={(e) => {
                         setBBANDSColor(e.target.value);
                         if (lowBBANDS.current) {
-                          lowBBANDS.current.applyOptions({ color: BBANDSColor });
-                          middleBBANDS.current.applyOptions({ color: BBANDSColor });
-                          highBBANDS.current.applyOptions({ color: BBANDSColor });
+                          lowBBANDS.current.applyOptions({
+                            color: BBANDSColor,
+                          });
+                          middleBBANDS.current.applyOptions({
+                            color: BBANDSColor,
+                          });
+                          highBBANDS.current.applyOptions({
+                            color: BBANDSColor,
+                          });
                         }
                       }}
                     />
@@ -746,31 +753,37 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" checked={rsiCk} onChange={() => {
-                      if (rsiChart.current) {
-                        setRsick(false);
-                        indicatorChart.current.removeSeries(rsiChart.current);
-                        indicatorChart.current.removeSeries(rsiSignalChart.current);
-                        indicatorChart.current.resize(0, 0);
-                        rsiChart.current = null;
-                      } else {
-                        setRsick(true);
-                        GraphService.graphColor(
-                          indicatorChart.current,
-                          rsiColor,
-                          rsiChart,
-                          indicators[0],
-                          windowWidth
-                        );
-                        GraphService.graphColor(
-                          indicatorChart.current,
-                          rsiSignalColor,
-                          rsiSignalChart,
-                          rsiSignal,
-                          windowWidth
-                        );
-                      }
-                    }} />
+                    <input
+                      type="checkbox"
+                      checked={rsiCk}
+                      onChange={() => {
+                        if (rsiChart.current) {
+                          setRsick(false);
+                          indicatorChart.current.removeSeries(rsiChart.current);
+                          indicatorChart.current.removeSeries(
+                            rsiSignalChart.current,
+                          );
+                          indicatorChart.current.resize(0, 0);
+                          rsiChart.current = null;
+                        } else {
+                          setRsick(true);
+                          GraphService.graphColor(
+                            indicatorChart.current,
+                            rsiColor,
+                            rsiChart,
+                            indicators[0],
+                            windowWidth,
+                          );
+                          GraphService.graphColor(
+                            indicatorChart.current,
+                            rsiSignalColor,
+                            rsiSignalChart,
+                            rsiSignal,
+                            windowWidth,
+                          );
+                        }
+                      }}
+                    />
                     <h4>RSI</h4>
                   </label>
 
@@ -813,7 +826,9 @@ export default function DetailCurrencyGraph({
                       onChange={() => {
                         if (disparityGraph.current) {
                           setDisparityck(false);
-                          disparityChart.current.removeSeries(disparityGraph.current);
+                          disparityChart.current.removeSeries(
+                            disparityGraph.current,
+                          );
                           disparityChart.current.resize(0, 0);
                           disparityGraph.current = null;
                         } else {
@@ -823,7 +838,7 @@ export default function DetailCurrencyGraph({
                             disparityColor,
                             disparityGraph,
                             twentyDisparity,
-                            windowWidth
+                            windowWidth,
                           );
                         }
                       }}
@@ -847,7 +862,6 @@ export default function DetailCurrencyGraph({
                 </li>
                 <li>
                   <label>
-
                     <input
                       type="checkbox"
                       checked={macdCk}
@@ -855,7 +869,9 @@ export default function DetailCurrencyGraph({
                         if (MACDGraph.current) {
                           setMacdck(false);
                           MACDChart.current.removeSeries(MACDGraph.current);
-                          MACDChart.current.removeSeries(MACDSignalGraph.current);
+                          MACDChart.current.removeSeries(
+                            MACDSignalGraph.current,
+                          );
                           MACDChart.current.resize(0, 0);
                           MACDGraph.current = null;
                           MACDSignalGraph.current = null;
@@ -866,21 +882,20 @@ export default function DetailCurrencyGraph({
                             MACDColor,
                             MACDGraph,
                             MACDData.current[0],
-                            windowWidth
+                            windowWidth,
                           );
                           GraphService.graphColor(
                             MACDChart.current,
                             MACDSignalColor,
                             MACDSignalGraph,
                             MACDData.current[1],
-                            windowWidth
+                            windowWidth,
                           );
                         }
                       }}
                     />
                     <h4>MACD</h4>
                   </label>
-
 
                   <label className="signal">
                     <label>
@@ -890,7 +905,9 @@ export default function DetailCurrencyGraph({
                         onChange={(e) => {
                           setMACDColor(e.target.value);
                           if (MACDGraph.current) {
-                            MACDGraph.current.applyOptions({ color: MACDColor });
+                            MACDGraph.current.applyOptions({
+                              color: MACDColor,
+                            });
                           }
                         }}
                         value={MACDColor}
@@ -921,7 +938,9 @@ export default function DetailCurrencyGraph({
                       onChange={() => {
                         if (MACDOSCGraph.current) {
                           setMacdOscCk(false);
-                          MACDOSCChart.current.removeSeries(MACDOSCGraph.current);
+                          MACDOSCChart.current.removeSeries(
+                            MACDOSCGraph.current,
+                          );
                           MACDOSCChart.current.resize(0, 0);
                           MACDOSCGraph.current = null;
                         } else {
@@ -931,7 +950,7 @@ export default function DetailCurrencyGraph({
                             MACDOSCColor,
                             MACDOSCGraph,
                             MACDData.current[2],
-                            windowWidth
+                            windowWidth,
                           );
                         }
                       }}
@@ -944,7 +963,9 @@ export default function DetailCurrencyGraph({
                       onChange={(e) => {
                         setMACDOSCColor(e.target.value);
                         if (MACDOSCGraph.current) {
-                          MACDOSCGraph.current.applyOptions({ color: MACDOSCColor });
+                          MACDOSCGraph.current.applyOptions({
+                            color: MACDOSCColor,
+                          });
                         }
                       }}
                       value={MACDOSCColor}
@@ -975,14 +996,14 @@ export default function DetailCurrencyGraph({
                             slowDColor,
                             stochasticSlowDGraph,
                             stochasticSlowData.current[1],
-                            windowWidth
+                            windowWidth,
                           );
                           GraphService.graphColor(
                             stochasticSlowChart.current,
                             slowKColor,
                             stochasticSlowKGraph,
                             stochasticSlowData.current[0],
-                            windowWidth
+                            windowWidth,
                           );
                         }
                       }}
@@ -1026,7 +1047,9 @@ export default function DetailCurrencyGraph({
               </ul>
             </div>
           </form>
-          <button className="indicator-btn" onClick={closeModal}>Submit</button>
+          <button className="indicator-btn" onClick={closeModal}>
+            Submit
+          </button>
         </Modal>
 
         <div className="chart" ref={chartposition}></div>
@@ -1035,5 +1058,5 @@ export default function DetailCurrencyGraph({
         <div className="chart" ref={MACDPosition}></div>
       </div>
     </>
-  )
+  );
 }
