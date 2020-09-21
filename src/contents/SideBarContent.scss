@@ -182,11 +182,13 @@
           }
         }
       }
+
       span:first-child {
         width: 20%;
         text-align: right;
         white-space: nowrap;
       }
+
       span:last-child {
         text-align: right;
         white-space: nowrap;
@@ -245,8 +247,10 @@
 //     margin: 10px auto 0;
 //   }
 // }
+// }
 
 .loading_icon {
   display: block;
   margin: 50% auto;
 }
+
