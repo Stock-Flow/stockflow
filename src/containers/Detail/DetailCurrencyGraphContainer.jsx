@@ -16,7 +16,6 @@ export default function DetailCurrencyGraphContainer({
   const compare = useSelector((state) => state.compareCurrency.currency);
   const dispatch = useDispatch();
 
-  console.log('first', compare)
   const getDetailCurrency = useCallback((symbol) => {
     dispatch(
       getDetailCurrencySagaActionCreator(symbol),
@@ -24,7 +23,6 @@ export default function DetailCurrencyGraphContainer({
   }, [dispatch]);
 
   const getCompare = useCallback((symbol) => {
-    console.log('getCompare', symbol)
     dispatch(getCompareCurrencySagaActionCreator(symbol))
   }, [dispatch])
 
@@ -111,7 +109,6 @@ export default function DetailCurrencyGraphContainer({
 
   }, [])
 
-  console.log('second',compare)
   return (
     <DetailCurrencyGraph
       getDetailCurrency={getDetailCurrency}
