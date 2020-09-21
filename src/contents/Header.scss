@@ -1,3 +1,5 @@
+@import '../responsive.scss';
+
 .header {
   position: fixed;
   top: 0;
@@ -19,6 +21,25 @@
     cursor: pointer;
     img {
       width: 100%;
+    }
+  }
+  .sidebar-content {
+    display: none;
+  }
+  .toggle-menu {
+    display: none;
+  }
+}
+
+@include mobile {
+  .header {
+    .toggle-menu {
+      display: block;
+      background: none;
+      border: 0;
+      img {
+        width: 35px;
+      }
     }
   }
 }

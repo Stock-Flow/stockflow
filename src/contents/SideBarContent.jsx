@@ -7,7 +7,7 @@ import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../redux/modules/selectedStock';
 
-export default function SideBarContent() {
+export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
   const searchValue = useRef();
   const searchDone = useRef();
   const [sort, setSort] = useState('name');
@@ -84,8 +84,8 @@ export default function SideBarContent() {
   console.log(menu);
   return (
     <>
-      {/* <div className={`toggle-menu-background ${display ? 'display-change' : ''}`} onClick={toggleMenu}></div> */}
-      <div className="sidebar-wrap">
+
+      <div className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''}`}>
         <nav className="menu-bar">
           <button className="toggle-menu" onClick={toggleMenu}>
             <img src="./images/toggle-menu.png" alt="menu" />
@@ -120,6 +120,10 @@ export default function SideBarContent() {
             }}
           >
             <img src={favoriteUrl} alt="favorite" />
+          </button>
+
+          <button className="mobile-close-button" onClick={toggleMobileMenu}>
+            <img src="./images/closebutton.png" alt="mobile-close-button" />
           </button>
         </nav>
 

@@ -1,4 +1,5 @@
 @import '../../responsive.scss';
+
 .foreign-exchange-wrap {
   > div {
     float: left;
@@ -133,6 +134,18 @@
   .foreign-exchange-detail-wrap {
     display: block;
     width: 100%;
+  }
+  .foreign-exchange-list-wrap {
+    display: block;
+    width: 100% !important;
+  }
+}
+
+@include mobile {
+  .foreign-exchange-detail-wrap {
+    display: block;
+    width: 100%;
+    margin-left: 0;
   }
   .foreign-exchange-list-wrap {
     display: block;

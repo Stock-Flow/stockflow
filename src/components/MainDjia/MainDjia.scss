@@ -64,3 +64,13 @@
     padding: 30px 0 50px 0;
   }
 }
+
+@include mobile {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
+    .djia {
+      padding: 0 10px;
+    }
+  }
+}

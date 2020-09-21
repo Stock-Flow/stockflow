@@ -24,6 +24,10 @@
       display: none;
     }
 
+    .mobile-close-button {
+      display: none;
+    }
+
     button {
       background: none;
       margin-bottom: 40px;
@@ -303,23 +307,42 @@
 }
 
 @include mobile {
+  .home {
+    position: relative;
+    .sidebar-wrap {
+      // display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      min-width: unset;
+      width: 90%;
+      min-height: 100%;
+      transform: translateX(100%);
+      transition: all 1.5s;
+      .menu-bar {
+        min-width: 60px;
+        .mobile-close-button {
+          display: block;
+        }
+        button {
+          padding: 10px;
+        }
+      }
+      .sidebarList {
+        min-width: unset;
+        font-size: 0.7rem;
+        min-height: 100%;
+      }
+    }
+    .mobile-sidebar-show {
+      z-index: 100 !important;
+      transform: translateX(0);
+      transition: all 1.5s;
+      box-shadow: none;
+    }
+  }
 }
-
-// .none {
-//   display: none;
-//   background-color: red;
-//   display: flex;
-//   flex-direction: column;
-//   button {
-//     width: calc(50% - 7px);
-//     height: 60px;
-//     border: 0px;
-//     font-size: 1.125rem;
-//     color: #ffffff;
-//     background: #212933;
-//     margin: 10px auto 0;
-//   }
-// }
 
 .loading_icon {
   display: block;

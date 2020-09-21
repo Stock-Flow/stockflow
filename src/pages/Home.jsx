@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import DjiagraphContainer from '../containers/MainDjia/djiagraphContainer';
 import SideBarContent from '../contents/SideBarContent';
@@ -14,10 +14,16 @@ export default function Home() {
   const selectedExchange = useSelector(
     (state) => state.selectedExchange.fxIntraday.fxIntraday,
   );
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+
+  const toggleMobileMenu = () => {
+    setMobileMenu(!mobileMenu)
+  }
   return (
     <div className="home">
-      <Header />
-      <SideBarContent />
+      <Header toggleMobileMenu={toggleMobileMenu} />
+      <SideBarContent mobileMenu={mobileMenu} toggleMobileMenu={toggleMobileMenu} />
       {selectedStock.kind === 'stock' ? (
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
       ) : selectedStock.kind === 'currency' ? (
