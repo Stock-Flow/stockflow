@@ -3,11 +3,13 @@
   padding: 0 15px;
 
   // .djia {
-  //   position: relative;
+  //  
   //   padding: 0 20px;
+
 
   .djia {
     padding: 0 20px;
+    position: relative;
     .djiagraph {
       // width: 70%;
       // margin: 0 auto;
@@ -32,6 +34,7 @@
         background: none !important;
       }
     }
+
     .tv-lightweight-charts {
       border: 1px solid #3a3e50;
     }
@@ -51,6 +54,8 @@
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 300;
+
+
     }
   }
 }
