@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDetailCurrencySagaActionCreator } from '../../redux/modules/detailCurrency';
 import DetailCurrencyGraph from '../../components/Detail/DetailCurrencyGraph';
+import { getCompareCurrencySagaActionCreator } from '../../redux/modules/compareCurrency';
 
 export default function DetailCurrencyGraphContainer({
   func = 'DIGITAL_CURRENCY_DAILY',
@@ -12,13 +13,20 @@ export default function DetailCurrencyGraphContainer({
   const currency = useSelector((state) => state.detailCurrency.currency);
   const volume = useSelector((state => state.detailCurrency.volume))
   const indicators = useSelector((state) => state.detailCurrency.indicator);
+  const compare = useSelector((state) => state.compareCurrency.currency);
   const dispatch = useDispatch();
 
+  console.log('first', compare)
   const getDetailCurrency = useCallback((symbol) => {
     dispatch(
       getDetailCurrencySagaActionCreator(symbol),
     );
   }, [dispatch]);
+
+  const getCompare = useCallback((symbol) => {
+    console.log('getCompare', symbol)
+    dispatch(getCompareCurrencySagaActionCreator(symbol))
+  }, [dispatch])
 
   const movingAverage = (currency, duration) => {
     const movingAverage = []
@@ -103,6 +111,7 @@ export default function DetailCurrencyGraphContainer({
 
   }, [])
 
+  console.log('second',compare)
   return (
     <DetailCurrencyGraph
       getDetailCurrency={getDetailCurrency}
@@ -115,6 +124,8 @@ export default function DetailCurrencyGraphContainer({
       rsiSignal={rsiSig}
       getMACDData={getMACDData}
       getStochasticSlow={getStochasticSlow}
+      getCompare={getCompare}
+      compare={compare}
     />
   )
 }

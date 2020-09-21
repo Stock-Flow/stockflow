@@ -6,6 +6,8 @@ import { createChart } from 'lightweight-charts';
 import './DetailStockGraph.scss';
 import GraphService from '../../services/GraphService';
 import { LoadingOutlined } from '@ant-design/icons'
+import SearchService from '../../services/SearchService';
+import { useSelector } from 'react-redux';
 
 const customStyles = {
   content: {
@@ -41,6 +43,7 @@ const addCustomStyles = {
 Modal.setAppElement(document.getElementById('option_modal'));
 
 export default function DetailCurrencyGraph({
+  getCompare,
   getDetailCurrency,
   loading,
   symbol,
@@ -51,7 +54,13 @@ export default function DetailCurrencyGraph({
   rsiSignal,
   getMACDData,
   getStochasticSlow,
+  compare
 }) {
+
+  const currencyList = useSelector(
+    (state) => state.sidebarCurrency.sideBarCurrency,
+  );
+
   //chart ref
   const chart = useRef();
   const assistChart = useRef();
@@ -447,6 +456,14 @@ export default function DetailCurrencyGraph({
     setDisparityck(false);
   }, [symbol]);
 
+  useEffect(() => {
+    console.log(compare)
+    if (compareGraph.current) chart.current.removeSeries(compareGraph.current);
+      compareGraph.current = chart.current.addCandlestickSeries({
+      title: search.current,
+      });
+      compareGraph.current.setData(compare);
+  }, [compare]);
 
   useEffect(() => {
     candleSeries.current = chart.current.addCandlestickSeries({
@@ -470,7 +487,22 @@ export default function DetailCurrencyGraph({
     MACDData.current = getMACDData(currency);
     stochasticSlowData.current = getStochasticSlow(currency, 12, 5, 5);
 
-  }, [currency]);
+    if (!loading) {
+      candleSeries.current.setData(currency);
+      volumeChart.current.setData(volume);
+    }
+  }, [currency, loading]);
+
+  const searchValue = useRef();
+  const [searchList, setSearchList] = useState([]);
+  const search = useRef();
+
+  const checkCurrencySearchDone = async () => {
+    if (searchValue.current && searchValue.current.value.length !== 0) {
+      search.current = searchValue.current.value;
+      setSearchList(await SearchService.searchingCurrencyList(search.current, currencyList));
+    }
+  };
 
   return (
     <>
@@ -479,14 +511,24 @@ export default function DetailCurrencyGraph({
           <>
             <h2>{symbol}</h2>
             <div className="detail-stock-button">
-              <button className="detail-button" onClick={openAddModal}>Add Currenc</button>
+              <button 
+                className="detail-button"
+                onClick={openAddModal}
+              >
+                Add Currency
+              </button>
               <button className="detail-button" onClick={() => {
                 if (compareGraph.current) {
                   chart.current.removeSeries(compareGraph.current);
                   compareGraph.current = null;
                 }
               }}>remove compare graph</button>
-              <button className="detail-button" onClick={openModal}>Indicators</button>
+              <button 
+                className="detail-button" 
+                onClick={openModal}
+                >
+                  Indicators
+                  </button>
             </div>
 
           </>
@@ -504,26 +546,26 @@ export default function DetailCurrencyGraph({
             className="search"
             type="text"
             list="search-list"
-            // onChange={() => {
-            //   checkSearchDone();
-            // }}
-            // ref={searchValue}
+            onChange={() => {
+              checkCurrencySearchDone();
+            }}
+            ref={searchValue}
             placeholder="type to find Symbol"
           />
           <datalist id="search-list">
-            {/* {searchList.length !== 0 &&
-            searchList.bestMatches.map((item) => {
-              return <option value={item['1. symbol']}></option>;
-            })} */}
+            {searchList.length !== 0 &&
+            searchList.map((item) => {
+              return <option value={item.symbol}></option>;
+            })}
 
           </datalist>
 
           <button
           className="add-modal-btn"
-          // onClick={() => {
-          //   getCompare(searchValue.current.value);
-          //   closeAddModal();
-          // }}
+          onClick={() => {
+            getCompare(searchValue.current.value);
+            closeAddModal();
+          }}
         >
           Add
         </button>

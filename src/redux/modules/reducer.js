@@ -11,6 +11,7 @@ import selectedSymbol from './selectedSymbol';
 import compare from './compare';
 import favoriteList from './favoriteList';
 import selectedExchange from './selectedExchange';
+import compareCurrency from './compareCurrency'
 
 const reducer = (history) =>
   combineReducers({
@@ -21,6 +22,7 @@ const reducer = (history) =>
     detailCurrency,
     selectedStock,
     compare,
+    compareCurrency,
     exchange,
 
     selectedSymbol,
