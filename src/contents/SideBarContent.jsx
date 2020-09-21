@@ -14,6 +14,7 @@ export default function SideBarContent() {
   const [stockSearch, setStockSearch] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
   const [menu, setMenu] = useState('stock');
+  const [display, setDisplay] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -40,82 +41,95 @@ export default function SideBarContent() {
   }, []);
 
   const goHome = () => {
-    dispatch(getSelectedStockSagaActionCreator('',''))
+    dispatch(getSelectedStockSagaActionCreator('', ''))
+  }
+
+  const toggleMenu = () => {
+    console.log('togglemenu')
+    setDisplay(!display);
   }
 
   return (
-    <div className="sidebar-wrap">
-      <div className="menuBar">
+    <>
+      {/* <div className={`toggle-menu-background ${display ? 'display-change' : ''}`} onClick={toggleMenu}></div> */}
+      <div className="sidebar-wrap">
 
-        <button className="home-button" onClick={goHome}>
-          <img src="./images/home.png" alt="home" />
-        </button>
+        <div className="menuBar">
+          <button className="toggle-menu" onClick={toggleMenu}>
+            <img src="./images/toggle-menu.png" alt="home" />
+          </button>
 
-        <button
-          className="stockBtn"
-          onClick={() => {
-            changeMode('stock');
-          }}
-        >
-          <img src="./images/chartarrow.png" alt="home" />
-        </button>
+          <button className="home-button" onClick={goHome}>
+            <img src="./images/home.png" alt="home" />
+          </button>
 
-        <button
-          className="currencyBtn"
-          onClick={() => {
-            changeMode('currency');
-          }}
-        >
-          <img src="./images/currency-icon.png" alt="home" />
-        </button>
+          <button
+            className="stockBtn"
+            onClick={() => {
+              changeMode('stock');
+            }}
+          >
+            <img src="./images/chartarrow.png" alt="home" />
+          </button>
 
-        <button
-          className="favorite-button"
-          onClick={() => {
-            changeMode('favorite');
-          }}
-        >
-          <img src="./images/star-click-icon.png" alt="home" />
-        </button>
+          <button
+            className="currencyBtn"
+            onClick={() => {
+              changeMode('currency');
+            }}
+          >
+            <img src="./images/currency-icon.png" alt="home" />
+          </button>
 
-      </div>
+          <button
+            className="favorite-button"
+            onClick={() => {
+              changeMode('favorite');
+            }}
+          >
+            <img src="./images/star-click-icon.png" alt="home" />
+          </button>
 
-
-      <div className="sidebarList">
-
-        <input
-          className="search"
-          type="text"
-          onChange={() => {
-            checkSearchDone(menu);
-          }}
-          ref={searchValue}
-          placeholder='Search'
-
-        />
-
-        {/* <label htmlFor="sort-choice">Sort</label>   */}
-       
-        <div className="sortbox-wrap clear-fix">
-          <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
-            <option defaultValue="name">name</option>
-            <option value="expensive">expensive</option>
-            <option value="cheap">cheap</option>
-          </select>
         </div>
 
-        <div className="list_values">
-          <span>Symbol</span>
-          <span>Graph</span>
-          <span>Price</span>
-          <span>Change</span>
+
+        <div className={`sidebarList ${display ? 'sidebarList-show' : ''}`}>
+
+          <input
+            className="search"
+            type="text"
+            onChange={() => {
+              checkSearchDone(menu);
+            }}
+            ref={searchValue}
+            placeholder='Search'
+
+          />
+
+          {/* <label htmlFor="sort-choice">Sort</label>   */}
+
+          <div className="sortbox-wrap clear-fix">
+            <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
+              <option defaultValue="name">name</option>
+              <option value="expensive">expensive</option>
+              <option value="cheap">cheap</option>
+            </select>
+          </div>
+
+          <div className="list_values">
+            <span>Symbol</span>
+            <span>Graph</span>
+            <span>Price</span>
+            <span>Change</span>
+          </div>
+
+          <StockListContainer search={stockSearch} sort={sort} menu={menu} toggleMenu={toggleMenu} />
+          <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} toggleMenu={toggleMenu} />
+          <FavoriteListContainer menu={menu} toggleMenu={toggleMenu} />
+          <button className="close-button" onClick={toggleMenu}>x</button>
         </div>
 
-        <StockListContainer search={stockSearch} sort={sort} menu={menu} />
-        <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} />
-        <FavoriteListContainer menu={menu} />
       </div>
-
-    </div>
+    </>
   );
 }

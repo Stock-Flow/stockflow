@@ -13,6 +13,7 @@ export default function FavoriteList({
   menu,
   loading,
   currencyLoading,
+  toggleMenu
 }) {
   const [value, setValue] = useState('stock')
 
@@ -96,6 +97,7 @@ export default function FavoriteList({
               // let color = currency.change[0] === "-" ? "green" : "red"
 
               function transSymbol(e) {
+                toggleMenu();
                 e.stopPropagation();
                 sendCurrencySymbol(
                   currency.symbol,
@@ -153,7 +155,7 @@ export default function FavoriteList({
                       </div>
 
                       <div className="sidebar-right">
-                        <span className='sidebar-change' >{currency.price}</span>
+                        <span className='sidebar-price' >{currency.price}</span>
                         <span className='sidebar-change' >{currency.change}%</span>
                       </div>
 
@@ -173,6 +175,7 @@ export default function FavoriteList({
               });
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
               function transSymbol(e) {
+                toggleMenu()
                 e.stopPropagation();
                 sendStockSymbol(stock.symbol);
               }
@@ -225,7 +228,7 @@ export default function FavoriteList({
                         </div>
                       </div>
                       <div className="sidebar-right">
-                        <span className="sidebar-change">{stock.price}</span>
+                        <span className="sidebar-price">{stock.price}</span>
                         <span className="sidebar-change">{stock.change}</span>
                       </div>
                     </li>}
