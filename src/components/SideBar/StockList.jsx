@@ -43,7 +43,7 @@ export default function StockList({
               keys.forEach((item, i) => {
                 stocks.push({ date: item, price: values[i] });
               });
-              let color = stock.change < 0 ? 'yellow' : 'red';
+              let color = stock.change[0] === '-' ? 'yellow' : 'red';
 
               function transSymbol(e) {
                 toggleMenu();
