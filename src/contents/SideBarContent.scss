@@ -54,7 +54,7 @@
       display: block;
       width: 92%;
       height: 30px;
-      margin: 10px auto 0;
+      margin: 25px auto 0;
       padding: 0 0 0 8%;
       border-radius: 5px;
       border: #1f202b;
@@ -188,13 +188,11 @@
           }
         }
       }
-
       span:first-child {
         width: 20%;
         text-align: right;
         white-space: nowrap;
       }
-
       span:last-child {
         text-align: right;
         white-space: nowrap;
@@ -241,8 +239,8 @@
   }
 }
 
-
-@include desktop {}
+@include desktop {
+}
 
 @include tablet {
   // .toggle-menu-background {
@@ -314,7 +312,8 @@
   }
 }
 
-@include mobile {}
+@include mobile {
+}
 
 // .none {
 //   display: none;

@@ -3,6 +3,7 @@
 
 html {
   font-size: 16px;
+  vertical-align: top;
 
   ul,
   li {
@@ -18,8 +19,10 @@ html {
   select {
     border: none;
   }
-
-  vertical-align: top;
+  h2 {
+    font-size: 1.5rem;
+    margin: 25px 0;
+  }
 
   .clear-fix {
     &::after {

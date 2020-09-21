@@ -4,9 +4,8 @@
   width: 75vw;
   padding: 0 15px;
 
-
-
   .djia {
+    position: relative;
     padding: 0 20px;
     position: relative;
     .djiagraph {
@@ -40,19 +39,21 @@
 
     .djia-progress {
       width: 80%;
+      height: 40px;
       position: absolute;
-      top: 65%;
+      top: 50%;
       left: 50%;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, -50%);
       z-index: 300;
     }
 
     .progress-percent {
       position: absolute;
-      top: 50%;
+      top: 60%;
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 300;
+      font-size: 1.5rem;
     }
   }
 }
