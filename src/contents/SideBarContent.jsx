@@ -16,6 +16,18 @@ export default function SideBarContent() {
   const [menu, setMenu] = useState('stock');
   const [display, setDisplay] = useState(false);
 
+  // img url 경로 state
+  // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
+  const [stockImgUrl, setStockImgUrl] = useState(
+    './images/chartarrow-white.png',
+  );
+  const [currencyImgUrl, setCurrencyImgUrl] = useState(
+    './images/currency-icon.png',
+  );
+  const [favoriteUrl, setFavoriteUrl] = useState(
+    './images/star-click-icon.png',
+  );
+
   const dispatch = useDispatch();
 
   const checkSearchDone = useCallback((menu) => {
@@ -34,34 +46,54 @@ export default function SideBarContent() {
   }, []);
 
   const changeMode = useCallback((e) => {
+    // setHomeImgUrl('./images/home.png');
     setMenu(e);
     searchValue.current.value = '';
     setStockSearch('');
     setCurrencySearch('');
+
+    if (e === 'stock') {
+      setStockImgUrl('./images/chartarrow-white.png');
+      setCurrencyImgUrl('./images/currency-icon.png');
+      setFavoriteUrl('./images/star-click-icon.png');
+    } else if (e === 'currency') {
+      setStockImgUrl('./images/chartarrow.png');
+      setCurrencyImgUrl('./images/currency-icon-white.png');
+      setFavoriteUrl('./images/star-click-icon.png');
+    } else if (e === 'favorite') {
+      setStockImgUrl('./images/chartarrow.png');
+      setCurrencyImgUrl('./images/currency-icon.png');
+      setFavoriteUrl('./images/star-click-icon-white.png');
+    } else {
+      setStockImgUrl('./images/chartarrow-white.png');
+    }
   }, []);
 
-  const goHome = () => {
-    dispatch(getSelectedStockSagaActionCreator('', ''))
-  }
+  // const goHome = () => {
+  //   setHomeImgUrl('./images/home-white.png');
+  //   setStockImgUrl('./images/chartarrow.png');
+  //   setCurrencyImgUrl('./images/currency-icon.png');
+  //   setFavoriteUrl('./images/star-click-icon.png');
+  //   dispatch(getSelectedStockSagaActionCreator('', ''));
+  // };
 
   const toggleMenu = () => {
-    console.log('togglemenu')
     setDisplay(!display);
-  }
+  };
 
+  console.log(menu);
   return (
     <>
       {/* <div className={`toggle-menu-background ${display ? 'display-change' : ''}`} onClick={toggleMenu}></div> */}
       <div className="sidebar-wrap">
-
-        <div className="menuBar">
+        <nav className="menu-bar">
           <button className="toggle-menu" onClick={toggleMenu}>
-            <img src="./images/toggle-menu.png" alt="home" />
+            <img src="./images/toggle-menu.png" alt="menu" />
           </button>
 
-          <button className="home-button" onClick={goHome}>
-            <img src="./images/home.png" alt="home" />
-          </button>
+          {/* <button className="home-button" onClick={goHome}>
+            <img src={homeImgUrl} alt="home" />
+          </button> */}
 
           <button
             className="stockBtn"
@@ -69,7 +101,7 @@ export default function SideBarContent() {
               changeMode('stock');
             }}
           >
-            <img src="./images/chartarrow.png" alt="home" />
+            <img src={stockImgUrl} alt="stock" />
           </button>
 
           <button
@@ -78,7 +110,7 @@ export default function SideBarContent() {
               changeMode('currency');
             }}
           >
-            <img src="./images/currency-icon.png" alt="home" />
+            <img src={currencyImgUrl} alt="currency" />
           </button>
 
           <button
@@ -87,14 +119,11 @@ export default function SideBarContent() {
               changeMode('favorite');
             }}
           >
-            <img src="./images/star-click-icon.png" alt="home" />
+            <img src={favoriteUrl} alt="favorite" />
           </button>
-
-        </div>
-
+        </nav>
 
         <div className={`sidebarList ${display ? 'sidebarList-show' : ''}`}>
-
           <input
             className="search"
             type="text"
@@ -102,14 +131,17 @@ export default function SideBarContent() {
               checkSearchDone(menu);
             }}
             ref={searchValue}
-            placeholder='Search'
-
+            placeholder="Search"
           />
 
           {/* <label htmlFor="sort-choice">Sort</label>   */}
 
           <div className="sortbox-wrap clear-fix">
-            <select className="sortbox" id="sort-chocie" onChange={selectedValue}>
+            <select
+              className="sortbox"
+              id="sort-chocie"
+              onChange={selectedValue}
+            >
               <option defaultValue="name">name</option>
               <option value="expensive">expensive</option>
               <option value="cheap">cheap</option>
@@ -123,12 +155,23 @@ export default function SideBarContent() {
             <span>Change</span>
           </div>
 
-          <StockListContainer search={stockSearch} sort={sort} menu={menu} toggleMenu={toggleMenu} />
-          <CurrencyListContainer search={currencySearch} sort={sort} menu={menu} toggleMenu={toggleMenu} />
+          <StockListContainer
+            search={stockSearch}
+            sort={sort}
+            menu={menu}
+            toggleMenu={toggleMenu}
+          />
+          <CurrencyListContainer
+            search={currencySearch}
+            sort={sort}
+            menu={menu}
+            toggleMenu={toggleMenu}
+          />
           <FavoriteListContainer menu={menu} toggleMenu={toggleMenu} />
-          <button className="close-button" onClick={toggleMenu}>x</button>
+          <button className="close-button" onClick={toggleMenu}>
+            x
+          </button>
         </div>
-
       </div>
     </>
   );
