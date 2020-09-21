@@ -134,7 +134,10 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current.resize(windowWidth * 0.72, 400);
     }
-    if (assistChart.current) {
+    if (windowWidth >= 1200) {
+      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (windowWidth < 1200) {
       assistChart.current.resize(windowWidth * 0.72 - 100, 200);
     }
     if (indicatorChart.current) {
@@ -190,7 +193,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -242,10 +245,19 @@ export default function DetailStockGraph({
         },
       },
     });
-    assistChart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 200,
-    });
+    if (windowWidth >= 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 200,
+      });
+    }
+    if (windowWidth < 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 200,
+      });
+    }
+
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -502,29 +514,29 @@ export default function DetailStockGraph({
       {loading ? (
         <LoadingOutlined className="loading" />
       ) : (
-        <>
-          <h2>{symbol}</h2>
-          <div className="detail-stock-button">
-            <button className="detail-button" onClick={openAddModal}>
-              Add Stock
+          <>
+            <h2>{symbol}</h2>
+            <div className="detail-stock-button">
+              <button className="detail-button" onClick={openAddModal}>
+                Add Stock
             </button>
-            <button
-              className="detail-button"
-              onClick={() => {
-                if (compareGraph.current) {
-                  chart.current.removeSeries(compareGraph.current);
-                  compareGraph.current = null;
-                }
-              }}
-            >
-              remove compare graph
+              <button
+                className="detail-button"
+                onClick={() => {
+                  if (compareGraph.current) {
+                    chart.current.removeSeries(compareGraph.current);
+                    compareGraph.current = null;
+                  }
+                }}
+              >
+                remove compare graph
             </button>
-            <button className="detail-button" onClick={openModal}>
-              Indicators
+              <button className="detail-button" onClick={openModal}>
+                Indicators
             </button>
-          </div>
-        </>
-      )}
+            </div>
+          </>
+        )}
 
       <Modal
         isOpen={addModalIsOpen}

@@ -323,7 +323,9 @@
       transition: all 1.5s;
       overflow: hidden;
       .menu-bar {
-        min-width: 60px;
+        min-width: unset;
+        width: unset;
+        width: 60px;
         .mobile-close-button {
           display: block;
         }
@@ -332,6 +334,7 @@
         }
       }
       .sidebarList {
+        width: calc(100% - 60px);
         min-width: unset;
         font-size: 0.7rem;
         min-height: 100%;
