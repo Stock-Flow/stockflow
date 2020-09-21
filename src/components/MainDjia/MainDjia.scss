@@ -1,18 +1,12 @@
+@import '../../responsive.scss';
 .djiagraphBox {
   width: 75vw;
   padding: 0 15px;
 
-  // .djia {
-  //  
-  //   padding: 0 20px;
 
-
-<<<<<<< HEAD
-=======
   .djia {
     padding: 0 20px;
     position: relative;
->>>>>>> cade9ac463b3a9995c8aea89860a1e978ceb43a1
     .djiagraph {
       // width: 70%;
       // margin: 0 auto;
@@ -36,7 +30,6 @@
       .main-svg {
         background: none !important;
       }
-
     }
 
     .tv-lightweight-charts {
@@ -58,37 +51,31 @@
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 300;
-<<<<<<< HEAD
-=======
-
 
     }
 
-    // .tv-lightweight-charts {
-    //   border: 1px solid #3a3e50;
-    // }
-
-    // .djia-progress {
-    //   width: 80%;
-    //   position: absolute;
-    //   top: 65%;
-    //   left: 50%;
-    //   transform: translate(-50%, 0);
-    //   z-index: 300;
-    // }
-
-    // .progress-percent {
-    //   position: absolute;
-    //   top: 50%;
-    //   left: 50%;
-    //   transform: translate(-50%, 0);
-    //   z-index: 300;
-    // }
-    .tv-lightweight-charts {
-      // width: 50% !important;
-      border: 1px solid #3a3e50;
-
->>>>>>> cade9ac463b3a9995c8aea89860a1e978ceb43a1
+    .djia-progress {
+      width: 80%;
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 300;
     }
+
+    .progress-percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 300;
+    }
+  }
+}
+
+@include tablet {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
   }
 }

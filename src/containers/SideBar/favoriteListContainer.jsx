@@ -3,7 +3,7 @@ import FavoriteList from '../../components/SideBar/favoriteList';
 import { useSelector, useDispatch } from 'react-redux';
 import { getfavoriteListActionCreator } from '../../redux/modules/selectedSymbol';
 
-export default function FavoriteListContainer({ menu }) {
+export default function FavoriteListContainer({ menu, toggleMenu }) {
   const selectedStockSymbol = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
   );
@@ -82,6 +82,7 @@ export default function FavoriteListContainer({ menu }) {
       menu={menu}
       loading={loading}
       currencyLoading={currencyLoading}
+      toggleMenu={toggleMenu}
     />
   );
 }
