@@ -1,10 +1,10 @@
+@import '../../responsive.scss';
+
 .djiagraphBox {
   width: 75vw;
   padding: 0 15px;
 
-  // .djia {
-  //
-  //   padding: 0 20px;
+
 
   .djia {
     position: relative;
@@ -55,30 +55,12 @@
       transform: translate(-50%, 0);
       z-index: 300;
     }
+  }
+}
 
-    // .tv-lightweight-charts {
-    //   border: 1px solid #3a3e50;
-    // }
-
-    // .djia-progress {
-    //   width: 80%;
-    //   position: absolute;
-    //   top: 65%;
-    //   left: 50%;
-    //   transform: translate(-50%, 0);
-    //   z-index: 300;
-    // }
-
-    // .progress-percent {
-    //   position: absolute;
-    //   top: 50%;
-    //   left: 50%;
-    //   transform: translate(-50%, 0);
-    //   z-index: 300;
-    // }
-    .tv-lightweight-charts {
-      // width: 50% !important;
-      border: 1px solid #3a3e50;
-    }
+@include tablet {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
   }
 }
