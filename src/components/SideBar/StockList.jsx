@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as V from 'victory';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
@@ -99,12 +99,12 @@ export default function StockList({
                           className="bookmark_true"
                         />
                       ) : (
-                        <img
-                          src="./images/bookmark_false.png"
-                          alt="bookmark_false"
-                          className="bookmark_false"
-                        />
-                      )}
+                          <img
+                            src="./images/bookmark_false.png"
+                            alt="bookmark_false"
+                            className="bookmark_false"
+                          />
+                        )}
                     </button>
                     <div className="sidebar-title-text">
                       <span className="sidebar-symbol">{stock.symbol}</span>

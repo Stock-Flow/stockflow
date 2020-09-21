@@ -1,11 +1,8 @@
 import React, { useRef, useState, useCallback } from 'react';
 import StockListContainer from '../containers/SideBar/StockListContainer';
 import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
-import Logo from '../components/SideBar/Logo';
 import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
-import { useDispatch } from 'react-redux';
-import { getSelectedStockSagaActionCreator } from '../redux/modules/selectedStock';
 
 export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
   const searchValue = useRef();
@@ -28,7 +25,6 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
     './images/star-click-icon.png',
   );
 
-  const dispatch = useDispatch();
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
