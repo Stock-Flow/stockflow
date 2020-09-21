@@ -2,16 +2,45 @@ import React, { useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
 
 import './MainDjia.scss';
+import { useState } from 'react';
+import ForeignExchangeContainer from '../../containers/MainDjia/ForeignExchangeContainer';
+import ForeignExchangeDetailContainer from '../../containers/MainDjia/ForeignExchangeDetailContainer';
+import { useCallback } from 'react';
 
-export default function DjiaGraph({ djiaList, djiaDate }) {
+export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const chart = useRef();
   const lineSeries = useRef();
   const chartposition = useRef();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  window.addEventListener(
+    'resize',
+    useCallback(() => {
+      setWindowWidth(window.innerWidth);
+      console.log('hi');
+      if (chart.current) {
+        if (windowWidth >= 1200) {
+          chart.current.resize(windowWidth * 0.72 - 100, 400);
+        }
+        if (windowWidth < 1200) {
+          chart.current.resize(windowWidth * 0.72, 400);
+        }
+      }
+    }, [windowWidth]),
+  );
   useEffect(() => {
-    chart.current = createChart(chartposition.current, {
-      width: 800,
-      height: 400,
-    });
+    if (windowWidth > 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 400,
+      });
+    }
+    if (windowWidth < 1200) {
+      chart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 400,
+      });
+    }
+
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -22,8 +51,21 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#2d303e',
         textColor: '#eeeeee',
+      },
+      grid: {
+        vertLines: {
+          // color: 'rgba(33, 150, 243, 0.7)',
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+        horzLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
       },
     });
 
@@ -51,9 +93,22 @@ export default function DjiaGraph({ djiaList, djiaDate }) {
     });
   }
   return (
-    <>
-      <h1>DOW J</h1>
+    <div className="djia">
+      <h2>DOW J</h2>
       <div ref={chartposition}></div>
-    </>
+      {loading ? (
+        <>
+          <progress max="30" value={done} className="djia-progress"></progress>{' '}
+          <div className="progress-percent">
+            Loading... {(done * (100 / 30)).toFixed(0)}%
+          </div>
+        </>
+      ) : (
+        <div className="foreign-exchange-wrap">
+          <ForeignExchangeContainer />
+          <ForeignExchangeDetailContainer />
+        </div>
+      )}
+    </div>
   );
 }

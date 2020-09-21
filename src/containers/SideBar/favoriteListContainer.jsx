@@ -3,7 +3,7 @@ import FavoriteList from '../../components/SideBar/favoriteList';
 import { useSelector, useDispatch } from 'react-redux';
 import { getfavoriteListActionCreator } from '../../redux/modules/selectedSymbol';
 
-export default function FavoriteListContainer({ menu }) {
+export default function FavoriteListContainer({ menu, toggleMenu }) {
   const selectedStockSymbol = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
   );
@@ -14,12 +14,11 @@ export default function FavoriteListContainer({ menu }) {
   const currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
+  // console.log(currencyList)
   const currencyLoading = useSelector((state) => state.sidebarCurrency.loading);
   const loading = useSelector((state) => state.sideBarStock.loading);
   const stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
-  console.log(selectedStockSymbol);
-  console.log(selectedCurrencySymbol);
 
   const dispatch = useDispatch();
 
@@ -54,13 +53,13 @@ export default function FavoriteListContainer({ menu }) {
 
   const favoriteStockList = selectedStockSymbol.filter(
     (selectedStockSymbol) => {
-      return selectedStockSymbol.count >= 3;
+      return selectedStockSymbol.favorite === true;
     },
   );
 
   const favoriteCurrencyList = selectedCurrencySymbol.filter(
     (selectedCurrencySymbol) => {
-      return selectedCurrencySymbol.count >= 3;
+      return selectedCurrencySymbol.favorite === true;
     },
   );
 
@@ -83,6 +82,7 @@ export default function FavoriteListContainer({ menu }) {
       menu={menu}
       loading={loading}
       currencyLoading={currencyLoading}
+      toggleMenu={toggleMenu}
     />
   );
 }

@@ -4,6 +4,7 @@ import {
   takeLeading
 } from 'redux-saga/effects'
 import CurrencyService from '../../services/CurrencyService'
+import DataProcessingService from '../../services/DataProcessingService'
 // 루트사가에 추가, 리덕스 스토어에 사가 추가
 
 // 1.액션 start, sucess,  error 3가지
@@ -96,7 +97,12 @@ export function* sideBarCurrencySaga() {
 function* getSideBarCurrencySaga() {
   yield put(startGetSideBarCurrency());
   try {
-    const Currencys = yield call(CurrencyService.getSideBarCurrency)
+    let Currencys = yield call(CurrencyService.getSideBarCurrency)
+    Currencys = DataProcessingService.sidebarCurrencyProcessing(Currencys)
+    Currencys = Currencys.map(currency => ({
+      ...currency,
+      currencyData: DataProcessingService.CurrencyGraphDataProcessing(currency)
+    }))
     yield put(SuccessGetSideBarCurrency(Currencys))
   } catch (error) {
     console.log(error)

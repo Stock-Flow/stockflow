@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { createGetSelectedExchangeSaga } from '../../redux/modules/selectedExchange';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
 // import ForeignExchange from './ForeignExchange';
 
 export default function ForeignExchangeItem({
@@ -9,15 +13,22 @@ export default function ForeignExchangeItem({
   toCurrenciesName,
   exchangeRate,
   fxIntradayArr,
+  fxIntraday,
+
+  firstFromCurrenciesCode,
+  firstFromCurrenciesName,
+  firstToCurrenciesCode,
+  firstToCurrenciesName,
+  firstFxIntraday,
 }) {
   let resultPercent = 0;
   let before = 0;
   let after = 0;
+
   if (fxIntradayArr) {
     before = fxIntradayArr['beforefxClose'];
     after = fxIntradayArr['afterfxClose'];
-    before = 1187.3;
-    after = 1187.6;
+
     if (before === after) resultPercent = 0;
 
     if (before < after) {
@@ -28,14 +39,52 @@ export default function ForeignExchangeItem({
     }
   }
   resultPercent = resultPercent.toFixed(2);
-  let fxDiff = (after - before).toFixed(2);
+  let fxDiff = (after - before).toFixed(3);
+
+  const dispatch = useDispatch();
 
   const fromCountryIcon = `../images/${fromCurrenciesCode}.svg`;
   const toCountryIcon = `../images/${toCurrenciesCode}.svg`;
+
+  useEffect(() => {
+    dispatch(
+      createGetSelectedExchangeSaga(
+        firstFromCurrenciesCode,
+        firstFromCurrenciesName,
+        firstToCurrenciesCode,
+        firstToCurrenciesName,
+        firstFxIntraday,
+      ),
+    );
+  }, []);
+
+  const transCode = useCallback(() => {
+    dispatch(
+      createGetSelectedExchangeSaga(
+        fromCurrenciesCode,
+        fromCurrenciesName,
+        toCurrenciesCode,
+        toCurrenciesName,
+        fxIntraday,
+      ),
+    );
+  }, []);
+
   return (
     <>
       {!loading && (
-        <div className="exchange-item">
+        <div
+          className="exchange-item"
+          onClick={() => {
+            transCode(
+              fromCurrenciesCode,
+              fromCurrenciesName,
+              toCurrenciesCode,
+              toCurrenciesName,
+              fxIntraday,
+            );
+          }}
+        >
           <div className="exchange-column icon">
             <span className="country-icon from">
               <img src={fromCountryIcon} alt={fromCurrenciesName} />
@@ -57,23 +106,25 @@ export default function ForeignExchangeItem({
             <p className="exchange-rate">{exchangeRate}</p>
           </div>
           <div className="exchange-column percent">
-            {/* <p className="exchange-percent">{resultPercent}%</p> */}
             <p className="exchange-percent">
               {before < after && (
                 <>
                   <span className="plus">+{resultPercent}%</span>
+                  <br />
                   <span className="plus">+{fxDiff}</span>
                 </>
               )}
               {before > after && (
                 <>
                   <span className="minus">-{resultPercent}%</span>
+                  <br />
                   <span className="minus">{fxDiff}</span>
                 </>
               )}
               {before === after && (
                 <>
                   <span className="zero">{resultPercent}%</span>
+                  <br />
                   <span className="zero">0</span>
                 </>
               )}

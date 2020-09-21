@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import '../responsive.scss';
 
 html {
   font-size: 16px;
+  vertical-align: top;
 
   ul,
   li {
@@ -17,8 +19,10 @@ html {
   select {
     border: none;
   }
-
-  vertical-align: top;
+  h2 {
+    font-size: 1.5rem;
+    margin: 25px 0;
+  }
 
   .clear-fix {
     &::after {
@@ -32,81 +36,151 @@ html {
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
     color: #fff;
-    background: #1e1e1e;
+    background: #2f3242;
 
     .detail-stock {
       display: block;
+    }
+
+    padding-top: 96px;
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      transform: translate(0, -50%);
+      z-index: 300;
+      width: 100px;
+      height: 100px;
+    }
+
+    .anticon-spin {
+      font-size: 100px;
+      width: 100px;
+      height: 100px;
     }
   }
 
   // 사이드바를 제외한 메인 뷰
   main {
+    margin-top: 100px;
     width: 80%;
     padding: 90px 70px 0 90px;
+    background: orange;
 
     .tv-lightweight-charts {
       display: inline-block;
     }
 
-    >div {
+    > div {
       display: inline-block;
     }
   }
 }
 
 .ReactModal__Overlay {
-  background-color: rgba(41, 41, 41, 0.9) !important;
-}
+  background-color: rgba(41, 41, 41, 0.6) !important;
+  color: #727aa0;
 
-.ReactModal__Content {
-  box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
-}
+  .ReactModal__Content {
+    background: rgba(51, 47, 47, 1) !important;
+    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
 
-.ReactModal__Content form label {
-  display: block;
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
+    form {
+      display: flex;
 
-  input {
-    margin-left: 20px;
+      h3 {
+        margin-top: 0;
+      }
+      ul {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 10px;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #727aa0;
+
+          label {
+            display: block;
+            padding: 5px 0;
+            display: flex;
+            align-items: left;
+
+            input {
+              margin: 0 10px;
+              cursor: pointer;
+              background-color: #131212;
+            }
+
+            h4 {
+              margin-top: 0;
+              margin-bottom: 0;
+              margin-right: 20px;
+            }
+          }
+          .signal {
+            display: flex;
+            flex-direction: column;
+            font-size: 10px;
+            text-align: center;
+            label {
+              display: flex;
+              justify-content: space-between;
+            }
+          }
+        }
+      }
+    }
+    .indicator-btn {
+      background: #727aa0;
+      display: block;
+      height: 40px;
+      margin: 70px auto 10px;
+      border-radius: 15px;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 0 15px;
+    }
   }
 }
 
-.ReactModal__Content form {
-  display: flex;
-}
+.ReactModal__Content {
+  .search {
+    color: #727aa0;
+    padding: 0 0 0 8%;
+    caret-color: #fff;
+    box-shadow: none;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translate(16%, -50%);
+    left: auto;
+    background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
+  }
+  .search::placeholder {
+    color: #727aa0;
+  }
+  .add-modal-btn {
+    position: absolute;
+    bottom: 0%;
+    right: 40%;
+    transform: translate(0%, -50%);
+    left: auto;
 
-.ReactModal__Content form h3 {
-  margin-top: 0;
-  margin-right: 20px;
-}
-
-.ReactModal__Content form h4 {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 20px;
-}
-
-.add-modal {}
-
-.ReactModal__Content .indicator-btn {
-  height: 30px;
-}
-
-.ReactModal__Content .search {
-  position: absolute;
-  top: 50%;
-  transform: translate(16%, -50%);
-  left: auto;
-}
-
-.ReactModal__Content .add-modal-btn {
-  position: absolute;
-  top: 50%;
-  right: 15%;
-  transform: translate(0%, -50%);
-  left: auto;
+    background: #727aa0;
+    display: block;
+    height: 30px;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0 15px;
+  }
 }
 
 .home {
@@ -118,12 +192,13 @@ html {
     }
 
     .detail-button {
-      background-color: #212933;
+      background-color: #1f202b;
       border: none;
       color: #eeeeee;
       margin: 20px;
       width: 240px;
       height: 50px;
+      border-radius: 10px;
     }
 
     h2 {
@@ -134,5 +209,46 @@ html {
 
   .sidebar {
     box-sizing: border-box;
+  }
+}
+
+@include tablet {
+  .home {
+    .detail-stock {
+      width: 100%;
+      margin: 0 auto;
+      padding: 50px 0;
+      .chart .tv-lightweight-charts {
+        // margin: 0 auto;
+        margin: 37px 75px;
+        margin-top: 20px;
+      }
+      .detail-stock-button {
+        width: 80%;
+        display: flex;
+        justify-content: space-around;
+        // margin: 0 auto;
+        margin: 5px 40px;
+        .detail-button {
+          width: 190px;
+          margin: 20px 0;
+          font-size: 0.8rem;
+        }
+      }
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(0, -50%);
+        z-index: 300;
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    // .chart .tv-lightweight-charts {
+    //   width: 100%;
+    //   background-color: olive;
+    // }
   }
 }

@@ -16,7 +16,8 @@ const initialState = {
   loading: true,
   djia: [],
   error: null,
-  date: new Date().getDate(),
+  date: new Date(),
+  done: 0
 }
 
 
@@ -28,6 +29,7 @@ const initialState = {
 const GET_DJIA_START = `${prefix}/GET_DJIA_START`;
 const GET_DJIA_SUCCESS = `${prefix}/GET_DJIA_SUCCESS`;
 const GET_DJIA_FAIL = `${prefix}/GET_DJIA_FAIL`;
+
 
 const startGetDJIA = () => {
   return {
@@ -58,7 +60,6 @@ function* getDJIASaga() {
     yield
     if (!DJIAList) {
       let DJIAList = yield call(StockService.getDJIA);
-      console.log(DJIAList)
       DJIAList = DJIAList.map(DJIA => DataProcessingService.DataProcessing(DJIA, "Time Series (Daily)"))
       DJIAList = DataProcessingService.AdjustSplit(DJIAList);
       DJIAList = DJIAList.map(djia => ({
@@ -112,9 +113,15 @@ export default function reducer(prevState = initialState, action) {
             loading: false,
               error: action.error
           }
-          default:
+          case "GET_DJIA_PROGRESS":
             return {
-              ...prevState
+              ...prevState,
+              loading: true,
+                done: prevState.done + 1
             }
+            default:
+              return {
+                ...prevState
+              }
   }
 }

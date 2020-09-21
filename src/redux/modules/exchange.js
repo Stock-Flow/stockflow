@@ -42,10 +42,10 @@ function* getExchangeSaga(action) {
   try {
     // delay(1000);
     let exchange = yield call(ExchangeSerivice.getExchange, exchangeArray);
-    console.log(exchange);
 
     yield put(successGetExchange(exchange));
   } catch (error) {
+    console.log(error);
     yield put(failGetExchange());
   }
 }

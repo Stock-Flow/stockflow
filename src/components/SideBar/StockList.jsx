@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as V from 'victory';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../../redux/modules/selectedStock';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
+import { LoadingOutlined } from '@ant-design/icons';
+import { getfavoriteListButtonActionCreator } from '../../redux/modules/selectedSymbol';
 
 export default function StockList({
   stockList,
@@ -10,6 +12,7 @@ export default function StockList({
   loading,
   search,
   menu,
+  toggleMenu,
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,6 +23,20 @@ export default function StockList({
     dispatch(getSelectedStockSagaActionCreator(selectedStock, 'stock'));
     dispatch(getSelectedSymbolActionCreator(selectedStock, 'stock'));
   };
+
+  const sendToSymbol = (selectedStock, favoriteDataList) => {
+    dispatch(
+      getfavoriteListButtonActionCreator(
+        selectedStock,
+        favoriteDataList,
+        'stock',
+      ),
+    );
+  };
+
+  const favoriteData = useSelector(
+    (state) => state.selectedSymbol.selectedStockSymbol,
+  );
 
   if (!loading) {
     return (
@@ -36,19 +53,66 @@ export default function StockList({
               let color = stock.change[0] === '-' ? 'yellow' : 'red';
 
               function transSymbol(e) {
+                toggleMenu();
                 e.stopPropagation();
                 sendSymbol(stock.symbol);
               }
 
+              // const selectedBookmark = (e) => {
+              //   if (e.target.parentNode.previousElementSibling.firstElementChild.nodeValue === stock.symbol) {
+              //     console.log(e.target.value)
+              //     setMark(!mark)
+              //   }
+              // }
+
+              const symbol = stock.symbol;
+              let favoriteDataList = false;
+              if (
+                favoriteData.filter((stock) => stock.symbol === symbol)
+                  .length !== 0
+              ) {
+                favoriteDataList = favoriteData.filter(
+                  (stock) => stock.symbol === symbol,
+                )[0].favorite;
+                // console.log(favoriteDataList)
+              }
+
+              function selectedFavorite(e) {
+                e.stopPropagation();
+                sendToSymbol(stock.symbol);
+                if (
+                  favoriteData.filter((stock) => stock.symbol === symbol)
+                    .length !== 0
+                ) {
+                  favoriteDataList = !favoriteDataList;
+                }
+              }
+
               return (
                 <li onClick={transSymbol} className="clear-fix">
-                  <div className="sidebar-left">
-                    <span className="sidebar-symbol">{stock.symbol}</span>
-                    <br />
-                    <span className="sidebar-name">{stock.name}</span>
-                    <br />
+                  <div className="sidebar-title">
+                    <button className="bookmark" onClick={selectedFavorite}>
+                      {favoriteDataList ? (
+                        <img
+                          src="./images/bookmark_true.png"
+                          alt="bookmark_true"
+                          className="bookmark_true"
+                        />
+                      ) : (
+                        <img
+                          src="./images/bookmark_false.png"
+                          alt="bookmark_false"
+                          className="bookmark_false"
+                        />
+                      )}
+                    </button>
+                    <div className="sidebar-title-text">
+                      <span className="sidebar-symbol">{stock.symbol}</span>
+                      <br />
+                      <span className="sidebar-name">{stock.name}</span>
+                    </div>
                   </div>
-                  <div className="sidebar-right">
+                  <div className="inner-sidebar-chart">
                     <V.VictoryLine
                       data={stocks}
                       x="date"
@@ -58,12 +122,13 @@ export default function StockList({
                         parent: {
                           width: 50,
                           height: 'auto',
+                          margin: `${0} auto`,
                         },
                       }}
                     />
-
-                    <span className="sidebar-change">{stock.change}</span>
                   </div>
+                  <span className="sidebar-price">{stock.price}</span>
+                  <span className="sidebar-change">{stock.change}</span>
                 </li>
               );
             },
@@ -87,7 +152,13 @@ export default function StockList({
         </ul>
       </div>
     );
+  } else {
+    return (
+      <div className="sidebar stock">
+        <ul className={menu === 'stock' ? '' : 'none'}>
+          <LoadingOutlined className="loading_icon" />
+        </ul>
+      </div>
+    );
   }
-
-  return <h1>hi</h1>;
 }

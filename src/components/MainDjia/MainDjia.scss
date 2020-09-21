@@ -1,25 +1,76 @@
+@import '../../responsive.scss';
+
 .djiagraphBox {
-  background-color: #252525;
   width: 75vw;
+  padding: 0 15px;
+
+  .djia {
+    position: relative;
+    padding: 0 20px;
+    position: relative;
+    .djiagraph {
+      // width: 70%;
+      // margin: 0 auto;
+      // background-color: white;
+      margin-top: 96px;
+
+      h1 {
+        margin: 0;
+        margin-top: 30px;
+        color: white;
+        font-size: 40px;
+      }
+
+      span {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        margin-left: 10px;
+        font-weight: 200;
+      }
+
+      .main-svg {
+        background: none !important;
+      }
+    }
+
+    .tv-lightweight-charts {
+      border: 1px solid #3a3e50;
+    }
+
+    .djia-progress {
+      width: 80%;
+      height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 300;
+    }
+
+    .progress-percent {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 300;
+      font-size: 1.5rem;
+    }
+  }
 }
 
-.djiagraph {
-  // width: 70%;
-  // margin: 0 auto;
-  // background-color: white;
-  h1 {
-    margin: 0;
-    margin-top: 30px;
-    color: white;
-    font-size: 40px;
+@include tablet {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
   }
-  span {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 12px;
-    margin-left: 10px;
-    font-weight: 200;
-  }
-  .main-svg {
-    background: none !important;
+}
+
+@include mobile {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
+    .djia {
+      padding: 0 10px;
+    }
   }
 }

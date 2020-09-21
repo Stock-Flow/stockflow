@@ -1,14 +1,11 @@
-import {
-  put,
-  takeLatest
-} from "redux-saga/effects";
+import { put, takeLatest } from 'redux-saga/effects';
 
-const prefix = "stockflow/selectedStock";
+const prefix = 'stockflow/selectedStock';
 
 const initialState = {
   loading: true,
-  kind: "",
-  symbol: "",
+  kind: '',
+  symbol: '',
   error: null,
 };
 
@@ -38,7 +35,6 @@ const failGetelectedStock = (error) => {
 
 function* getSelectedStockSaga(action) {
   const selectedStock = action.payload;
-  console.log(selectedStock)
   yield put(startGetSelectedStock());
   try {
     yield put(successGetSelectedStock(selectedStock));
@@ -47,12 +43,12 @@ function* getSelectedStockSaga(action) {
   }
 }
 
-const GET_SELECTEDSTOCK_SAGA = "GET_SELECTEDSTOCK_SAGA";
+const GET_SELECTEDSTOCK_SAGA = 'GET_SELECTEDSTOCK_SAGA';
 export const getSelectedStockSagaActionCreator = (symbol, kind) => ({
   type: GET_SELECTEDSTOCK_SAGA,
   payload: {
     symbol,
-    kind
+    kind,
   },
 });
 
@@ -66,23 +62,22 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-          error: null,
+        error: null,
       };
 
     case GET_SELECTEDSTOCK_SUCCESS:
-      console.log(action.selectedStock);
       return {
         ...prevState,
         loading: false,
-          kind: action.selectedStock.kind,
-          symbol: action.selectedStock.symbol,
-          error: null,
+        kind: action.selectedStock.kind,
+        symbol: action.selectedStock.symbol,
+        error: null,
       };
     case GET_SELECTEDSTOCK_FAIL:
       return {
         ...prevState,
         loading: false,
-          error: action.error,
+        error: action.error,
       };
     default:
       return {

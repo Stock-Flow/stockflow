@@ -72,11 +72,10 @@ function* getDetailStockSaga(action) {
   } = action.payload;
   yield put(startGetDetailStock());
   try {
-    const updateDate = yield select(state => state.djia.date);
+    const updateDate = yield select((state) => state.djia.date);
     let stock = LocalStorageService.getDetailStock(symbol, updateDate);
     if (!stock) {
       stock = yield call(DetailStockService.getStockDaily, func, symbol, date);
-      console.log(stock[1]);
       if (stock[0].length >= 1500) {
         stock[0] = stock[0].slice(-1500);
         stock[1] = stock[1].slice(-1500);
@@ -85,7 +84,7 @@ function* getDetailStockSaga(action) {
         if (i === 0) {
           return 'red';
         }
-        return stock[1][i - 1].value < stock[1][i].value ? 'red' : 'blue';
+        return stock[1][i - 1].value < stock[1][i].value ? '#C52D3C' : '#2BAA65';
       });
       const volumeData = stock[1].map((item, i) => ({
         ...item,
@@ -162,9 +161,6 @@ function* getIndicatorSaga() {
     yield put(FailGetIndicator(error));
   }
 }
-
-
-
 
 export function* detailStockSaga() {
   yield takeEvery(GET_DETAILSTOCK_SAGA, getDetailStockSaga);

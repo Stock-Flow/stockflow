@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../key';
+import {
+  apiKey
+} from '../key';
 import DataProcessingService from './DataProcessingService';
 
 export default class DetailCurrencyService {
@@ -23,7 +25,6 @@ export default class DetailCurrencyService {
 
     detailCurrency = DataProcessingService.CurrencyGraphDataProcessing(detailCurrency);
 
-    console.log(detailCurrency, volume)
     return [detailCurrency, volume.reverse()];
   }
 }

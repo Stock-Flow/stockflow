@@ -1,65 +1,154 @@
+@import '../../responsive.scss';
+
 .foreign-exchange-wrap {
-  display: inline-block;
-  width: 30%;
-  margin-top: 50px;
-
-  .exchange-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border-bottom: 1px solid #ededed;
-    transition: 0.3s all;
-    &:first-child {
-      border-top: 1px solid #ededed;
-    }
-    .exchange-column.icon {
-      position: relative;
-      width: 10%;
-
-      .country-icon {
-        position: absolute;
-        transform: translate(0, -50%);
-        img {
-          border-radius: 50%;
-          border: 2px solid #fff;
-        }
+  > div {
+    float: left;
+    margin-top: 50px;
+    vertical-align: top;
+  }
+  // 로딩상태
+  .exchange-item-wrap-loading {
+    position: relative;
+    width: 50%;
+    height: 260px;
+    border: 1px solid #3a3e50;
+    background: #2d303e;
+  }
+  .exchange-loading {
+    .anticon-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      .anticon-spin {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
       }
-      .to {
-        top: 10px;
-      }
-      .from {
-        left: -10px;
-        z-index: 1;
-      }
-    }
-    .exchange-column.name {
-      width: 45%;
-      .currency-name {
-        font-size: 0.8rem;
-        color: #666;
-      }
-    }
-    .exchange-column.rate {
-      width: 26%;
-      padding-left: 10px;
-    }
-    .exchange-column.percent {
-      .plus {
-        color: rgb(59, 151, 74);
-      }
-
-      .minus {
-        color: rgb(184, 53, 53);
-      }
-    }
-    &:hover {
-      background: rgb(227, 238, 255);
     }
   }
 
-  // common
-  p {
-    margin: 0;
+  .foreign-exchange-detail-wrap {
+    position: relative;
+    margin-left: 48px;
+    float: right;
+  }
+  .exchange-item-wrap {
+    border: 1px solid #3a3e50;
+    background: #2d303e;
+  }
+  .foreign-exchange-list-wrap {
+    display: inline-block;
+    width: 50%;
+
+    .exchange-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      border-bottom: 1px solid #3a3e50;
+      transition: 0.3s all;
+      cursor: pointer;
+
+      &:first-child {
+        border-top: 1px solid #3a3e50;
+      }
+
+      .exchange-column.icon {
+        position: relative;
+        width: 10%;
+
+        .country-icon {
+          position: absolute;
+          transform: translate(0, -50%);
+
+          img {
+            border-radius: 50%;
+            border: 2px solid #fff;
+          }
+        }
+
+        .to {
+          top: 10px;
+        }
+
+        .from {
+          left: -10px;
+          z-index: 1;
+        }
+      }
+
+      .exchange-column.name {
+        width: 45%;
+
+        .currency-name {
+          line-height: 1.8;
+          font-size: 0.8rem;
+          color: #c9c9c9;
+        }
+      }
+
+      .exchange-column.rate {
+        width: 26%;
+        padding-left: 10px;
+      }
+
+      .exchange-column.percent {
+        .plus {
+          color: #2baa65;
+        }
+
+        .minus {
+          color: #c52d3c;
+        }
+      }
+
+      &:hover {
+        background: #41455c;
+      }
+    }
+
+    // common
+    p {
+      margin: 0;
+    }
+  }
+}
+
+@include tablet {
+  .exchange-loading {
+    .anticon-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      .anticon-spin {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+      }
+    }
+  }
+  .foreign-exchange-detail-wrap {
+    display: block;
+    width: 100%;
+  }
+  .foreign-exchange-list-wrap {
+    display: block;
+    width: 100% !important;
+  }
+}
+
+@include mobile {
+  .foreign-exchange-detail-wrap {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+  }
+  .foreign-exchange-list-wrap {
+    display: block;
+    width: 100% !important;
   }
 }
