@@ -28,7 +28,6 @@ export default function ForeignExchangeDetail({
         chartExchange.current.resize(windowWidth * 0.72, 260);
       }
     }
-
   };
 
   useEffect(() => {
@@ -59,6 +58,18 @@ export default function ForeignExchangeDetail({
       layout: {
         backgroundColor: '#2d303e',
         textColor: '#eeeeee',
+      },
+      grid: {
+        vertLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+        horzLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
       },
     });
     exchangeLineSeries.current = chartExchange.current.addLineSeries({

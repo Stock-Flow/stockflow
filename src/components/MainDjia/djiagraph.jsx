@@ -54,6 +54,19 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
         backgroundColor: '#2d303e',
         textColor: '#eeeeee',
       },
+      grid: {
+        vertLines: {
+          // color: 'rgba(33, 150, 243, 0.7)',
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+        horzLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+      },
     });
 
     lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
