@@ -52,7 +52,7 @@ export default function CurrencyList({
             keys.forEach((item, i) => {
               currencys.push({ date: item, price: values[i] });
             });
-            let color = currency.change === '-' ? 'green' : 'red';
+            let color = currency.change < 0 ? 'yellow' : 'red';
 
             function transSymbol(e) {
               toggleMenu();

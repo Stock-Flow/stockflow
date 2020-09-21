@@ -71,7 +71,7 @@ function* getDetailCurrencySaga(action) {
         if (i === 0) {
           return "red"
         }
-        return currency[1][i - 1].value < currency[1][i].value ? "red" : 'blue'
+        return currency[1][i - 1].value < currency[1][i].value ? '#C52D3C' : '#2BAA65';
       })
       const volumeData = currency[1].map((item, i) => ({
         ...item,

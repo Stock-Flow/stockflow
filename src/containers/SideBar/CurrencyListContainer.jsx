@@ -3,6 +3,7 @@ import CurrencyList from '../../components/SideBar/CurrencyList';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebarCurrency';
+import SearchService from '../../services/SearchService';
 
 export default function CurrencyListContainer({ search, sort, menu, toggleMenu }) {
   const dispatch = useDispatch();
@@ -13,10 +14,7 @@ export default function CurrencyListContainer({ search, sort, menu, toggleMenu }
 
   if (currencyList.length !== 0) {
     if (search) {
-      const regexp = new RegExp(search, 'i');
-      currencyList = currencyList.filter((currency) =>
-        regexp.test(currency.name),
-      );
+      currencyList = SearchService.searchingCurrencyList(search, currencyList)
     }
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
