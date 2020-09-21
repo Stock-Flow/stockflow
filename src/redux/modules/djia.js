@@ -16,7 +16,7 @@ const initialState = {
   loading: true,
   djia: [],
   error: null,
-  date: new Date().getDate(),
+  date: new Date(),
   done: 0
 }
 

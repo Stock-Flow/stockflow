@@ -485,9 +485,10 @@ export default function DetailStockGraph({
   const search = useRef();
 
   const checkSearchDone = async () => {
-    if (searchValue.current) {
+    if (searchValue.current && searchValue.current.value.length !== 0) {
       search.current = searchValue.current.value;
       setSearchList(await SearchService.searchingStock(search.current));
+      console.log(searchList)
     }
   };
   // stock
@@ -538,7 +539,7 @@ export default function DetailStockGraph({
         />
 
         <datalist id="search-list">
-          {searchList.length !== 0 &&
+          {(searchList.length !== 0) &&
             searchList.bestMatches.map((item) => {
               return <option value={item['1. symbol']}></option>;
             })}
