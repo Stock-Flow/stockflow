@@ -79,11 +79,12 @@ html {
 }
 
 .ReactModal__Overlay {
-  background-color: rgba(41, 41, 41, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
   color: #727aa0;
 
   .ReactModal__Content {
-    background: rgba(51, 47, 47, 1) !important;
+    border: 1px solid #4a4e61 !important;
+    background: #272833 !important;
     box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
 
     form {
@@ -120,6 +121,7 @@ html {
               margin-top: 0;
               margin-bottom: 0;
               margin-right: 20px;
+              font-weight: 600;
             }
           }
           .signal {
@@ -139,11 +141,12 @@ html {
       background: #727aa0;
       display: block;
       height: 40px;
-      margin: 70px auto 10px;
-      border-radius: 15px;
+      margin: 80px auto 10px;
+      border-radius: 5px;
       color: #ffffff;
       cursor: pointer;
-      padding: 0 15px;
+      border: none;
+      padding: 0 40px;
     }
   }
 }
@@ -159,8 +162,10 @@ html {
     height: 30px;
     position: absolute;
     top: 50%;
-    transform: translate(16%, -50%);
+    transform: translate(0%, -50%);
     left: auto;
+    border: none;
+    display: inline-block;
     background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
   }
   .search::placeholder {
@@ -168,18 +173,20 @@ html {
   }
   .add-modal-btn {
     position: absolute;
-    bottom: 0%;
-    right: 40%;
+    top: 50%;
+    right: 8%;
     transform: translate(0%, -50%);
     left: auto;
-
     background: #727aa0;
     display: block;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 4px;
     color: #ffffff;
     cursor: pointer;
+    font-weight: 400;
     padding: 0 15px;
+    border: none;
+    display: inline-block;
   }
 }
 
