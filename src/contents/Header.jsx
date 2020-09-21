@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RemindingStockContainer from '../containers/Detail/RemindingStockContainer';
 import './Header.scss';
 import { useDispatch } from 'react-redux';
 import { getSelectedStockSagaActionCreator } from '../redux/modules/selectedStock';
-import { useCallback } from 'react';
-// import ToggleMenuButton from './ToggleMenuButton'
-import SideBarContent from './SideBarContent';
+
 
 export default function Header({ toggleMobileMenu }) {
   const dispatch = useDispatch();

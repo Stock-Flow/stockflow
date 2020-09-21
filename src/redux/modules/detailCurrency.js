@@ -5,7 +5,6 @@ import {
   takeEvery,
   select
 } from "redux-saga/effects";
-import IndicatorService from "../../services/IndicatorService";
 import LocalStorageService from "../../services/LocalStorageService";
 import DataProcessingService from "../../services/DataProcessingService";
 
@@ -56,7 +55,11 @@ const getCurrencyFromLocalStorage = (detailCurrency) => {
 
 
 function* getDetailCurrencySaga(action) {
-  const { func, symbol, date } = action.payload;
+  const {
+    func,
+    symbol,
+    date
+  } = action.payload;
   yield put(startGetDetailCurrency());
   try {
     const updateDate = yield select(state => state.djia.date);
@@ -188,51 +191,51 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_DETAILCURRENCY_SUCCESS:
       return {
         ...prevState,
         loading: false,
-        currency: action.currency,
-        indicator: action.indicator,
-        error: null,
-        volume: action.volume
+          currency: action.currency,
+          indicator: action.indicator,
+          error: null,
+          volume: action.volume
       };
     case GET_DETAILCURRENCY_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
 
-    // case GET_CURRENCYINDICATOR_START:
-    //   return {
-    //     ...prevState,
-    //     loading: true,
-    //       error: null,
-    //   }
+      // case GET_CURRENCYINDICATOR_START:
+      //   return {
+      //     ...prevState,
+      //     loading: true,
+      //       error: null,
+      //   }
 
-    //   case GET_CURRENCYINDICATOR_SUCCESS:
-    //     return {
-    //       ...prevState,
-    //       loading: false,
-    //         indicator: action.indicator,
-    //         error: null,
-    //     }
-    //     case GET_CURRENCYINDICATOR_FAIL:
-    //       return {
-    //         ...prevState,
-    //         indicator: [],
-    //         loading: false,
-    //         error: action.error
-    //       }
+      //   case GET_CURRENCYINDICATOR_SUCCESS:
+      //     return {
+      //       ...prevState,
+      //       loading: false,
+      //         indicator: action.indicator,
+      //         error: null,
+      //     }
+      //     case GET_CURRENCYINDICATOR_FAIL:
+      //       return {
+      //         ...prevState,
+      //         indicator: [],
+      //         loading: false,
+      //         error: action.error
+      //       }
 
-          default:
-            return {
-              ...prevState,
-            };
+    default:
+      return {
+        ...prevState,
+      };
 
   }
 }

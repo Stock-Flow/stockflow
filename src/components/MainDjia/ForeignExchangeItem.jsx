@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { createGetSelectedExchangeSaga } from '../../redux/modules/selectedExchange';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { useEffect } from 'react';
 // import ForeignExchange from './ForeignExchange';
 

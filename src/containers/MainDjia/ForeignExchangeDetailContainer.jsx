@@ -25,9 +25,6 @@ export default function ForeignExchangeDetailContainer() {
   );
 
   let time = [];
-  let open = [];
-  let high = [];
-  let low = [];
   let value = [];
 
   let keyTime = [];

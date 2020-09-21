@@ -13,7 +13,6 @@ export default function ForeignExchangeDetail({
   const exchangeLoading = useSelector((state) => state.exchange.loading);
 
   const chartExchange = useRef();
-  const chartExchange2 = useRef();
   const exchangeLineSeries = useRef();
   const excahngeChartposition = useRef();
 

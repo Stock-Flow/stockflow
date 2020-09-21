@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
@@ -155,12 +155,12 @@ export default function FavoriteList({
                               className="bookmark_true"
                             />
                           ) : (
-                            <img
-                              src="./images/bookmark_false.png"
-                              alt="bookmark_false"
-                              className="bookmark_false"
-                            />
-                          )}
+                              <img
+                                src="./images/bookmark_false.png"
+                                alt="bookmark_false"
+                                className="bookmark_false"
+                              />
+                            )}
                         </button>
                         <div className="sidebar-title-text">
                           <span className="sidebar-symbol">
@@ -254,12 +254,12 @@ export default function FavoriteList({
                                 className="bookmark_true"
                               />
                             ) : (
-                              <img
-                                src="./images/bookmark_false.png"
-                                alt="bookmark_false"
-                                className="bookmark_false"
-                              />
-                            )}
+                                <img
+                                  src="./images/bookmark_false.png"
+                                  alt="bookmark_false"
+                                  className="bookmark_false"
+                                />
+                              )}
                           </button>
                           <div className="sidebar-title-text">
                             <span className="sidebar-symbol">

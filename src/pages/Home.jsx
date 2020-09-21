@@ -6,14 +6,13 @@ import { useSelector } from 'react-redux';
 import DetailStockGraphContainer from '../containers/Detail/DetailStockGraphContainer';
 import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGraphContainer';
 import './Home.scss';
-import ForeignExchangeDetailContainer from '../containers/MainDjia/ForeignExchangeDetailContainer';
 import Header from '../contents/Header';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
-  const selectedExchange = useSelector(
-    (state) => state.selectedExchange.fxIntraday.fxIntraday,
-  );
+  // const selectedExchange = useSelector(
+  //   (state) => state.selectedExchange.fxIntraday.fxIntraday,
+  // );
   const [mobileMenu, setMobileMenu] = useState(false);
 
 
