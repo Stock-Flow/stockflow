@@ -188,11 +188,13 @@
           }
         }
       }
+
       span:first-child {
         width: 20%;
         text-align: right;
         white-space: nowrap;
       }
+
       span:last-child {
         text-align: right;
         white-space: nowrap;
@@ -237,6 +239,7 @@
     display: none;
   }
 }
+
 
 @include desktop {
 }
@@ -308,8 +311,24 @@
 
 @include mobile {
 }
+// .none {
+//   display: none;
+//   background-color: red;
+//   display: flex;
+//   flex-direction: column;
+//   button {
+//     width: calc(50% - 7px);
+//     height: 60px;
+//     border: 0px;
+//     font-size: 1.125rem;
+//     color: #ffffff;
+//     background: #212933;
+//     margin: 10px auto 0;
+//   }
+
 
 .loading_icon {
   display: block;
   margin: 50% auto;
 }
+

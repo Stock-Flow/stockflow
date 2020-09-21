@@ -15,16 +15,36 @@
       position: absolute;
       top: 2px;
       right: 2px;
+      z-index: 1;
       width: 15px;
       height: 15px;
       // border: 2px solid #fff;
       border-radius: 50%;
-      font-size: 0.6875rem;
-      line-height: 18px;
+      font-size: 0.5rem;
+      line-height: 15px;
       font-weight: 400;
       text-indent: 0;
       color: #fff;
       background: #2196f3;
+      box-sizing: border-box;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: -1;
+        display: block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+
+        animation-name: alert;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+        background: #2196f3;
+        box-sizing: border-box;
+      }
     }
   }
   .stocklist-wrap {
@@ -79,5 +99,19 @@
       border-top: 1px solid #3a3e50;
       border-left: 1px solid #3a3e50;
     }
+  }
+}
+@keyframes alert {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  95% {
+    opacity: 0.1;
+    transform: scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }
