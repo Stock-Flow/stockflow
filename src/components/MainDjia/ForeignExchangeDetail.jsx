@@ -13,6 +13,7 @@ export default function ForeignExchangeDetail({
   const exchangeLoading = useSelector((state) => state.exchange.loading);
 
   const chartExchange = useRef();
+  const chartExchange2 = useRef();
   const exchangeLineSeries = useRef();
   const excahngeChartposition = useRef();
 
@@ -20,16 +21,32 @@ export default function ForeignExchangeDetail({
   window.onresize = () => {
     setWindowWidth(window.innerWidth);
     if (chartExchange.current) {
-      chartExchange.current.resize(windowWidth * 0.36 - 100, 260);
+      if (windowWidth >= 1200) {
+        chartExchange.current.resize(windowWidth * 0.36 - 100, 260);
+      }
+      if (windowWidth < 1200) {
+        chartExchange.current.resize(windowWidth * 0.72, 260);
+      }
     }
+
   };
 
   useEffect(() => {
     // if (!exchangeLoading) {
-    chartExchange.current = createChart(excahngeChartposition.current, {
-      width: windowWidth * 0.36 - 100,
-      height: 260,
-    });
+    if (windowWidth >= 1200) {
+      chartExchange.current = createChart(excahngeChartposition.current, {
+        width: windowWidth * 0.36 - 100,
+        height: 260,
+      });
+    }
+
+    if (windowWidth < 1200) {
+      chartExchange.current = createChart(excahngeChartposition.current, {
+        width: windowWidth * 0.72,
+        height: 260,
+      });
+    }
+
     chartExchange.current.applyOptions({
       priceScale: {
         position: 'right',

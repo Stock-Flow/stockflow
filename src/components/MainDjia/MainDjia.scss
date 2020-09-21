@@ -1,10 +1,9 @@
+@import '../../responsive.scss';
+
 .djiagraphBox {
   width: 75vw;
   padding: 0 15px;
 
-  // .djia {
-  //  
-  //   padding: 0 20px;
 
 
   .djia {
@@ -34,7 +33,6 @@
       .main-svg {
         background: none !important;
       }
-
     }
 
     .tv-lightweight-charts {
@@ -57,5 +55,12 @@
       transform: translate(-50%, 0);
       z-index: 300;
     }
+  }
+}
+
+@include tablet {
+  .djiagraphBox {
+    margin: 0 auto;
+    padding: 30px 0 50px 0;
   }
 }

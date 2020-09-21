@@ -12,6 +12,7 @@ export default function StockList({
   loading,
   search,
   menu,
+  toggleMenu
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function StockList({
               let color = stock.change < 0 ? 'yellow' : 'red';
 
               function transSymbol(e) {
+                toggleMenu();
                 e.stopPropagation();
                 sendSymbol(stock.symbol);
               }
@@ -132,11 +134,11 @@ export default function StockList({
         </ul>
       </div>
     );
-  } else  {
+  } else {
     return (
-    <div className="sidebar stock">
+      <div className="sidebar stock">
         <ul className={menu === 'stock' ? '' : 'none'}>
-          <LoadingOutlined className='loading_icon'/>
+          <LoadingOutlined className='loading_icon' />
         </ul>
       </div>
     )
