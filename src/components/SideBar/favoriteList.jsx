@@ -13,12 +13,12 @@ export default function FavoriteList({
   menu,
   loading,
   currencyLoading,
-  toggleMenu
+  toggleMenu,
 }) {
-  const [value, setValue] = useState('stock')
+  const [value, setValue] = useState('stock');
 
   const dispatch = useDispatch();
-  const selected = useRef()
+  const selected = useRef();
   // return <div>A</div>;
 
   const sendCurrencySymbol = (selectedStock) => {
@@ -32,14 +32,24 @@ export default function FavoriteList({
   };
 
   const sendToCurrencySymbol = (selectedStock, favoriteDataList) => {
-    dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'currency'))
-
-  }
+    dispatch(
+      getfavoriteListButtonActionCreator(
+        selectedStock,
+        favoriteDataList,
+        'currency',
+      ),
+    );
+  };
 
   const sendToStockSymbol = (selectedStock, favoriteDataList) => {
-    dispatch(getfavoriteListButtonActionCreator(selectedStock, favoriteDataList, 'stock'))
-
-  }
+    dispatch(
+      getfavoriteListButtonActionCreator(
+        selectedStock,
+        favoriteDataList,
+        'stock',
+      ),
+    );
+  };
 
   // currencyList = favoriteCurrencyList.filter((favoriteCurrencyList) => {
   //   return (
@@ -53,11 +63,15 @@ export default function FavoriteList({
   // });
 
   const selectedValue = () => {
-    setValue(selected.current.value)
+    setValue(selected.current.value);
   };
 
-  const favoriteStockData = useSelector(state => state.selectedSymbol.selectedStockSymbol)
-  const favoriteCurrencyData = useSelector(state => state.selectedSymbol.selectedCurrencySymbol)
+  const favoriteStockData = useSelector(
+    (state) => state.selectedSymbol.selectedStockSymbol,
+  );
+  const favoriteCurrencyData = useSelector(
+    (state) => state.selectedSymbol.selectedCurrencySymbol,
+  );
 
   // console.log(currencyList)
   // console.log(favoriteCurrencyList)
@@ -65,7 +79,12 @@ export default function FavoriteList({
   if (!currencyLoading) {
     return (
       <>
-        <select className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`} id="sort-chocie" onChange={selectedValue} ref={selected}>
+        <select
+          className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`}
+          id="sort-chocie"
+          onChange={selectedValue}
+          ref={selected}
+        >
           <option defaultValue="stock">stock</option>
           <option value="currency">currency</option>
         </select>
@@ -76,19 +95,12 @@ export default function FavoriteList({
 
             {favoriteCurrencyList.map((favoriteCurrencyList) => {
               const currency = currencyList.filter((currency) => {
-                return (
-                  favoriteCurrencyList.symbol ===
-                  currency.symbol
-                );
+                return favoriteCurrencyList.symbol === currency.symbol;
               })[0];
               // console.log(currency)
               let currencys = [];
-              const keys = Object.keys(
-                currency.currencyData,
-              ).reverse();
-              const values = Object.values(
-                currency.currencyData,
-              )
+              const keys = Object.keys(currency.currencyData).reverse();
+              const values = Object.values(currency.currencyData)
                 .map((item) => item.open)
                 .reverse();
               keys.forEach((item, i) => {
@@ -99,121 +111,165 @@ export default function FavoriteList({
               function transSymbol(e) {
                 toggleMenu();
                 e.stopPropagation();
-                sendCurrencySymbol(
-                  currency.symbol,
-                );
+                sendCurrencySymbol(currency.symbol);
               }
 
-              const Currencysymbol = currency.symbol
+              const Currencysymbol = currency.symbol;
               let favoriteCurrencyDataList = false;
-              if (favoriteCurrencyData.filter((currency) => currency.symbol === Currencysymbol).length !== 0) {
-                favoriteCurrencyDataList = favoriteCurrencyData.filter((currency) => currency.symbol === Currencysymbol)[0].favorite
+              if (
+                favoriteCurrencyData.filter(
+                  (currency) => currency.symbol === Currencysymbol,
+                ).length !== 0
+              ) {
+                favoriteCurrencyDataList = favoriteCurrencyData.filter(
+                  (currency) => currency.symbol === Currencysymbol,
+                )[0].favorite;
                 // console.log(favoriteCurrencyDataList)
               }
 
               function selectedCurrencyFavorite(e) {
                 e.stopPropagation();
                 sendToCurrencySymbol(currency.symbol);
-                if (favoriteCurrencyData.filter((currency) => currency.symbol === Currencysymbol).length !== 0) {
-                  favoriteCurrencyDataList = !favoriteCurrencyDataList
+                if (
+                  favoriteCurrencyData.filter(
+                    (currency) => currency.symbol === Currencysymbol,
+                  ).length !== 0
+                ) {
+                  favoriteCurrencyDataList = !favoriteCurrencyDataList;
                 }
               }
 
               return (
                 <>
-                  {value === 'currency' &&
+                  {value === 'currency' && (
                     <li onClick={transSymbol} className="clear-fix">
-                      <button className='bookmark' onClick={selectedCurrencyFavorite}>
-                        {favoriteCurrencyDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                      </button>
-
-                      <div className="sidebar-left">
-                        <div className="inner-sidebar-left">
+                      <div className="sidebar-title">
+                        <button
+                          className="bookmark"
+                          onClick={selectedCurrencyFavorite}
+                        >
+                          {favoriteCurrencyDataList ? (
+                            <img
+                              src="./images/bookmark_true.png"
+                              alt="bookmark_true"
+                              className="bookmark_true"
+                            />
+                          ) : (
+                            <img
+                              src="./images/bookmark_false.png"
+                              alt="bookmark_false"
+                              className="bookmark_false"
+                            />
+                          )}
+                        </button>
+                        <div className="sidebar-title-text">
                           <span className="sidebar-symbol">
                             {currency.symbol}
                           </span>
                           <br />
-                          <span className="sidebar-name">
-                            {currency.name}
-                          </span>
-                        </div>
-                        <div className="inner-sidebar-right">
-                          <V.VictoryLine
-                            data={currencys}
-                            x="date"
-                            y="price"
-                            style={{
-                              data: { stroke: 'yellow' },
-                              parent: {
-                                width: 50,
-                                height: 'auto',
-                                margin: `${0} auto`
-                              },
-                            }}
-                          />
+                          <span className="sidebar-name">{currency.name}</span>
                         </div>
                       </div>
 
-                      <div className="sidebar-right">
-                        <span className='sidebar-price' >{currency.price}</span>
-                        <span className='sidebar-change' >{currency.change}%</span>
+                      <div className="inner-sidebar-chart">
+                        <V.VictoryLine
+                          data={currencys}
+                          x="date"
+                          y="price"
+                          style={{
+                            data: { stroke: 'yellow' },
+                            parent: {
+                              width: 50,
+                              height: 'auto',
+                              margin: `${0} auto`,
+                            },
+                          }}
+                        />
                       </div>
-
-                    </li>}
+                      <span className="sidebar-price">{currency.price}</span>
+                      <span className="sidebar-change">{currency.change}%</span>
+                    </li>
+                  )}
                 </>
               );
             })}
-            {!loading && favoriteStockList.map((symbol) => {
-              const stock = stockList.filter((stock) => {
-                return symbol.symbol === stock.symbol;
-              })[0];
-              if (!stock) return null;
-              let stocks = [];
+            {!loading &&
+              favoriteStockList.map((symbol) => {
+                const stock = stockList.filter((stock) => {
+                  return symbol.symbol === stock.symbol;
+                })[0];
+                if (!stock) return null;
+                let stocks = [];
 
-              const keys = stock.stockData.map((date) => date.time);
-              const values = stock.stockData.map((item) => +item.open);
-              keys.forEach((item, i) => {
-                stocks.push({ date: item, price: values[i] });
-              });
-              let color = stock.change[0] === '-' ? 'yellow' : 'red';
-              function transSymbol(e) {
-                toggleMenu()
-                e.stopPropagation();
-                sendStockSymbol(stock.symbol);
-              }
-
-              const symbolStock = stock.symbol
-              let favoriteStockDataList = false;
-              if (favoriteStockData.filter((stock) => stock.symbol === symbolStock).length !== 0) {
-                favoriteStockDataList = favoriteStockData.filter((stock) => stock.symbol === symbolStock)[0].favorite
-                // console.log(favoriteStockDataList)
-              }
-
-
-              function selectedStockFavorite(e) {
-                e.stopPropagation();
-                sendToStockSymbol(stock.symbol);
-                if (favoriteStockData.filter((stock) => stock.symbol === symbolStock).length !== 0) {
-                  favoriteStockDataList = !favoriteStockDataList
+                const keys = stock.stockData.map((date) => date.time);
+                const values = stock.stockData.map((item) => +item.open);
+                keys.forEach((item, i) => {
+                  stocks.push({ date: item, price: values[i] });
+                });
+                let color = stock.change[0] === '-' ? 'yellow' : 'red';
+                function transSymbol(e) {
+                  toggleMenu();
+                  e.stopPropagation();
+                  sendStockSymbol(stock.symbol);
                 }
-              }
 
-              return (
-                <>
-                  {value === 'stock' &&
-                    <li onClick={transSymbol} className="clear-fix">
-                      <button className='bookmark' onClick={selectedStockFavorite}>
-                        {favoriteStockDataList ? <img src="./images/bookmark_true.png" alt="bookmark_true" className='bookmark_true' /> : <img src="./images/bookmark_false.png" alt="bookmark_false" className='bookmark_false' />}
-                      </button>
+                const symbolStock = stock.symbol;
+                let favoriteStockDataList = false;
+                if (
+                  favoriteStockData.filter(
+                    (stock) => stock.symbol === symbolStock,
+                  ).length !== 0
+                ) {
+                  favoriteStockDataList = favoriteStockData.filter(
+                    (stock) => stock.symbol === symbolStock,
+                  )[0].favorite;
+                  // console.log(favoriteStockDataList)
+                }
 
-                      <div className="sidebar-left">
-                        <div className="inner-sidebar-left">
-                          <span className="sidebar-symbol">{stock.symbol}</span>
-                          <br />
-                          <span className="sidebar-name">{stock.name}</span>
-                          <br />
+                function selectedStockFavorite(e) {
+                  e.stopPropagation();
+                  sendToStockSymbol(stock.symbol);
+                  if (
+                    favoriteStockData.filter(
+                      (stock) => stock.symbol === symbolStock,
+                    ).length !== 0
+                  ) {
+                    favoriteStockDataList = !favoriteStockDataList;
+                  }
+                }
+
+                return (
+                  <>
+                    {value === 'stock' && (
+                      <li onClick={transSymbol} className="clear-fix">
+                        <div className="sidebar-title">
+                          <button
+                            className="bookmark"
+                            onClick={selectedStockFavorite}
+                          >
+                            {favoriteStockDataList ? (
+                              <img
+                                src="./images/bookmark_true.png"
+                                alt="bookmark_true"
+                                className="bookmark_true"
+                              />
+                            ) : (
+                              <img
+                                src="./images/bookmark_false.png"
+                                alt="bookmark_false"
+                                className="bookmark_false"
+                              />
+                            )}
+                          </button>
+                          <div className="sidebar-title-text">
+                            <span className="sidebar-symbol">
+                              {stock.symbol}
+                            </span>
+                            <br />
+                            <span className="sidebar-name">{stock.name}</span>
+                          </div>
                         </div>
-                        <div className="inner-sidebar-right">
+                        <div className="inner-sidebar-chart">
                           <V.VictoryLine
                             data={stocks}
                             x="date"
@@ -223,27 +279,23 @@ export default function FavoriteList({
                               parent: {
                                 width: 50,
                                 height: 'auto',
-                                margin: `${0} auto`
+                                margin: `${0} auto`,
                               },
                             }}
                           />
                         </div>
-                      </div>
-                      <div className="sidebar-right">
                         <span className="sidebar-price">{stock.price}</span>
                         <span className="sidebar-change">{stock.change}</span>
-                      </div>
-                    </li>}
-                </>
-              );
-            })}
+                      </li>
+                    )}
+                  </>
+                );
+              })}
           </ul>
         </div>
       </>
     );
   } else {
-    return <div></div>
+    return <div></div>;
   }
-
-
 }

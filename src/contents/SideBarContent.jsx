@@ -148,7 +148,7 @@ export default function SideBarContent() {
             </select>
           </div>
 
-          <div className="list_values">
+          <div className="list-values">
             <span>Symbol</span>
             <span>Graph</span>
             <span>Price</span>

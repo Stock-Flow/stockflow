@@ -41,7 +41,7 @@
   }
 
   .sidebarList {
-    padding: 0 15px;
+    padding: 0;
     width: 100%;
     min-width: 342px;
     background: #2b2d3c;
@@ -90,37 +90,32 @@
       margin-bottom: 20px;
     }
 
-    .list_values {
+    .list-values {
       margin: 20px 0;
+
       // width: 100%;
       // margin-top: 20px;
 
       span {
         display: inline-block;
         color: #727aa0;
+        text-align: center;
       }
 
       span:nth-child(1) {
-        width: 20%;
-        padding-left: 5%;
+        width: 30%;
       }
 
       span:nth-child(2) {
-        width: 10%;
-        padding-left: 10%;
-        text-align: center;
+        width: 20%;
       }
 
       span:nth-child(3) {
         width: 20%;
-        padding-left: 6%;
-        text-align: center;
       }
 
       span:nth-child(4) {
-        float: right;
-        width: 25%;
-        text-align: right;
+        width: 30%;
       }
     }
 
@@ -130,113 +125,106 @@
       li {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
         padding: 12px 0;
+        transition: 0.3s all;
+        box-sizing: border-box;
+        cursor: pointer;
 
-        .inner-sidebar-left {
-          width: 50%;
-          // float: left;
-        }
+        // side bar list item :: 민지수정중
 
-        .inner-sidebar-right {
-          // float: right;
-          width: 50%;
-        }
-
-        .sidebar-left {
+        .sidebar-title {
+          overflow: hidden;
           display: flex;
-          justify-content: space-between;
-          width: 50%;
-          // max-width: 50%;
-
+          flex-basis: 30%;
+          padding-left: 15px;
+          white-space: nowrap;
+          box-sizing: border-box;
           .sidebar-name {
-            position: absolute;
             font-size: 0.6875rem;
             color: #979797;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: 5%;
+          }
+          .bookmark {
+            background: none;
+            border: none;
             display: inline-block;
+            outline: none;
+            position: relative;
+            cursor: pointer;
+            z-index: 10;
+            margin: 0;
+            padding: 0;
+
+            img {
+              width: 15px;
+              height: 15px;
+            }
+          }
+          .sidebar-title-text {
+            display: inline-block;
+            margin-left: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
         }
+        .inner-sidebar-chart {
+          flex-basis: 20%;
+        }
+        .sidebar-price {
+          flex-basis: 20%;
+          text-align: center;
+          font-size: 0.875rem;
+        }
+        .sidebar-change {
+          flex-basis: 30%;
+          text-align: center;
+          font-size: 0.875rem;
+        }
+        &:hover {
+          background: #41455c;
+        }
+      }
 
-        .sidebar-right {
-          display: flex;
-          justify-content: space-between;
+      .sidebar-right {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        // float: right;
+
+        .VictoryContainer {
+          display: inline-block;
+          background-color: pink;
+        }
+
+        .sidebar-price {
+          display: inline-block;
           width: 50%;
-          // float: right;
+          padding-left: 5%;
+          // text-align: left;
+          font-size: 0.8rem;
+        }
 
-          .VictoryContainer {
-            display: inline-block;
-            background-color: pink;
-          }
-
-          .sidebar-price {
-            display: inline-block;
-            width: 50%;
-            padding-left: 5%;
-            // text-align: left;
-            font-size: 0.8rem;
-          }
-
-          .sidebar-change {
-            display: inline-block;
-            width: 50%;
-            text-align: right;
-            font-size: 0.8rem;
-          }
+        .sidebar-change {
+          display: inline-block;
+          width: 50%;
+          text-align: right;
+          font-size: 0.8rem;
         }
       }
-      span:first-child {
-        width: 20%;
-        text-align: right;
-        white-space: nowrap;
-      }
-      span:last-child {
-        text-align: right;
-        white-space: nowrap;
-      }
-    }
-
-    .bookmark {
-      background: none;
-      border: none;
-      display: inline-block;
-      outline: none;
-      position: relative;
-      cursor: pointer;
-      z-index: 10;
-      width: 25px;
-      height: 25px;
-
-      img {
-        width: 100%;
-      }
-
-      .bookmark_false {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-70%, -50%);
-      }
-
-      .bookmark_true {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-70%, -50%);
-      }
-    }
-
-    .close-button {
-      display: none;
     }
   }
 
-  .none {
+  .close-button {
     display: none;
   }
+}
+
+.none {
+  display: none;
 }
 
 @include desktop {
