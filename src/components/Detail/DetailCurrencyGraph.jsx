@@ -491,7 +491,7 @@ export default function DetailCurrencyGraph({
 
           </>
         )}
-
+ 
 
         <Modal
           isOpen={addModalIsOpen}
@@ -517,6 +517,16 @@ export default function DetailCurrencyGraph({
             })} */}
 
           </datalist>
+
+          <button
+          className="add-modal-btn"
+          // onClick={() => {
+          //   getCompare(searchValue.current.value);
+          //   closeAddModal();
+          // }}
+        >
+          Add
+        </button>
         </Modal>
 
 
