@@ -7,7 +7,6 @@ import './DetailStockGraph.scss';
 import SearchService from '../../services/SearchService';
 import { LoadingOutlined } from '@ant-design/icons';
 
-
 const customStyles = {
   content: {
     top: '50%',
@@ -128,7 +127,7 @@ export default function DetailStockGraph({
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   window.onresize = () => {
-    setWindowWidth(window.innerWidth)
+    setWindowWidth(window.innerWidth);
     if (windowWidth >= 1200) {
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
@@ -153,7 +152,7 @@ export default function DetailStockGraph({
     if (stochasticSlowChart.current) {
       stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
     }
-  }
+  };
 
   const fiveMovingAverageData = movingAverage(stock, 5);
   const twentyMovingAverageData = movingAverage(stock, 20);
@@ -191,7 +190,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() { }
+  function afterOpenModal() {}
   function closeModal() {
     setIsOpen(false);
   }
@@ -232,10 +231,14 @@ export default function DetailStockGraph({
       },
       grid: {
         vertLines: {
-          color: '#555555',
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
         },
         horzLines: {
-          color: '#555555',
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
         },
       },
     });
@@ -405,17 +408,19 @@ export default function DetailStockGraph({
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
       if (lowBBANDS.current) chart.current.removeSeries(lowBBANDS.current);
-      if (middleBBANDS.current) chart.current.removeSeries(middleBBANDS.current);
+      if (middleBBANDS.current)
+        chart.current.removeSeries(middleBBANDS.current);
       if (highBBANDS.current) chart.current.removeSeries(highBBANDS.current);
-      setBBANDSCk(false)
+      setBBANDSCk(false);
       if (smaFive.current) chart.current.removeSeries(smaFive.current);
-      fiveCk(false)
+      fiveCk(false);
       if (smaTwenty.current) chart.current.removeSeries(smaTwenty.current);
-      twentyCk(false)
+      twentyCk(false);
       if (smaSixty.current) chart.current.removeSeries(smaSixty.current);
-      sixtyCk(false)
-      if (smaHundredTwenty.current) chart.current.removeSeries(smaHundredTwenty.current);
-      hundredTwentyCk(false)
+      sixtyCk(false);
+      if (smaHundredTwenty.current)
+        chart.current.removeSeries(smaHundredTwenty.current);
+      hundredTwentyCk(false);
       assistChart.current.removeSeries(volumeChart.current);
     }
     smaFive.current = null;
@@ -435,15 +440,14 @@ export default function DetailStockGraph({
 
     indicatorChart.current.resize(0, 0);
     setRsick(false);
-    stochasticSlowChart.current.resize(0, 0)
+    stochasticSlowChart.current.resize(0, 0);
     setStochasticSlowck(false);
     MACDChart.current.resize(0, 0);
-    setMacdck(false)
+    setMacdck(false);
     MACDOSCChart.current.resize(0, 0);
     setMacdOscCk(false);
     disparityChart.current.resize(0, 0);
     setDisparityck(false);
-
   }, [symbol]);
 
   useEffect(() => {
@@ -488,20 +492,22 @@ export default function DetailStockGraph({
     if (searchValue.current && searchValue.current.value.length !== 0) {
       search.current = searchValue.current.value;
       setSearchList(await SearchService.searchingStock(search.current));
-      console.log(searchList)
+      console.log(searchList);
     }
   };
   // stock
   // 0: {time: "2020-04-13", open: 121.63, high: 121.8, low: 118.04, close: 121.1
   return (
     <div className="detail-stock">
-      {loading ? <LoadingOutlined className="loading" /> : (
+      {loading ? (
+        <LoadingOutlined className="loading" />
+      ) : (
         <>
           <h2>{symbol}</h2>
           <div className="detail-stock-button">
             <button className="detail-button" onClick={openAddModal}>
               Add Stock
-      </button>
+            </button>
             <button
               className="detail-button"
               onClick={() => {
@@ -512,12 +518,11 @@ export default function DetailStockGraph({
               }}
             >
               remove compare graph
-      </button>
+            </button>
             <button className="detail-button" onClick={openModal}>
               Indicators
-      </button>
+            </button>
           </div>
-
         </>
       )}
 
@@ -539,11 +544,10 @@ export default function DetailStockGraph({
         />
 
         <datalist id="search-list">
-          {(searchList.length !== 0) &&
+          {searchList.length !== 0 &&
             searchList.bestMatches.map((item) => {
               return <option value={item['1. symbol']}></option>;
             })}
-
         </datalist>
 
         <button
@@ -555,9 +559,7 @@ export default function DetailStockGraph({
         >
           Add
         </button>
-
       </Modal>
-
 
       <Modal
         isOpen={modalIsOpen}
@@ -592,7 +594,6 @@ export default function DetailStockGraph({
                 </label>
 
                 <label>
-
                   <input
                     type="color"
                     value={fiveColor}
@@ -714,9 +715,6 @@ export default function DetailStockGraph({
             </ul>
           </div>
           <div>
-
-
-
             <h3>Indicators</h3>
             <ul>
               <li>
@@ -763,7 +761,9 @@ export default function DetailStockGraph({
                       setBBANDSColor(e.target.value);
                       if (lowBBANDS.current) {
                         lowBBANDS.current.applyOptions({ color: BBANDSColor });
-                        middleBBANDS.current.applyOptions({ color: BBANDSColor });
+                        middleBBANDS.current.applyOptions({
+                          color: BBANDSColor,
+                        });
                         highBBANDS.current.applyOptions({ color: BBANDSColor });
                       }
                     }}
@@ -779,7 +779,9 @@ export default function DetailStockGraph({
                       if (rsiChart.current) {
                         setRsick(false);
                         indicatorChart.current.removeSeries(rsiChart.current);
-                        indicatorChart.current.removeSeries(rsiSignalChart.current);
+                        indicatorChart.current.removeSeries(
+                          rsiSignalChart.current,
+                        );
                         indicatorChart.current.resize(0, 0);
                         rsiChart.current = null;
                       } else {
@@ -789,14 +791,14 @@ export default function DetailStockGraph({
                           rsiColor,
                           rsiChart,
                           indicators[0],
-                          windowWidth
+                          windowWidth,
                         );
                         GraphService.graphColor(
                           indicatorChart.current,
                           rsiSignalColor,
                           rsiSignalChart,
                           rsiSignal,
-                          windowWidth
+                          windowWidth,
                         );
                       }
                     }}
@@ -842,7 +844,9 @@ export default function DetailStockGraph({
                     onChange={() => {
                       if (disparityGraph.current) {
                         setDisparityck(false);
-                        disparityChart.current.removeSeries(disparityGraph.current);
+                        disparityChart.current.removeSeries(
+                          disparityGraph.current,
+                        );
                         disparityChart.current.resize(0, 0);
                         disparityGraph.current = null;
                       } else {
@@ -852,7 +856,7 @@ export default function DetailStockGraph({
                           disparityColor,
                           disparityGraph,
                           twentyDisparity,
-                          windowWidth
+                          windowWidth,
                         );
                       }
                     }}
@@ -894,14 +898,14 @@ export default function DetailStockGraph({
                           MACDColor,
                           MACDGraph,
                           MACDData.current[0],
-                          windowWidth
+                          windowWidth,
                         );
                         GraphService.graphColor(
                           MACDChart.current,
                           MACDSignalColor,
                           MACDSignalGraph,
                           MACDData.current[1],
-                          windowWidth
+                          windowWidth,
                         );
                       }
                     }}
@@ -958,7 +962,7 @@ export default function DetailStockGraph({
                           MACDOSCColor,
                           MACDOSCGraph,
                           MACDData.current[2],
-                          windowWidth
+                          windowWidth,
                         );
                       }
                     }}
@@ -971,7 +975,9 @@ export default function DetailStockGraph({
                     onChange={(e) => {
                       setMACDOSCColor(e.target.value);
                       if (MACDOSCGraph.current) {
-                        MACDOSCGraph.current.applyOptions({ color: MACDOSCColor });
+                        MACDOSCGraph.current.applyOptions({
+                          color: MACDOSCColor,
+                        });
                       }
                     }}
                     value={MACDOSCColor}
@@ -1002,14 +1008,14 @@ export default function DetailStockGraph({
                           slowDColor,
                           stochasticSlowDGraph,
                           stochasticSlowData.current[1],
-                          windowWidth
+                          windowWidth,
                         );
                         GraphService.graphColor(
                           stochasticSlowChart.current,
                           slowKColor,
                           stochasticSlowKGraph,
                           stochasticSlowData.current[0],
-                          windowWidth
+                          windowWidth,
                         );
                       }
                     }}
@@ -1053,7 +1059,9 @@ export default function DetailStockGraph({
             </ul>
           </div>
         </form>
-        <button className="indicator-btn" onClick={closeModal}>Submit</button>
+        <button className="indicator-btn" onClick={closeModal}>
+          Submit
+        </button>
       </Modal>
 
       <div className="chart" ref={chartposition}></div>

@@ -12,18 +12,21 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
   const lineSeries = useRef();
   const chartposition = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  window.addEventListener('resize', useCallback(() => {
-    setWindowWidth(window.innerWidth);
-    console.log('hi');
-    if (chart.current) {
-      if (windowWidth >= 1200) {
-        chart.current.resize(windowWidth * 0.72 - 100, 400);
+  window.addEventListener(
+    'resize',
+    useCallback(() => {
+      setWindowWidth(window.innerWidth);
+      console.log('hi');
+      if (chart.current) {
+        if (windowWidth >= 1200) {
+          chart.current.resize(windowWidth * 0.72 - 100, 400);
+        }
+        if (windowWidth < 1200) {
+          chart.current.resize(windowWidth * 0.72, 400);
+        }
       }
-      if (windowWidth < 1200) {
-        chart.current.resize(windowWidth * 0.72, 400);
-      }
-    }
-  }, [windowWidth]))
+    }, [windowWidth]),
+  );
   useEffect(() => {
     if (windowWidth > 1200) {
       chart.current = createChart(chartposition.current, {
@@ -50,6 +53,19 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
       layout: {
         backgroundColor: '#2d303e',
         textColor: '#eeeeee',
+      },
+      grid: {
+        vertLines: {
+          // color: 'rgba(33, 150, 243, 0.7)',
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+        horzLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
       },
     });
 
@@ -80,14 +96,19 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     <div className="djia">
       <h2>DOW J</h2>
       <div ref={chartposition}></div>
-      {loading ? <>
-        <h1 className="progress-percent">{(done * (100 / 30)).toFixed(0)}%</h1>
-        <progress max="30" value={done} className="djia-progress">
-        </progress> </> : <div className="foreign-exchange-wrap">
+      {loading ? (
+        <>
+          <progress max="30" value={done} className="djia-progress"></progress>{' '}
+          <div className="progress-percent">
+            Loading... {(done * (100 / 30)).toFixed(0)}%
+          </div>
+        </>
+      ) : (
+        <div className="foreign-exchange-wrap">
           <ForeignExchangeContainer />
           <ForeignExchangeDetailContainer />
-        </div>}
-
+        </div>
+      )}
     </div>
   );
 }
