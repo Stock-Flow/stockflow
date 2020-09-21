@@ -545,6 +545,16 @@ export default function DetailStockGraph({
 
         </datalist>
 
+        <button
+          className="add-modal-btn"
+          onClick={() => {
+            getCompare(searchValue.current.value);
+            closeAddModal();
+          }}
+        >
+          Add
+        </button>
+
       </Modal>
 
 
