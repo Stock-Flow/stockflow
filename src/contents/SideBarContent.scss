@@ -239,8 +239,8 @@
   }
 }
 
-
-@include desktop {}
+@include desktop {
+}
 
 @include tablet {
   // .toggle-menu-background {
@@ -312,7 +312,8 @@
   }
 }
 
-@include mobile {}
+@include mobile {
+}
 
 // .none {
 //   display: none;
@@ -329,15 +330,8 @@
 //     margin: 10px auto 0;
 //   }
 // }
-<<<<<<< HEAD
-.loading_icon {
-  display: block;
-  margin: 50% auto;
-}
-=======
 
 .loading_icon {
   display: block;
   margin: 50% auto;
 }
->>>>>>> 89ae9f3d53c41101b0f65b4a6c9f9e98543629f1
