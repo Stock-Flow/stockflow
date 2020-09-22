@@ -19,7 +19,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
   const [stockImgUrl, setStockImgUrl] = useState(
-    './images/chartarrow-white.png',
+    './images/chartarrow.png',
   );
   const [currencyImgUrl, setCurrencyImgUrl] = useState(
     './images/currency-icon.png',
@@ -53,7 +53,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
     searchValue.current.value = '';
     setStockSearch('');
     setCurrencySearch('');
-
+    
     if (e === 'stock') {
       setStockImgUrl('./images/chartarrow-white.png');
       setCurrencyImgUrl('./images/currency-icon.png');
@@ -81,6 +81,28 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
 
   const toggleMenu = () => {
     setDisplay(!display);
+    if(display === true) {
+      setStockImgUrl('./images/chartarrow.png')
+      setCurrencyImgUrl('./images/currency-icon.png')
+      setFavoriteUrl('./images/star-click-icon.png')
+    } else if(display === false) {
+      if(menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if(menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if(menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+      
+    }
   };
 
   console.log(menu);
