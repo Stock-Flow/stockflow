@@ -203,10 +203,6 @@ export default function SideBarContent({
   //   dispatch(getSelectedStockSagaActionCreator('', ''));
   // };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 6c03c6f4995984e42d7ca0664ab582bb4c96a2b7
   return (
     <>
       <div

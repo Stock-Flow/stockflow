@@ -454,13 +454,13 @@ export default function DetailCurrencyGraph({
     middleBBANDS.current = null;
     highBBANDS.current = null;
     smaHundredTwenty.current = null;
-    // rsiChart.current = null;
-    // disparityGraph.current = null;
-    // MACDGraph.current = null;
-    // MACDSignalGraph.current = null;
-    // MACDOSCGraph.current = null;
-    // stochasticSlowDGraph.current = null;
-    // stochasticSlowKGraph.current = null;
+    rsiChart.current = null;
+    disparityGraph.current = null;
+    MACDGraph.current = null;
+    MACDSignalGraph.current = null;
+    MACDOSCGraph.current = null;
+    stochasticSlowDGraph.current = null;
+    stochasticSlowKGraph.current = null;
 
     setBBANDSCk(false);
     fiveCk(false);
@@ -478,7 +478,7 @@ export default function DetailCurrencyGraph({
     setMacdOscCk(false);
     disparityChart.current.resize(0, 0);
     setDisparityck(false);
-  }, [symbol]);
+  }, [symbol, currency]);
 
   useEffect(() => {
     if (compareGraph.current) chart.current.removeSeries(compareGraph.current);
