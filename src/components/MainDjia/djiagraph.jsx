@@ -60,7 +60,7 @@ export default function DjiaGraph({
       },
       layout: {
         backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
-        textColor: '#eeeeee',
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
