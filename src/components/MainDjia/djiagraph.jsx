@@ -76,8 +76,7 @@ export default function DjiaGraph({
         },
       },
     });
-
-  }, [lightMode])
+  }, [lightMode]);
 
   let stockList = [];
   if (djiaList.length !== 0) {
@@ -99,6 +98,7 @@ export default function DjiaGraph({
       to: stockList.length,
     });
   }
+  console.log(lightMode);
   return (
     <div className="djia">
       <h2>DOW J</h2>
@@ -111,11 +111,11 @@ export default function DjiaGraph({
           </div>
         </>
       ) : (
-          <div className="foreign-exchange-wrap">
-            <ForeignExchangeContainer />
-            <ForeignExchangeDetailContainer />
-          </div>
-        )}
+        <div className="foreign-exchange-wrap">
+          <ForeignExchangeContainer />
+          <ForeignExchangeDetailContainer lightMode={lightMode} />
+        </div>
+      )}
     </div>
   );
 }
