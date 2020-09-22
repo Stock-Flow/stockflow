@@ -4,9 +4,10 @@ import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
 
-export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
+export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll }) {
   const searchValue = useRef();
   const searchDone = useRef();
+  const sideBarWrap = useRef();
   const [sort, setSort] = useState('name');
   const [stockSearch, setStockSearch] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
@@ -86,7 +87,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
   return (
     <>
 
-      <div className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''}`}>
+      <div className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${scroll ? 'scroll-control' : ''}`} ref={sideBarWrap}>
         <nav className="menu-bar">
           <button className="toggle-menu" onClick={toggleMenu}>
             <img src="./images/toggle-menu.png" alt="menu" />
@@ -128,7 +129,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
           </button>
         </nav>
 
-        <div className={`sidebarList ${display ? 'sidebarList-show' : ''}`}>
+        <div className={`sidebarList ${display ? 'sidebarList-show' : ''} ${scroll ? 'scroll-control' : ''}`}>
           <input
             className="search"
             type="text"

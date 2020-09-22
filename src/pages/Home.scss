@@ -278,7 +278,7 @@ html {
 
       .chart .tv-lightweight-charts {
         // margin: 0 auto;
-        margin: 37px 80px;
+        margin: 37px 15%;
         margin-top: 20px;
       }
       .detail-stock-button {
@@ -312,11 +312,11 @@ html {
         display: flex;
         flex-direction: column;
 
-        div:first-child{
+        div:first-child {
           margin-bottom: 100px;
         }
-        div{
-          ul {        
+        div {
+          ul {
             li {
               padding-bottom: 10px;
 
@@ -325,21 +325,20 @@ html {
                   height: 20px;
                   width: 20px;
                 }
-                input[type='color']{
-                  width: 50px;  
+                input[type='color'] {
+                  width: 50px;
                 }
               }
               .signal {
                 label {
                   input {
                     width: 50px;
-                  }        
+                  }
                 }
               }
             }
           }
         }
-      
       }
       .indicator-btn {
         margin-top: 70px;
@@ -347,20 +346,15 @@ html {
       }
       //search-modal
       .ReactModal__Content {
-      width: 90%;
-      .search {
-        width: 80%;
-        height: 60px;
+        width: 90%;
+        .search {
+          width: 80%;
+          height: 60px;
         }
       }
     }
   }
 }
-  
-
-
-
-
 
 @include smallmobile {
   .home {
@@ -382,11 +376,11 @@ html {
         display: flex;
         flex-direction: column;
 
-        div:first-child{
+        div:first-child {
           margin-bottom: 100px;
         }
-        div{
-          ul {        
+        div {
+          ul {
             li {
               padding-bottom: 10px;
 
@@ -395,21 +389,20 @@ html {
                   height: 20px;
                   width: 20px;
                 }
-                input[type='color']{
-                  width: 50px;  
+                input[type='color'] {
+                  width: 50px;
                 }
               }
               .signal {
                 label {
                   input {
                     width: 50px;
-                  }        
+                  }
                 }
               }
             }
           }
         }
-      
       }
       .indicator-btn {
         margin-top: 70px;
@@ -417,10 +410,10 @@ html {
       }
       //search-modal
       .ReactModal__Content {
-      width: 90%;
-      .search {
-        width: 80%;
-        height: 60px;
+        width: 90%;
+        .search {
+          width: 80%;
+          height: 60px;
         }
       }
     }
@@ -442,4 +435,10 @@ html {
   }
 }
 
-
+.scroll-control {
+  max-height: 100%;
+  overflow: auto;
+}
+.scrolling-control {
+  overflow: hidden;
+}

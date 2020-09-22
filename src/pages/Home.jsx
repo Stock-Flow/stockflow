@@ -15,26 +15,35 @@ export default function Home() {
   //   (state) => state.selectedExchange.fxIntraday.fxIntraday,
   // );
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [scroll, setScroll] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+
+
 
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
+    setScroll(!scroll);
+    setScrolling(!scrolling);
+    // const $body = document.querySelector('body');
+    document.body.classList.toggle('scrolling-control');
   };
   return (
-    <div className="home">
+    <div className="home" >
       <Header toggleMobileMenu={toggleMobileMenu} />
       <SideBarContent
         mobileMenu={mobileMenu}
         toggleMobileMenu={toggleMobileMenu}
+        scroll={scroll}
       />
       {selectedStock.kind === 'stock' ? (
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
       ) : (
-        <>
-          <DjiagraphContainer />
-        </>
-      )}
+            <>
+              <DjiagraphContainer />
+            </>
+          )}
       <SwitchMode />
     </div>
   );
