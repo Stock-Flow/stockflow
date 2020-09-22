@@ -32,7 +32,7 @@ export default function SideBarContent({
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
 
   const [stockImgUrl, setStockImgUrl] = useState(
-    './images/chartarrow-white.png',
+    window.innerWidth > 1200 || window.innerWidth < 768 ? './images/chartarrow-white.png' : './images/chartarrow.png',
   );
   const [currencyImgUrl, setCurrencyImgUrl] = useState(
     './images/currency-icon.png',
@@ -78,7 +78,6 @@ export default function SideBarContent({
         setFavoriteUrl('./images/star-click-icon-white.png')
       }
     } else {
-      console.log(display)
       if (display === true) {
         if (menu === 'stock') {
           setStockImgUrl('./images/chartarrow-white.png')
@@ -153,25 +152,6 @@ export default function SideBarContent({
     searchValue.current.value = '';
     setStockSearch('');
     setCurrencySearch('');
-    if (display === true) {
-      if (e === 'stock') {
-        setStockImgUrl('./images/chartarrow-white.png');
-        setCurrencyImgUrl('./images/currency-icon.png');
-        setFavoriteUrl('./images/star-click-icon.png');
-      }
-      if (menu === 'currency') {
-        setStockImgUrl('./images/chartarrow.png');
-        setCurrencyImgUrl('./images/currency-icon-white.png');
-        setFavoriteUrl('./images/star-click-icon.png');
-      }
-      if (menu === 'favorite') {
-        setStockImgUrl('./images/chartarrow.png');
-        setCurrencyImgUrl('./images/currency-icon.png');
-        setFavoriteUrl('./images/star-click-icon-white.png');
-      }
-    }
-
-  };
 
     if (window.innerWidth > 1200 || window.innerWidth < 768) {
       if (e === 'stock') {
@@ -189,38 +169,31 @@ export default function SideBarContent({
       } else {
         setStockImgUrl('./images/chartarrow-white.png');
       }
-    }
-
-
-  // console.log(display);
-
-  const changeMode = useCallback(
-    (e) => {
-      // setHomeImgUrl('./images/home.png');
-      setMenu(e);
-      searchValue.current.value = '';
-      setStockSearch('');
-      setCurrencySearch('');
+    } else {
       if (display === true) {
         if (e === 'stock') {
           setStockImgUrl('./images/chartarrow-white.png');
           setCurrencyImgUrl('./images/currency-icon.png');
           setFavoriteUrl('./images/star-click-icon.png');
-        } else if (e === 'currency') {
+        }
+        if (e === 'currency') {
           setStockImgUrl('./images/chartarrow.png');
           setCurrencyImgUrl('./images/currency-icon-white.png');
           setFavoriteUrl('./images/star-click-icon.png');
-        } else if (e === 'favorite') {
+        }
+        if (e === 'favorite') {
           setStockImgUrl('./images/chartarrow.png');
           setCurrencyImgUrl('./images/currency-icon.png');
           setFavoriteUrl('./images/star-click-icon-white.png');
-        } else {
-          setStockImgUrl('./images/chartarrow-white.png');
         }
       }
-    },
-    [display],
-  );
+    }
+  }, [display, menu])
+
+
+
+  // console.log(display);
+
 
   // const goHome = () => {
   //   setHomeImgUrl('./images/home-white.png');
@@ -233,9 +206,8 @@ export default function SideBarContent({
   return (
     <>
       <div
-        className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${
-          scroll ? 'scroll-control' : ''
-        }`}
+        className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${scroll ? 'scroll-control' : ''
+          }`}
         ref={sideBarWrap}
       >
         <nav className="menu-bar">
@@ -280,9 +252,8 @@ export default function SideBarContent({
         </nav>
 
         <div
-          className={`sidebarList ${display ? 'sidebarList-show' : ''} ${
-            scroll ? 'scroll-control' : ''
-          }`}
+          className={`sidebarList ${display ? 'sidebarList-show' : ''} ${scroll ? 'scroll-control' : ''
+            }`}
         >
           <input
             className="search"
@@ -298,9 +269,8 @@ export default function SideBarContent({
 
           <div className="sortbox-wrap clear-fix">
             <select
-              className={`sortbox sortValuebox ${
-                menu !== 'favorite' && 'none'
-              }`}
+              className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'
+                }`}
               id="sort-chocie"
               onChange={selectedcurrentValue}
               ref={selected}
