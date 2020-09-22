@@ -390,4 +390,15 @@
 .loading_icon {
   display: block;
   margin: 50% auto;
+  z-index: 50;
+}
+
+// start :: light mode
+.light {
+  .sidebar-wrap {
+    .menu-bar {
+      background-color: #2f3242;
+      box-shadow: 5px 5px 10px #272936;
+    }
+  }
 }

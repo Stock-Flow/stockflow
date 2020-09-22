@@ -1,11 +1,12 @@
 @import '../../responsive.scss';
 
 .foreign-exchange-wrap {
-  > div {
+  >div {
     float: left;
     margin-top: 50px;
     vertical-align: top;
   }
+
   // 로딩상태
   .exchange-item-wrap-loading {
     position: relative;
@@ -14,6 +15,7 @@
     border: 1px solid #3a3e50;
     background: #2d303e;
   }
+
   .exchange-loading {
     .anticon-loading {
       position: absolute;
@@ -21,6 +23,7 @@
       left: 50%;
       z-index: 10;
       transform: translate(-50%, -50%);
+
       .anticon-spin {
         width: 20px;
         height: 20px;
@@ -34,10 +37,12 @@
     margin-left: 48px;
     float: right;
   }
+
   .exchange-item-wrap {
     border: 1px solid #3a3e50;
     background: #2d303e;
   }
+
   .foreign-exchange-list-wrap {
     display: inline-block;
     width: 50%;
@@ -124,6 +129,7 @@
       left: 50%;
       z-index: 10;
       transform: translate(-50%, -50%);
+
       .anticon-spin {
         width: 20px;
         height: 20px;
@@ -131,13 +137,15 @@
       }
     }
   }
+
   .foreign-exchange-detail-wrap {
     display: block;
     width: 100%;
   }
+
   .foreign-exchange-list-wrap {
     display: block;
-    width: 100% !important;
+    width: calc(100vw * 0.72) !important;
   }
 }
 
@@ -147,18 +155,22 @@
     width: 100%;
     margin-left: 0;
   }
+
   .foreign-exchange-list-wrap {
     display: block;
-    width: 100% !important;
+    width: calc(100vw * 0.72) !important;
   }
+
   .exchange-item {
     .exchange-column.icon {
       width: 0;
       display: none;
     }
+
     .exchange-column.name {
       width: 45% !important;
       font-size: 0.75rem;
+
       .currency-name {
         line-height: 1.8;
         font-size: 0.6rem !important;
@@ -168,6 +180,7 @@
         white-space: nowrap;
       }
     }
+
     .exchange-column.rate {
       width: 35% !important;
       padding-left: 10px;
@@ -176,6 +189,7 @@
 
     .exchange-column.percent {
       font-size: 0.7rem;
+
       .plus {
         color: #2baa65;
       }
@@ -192,10 +206,12 @@
     .exchange-column.name {
       width: 38% !important;
       font-size: 0.7rem;
+
       .currency-name {
         font-size: 0.5rem !important;
       }
     }
+
     .exchange-column.rate {
       width: 42% !important;
       font-size: 0.65rem;

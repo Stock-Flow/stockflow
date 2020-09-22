@@ -33,12 +33,12 @@ export default function ForeignExchangeContainer() {
   const exchangeRate = exchange.exchange.map(
     (exchange) => exchange['5. Exchange Rate'],
   );
-  console.log(exchange.exchange)
+
   let fxIntraday = exchange.exchange.map((exchange) => exchange['fxIntraday']);
   let fxIntradayArr = [];
   let beforefxClose = 0;
   let afterfxClose = 0;
-  
+
   const fxIntradayClose = fxIntraday.forEach((v, i) => {
     const beforefx = Object.keys(v)[1];
     const afterfx = Object.keys(v)[0];

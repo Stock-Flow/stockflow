@@ -7,7 +7,13 @@ import ForeignExchangeContainer from '../../containers/MainDjia/ForeignExchangeC
 import ForeignExchangeDetailContainer from '../../containers/MainDjia/ForeignExchangeDetailContainer';
 import { useCallback } from 'react';
 
-export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
+export default function DjiaGraph({
+  djiaList,
+  djiaDate,
+  loading,
+  done,
+  lightMode,
+}) {
   const chart = useRef();
   const lineSeries = useRef();
   const chartposition = useRef();
@@ -39,7 +45,10 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
         height: 300,
       });
     }
+    lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
+  }, []);
 
+  useEffect(() => {
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -50,8 +59,8 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2d303e',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -68,8 +77,7 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
       },
     });
 
-    lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
-  }, []);
+  }, [lightMode])
 
   let stockList = [];
   if (djiaList.length !== 0) {

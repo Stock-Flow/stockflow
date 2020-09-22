@@ -28,26 +28,33 @@ export default function Home() {
   };
 
   // lightMode
-  const [lightMode, setLightMode] = useState(localStorage.getItem('lightMode'));
-  console.log(lightMode)
-
+  const [lightMode, setLightMode] = useState(
+    JSON.parse(localStorage.getItem('lightMode')),
+  );
   return (
-    <div className="home">
+    <div className={`home ${lightMode ? 'light' : ''}`}>
       <Header toggleMobileMenu={toggleMobileMenu} />
+
       <SideBarContent
         mobileMenu={mobileMenu}
         toggleMobileMenu={toggleMobileMenu}
         scroll={scroll}
       />
       {selectedStock.kind === 'stock' ? (
-        <DetailStockGraphContainer symbol={selectedStock.symbol} />
+        <DetailStockGraphContainer
+          symbol={selectedStock.symbol}
+          lightMode={lightMode}
+        />
       ) : selectedStock.kind === 'currency' ? (
-        <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
+        <DetailCurrencyGraphContainer
+          symbol={selectedStock.symbol}
+          lightMode={lightMode}
+        />
       ) : (
-            <>
-              <DjiagraphContainer />
-            </>
-          )}
+        <>
+          <DjiagraphContainer lightMode={lightMode} />
+        </>
+      )}
       <SwitchMode setLightMode={setLightMode} />
     </div>
   );
