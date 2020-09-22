@@ -111,7 +111,7 @@ function* getSelectedSymbolSaga(action) {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) =>
         symbol.symbol === action.payload.selectedSymbol
-          ? symbol.count === 3
+          ? symbol.count < 2
             ? {
                 ...symbol,
                 count: symbol.count + 1,
@@ -286,20 +286,20 @@ function* getFavoriteListButtonSaga(action) {
     } else {
       // 만약 이미 추가된 symbol이라면 count만 + 1
       selectedCurrencySymbol = selectedCurrencySymbol.map((symbol) => {
-
         // console.log('hi', symbol)
-        return symbol.symbol === action.payload.selectedStock ?
-          symbol.count < 3 ? {
-            ...symbol,
-            count: 3,
-            favorite: true
-          } : {
-            ...symbol,
-            count: symbol.count + 1,
-            favorite: !symbol.favorite,
-          } :
-          symbol
-
+        return symbol.symbol === action.payload.selectedStock
+          ? symbol.count < 3
+            ? {
+                ...symbol,
+                count: 3,
+                favorite: true,
+              }
+            : {
+                ...symbol,
+                count: symbol.count + 1,
+                favorite: !symbol.favorite,
+              }
+          : symbol;
       });
     }
     yield put(favoriteButtonStart());
