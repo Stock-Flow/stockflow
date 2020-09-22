@@ -5,7 +5,7 @@ import './SwitchMode.scss';
 
 export default function SwitchMode() {
   const [modeCheck, setModeCheck] = useState(false);
-  localStorage.setItem('lightMode', JSON.stringify(modeCheck));
+
   useEffect(() => {
     localStorage.setItem('lightMode', JSON.stringify(modeCheck));
   }, [modeCheck]);
