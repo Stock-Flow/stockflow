@@ -79,11 +79,13 @@ html {
 }
 
 .ReactModal__Overlay {
-  background-color: rgba(41, 41, 41, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
   color: #727aa0;
+  width: 100%;
 
   .ReactModal__Content {
-    background: rgba(51, 47, 47, 1) !important;
+    border: 1px solid #4a4e61 !important;
+    background: #272833 !important;
     box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.2);
 
     form {
@@ -120,6 +122,7 @@ html {
               margin-top: 0;
               margin-bottom: 0;
               margin-right: 20px;
+              font-weight: 600;
             }
           }
           .signal {
@@ -139,11 +142,12 @@ html {
       background: #727aa0;
       display: block;
       height: 40px;
-      margin: 70px auto 10px;
-      border-radius: 15px;
+      margin: 80px auto 10px;
+      border-radius: 5px;
       color: #ffffff;
       cursor: pointer;
-      padding: 0 15px;
+      border: none;
+      padding: 0 40px;
     }
   }
 }
@@ -159,8 +163,10 @@ html {
     height: 30px;
     position: absolute;
     top: 50%;
-    transform: translate(16%, -50%);
+    transform: translate(0%, -50%);
     left: auto;
+    border: none;
+    display: inline-block;
     background: #1f202b url(../styles/search_icon.png) no-repeat 5px center;
   }
   .search::placeholder {
@@ -168,18 +174,20 @@ html {
   }
   .add-modal-btn {
     position: absolute;
-    bottom: 0%;
-    right: 40%;
+    top: 50%;
+    right: 8%;
     transform: translate(0%, -50%);
     left: auto;
-
     background: #727aa0;
     display: block;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 4px;
     color: #ffffff;
     cursor: pointer;
+    font-weight: 400;
     padding: 0 15px;
+    border: none;
+    display: inline-block;
   }
 }
 
@@ -231,7 +239,7 @@ html {
         margin: 5px 40px;
         .detail-button {
           width: 190px;
-          margin: 20px 0;
+          margin: 20px 10px;
           font-size: 0.8rem;
         }
       }
@@ -244,6 +252,10 @@ html {
         width: 100px;
         height: 100px;
       }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
+      }
     }
 
     // .chart .tv-lightweight-charts {
@@ -251,4 +263,177 @@ html {
     //   background-color: olive;
     // }
   }
+}
+
+@include mobile {
+  .loading {
+    top: 30% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .home {
+    .detail-stock {
+      width: 100%;
+      margin: 0 auto;
+
+      .chart .tv-lightweight-charts {
+        // margin: 0 auto;
+        margin: 37px 15%;
+        margin-top: 20px;
+      }
+      .detail-stock-button {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin: 0 auto;
+        .detail-button {
+          width: 80%;
+          margin: 10px auto;
+          font-size: 0.9rem;
+        }
+      }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
+      }
+    }
+  }
+
+  //indicator-modal
+  .ReactModal__Overlay {
+    width: 100vw;
+    .ReactModal__Content {
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+      width: 80% !important;
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        div:first-child {
+          margin-bottom: 100px;
+        }
+        div {
+          ul {
+            li {
+              padding-bottom: 10px;
+
+              label {
+                input {
+                  height: 20px;
+                  width: 20px;
+                }
+                input[type='color'] {
+                  width: 50px;
+                }
+              }
+              .signal {
+                label {
+                  input {
+                    width: 50px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .indicator-btn {
+        margin-top: 70px;
+        margin-bottom: 10px;
+      }
+      //search-modal
+      .ReactModal__Content {
+        width: 90%;
+        .search {
+          width: 80%;
+          height: 60px;
+        }
+      }
+    }
+  }
+}
+
+@include smallmobile {
+  .home {
+    .chart .tv-lightweight-charts {
+      // margin: 0 auto;
+      margin: 37px 40px !important;
+      margin-top: 20px;
+    }
+  }
+  //indicator-modal
+  .ReactModal__Overlay {
+    width: 100vw;
+    .ReactModal__Content {
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        div:first-child {
+          margin-bottom: 100px;
+        }
+        div {
+          ul {
+            li {
+              padding-bottom: 10px;
+
+              label {
+                input {
+                  height: 20px;
+                  width: 20px;
+                }
+                input[type='color'] {
+                  width: 50px;
+                }
+              }
+              .signal {
+                label {
+                  input {
+                    width: 50px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .indicator-btn {
+        margin-top: 70px;
+        margin-bottom: 10px;
+      }
+      //search-modal
+      .ReactModal__Content {
+        width: 90%;
+        .search {
+          width: 80%;
+          height: 60px;
+        }
+      }
+    }
+  }
+  .loading {
+    top: 30% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+.scroll-control {
+  max-height: 100%;
+  overflow: auto;
+}
+.scrolling-control {
+  overflow: hidden;
+}
+
+// start :: light mode
+.light {
+  color: #333 !important;
+  background: #fff !important;
 }

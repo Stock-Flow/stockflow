@@ -15,7 +15,7 @@ export default class LocalStorageService {
     if (DJIAList.length !== 30) return null;
     if (!(DJIAList[0].symbol && DJIAList[0].stockData)) return null;
     if (weekDay === 0 || weekDay === 6 || weekDay === 1) return DJIAList;
-    if (+DJIAList[0].stockData[99].time.slice(-2) !== date.getDate() - 1) return null;
+    if (+DJIAList[0].stockData[99].time.slice(-2) !== (date.getDate() - 1)) return null;
     return DJIAList;
   }
 
@@ -25,7 +25,8 @@ export default class LocalStorageService {
     if (!detailStock) return null;
     if (!(detailStock.stock && detailStock.indicator && detailStock.volume && detailStock.indicator)) return null;
     if (weekDay === 0 || weekDay === 6 || weekDay === 1) return detailStock;
-    if (+detailStock.stock[detailStock.stock.length - 1].time.day !== date.getDate() - 1) return null;
+
+    if (+detailStock.stock[detailStock.stock.length - 1].time.slice(-2) !== (date.getDate() - 1)) return null;
     return detailStock;
   }
 
@@ -35,7 +36,7 @@ export default class LocalStorageService {
     if (!detailCurrency) return null;
     if (!(detailCurrency.currency && detailCurrency.indicator && detailCurrency.volume && detailCurrency.indicator)) return null;
     if (weekDay === 0 || weekDay === 6 || weekDay === 1) return detailCurrency;
-    if (+detailCurrency.currency[detailCurrency.currency.length - 1].time.day !== date.getDate() - 1) return null;
+    if (+detailCurrency.currency[detailCurrency.currency.length - 1].time.slice(-2) !== (date.getDate() - 1)) return null;
     return detailCurrency;
   }
 }

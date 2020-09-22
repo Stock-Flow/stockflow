@@ -1,8 +1,12 @@
 import StockService from '../../services/StockService';
-import { put, call, select, takeLeading, take } from 'redux-saga/effects';
+import {
+  put,
+  call,
+  select,
+  takeLeading
+} from 'redux-saga/effects';
 import SearchService from '../../services/SearchService';
 import DataProcessingService from '../../services/DataProcessingService';
-import { useDispatch } from 'react-redux';
 import LocalStorageService from '../../services/LocalStorageService';
 
 const prefix = 'stockflow/sidebarstock/';
@@ -38,7 +42,9 @@ const FailGetSideBarStock = (error) => {
 };
 
 function* getSideBarStockSaga(action) {
-  const { searchvalue } = action.payload;
+  const {
+    searchvalue
+  } = action.payload;
   yield put(startGetSideBarStock());
   try {
     if (searchvalue) {
@@ -153,40 +159,40 @@ export default function reducer(prevState = initialState, action) {
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
 
     case GET_SIDEBARSTOCK_SUCCESS:
       return {
         ...prevState,
         loading: true,
-        sideBarStock: action.sideBarStock,
-        error: null,
+          sideBarStock: action.sideBarStock,
+          error: null,
       };
     case GET_SIDEBARSTOCK_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     case GET_STOCKNOW_START:
       return {
         ...prevState,
         loading: true,
-        error: null,
+          error: null,
       };
     case GET_STOCKNOW_SUCCESS:
       return {
         ...prevState,
         sideBarStock: action.sideBarStock,
-        error: null,
-        loading: false,
+          error: null,
+          loading: false,
       };
     case GET_STOCKNOW_FAIL:
       return {
         ...prevState,
         loading: false,
-        error: action.error,
+          error: action.error,
       };
     default:
       return {

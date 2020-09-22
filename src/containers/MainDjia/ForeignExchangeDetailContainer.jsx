@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ForeignExchangeDetail from '../../components/MainDjia/ForeignExchangeDetail';
 import { createGetSelectedExchangeSaga } from '../../redux/modules/selectedExchange';
 
-export default function ForeignExchangeDetailContainer() {
+export default function ForeignExchangeDetailContainer({ lightMode }) {
   const fromCurrenciesCode = useSelector(
     (state) => state.selectedExchange.fxIntraday.fromCurrenciesCode,
   );
@@ -25,9 +25,6 @@ export default function ForeignExchangeDetailContainer() {
   );
 
   let time = [];
-  let open = [];
-  let high = [];
-  let low = [];
   let value = [];
 
   let keyTime = [];
@@ -84,6 +81,7 @@ export default function ForeignExchangeDetailContainer() {
       fromCurrenciesName={fromCurrenciesName}
       toCurrenciesCode={toCurrenciesCode}
       toCurrenciesName={toCurrenciesName}
+      lightMode={lightMode}
     />
   );
 }

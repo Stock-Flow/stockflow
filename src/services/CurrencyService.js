@@ -2,7 +2,6 @@ import axios from 'axios'
 import {
   apiKey
 } from '../key'
-import DataProcessingService from './DataProcessingService'
 
 // const symbols = ['ADA','AION','ANT','ARDR','BAT','BCC','BCH','BLZ','BNB','BNT']
 const key = '619d698817a4aaee6678160ef99c0898946c1e24372fe8df4cde97b6d1dcf85d'
@@ -18,10 +17,12 @@ export default class currencyService {
     const promGetSideBarCurrency = symbols.map(symbol => getSideBarCurrencyPromise(symbol));
     let sideBarCurrencys = await Promise.all(promGetSideBarCurrency)
       .then(result => result.map(item => item.data))
+      
     return sideBarCurrencys
   }
 
   static async getData() {
     const a = await axios.get(`https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=100&api_key=${key}`)
+    return a;
   }
 }

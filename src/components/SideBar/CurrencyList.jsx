@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
@@ -12,6 +12,7 @@ export default function CurrencyList({
   menu,
   loading,
   toggleMenu,
+  toggleMobile,
 }) {
   useEffect(() => {
     renderCurrencyList();
@@ -56,6 +57,9 @@ export default function CurrencyList({
 
             function transSymbol(e) {
               toggleMenu();
+              if (window.innerWidth < 768) {
+                toggleMobile();
+              }
               e.stopPropagation();
               sendSymbol(currency.symbol);
             }
@@ -71,10 +75,7 @@ export default function CurrencyList({
               )[0].favorite;
             }
 
-            function selectedFavorite(e) {
-              e.stopPropagation();
-              sendToSymbol(currency.symbol);
-            }
+
             if (
               favoriteData.filter((currency) => currency.symbol === symbol)
                 .length !== 0
@@ -106,12 +107,12 @@ export default function CurrencyList({
                         className="bookmark_true"
                       />
                     ) : (
-                      <img
-                        src="./images/bookmark_false.png"
-                        alt="bookmark_false"
-                        className="bookmark_false"
-                      />
-                    )}
+                        <img
+                          src="./images/bookmark_false.png"
+                          alt="bookmark_false"
+                          className="bookmark_false"
+                        />
+                      )}
                   </button>
                   <div className="sidebar-title-text">
                     <span className="sidebar-symbol">{currency.symbol}</span>

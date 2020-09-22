@@ -6,33 +6,56 @@ import { useSelector } from 'react-redux';
 import DetailStockGraphContainer from '../containers/Detail/DetailStockGraphContainer';
 import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGraphContainer';
 import './Home.scss';
-import ForeignExchangeDetailContainer from '../containers/MainDjia/ForeignExchangeDetailContainer';
 import Header from '../contents/Header';
+import SwitchMode from '../contents/SwitchMode';
+import { useEffect } from 'react';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
-  const selectedExchange = useSelector(
-    (state) => state.selectedExchange.fxIntraday.fxIntraday,
-  );
+  // const selectedExchange = useSelector(
+  //   (state) => state.selectedExchange.fxIntraday.fxIntraday,
+  // );
   const [mobileMenu, setMobileMenu] = useState(false);
-
+  const [scroll, setScroll] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
   const toggleMobileMenu = () => {
-    setMobileMenu(!mobileMenu)
-  }
+    setMobileMenu(!mobileMenu);
+    setScroll(!scroll);
+    setScrolling(!scrolling);
+    // const $body = document.querySelector('body');
+    document.body.classList.toggle('scrolling-control');
+  };
+
+  // lightMode
+  const [lightMode, setLightMode] = useState(
+    JSON.parse(localStorage.getItem('lightMode')),
+  );
   return (
-    <div className="home">
+    <div className={`home ${lightMode ? 'light' : ''}`}>
       <Header toggleMobileMenu={toggleMobileMenu} />
-      <SideBarContent mobileMenu={mobileMenu} toggleMobileMenu={toggleMobileMenu} />
+
+      <SideBarContent
+        mobileMenu={mobileMenu}
+        toggleMobileMenu={toggleMobileMenu}
+        scroll={scroll}
+      />
       {selectedStock.kind === 'stock' ? (
-        <DetailStockGraphContainer symbol={selectedStock.symbol} />
+        <DetailStockGraphContainer
+          symbol={selectedStock.symbol}
+          lightMode={lightMode}
+        />
       ) : selectedStock.kind === 'currency' ? (
-        <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
+        <DetailCurrencyGraphContainer
+          symbol={selectedStock.symbol}
+          lightMode={lightMode}
+        />
       ) : (
-            <>
-              <DjiagraphContainer />
-            </>
-          )}
+        <>
+          <DjiagraphContainer lightMode={lightMode} />
+        </>
+      )}
+      <SwitchMode setLightMode={setLightMode} />
     </div>
   );
 }

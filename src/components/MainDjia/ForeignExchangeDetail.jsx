@@ -9,11 +9,11 @@ export default function ForeignExchangeDetail({
   fromCurrenciesName,
   toCurrenciesCode,
   toCurrenciesName,
+  lightMode,
 }) {
   const exchangeLoading = useSelector((state) => state.exchange.loading);
 
   const chartExchange = useRef();
-  const chartExchange2 = useRef();
   const exchangeLineSeries = useRef();
   const excahngeChartposition = useRef();
 
@@ -32,6 +32,7 @@ export default function ForeignExchangeDetail({
 
   useEffect(() => {
     // if (!exchangeLoading) {
+
     if (windowWidth >= 1200) {
       chartExchange.current = createChart(excahngeChartposition.current, {
         width: windowWidth * 0.36 - 100,
@@ -46,6 +47,14 @@ export default function ForeignExchangeDetail({
       });
     }
 
+    exchangeLineSeries.current = chartExchange.current.addLineSeries({
+      title: 'exchange',
+      color: '#2196f3',
+    });
+    // }
+  }, []);
+
+  useEffect(() => {
     chartExchange.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -56,8 +65,8 @@ export default function ForeignExchangeDetail({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#2d303e',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`,
       },
       grid: {
         vertLines: {
@@ -72,12 +81,7 @@ export default function ForeignExchangeDetail({
         },
       },
     });
-    exchangeLineSeries.current = chartExchange.current.addLineSeries({
-      title: 'exchange',
-      color: '#2196f3',
-    });
-    // }
-  }, []);
+  }, [lightMode]);
 
   if (chartExchange.current) {
     exchangeLineSeries.current.setData(selectExchangeListResult);

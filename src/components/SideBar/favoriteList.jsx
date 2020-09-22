@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as V from 'victory';
 import { getSelectedSymbolActionCreator } from '../../redux/modules/selectedSymbol';
@@ -14,11 +14,13 @@ export default function FavoriteList({
   loading,
   currencyLoading,
   toggleMenu,
+  value,
+  toggleMobile
 }) {
-  const [value, setValue] = useState('stock');
+  // const [value, setValue] = useState('stock');
 
   const dispatch = useDispatch();
-  const selected = useRef();
+  // const selected = useRef();
   // return <div>A</div>;
 
   const sendCurrencySymbol = (selectedStock) => {
@@ -62,9 +64,9 @@ export default function FavoriteList({
   //   return favoriteStockList.symbol === stockList.symbol;
   // });
 
-  const selectedValue = () => {
-    setValue(selected.current.value);
-  };
+  // const selectedValue = () => {
+  //   setValue(changevalue);
+  // };
 
   const favoriteStockData = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
@@ -79,7 +81,7 @@ export default function FavoriteList({
   if (!currencyLoading) {
     return (
       <>
-        <select
+        {/* <select
           className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`}
           id="sort-chocie"
           onChange={selectedValue}
@@ -87,7 +89,7 @@ export default function FavoriteList({
         >
           <option defaultValue="stock">stock</option>
           <option value="currency">currency</option>
-        </select>
+        </select> */}
         <div className="sidebar favorite">
           <ul className={menu === 'favorite' ? '' : 'none'}>
             {/* {console.log(currencyList)}
@@ -110,6 +112,9 @@ export default function FavoriteList({
 
               function transSymbol(e) {
                 toggleMenu();
+                if (window.innerWidth < 768) {
+                  toggleMobile()
+                }
                 e.stopPropagation();
                 sendCurrencySymbol(currency.symbol);
               }
@@ -155,12 +160,12 @@ export default function FavoriteList({
                               className="bookmark_true"
                             />
                           ) : (
-                            <img
-                              src="./images/bookmark_false.png"
-                              alt="bookmark_false"
-                              className="bookmark_false"
-                            />
-                          )}
+                              <img
+                                src="./images/bookmark_false.png"
+                                alt="bookmark_false"
+                                className="bookmark_false"
+                              />
+                            )}
                         </button>
                         <div className="sidebar-title-text">
                           <span className="sidebar-symbol">
@@ -254,12 +259,12 @@ export default function FavoriteList({
                                 className="bookmark_true"
                               />
                             ) : (
-                              <img
-                                src="./images/bookmark_false.png"
-                                alt="bookmark_false"
-                                className="bookmark_false"
-                              />
-                            )}
+                                <img
+                                  src="./images/bookmark_false.png"
+                                  alt="bookmark_false"
+                                  className="bookmark_false"
+                                />
+                              )}
                           </button>
                           <div className="sidebar-title-text">
                             <span className="sidebar-symbol">

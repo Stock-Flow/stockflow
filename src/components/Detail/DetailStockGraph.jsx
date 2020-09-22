@@ -54,6 +54,7 @@ export default function DetailStockGraph({
   volume,
   getMACDData,
   getStochasticSlow,
+  lightMode
 }) {
   //chart ref
   const chart = useRef();
@@ -132,25 +133,55 @@ export default function DetailStockGraph({
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
     if (windowWidth < 1200) {
-      chart.current.resize(windowWidth * 0.72, 400);
+      chart.current.resize(windowWidth * 0.72, 300);
     }
     if (assistChart.current) {
-      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      if (windowWidth < 1200) {
+        assistChart.current.resize(windowWidth * 0.72, 200);
+      } else {
+        assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (indicatorChart.current) {
-      indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (rsiChart.current) {
+      if (windowWidth < 1200) {
+        indicatorChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (disparityChart.current) {
-      disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+
+    if (disparityGraph.current) {
+      if (windowWidth < 1200) {
+        disparityChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDChart.current) {
-      MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDGraph.current) {
+      if (windowWidth < 1200) {
+        MACDChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDOSCChart.current) {
-      MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDOSCGraph.current) {
+      if (windowWidth < 1200) {
+        MACDOSCChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (stochasticSlowChart.current) {
-      stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (stochasticSlowDGraph.current) {
+      if (windowWidth < 1200) {
+        stochasticSlowChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
   };
 
@@ -190,7 +221,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -209,10 +240,59 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
 
+
+    if (windowWidth >= 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 200,
+      });
+    }
+    if (windowWidth < 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 200,
+      });
+    }
+
+
+    indicatorChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    indicatorChart.current.resize(0, 0);
+
+    disparityChart.current = createChart(disparityPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    disparityChart.current.resize(0, 0);
+
+    MACDChart.current = createChart(MACDPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    MACDChart.current.resize(0, 0);
+
+
+    MACDOSCChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    MACDOSCChart.current.resize(0, 0);
+
+    stochasticSlowChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    stochasticSlowChart.current.resize(0, 0);
+
+  }, []);
+
+  useEffect(() => {
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -226,8 +306,8 @@ export default function DetailStockGraph({
         barSpacing: 10,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -241,10 +321,6 @@ export default function DetailStockGraph({
           visible: true,
         },
       },
-    });
-    assistChart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 200,
     });
     assistChart.current.applyOptions({
       priceScale: {
@@ -255,8 +331,8 @@ export default function DetailStockGraph({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -267,11 +343,6 @@ export default function DetailStockGraph({
         },
       },
     });
-    indicatorChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    indicatorChart.current.resize(0, 0);
     indicatorChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -282,8 +353,8 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -294,11 +365,6 @@ export default function DetailStockGraph({
         },
       },
     });
-    disparityChart.current = createChart(disparityPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    disparityChart.current.resize(0, 0);
     disparityChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -309,8 +375,8 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -321,12 +387,6 @@ export default function DetailStockGraph({
         },
       },
     });
-    MACDChart.current = createChart(MACDPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    MACDChart.current.resize(0, 0);
-
     MACDChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -337,8 +397,8 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -349,11 +409,6 @@ export default function DetailStockGraph({
         },
       },
     });
-    MACDOSCChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    MACDOSCChart.current.resize(0, 0);
     MACDOSCChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -364,8 +419,8 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -376,11 +431,7 @@ export default function DetailStockGraph({
         },
       },
     });
-    stochasticSlowChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    stochasticSlowChart.current.resize(0, 0);
+
     stochasticSlowChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -391,8 +442,8 @@ export default function DetailStockGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -403,7 +454,8 @@ export default function DetailStockGraph({
         },
       },
     });
-  }, []);
+  }, [lightMode])
+
   useEffect(() => {
     if (candleSeries.current) {
       chart.current.removeSeries(candleSeries.current);
@@ -492,7 +544,6 @@ export default function DetailStockGraph({
     if (searchValue.current && searchValue.current.value.length !== 0) {
       search.current = searchValue.current.value;
       setSearchList(await SearchService.searchingStock(search.current));
-      console.log(searchList);
     }
   };
   // stock
@@ -502,29 +553,29 @@ export default function DetailStockGraph({
       {loading ? (
         <LoadingOutlined className="loading" />
       ) : (
-        <>
-          <h2>{symbol}</h2>
-          <div className="detail-stock-button">
-            <button className="detail-button" onClick={openAddModal}>
-              Add Stock
+          <>
+            <h2>{symbol}</h2>
+            <div className="detail-stock-button">
+              <button className="detail-button" onClick={openAddModal}>
+                Add Stock
             </button>
-            <button
-              className="detail-button"
-              onClick={() => {
-                if (compareGraph.current) {
-                  chart.current.removeSeries(compareGraph.current);
-                  compareGraph.current = null;
-                }
-              }}
-            >
-              remove compare graph
+              <button
+                className="detail-button"
+                onClick={() => {
+                  if (compareGraph.current) {
+                    chart.current.removeSeries(compareGraph.current);
+                    compareGraph.current = null;
+                  }
+                }}
+              >
+                remove compare graph
             </button>
-            <button className="detail-button" onClick={openModal}>
-              Indicators
+              <button className="detail-button" onClick={openModal}>
+                Indicators
             </button>
-          </div>
-        </>
-      )}
+            </div>
+          </>
+        )}
 
       <Modal
         isOpen={addModalIsOpen}

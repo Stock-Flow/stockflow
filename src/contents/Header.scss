@@ -33,13 +33,27 @@
 
 @include mobile {
   .header {
-    .toggle-menu {
-      display: block;
-      background: none;
-      border: 0;
-      img {
-        width: 35px;
+    .header-right {
+      display: flex;
+      align-items: center;
+      .reminding-stock-wrap {
+        display: inline-block;
+      }
+      .toggle-menu {
+        display: inline-block;
+        background: none;
+        border: 0;
+        img {
+          width: 35px;
+        }
       }
     }
+  }
+}
+
+// light-mode
+.light {
+  .header {
+    box-shadow: none;
   }
 }

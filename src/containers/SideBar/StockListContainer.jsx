@@ -3,7 +3,7 @@ import StockList from '../../components/SideBar/StockList';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSideBarStockSagaActionCreator } from '../../redux/modules/sidebarstock';
 
-export default function StockListContainer({ search, sort, menu, toggleMenu }) {
+export default function StockListContainer({ search, sort, menu, toggleMenu, toggleMobile }) {
   const loading = useSelector((state) => state.sideBarStock.loading);
   let stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
@@ -34,6 +34,7 @@ export default function StockListContainer({ search, sort, menu, toggleMenu }) {
       stockList={stockList}
       menu={menu}
       toggleMenu={toggleMenu}
+      toggleMobile={toggleMobile}
     />
   );
 }

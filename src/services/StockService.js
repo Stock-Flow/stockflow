@@ -3,9 +3,6 @@ import {
   store
 } from '../index'
 import {
-  useDispatch
-} from 'react-redux';
-import {
   apiKey
 } from '../key';
 import DataProcessingService from './DataProcessingService';
