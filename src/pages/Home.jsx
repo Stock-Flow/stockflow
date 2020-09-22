@@ -8,6 +8,7 @@ import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGra
 import './Home.scss';
 import ForeignExchangeDetailContainer from '../containers/MainDjia/ForeignExchangeDetailContainer';
 import Header from '../contents/Header';
+import SwitchMode from '../contents/SwitchMode';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
@@ -16,23 +17,26 @@ export default function Home() {
   );
   const [mobileMenu, setMobileMenu] = useState(false);
 
-
   const toggleMobileMenu = () => {
-    setMobileMenu(!mobileMenu)
-  }
+    setMobileMenu(!mobileMenu);
+  };
   return (
     <div className="home">
       <Header toggleMobileMenu={toggleMobileMenu} />
-      <SideBarContent mobileMenu={mobileMenu} toggleMobileMenu={toggleMobileMenu} />
+      <SideBarContent
+        mobileMenu={mobileMenu}
+        toggleMobileMenu={toggleMobileMenu}
+      />
       {selectedStock.kind === 'stock' ? (
         <DetailStockGraphContainer symbol={selectedStock.symbol} />
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
       ) : (
-            <>
-              <DjiagraphContainer />
-            </>
-          )}
+        <>
+          <DjiagraphContainer />
+        </>
+      )}
+      <SwitchMode />
     </div>
   );
 }
