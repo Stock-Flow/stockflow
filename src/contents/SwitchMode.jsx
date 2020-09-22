@@ -4,11 +4,11 @@ import { getSwitchModeSagaActionCreator } from '../redux/modules/switchMode';
 import './SwitchMode.scss';
 
 export default function SwitchMode({ setLightMode }) {
-  if (!JSON.parse(localStorage.getItem('lightMode'))) {
+  if (!localStorage.getItem('lightMode')) {
     localStorage.setItem('lightMode', false);
   }
   const [modeCheck, setModeCheck] = useState(
-    JSON.parse(localStorage.getItem('lightMode')),
+    localStorage.getItem('lightMode'),
   );
 
   useEffect(() => {
