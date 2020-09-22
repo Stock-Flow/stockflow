@@ -45,7 +45,10 @@ export default function DjiaGraph({
         height: 300,
       });
     }
+    lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
+  }, []);
 
+  useEffect(() => {
     chart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -56,7 +59,7 @@ export default function DjiaGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: `${lightMode} ? '#eee' : '#2d303e'`,
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
         textColor: '#eeeeee',
       },
       grid: {
@@ -74,8 +77,7 @@ export default function DjiaGraph({
       },
     });
 
-    lineSeries.current = chart.current.addCandlestickSeries({ title: 'DOW J' });
-  }, [lightMode]);
+  }, [lightMode])
 
   let stockList = [];
   if (djiaList.length !== 0) {
@@ -109,11 +111,11 @@ export default function DjiaGraph({
           </div>
         </>
       ) : (
-        <div className="foreign-exchange-wrap">
-          <ForeignExchangeContainer />
-          <ForeignExchangeDetailContainer />
-        </div>
-      )}
+          <div className="foreign-exchange-wrap">
+            <ForeignExchangeContainer />
+            <ForeignExchangeDetailContainer />
+          </div>
+        )}
     </div>
   );
 }
