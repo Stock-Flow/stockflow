@@ -17,11 +17,12 @@ export default class currencyService {
     const promGetSideBarCurrency = symbols.map(symbol => getSideBarCurrencyPromise(symbol));
     let sideBarCurrencys = await Promise.all(promGetSideBarCurrency)
       .then(result => result.map(item => item.data))
+      
     return sideBarCurrencys
   }
 
   static async getData() {
     const a = await axios.get(`https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=100&api_key=${key}`)
-    return a
+    return a;
   }
 }
