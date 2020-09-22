@@ -13,6 +13,7 @@ export default function StockList({
   search,
   menu,
   toggleMenu,
+  toggleMobile
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,6 +55,9 @@ export default function StockList({
 
               function transSymbol(e) {
                 toggleMenu();
+                if (window.innerWidth < 768) {
+                  toggleMobile();
+                }
                 e.stopPropagation();
                 sendSymbol(stock.symbol);
               }
