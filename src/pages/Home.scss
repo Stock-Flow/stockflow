@@ -266,10 +266,16 @@ html {
 }
 
 @include mobile {
+  .loading {
+    top: 30% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
   .home {
     .detail-stock {
       width: 100%;
       margin: 0 auto;
+
       .chart .tv-lightweight-charts {
         // margin: 0 auto;
         margin: 37px 80px;
@@ -419,6 +425,11 @@ html {
       }
     }
   }
+  .loading {
+    top: 30% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
 }
 // light mode
 
@@ -430,3 +441,5 @@ html {
     }
   }
 }
+
+
