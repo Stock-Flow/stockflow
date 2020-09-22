@@ -127,3 +127,17 @@
     }
   }
 }
+
+// light-mode
+.light {
+  .reminding-stock-wrap {
+    .stocklist-wrap {
+      .sidebar-symbol {
+        color: #fff;
+      }
+      .alert-msg {
+        color: #fff;
+      }
+    }
+  }
+}
