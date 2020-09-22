@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ForeignExchange from '../../components/MainDjia/ForeignExchange';
 import { getExchangeSagaActionCreator } from '../../redux/modules/exchange';
 
-export default function ForeignExchangeContainer() {
+export default function ForeignExchangeContainer({ lightMode }) {
+  console.log(lightMode);
   const loading = useSelector((state) => state.exchange.loading);
   const exchange = useSelector((state) => state.exchange);
   const exchangeArr = [

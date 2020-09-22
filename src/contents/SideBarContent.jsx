@@ -3,6 +3,7 @@ import StockListContainer from '../containers/SideBar/StockListContainer';
 import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
+import { useEffect } from 'react';
 
 export default function SideBarContent({
   mobileMenu,
@@ -29,7 +30,10 @@ export default function SideBarContent({
 
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
-  const [stockImgUrl, setStockImgUrl] = useState('./images/chartarrow.png');
+
+  const [stockImgUrl, setStockImgUrl] = useState(
+    './images/chartarrow-white.png',
+  );
   const [currencyImgUrl, setCurrencyImgUrl] = useState(
     './images/currency-icon.png',
   );
@@ -40,6 +44,64 @@ export default function SideBarContent({
   // window.onresize = () => {
   //   setWindowWidth(window.innerWidth)
   // }
+  window.addEventListener('resize', useCallback(() => {
+    if (window.innerWidth > 1200) {
+      if (menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+    } else if (window.innerWidth < 768) {
+      if (menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+    } else {
+      console.log(display)
+      if (display === true) {
+        if (menu === 'stock') {
+          setStockImgUrl('./images/chartarrow-white.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'currency') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon-white.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'favorite') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon-white.png')
+        }
+      } else if (display === false) {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+    }
+  }, [menu]))
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
@@ -58,12 +120,41 @@ export default function SideBarContent({
 
   const toggleMenu = () => {
     setDisplay(!display);
+
+    if (window.innerWidth < 1200) {
+      if (display === true) {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      } else if (display === false) {
+        if (menu === 'stock') {
+          setStockImgUrl('./images/chartarrow-white.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'currency') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon-white.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'favorite') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon-white.png')
+        }
+      }
+    }
+  };
+
+
+  const changeMode = useCallback((e) => {
+    // setHomeImgUrl('./images/home.png');
+    setMenu(e);
+    searchValue.current.value = '';
+    setStockSearch('');
+    setCurrencySearch('');
     if (display === true) {
-      setStockImgUrl('./images/chartarrow.png');
-      setCurrencyImgUrl('./images/currency-icon.png');
-      setFavoriteUrl('./images/star-click-icon.png');
-    } else if (display === false) {
-      if (menu === 'stock') {
+      if (e === 'stock') {
         setStockImgUrl('./images/chartarrow-white.png');
         setCurrencyImgUrl('./images/currency-icon.png');
         setFavoriteUrl('./images/star-click-icon.png');
@@ -79,7 +170,27 @@ export default function SideBarContent({
         setFavoriteUrl('./images/star-click-icon-white.png');
       }
     }
+
   };
+
+    if (window.innerWidth > 1200 || window.innerWidth < 768) {
+      if (e === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'currency') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon-white.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon-white.png');
+      } else {
+        setStockImgUrl('./images/chartarrow-white.png');
+      }
+    }
+
 
   // console.log(display);
 
