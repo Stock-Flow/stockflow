@@ -111,11 +111,13 @@ export default function DjiaGraph({
           </div>
         </>
       ) : (
-        <div className="foreign-exchange-wrap">
-          <ForeignExchangeContainer />
-          <ForeignExchangeDetailContainer lightMode={lightMode} />
-        </div>
-      )}
+
+          <div className="foreign-exchange-wrap">
+            <ForeignExchangeContainer lightMode={lightMode} />
+            <ForeignExchangeDetailContainer lightMode={lightMode} />
+          </div>
+        )}
+
     </div>
   );
 }

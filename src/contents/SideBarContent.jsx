@@ -3,6 +3,7 @@ import StockListContainer from '../containers/SideBar/StockListContainer';
 import CurrencyListContainer from '../containers/SideBar/CurrencyListContainer';
 import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
+import { useEffect } from 'react';
 
 export default function SideBarContent({
   mobileMenu,
@@ -29,7 +30,10 @@ export default function SideBarContent({
 
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
-  const [stockImgUrl, setStockImgUrl] = useState('./images/chartarrow.png');
+
+  const [stockImgUrl, setStockImgUrl] = useState(
+    window.innerWidth > 1200 || window.innerWidth < 768 ? './images/chartarrow-white.png' : './images/chartarrow.png',
+  );
   const [currencyImgUrl, setCurrencyImgUrl] = useState(
     './images/currency-icon.png',
   );
@@ -40,6 +44,63 @@ export default function SideBarContent({
   // window.onresize = () => {
   //   setWindowWidth(window.innerWidth)
   // }
+  window.addEventListener('resize', useCallback(() => {
+    if (window.innerWidth > 1200) {
+      if (menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+    } else if (window.innerWidth < 768) {
+      if (menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+    } else {
+      if (display === true) {
+        if (menu === 'stock') {
+          setStockImgUrl('./images/chartarrow-white.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'currency') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon-white.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'favorite') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon-white.png')
+        }
+      } else if (display === false) {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+    }
+  }, [menu]))
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
@@ -58,58 +119,81 @@ export default function SideBarContent({
 
   const toggleMenu = () => {
     setDisplay(!display);
-    if (display === true) {
-      setStockImgUrl('./images/chartarrow.png');
-      setCurrencyImgUrl('./images/currency-icon.png');
-      setFavoriteUrl('./images/star-click-icon.png');
-    } else if (display === false) {
-      if (menu === 'stock') {
-        setStockImgUrl('./images/chartarrow-white.png');
-        setCurrencyImgUrl('./images/currency-icon.png');
-        setFavoriteUrl('./images/star-click-icon.png');
-      }
-      if (menu === 'currency') {
-        setStockImgUrl('./images/chartarrow.png');
-        setCurrencyImgUrl('./images/currency-icon-white.png');
-        setFavoriteUrl('./images/star-click-icon.png');
-      }
-      if (menu === 'favorite') {
-        setStockImgUrl('./images/chartarrow.png');
-        setCurrencyImgUrl('./images/currency-icon.png');
-        setFavoriteUrl('./images/star-click-icon-white.png');
+
+    if (window.innerWidth < 1200) {
+      if (display === true) {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      } else if (display === false) {
+        if (menu === 'stock') {
+          setStockImgUrl('./images/chartarrow-white.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'currency') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon-white.png')
+          setFavoriteUrl('./images/star-click-icon.png')
+        }
+        if (menu === 'favorite') {
+          setStockImgUrl('./images/chartarrow.png')
+          setCurrencyImgUrl('./images/currency-icon.png')
+          setFavoriteUrl('./images/star-click-icon-white.png')
+        }
       }
     }
   };
 
-  // console.log(display);
 
-  const changeMode = useCallback(
-    (e) => {
-      // setHomeImgUrl('./images/home.png');
-      setMenu(e);
-      searchValue.current.value = '';
-      setStockSearch('');
-      setCurrencySearch('');
+  const changeMode = useCallback((e) => {
+    // setHomeImgUrl('./images/home.png');
+    setMenu(e);
+    searchValue.current.value = '';
+    setStockSearch('');
+    setCurrencySearch('');
+
+    if (window.innerWidth > 1200 || window.innerWidth < 768) {
+      if (e === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'currency') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon-white.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon-white.png');
+      } else {
+        setStockImgUrl('./images/chartarrow-white.png');
+      }
+    } else {
       if (display === true) {
         if (e === 'stock') {
           setStockImgUrl('./images/chartarrow-white.png');
           setCurrencyImgUrl('./images/currency-icon.png');
           setFavoriteUrl('./images/star-click-icon.png');
-        } else if (e === 'currency') {
+        }
+        if (e === 'currency') {
           setStockImgUrl('./images/chartarrow.png');
           setCurrencyImgUrl('./images/currency-icon-white.png');
           setFavoriteUrl('./images/star-click-icon.png');
-        } else if (e === 'favorite') {
+        }
+        if (e === 'favorite') {
           setStockImgUrl('./images/chartarrow.png');
           setCurrencyImgUrl('./images/currency-icon.png');
           setFavoriteUrl('./images/star-click-icon-white.png');
-        } else {
-          setStockImgUrl('./images/chartarrow-white.png');
         }
       }
-    },
-    [display],
-  );
+    }
+  }, [display, menu])
+
+
+
+  // console.log(display);
+
 
   // const goHome = () => {
   //   setHomeImgUrl('./images/home-white.png');
@@ -122,9 +206,8 @@ export default function SideBarContent({
   return (
     <>
       <div
-        className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${
-          scroll ? 'scroll-control' : ''
-        }`}
+        className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${scroll ? 'scroll-control' : ''
+          }`}
         ref={sideBarWrap}
       >
         <nav className="menu-bar">
@@ -169,9 +252,8 @@ export default function SideBarContent({
         </nav>
 
         <div
-          className={`sidebarList ${display ? 'sidebarList-show' : ''} ${
-            scroll ? 'scroll-control' : ''
-          }`}
+          className={`sidebarList ${display ? 'sidebarList-show' : ''} ${scroll ? 'scroll-control' : ''
+            }`}
         >
           <input
             className="search"
@@ -187,9 +269,8 @@ export default function SideBarContent({
 
           <div className="sortbox-wrap clear-fix">
             <select
-              className={`sortbox sortValuebox ${
-                menu !== 'favorite' && 'none'
-              }`}
+              className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'
+                }`}
               id="sort-chocie"
               onChange={selectedcurrentValue}
               ref={selected}
@@ -221,16 +302,19 @@ export default function SideBarContent({
             sort={sort}
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
           />
           <CurrencyListContainer
             search={currencySearch}
             sort={sort}
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
           />
           <FavoriteListContainer
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
             value={value}
           />
           <button className="close-button" onClick={toggleMenu}>
