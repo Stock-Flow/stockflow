@@ -19,7 +19,6 @@ export default function FavoriteListContainer({ menu, toggleMenu, value }) {
   const loading = useSelector((state) => state.sideBarStock.loading);
   const stockList = useSelector((state) => state.sideBarStock.sideBarStock);
 
-
   const dispatch = useDispatch();
 
   if (selectedStockSymbol.length !== 0) {
@@ -72,8 +71,6 @@ export default function FavoriteListContainer({ menu, toggleMenu, value }) {
   //   }));
   // }
   // console.log(currencyList);
-
-  console.log(value)
 
   return (
     <FavoriteList
