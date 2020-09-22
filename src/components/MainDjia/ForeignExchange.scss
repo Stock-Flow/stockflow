@@ -1,7 +1,7 @@
 @import '../../responsive.scss';
 
 .foreign-exchange-wrap {
-  >div {
+  > div {
     float: left;
     margin-top: 50px;
     vertical-align: top;
@@ -219,6 +219,38 @@
 
     .exchange-column.percent {
       font-size: 0.65rem;
+    }
+  }
+}
+
+// light-mode
+.light {
+  .foreign-exchange-wrap {
+    .exchange-item-wrap-loading {
+      background: #fff;
+    }
+    background: #fff;
+    .foreign-exchange-list-wrap {
+      .exchange-item-wrap {
+        border-top: none;
+        border-bottom: none;
+        background: #fff;
+        .exchange-item {
+          .currency-name {
+            color: #666;
+          }
+          .exchange-column.icon {
+            .country-icon {
+              img {
+                border: 2px solid #dedede;
+              }
+            }
+          }
+          &:hover {
+            background: #eee;
+          }
+        }
+      }
     }
   }
 }
