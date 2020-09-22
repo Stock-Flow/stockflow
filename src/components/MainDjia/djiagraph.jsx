@@ -60,7 +60,7 @@ export default function DjiaGraph({
       },
       layout: {
         backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
-        textColor: `${lightMode ? '#181818' : '#eee'}`
+        textColor: `${lightMode ? '#181818' : '#eee'}`,
       },
       grid: {
         vertLines: {
@@ -98,7 +98,7 @@ export default function DjiaGraph({
       to: stockList.length,
     });
   }
-  console.log(lightMode);
+
   return (
     <div className="djia">
       <h2>DOW J</h2>
