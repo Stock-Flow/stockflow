@@ -14,7 +14,8 @@ export default function FavoriteList({
   loading,
   currencyLoading,
   toggleMenu,
-  value
+  value,
+  toggleMobile
 }) {
   // const [value, setValue] = useState('stock');
 
@@ -111,6 +112,9 @@ export default function FavoriteList({
 
               function transSymbol(e) {
                 toggleMenu();
+                if (window.innerWidth < 768) {
+                  toggleMobile()
+                }
                 e.stopPropagation();
                 sendCurrencySymbol(currency.symbol);
               }

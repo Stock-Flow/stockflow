@@ -302,16 +302,19 @@ export default function SideBarContent({
             sort={sort}
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
           />
           <CurrencyListContainer
             search={currencySearch}
             sort={sort}
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
           />
           <FavoriteListContainer
             menu={menu}
             toggleMenu={toggleMenu}
+            toggleMobile={toggleMobileMenu}
             value={value}
           />
           <button className="close-button" onClick={toggleMenu}>

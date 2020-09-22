@@ -12,6 +12,7 @@ export default function CurrencyList({
   menu,
   loading,
   toggleMenu,
+  toggleMobile,
 }) {
   useEffect(() => {
     renderCurrencyList();
@@ -56,6 +57,9 @@ export default function CurrencyList({
 
             function transSymbol(e) {
               toggleMenu();
+              if (window.innerWidth < 768) {
+                toggleMobile();
+              }
               e.stopPropagation();
               sendSymbol(currency.symbol);
             }

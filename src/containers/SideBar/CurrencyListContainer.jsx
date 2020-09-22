@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getSideBarCurrencySagaActionCreator } from '../../redux/modules/sidebarCurrency';
 import SearchService from '../../services/SearchService';
 
-export default function CurrencyListContainer({ search, sort, menu, toggleMenu }) {
+export default function CurrencyListContainer({ search, sort, menu, toggleMenu, toggleMobile }) {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.sidebarCurrency.loading);
   let currencyList = useSelector(
@@ -48,6 +48,7 @@ export default function CurrencyListContainer({ search, sort, menu, toggleMenu }
         menu={menu}
         loading={loading}
         toggleMenu={toggleMenu}
+        toggleMobile={toggleMobile}
       />
     </>
   );
