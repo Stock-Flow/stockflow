@@ -7,6 +7,7 @@ import { getCompareSagaActionCreator } from '../../redux/modules/compare';
 export default function DetailStockGraphContainer({
   func = 'TIME_SERIES_DAILY_ADJUSTED',
   symbol = 'IBM',
+  lightMode
 }) {
   let rsiSig = [];
   const loading = useSelector((state) => state.detailStock.loading);
@@ -126,6 +127,7 @@ export default function DetailStockGraphContainer({
       volume={volume}
       compare={compare}
       symbol={symbol}
+      lightMode={lightMode}
     />
   );
 }

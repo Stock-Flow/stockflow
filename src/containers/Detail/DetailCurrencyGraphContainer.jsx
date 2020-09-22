@@ -7,6 +7,7 @@ import { getCompareCurrencySagaActionCreator } from '../../redux/modules/compare
 export default function DetailCurrencyGraphContainer({
   func = 'DIGITAL_CURRENCY_DAILY',
   symbol = 'BTC',
+  lightMode
 }) {
   let rsiSig = [];
   const loading = useSelector((state) => state.detailCurrency.loading);
@@ -123,6 +124,7 @@ export default function DetailCurrencyGraphContainer({
       getStochasticSlow={getStochasticSlow}
       getCompare={getCompare}
       compare={compare}
+      lightMode={lightMode}
     />
   )
 }

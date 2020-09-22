@@ -54,7 +54,8 @@ export default function DetailCurrencyGraph({
   rsiSignal,
   getMACDData,
   getStochasticSlow,
-  compare
+  compare,
+  lightMode
 }) {
 
   const currencyList = useSelector(
@@ -217,35 +218,7 @@ export default function DetailCurrencyGraph({
         height: 300,
       });
     }
-    chart.current.applyOptions({
-      priceScale: {
-        position: 'right',
-        autoScale: true,
-        borderVisible: false,
-        scaleMargins: { bottom: 0.1, top: 0 },
-      },
-      timeScale: {
-        rightOffset: 0,
-        fixLeftEdge: true,
-        barSpacing: 10,
-      },
-      layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
-      },
-      grid: {
-        vertLines: {
-          color: 'rgba(114, 122, 160, 0.5)',
-          style: 1,
-          visible: true,
-        },
-        horzLines: {
-          color: 'rgba(114, 122, 160, 0.5)',
-          style: 1,
-          visible: true,
-        },
-      },
-    });
+
     if (windowWidth >= 1200) {
       assistChart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72 - 100,
@@ -259,6 +232,70 @@ export default function DetailCurrencyGraph({
       });
     }
 
+
+    indicatorChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    indicatorChart.current.resize(0, 0);
+
+    disparityChart.current = createChart(disparityPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    disparityChart.current.resize(0, 0);
+
+    MACDChart.current = createChart(MACDPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    MACDChart.current.resize(0, 0);
+
+
+    MACDOSCChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    MACDOSCChart.current.resize(0, 0);
+
+    stochasticSlowChart.current = createChart(indicatorPosition.current, {
+      width: 0,
+      height: 0,
+    });
+    stochasticSlowChart.current.resize(0, 0);
+
+  }, []);
+
+  useEffect(() => {
+    chart.current.applyOptions({
+      priceScale: {
+        position: 'right',
+        autoScale: true,
+        borderVisible: false,
+        scaleMargins: { bottom: 0.1, top: 0 },
+      },
+      timeScale: {
+        rightOffset: 0,
+        fixLeftEdge: true,
+        barSpacing: 10,
+      },
+      layout: {
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
+      },
+      grid: {
+        vertLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+        horzLines: {
+          color: 'rgba(114, 122, 160, 0.5)',
+          style: 1,
+          visible: true,
+        },
+      },
+    });
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -268,8 +305,8 @@ export default function DetailCurrencyGraph({
         fixLeftEdge: true,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -280,11 +317,6 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    indicatorChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    indicatorChart.current.resize(0, 0);
     indicatorChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -295,8 +327,8 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -307,11 +339,6 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    disparityChart.current = createChart(disparityPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    disparityChart.current.resize(0, 0);
     disparityChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -322,8 +349,8 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -334,12 +361,6 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    MACDChart.current = createChart(MACDPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    MACDChart.current.resize(0, 0);
-
     MACDChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -350,8 +371,8 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -362,11 +383,6 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    MACDOSCChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    MACDOSCChart.current.resize(0, 0);
     MACDOSCChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -377,8 +393,8 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -389,11 +405,7 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    stochasticSlowChart.current = createChart(indicatorPosition.current, {
-      width: 0,
-      height: 0,
-    });
-    stochasticSlowChart.current.resize(0, 0);
+
     stochasticSlowChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -404,8 +416,8 @@ export default function DetailCurrencyGraph({
         borderVisible: false,
       },
       layout: {
-        backgroundColor: '#2F3242',
-        textColor: '#eeeeee',
+        backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
+        textColor: `${lightMode ? '#181818' : '#eee'}`
       },
       grid: {
         vertLines: {
@@ -416,7 +428,7 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-  }, []);
+  }, [lightMode])
 
   useEffect(() => {
     if (candleSeries.current) {
