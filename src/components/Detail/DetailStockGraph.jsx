@@ -531,7 +531,6 @@ export default function DetailStockGraph({
     if (searchValue.current && searchValue.current.value.length !== 0) {
       search.current = searchValue.current.value;
       setSearchList(await SearchService.searchingStock(search.current));
-      console.log(searchList);
     }
   };
   // stock

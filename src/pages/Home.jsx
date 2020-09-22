@@ -8,6 +8,7 @@ import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGra
 import './Home.scss';
 import Header from '../contents/Header';
 import SwitchMode from '../contents/SwitchMode';
+import { useEffect } from 'react';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
@@ -18,8 +19,6 @@ export default function Home() {
   const [scroll, setScroll] = useState(false);
   const [scrolling, setScrolling] = useState(false);
 
-
-
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
     setScroll(!scroll);
@@ -27,8 +26,13 @@ export default function Home() {
     // const $body = document.querySelector('body');
     document.body.classList.toggle('scrolling-control');
   };
+
+  // lightMode
+  const [lightMode, setLightMode] = useState(localStorage.getItem('lightMode'));
+  console.log(lightMode)
+
   return (
-    <div className="home" >
+    <div className="home">
       <Header toggleMobileMenu={toggleMobileMenu} />
       <SideBarContent
         mobileMenu={mobileMenu}
@@ -44,7 +48,7 @@ export default function Home() {
               <DjiagraphContainer />
             </>
           )}
-      <SwitchMode />
+      <SwitchMode setLightMode={setLightMode} />
     </div>
   );
 }

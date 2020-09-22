@@ -8,13 +8,20 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
   const searchValue = useRef();
   const searchDone = useRef();
   const sideBarWrap = useRef();
+  const selected = useRef();
+
   const [sort, setSort] = useState('name');
   const [stockSearch, setStockSearch] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
   const [menu, setMenu] = useState('stock');
   const [display, setDisplay] = useState(false);
+  const [value, setValue] = useState('stock');
+
   // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const selectedcurrentValue = () => {
+    setValue(selected.current.value);
+  };
 
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
@@ -105,7 +112,6 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
     }
   };
 
-  console.log(menu);
   return (
     <>
 
@@ -166,6 +172,16 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
 
           <div className="sortbox-wrap clear-fix">
             <select
+              className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`}
+              id="sort-chocie"
+              onChange={selectedcurrentValue}
+              ref={selected}
+            >
+              <option defaultValue="stock">stock</option>
+              <option value="currency">currency</option>
+            </select>
+
+            <select
               className="sortbox"
               id="sort-chocie"
               onChange={selectedValue}
@@ -195,7 +211,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
             menu={menu}
             toggleMenu={toggleMenu}
           />
-          <FavoriteListContainer menu={menu} toggleMenu={toggleMenu} />
+          <FavoriteListContainer menu={menu} toggleMenu={toggleMenu} value={value} />
           <button className="close-button" onClick={toggleMenu}>
             x
           </button>

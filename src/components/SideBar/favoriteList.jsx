@@ -14,11 +14,12 @@ export default function FavoriteList({
   loading,
   currencyLoading,
   toggleMenu,
+  value
 }) {
-  const [value, setValue] = useState('stock');
+  // const [value, setValue] = useState('stock');
 
   const dispatch = useDispatch();
-  const selected = useRef();
+  // const selected = useRef();
   // return <div>A</div>;
 
   const sendCurrencySymbol = (selectedStock) => {
@@ -62,9 +63,9 @@ export default function FavoriteList({
   //   return favoriteStockList.symbol === stockList.symbol;
   // });
 
-  const selectedValue = () => {
-    setValue(selected.current.value);
-  };
+  // const selectedValue = () => {
+  //   setValue(changevalue);
+  // };
 
   const favoriteStockData = useSelector(
     (state) => state.selectedSymbol.selectedStockSymbol,
@@ -79,7 +80,7 @@ export default function FavoriteList({
   if (!currencyLoading) {
     return (
       <>
-        <select
+        {/* <select
           className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`}
           id="sort-chocie"
           onChange={selectedValue}
@@ -87,7 +88,7 @@ export default function FavoriteList({
         >
           <option defaultValue="stock">stock</option>
           <option value="currency">currency</option>
-        </select>
+        </select> */}
         <div className="sidebar favorite">
           <ul className={menu === 'favorite' ? '' : 'none'}>
             {/* {console.log(currencyList)}

@@ -58,7 +58,7 @@
       display: block;
       width: 92%;
       height: 30px;
-      margin: 25px 15px;
+      margin: 35px 15px 15px 15px;
       box-sizing: border-box;
       padding: 0 0 0 8%;
       border-radius: 5px;
@@ -76,25 +76,31 @@
     .search::placeholder {
       color: #727aa0;
     }
-
-    .sortbox {
-      float: right;
-      width: 102px;
-      height: 32px;
-      margin-top: 20px;
-      margin-right: 15px;
-      padding-left: 8px;
-      font-size: 0.8462rem;
-      color: #fff;
-      background: #1c2024;
-      border-radius: 3px;
+    .sortbox-wrap {
+      .sortbox {
+        // float: right;
+        width: 102px;
+        height: 32px;
+        margin-top: 20px;
+        padding-left: 8px;
+        font-size: 0.8462rem;
+        color: #fff;
+        background: #1c2024;
+        border-radius: 3px;
+      }
+      .sortbox:nth-of-type(1) {
+        float: left;
+        margin-left: 15px;
+      }
+      .sortbox:nth-of-type(2) {
+        float: right;
+        margin-right: 15px;
+      }
     }
 
-    .sortValuebox {
-      width: 100%;
-      margin-top: 20px !important;
-      margin-bottom: 20px;
-    }
+    // .sortValuebox {
+    //   width: 100%;
+    // }
 
     .list-values {
       margin: 20px 0;

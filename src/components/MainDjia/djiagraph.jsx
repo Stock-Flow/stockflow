@@ -16,7 +16,6 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     'resize',
     useCallback(() => {
       setWindowWidth(window.innerWidth);
-      console.log('hi');
       if (chart.current) {
         if (windowWidth >= 1200) {
           chart.current.resize(windowWidth * 0.72 - 100, 400);
