@@ -15,8 +15,8 @@ $grey: #666666;
 .switch {
   position: relative;
   display: inline-block;
-  width: 100px;
-  height: 34px;
+  width: 120px;
+  height: 40px;
 }
 
 .switch input {
@@ -33,17 +33,23 @@ $grey: #666666;
   right: 0;
   bottom: 0;
   background: $deepPurple;
+  border: 3px solid #727aa0;
+  box-shadow: 2px 2px 2px #07080a;
   transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
   content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
+  height: 27px;
+  width: 27px;
+  left: 5px;
+  bottom: 3px;
+  // border: 4px solid #ffffff;
+  background: url('../styles/moon-icon.png') center center no-repeat;
+  background-size: 90%;
+
+  box-sizing: border-box;
   transition: 0.4s;
 }
 
@@ -57,13 +63,49 @@ input:focus + .slider {
 }
 // 여백 4px
 input:checked + .slider:before {
-  transform: translateX(66px);
+  transform: translateX(77px);
 }
 
 .slider.round {
   border-radius: 34px;
+  box-shadow: 2px 2px 2px #07080a;
+  &::before {
+    border-radius: 50%;
+  }
+  &::after {
+    // content: 'DARK MODE';
+    // font-size: 11px;
+    // position: absolute;
+    // right: 10px;
+    // top: 50%;
+    // transform: translate(0px, -50%);
+    // letter-spacing: 0.2px;
+  }
 }
 
-.slider.round:before {
-  border-radius: 50%;
+// light-mode
+.light {
+  .switch {
+    .slider {
+      border: 3px solid #ddd;
+
+      background: #89cbff;
+      &::before {
+        border: 4px solid #ffa824;
+        background: #ffd400;
+      }
+    }
+    .slider.round {
+      box-shadow: 2px 2px 2px #c7c7c7;
+      &::after {
+        // content: 'LIGHT MODE';
+        // font-size: 11px;
+        // position: absolute;
+        // left: 10px;
+        // top: 50%;
+        // color: #1c73b7;
+        // transform: translate(0px, -50%);
+      }
+    }
+  }
 }
