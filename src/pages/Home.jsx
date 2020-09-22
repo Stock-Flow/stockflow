@@ -51,10 +51,10 @@ export default function Home() {
           lightMode={lightMode}
         />
       ) : (
-        <>
-          <DjiagraphContainer lightMode={lightMode} />
-        </>
-      )}
+            <>
+              <DjiagraphContainer lightMode={lightMode} />
+            </>
+          )}
       <SwitchMode setLightMode={setLightMode} />
     </div>
   );
