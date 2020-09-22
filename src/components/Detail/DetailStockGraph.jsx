@@ -132,12 +132,11 @@ export default function DetailStockGraph({
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
     if (windowWidth < 1200) {
-      chart.current.resize(windowWidth * 0.72, 400);
+      chart.current.resize(windowWidth * 0.72, 300);
     }
     if (assistChart.current) {
       if (windowWidth < 1200) {
         assistChart.current.resize(windowWidth * 0.72, 200);
-
       } else {
         assistChart.current.resize(windowWidth * 0.72 - 100, 200);
       }
@@ -150,6 +149,7 @@ export default function DetailStockGraph({
         indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
       }
     }
+
     if (disparityGraph.current) {
       if (windowWidth < 1200) {
         disparityChart.current.resize(windowWidth * 0.72, 200);
@@ -239,7 +239,7 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
 
@@ -272,10 +272,19 @@ export default function DetailStockGraph({
         },
       },
     });
-    assistChart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 200,
-    });
+    if (windowWidth >= 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 200,
+      });
+    }
+    if (windowWidth < 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 200,
+      });
+    }
+
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',

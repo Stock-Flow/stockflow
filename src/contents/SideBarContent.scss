@@ -203,7 +203,7 @@
 
         .VictoryContainer {
           display: inline-block;
-          background-color: pink;
+          // background-color: pink;
         }
 
         .sidebar-price {
@@ -319,9 +319,13 @@
       width: 90%;
       min-height: 100%;
       transform: translateX(100%);
+      margin-right: -100%;
       transition: all 1.5s;
+      overflow: hidden;
       .menu-bar {
-        min-width: 60px;
+        min-width: unset;
+        width: unset;
+        width: 60px;
         .mobile-close-button {
           display: block;
         }
@@ -330,14 +334,47 @@
         }
       }
       .sidebarList {
+        width: calc(100% - 60px);
         min-width: unset;
         font-size: 0.7rem;
         min-height: 100%;
+        .list-values {
+          span:nth-child(1) {
+            width: 40%;
+          }
+          span:nth-child(2) {
+            width: 20%;
+            display: none;
+          }
+          span:nth-child(3) {
+            width: 30%;
+          }
+          span:nth-child(4) {
+            width: 30%;
+          }
+        }
+        .sidebar {
+          .sidebar-title {
+            flex-basis: 40%;
+          }
+          .inner-sidebar-chart {
+            display: none;
+          }
+          .sidebar-price {
+            flex-basis: 30%;
+            font-size: 0.75rem;
+          }
+          .sidebar-change {
+            flex-basis: 30%;
+            font-size: 0.75rem;
+          }
+        }
       }
     }
     .mobile-sidebar-show {
       z-index: 100 !important;
       transform: translateX(0);
+      margin-right: 0;
       transition: all 1.5s;
       box-shadow: none;
     }

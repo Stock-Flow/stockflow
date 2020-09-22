@@ -74,3 +74,9 @@
     }
   }
 }
+
+@include smallmobile {
+  .djiagraphBox {
+    width: 80vw !important;
+  }
+}
