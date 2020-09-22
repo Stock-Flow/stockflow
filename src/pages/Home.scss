@@ -424,21 +424,16 @@ html {
     transform: translate(-50%, -50%) !important;
   }
 }
-// light mode
-
-.light {
-  #root {
-    .home {
-      color: #333 !important;
-      background: #fff !important;
-    }
-  }
-}
-
 .scroll-control {
   max-height: 100%;
   overflow: auto;
 }
 .scrolling-control {
   overflow: hidden;
+}
+
+// start :: light mode
+.light {
+  color: #333 !important;
+  background: #fff !important;
 }
