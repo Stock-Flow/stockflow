@@ -12,6 +12,8 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
   const [currencySearch, setCurrencySearch] = useState('');
   const [menu, setMenu] = useState('stock');
   const [display, setDisplay] = useState(false);
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
 
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
@@ -25,6 +27,9 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu }) {
     './images/star-click-icon.png',
   );
 
+  // window.onresize = () => {
+  //   setWindowWidth(window.innerWidth)
+  // }
 
   const checkSearchDone = useCallback((menu) => {
     clearTimeout(searchDone.current);
