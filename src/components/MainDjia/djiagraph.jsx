@@ -22,7 +22,7 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
           chart.current.resize(windowWidth * 0.72 - 100, 400);
         }
         if (windowWidth < 1200) {
-          chart.current.resize(windowWidth * 0.72, 400);
+          chart.current.resize(windowWidth * 0.72, 300);
         }
       }
     }, [windowWidth]),
@@ -37,7 +37,7 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
 
@@ -104,11 +104,11 @@ export default function DjiaGraph({ djiaList, djiaDate, loading, done }) {
           </div>
         </>
       ) : (
-        <div className="foreign-exchange-wrap">
-          <ForeignExchangeContainer />
-          <ForeignExchangeDetailContainer />
-        </div>
-      )}
+          <div className="foreign-exchange-wrap">
+            <ForeignExchangeContainer />
+            <ForeignExchangeDetailContainer />
+          </div>
+        )}
     </div>
   );
 }
