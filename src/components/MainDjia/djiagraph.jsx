@@ -60,7 +60,7 @@ export default function DjiaGraph({
       },
       layout: {
         backgroundColor: `${lightMode ? '#eee' : '#2d303e'}`,
-        textColor: `${lightMode ? '#181818' : '#eee'}`
+        textColor: `${lightMode ? '#181818' : '#eee'}`,
       },
       grid: {
         vertLines: {
@@ -76,8 +76,7 @@ export default function DjiaGraph({
         },
       },
     });
-
-  }, [lightMode])
+  }, [lightMode]);
 
   let stockList = [];
   if (djiaList.length !== 0) {
@@ -99,6 +98,7 @@ export default function DjiaGraph({
       to: stockList.length,
     });
   }
+
   return (
     <div className="djia">
       <h2>DOW J</h2>
@@ -111,11 +111,13 @@ export default function DjiaGraph({
           </div>
         </>
       ) : (
+
           <div className="foreign-exchange-wrap">
             <ForeignExchangeContainer lightMode={lightMode} />
             <ForeignExchangeDetailContainer lightMode={lightMode} />
           </div>
         )}
+
     </div>
   );
 }

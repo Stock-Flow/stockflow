@@ -5,7 +5,11 @@ import './SideBarContent.scss';
 import FavoriteListContainer from '../containers/SideBar/favoriteListContainer';
 import { useEffect } from 'react';
 
-export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll }) {
+export default function SideBarContent({
+  mobileMenu,
+  toggleMobileMenu,
+  scroll,
+}) {
   const searchValue = useRef();
   const searchDone = useRef();
   const sideBarWrap = useRef();
@@ -26,6 +30,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
 
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
+
   const [stockImgUrl, setStockImgUrl] = useState(
     './images/chartarrow-white.png',
   );
@@ -115,6 +120,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
 
   const toggleMenu = () => {
     setDisplay(!display);
+
     if (window.innerWidth < 1200) {
       if (display === true) {
         setStockImgUrl('./images/chartarrow.png')
@@ -152,18 +158,21 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
         setStockImgUrl('./images/chartarrow-white.png');
         setCurrencyImgUrl('./images/currency-icon.png');
         setFavoriteUrl('./images/star-click-icon.png');
-      } else if (e === 'currency') {
+      }
+      if (menu === 'currency') {
         setStockImgUrl('./images/chartarrow.png');
         setCurrencyImgUrl('./images/currency-icon-white.png');
         setFavoriteUrl('./images/star-click-icon.png');
-      } else if (e === 'favorite') {
+      }
+      if (menu === 'favorite') {
         setStockImgUrl('./images/chartarrow.png');
         setCurrencyImgUrl('./images/currency-icon.png');
         setFavoriteUrl('./images/star-click-icon-white.png');
-      } else {
-        setStockImgUrl('./images/chartarrow-white.png');
       }
     }
+
+  };
+
     if (window.innerWidth > 1200 || window.innerWidth < 768) {
       if (e === 'stock') {
         setStockImgUrl('./images/chartarrow-white.png');
@@ -182,9 +191,36 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
       }
     }
 
-  }, [display]);
 
+  // console.log(display);
 
+  const changeMode = useCallback(
+    (e) => {
+      // setHomeImgUrl('./images/home.png');
+      setMenu(e);
+      searchValue.current.value = '';
+      setStockSearch('');
+      setCurrencySearch('');
+      if (display === true) {
+        if (e === 'stock') {
+          setStockImgUrl('./images/chartarrow-white.png');
+          setCurrencyImgUrl('./images/currency-icon.png');
+          setFavoriteUrl('./images/star-click-icon.png');
+        } else if (e === 'currency') {
+          setStockImgUrl('./images/chartarrow.png');
+          setCurrencyImgUrl('./images/currency-icon-white.png');
+          setFavoriteUrl('./images/star-click-icon.png');
+        } else if (e === 'favorite') {
+          setStockImgUrl('./images/chartarrow.png');
+          setCurrencyImgUrl('./images/currency-icon.png');
+          setFavoriteUrl('./images/star-click-icon-white.png');
+        } else {
+          setStockImgUrl('./images/chartarrow-white.png');
+        }
+      }
+    },
+    [display],
+  );
 
   // const goHome = () => {
   //   setHomeImgUrl('./images/home-white.png');
@@ -194,12 +230,14 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
   //   dispatch(getSelectedStockSagaActionCreator('', ''));
   // };
 
-
-
   return (
     <>
-
-      <div className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${scroll ? 'scroll-control' : ''}`} ref={sideBarWrap}>
+      <div
+        className={`sidebar-wrap ${mobileMenu ? 'mobile-sidebar-show' : ''} ${
+          scroll ? 'scroll-control' : ''
+        }`}
+        ref={sideBarWrap}
+      >
         <nav className="menu-bar">
           <button className="toggle-menu" onClick={toggleMenu}>
             <img src="./images/toggle-menu.png" alt="menu" />
@@ -241,7 +279,11 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
           </button>
         </nav>
 
-        <div className={`sidebarList ${display ? 'sidebarList-show' : ''} ${scroll ? 'scroll-control' : ''}`}>
+        <div
+          className={`sidebarList ${display ? 'sidebarList-show' : ''} ${
+            scroll ? 'scroll-control' : ''
+          }`}
+        >
           <input
             className="search"
             type="text"
@@ -256,7 +298,9 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
 
           <div className="sortbox-wrap clear-fix">
             <select
-              className={`sortbox sortValuebox ${menu !== 'favorite' && 'none'}`}
+              className={`sortbox sortValuebox ${
+                menu !== 'favorite' && 'none'
+              }`}
               id="sort-chocie"
               onChange={selectedcurrentValue}
               ref={selected}
@@ -295,7 +339,11 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
             menu={menu}
             toggleMenu={toggleMenu}
           />
-          <FavoriteListContainer menu={menu} toggleMenu={toggleMenu} value={value} />
+          <FavoriteListContainer
+            menu={menu}
+            toggleMenu={toggleMenu}
+            value={value}
+          />
           <button className="close-button" onClick={toggleMenu}>
             x
           </button>
