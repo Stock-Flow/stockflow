@@ -134,26 +134,53 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current.resize(windowWidth * 0.72, 300);
     }
-    if (windowWidth >= 1200) {
-      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (assistChart.current) {
+      if (windowWidth < 1200) {
+        assistChart.current.resize(windowWidth * 0.72, 200);
+      } else {
+        assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (windowWidth < 1200) {
-      assistChart.current.resize(windowWidth * 0.72, 200);
+    if (rsiChart.current) {
+      if (windowWidth < 1200) {
+        indicatorChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (indicatorChart.current) {
-      indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+
+    if (disparityGraph.current) {
+      if (windowWidth < 1200) {
+        disparityChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (disparityChart.current) {
-      disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDGraph.current) {
+      if (windowWidth < 1200) {
+        MACDChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDChart.current) {
-      MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDOSCGraph.current) {
+      if (windowWidth < 1200) {
+        MACDOSCChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDOSCChart.current) {
-      MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
-    }
-    if (stochasticSlowChart.current) {
-      stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (stochasticSlowDGraph.current) {
+      if (windowWidth < 1200) {
+        stochasticSlowChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
   };
 

@@ -1,6 +1,10 @@
 export default class GraphService {
   static graphColor(chart, color, graph, data, windowWidth) {
-    chart.resize(windowWidth * 0.72 - 100, 200);
+    if (windowWidth >= 1200) {
+      chart.resize(windowWidth * 0.72 - 100, 200);
+    } else {
+      chart.resize(windowWidth * 0.72, 200);
+    }
     graph.current = chart.addLineSeries({
       color: color
     });
@@ -12,7 +16,11 @@ export default class GraphService {
     });
   }
   static setHistogramGraph(chart, color, graph, data, windowWidth) {
-    chart.resize(windowWidth * 0.72 - 100, 200);
+    if (windowWidth >= 1200) {
+      chart.resize(windowWidth * 0.72 - 100, 200);
+    } else {
+      chart.resize(windowWidth * 0.72, 200);
+    }
     graph.current = chart.addHistogramSeries({
       color: color,
       base: 0
