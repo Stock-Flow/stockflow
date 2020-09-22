@@ -8,6 +8,7 @@ import DetailCurrencyGraphContainer from '../containers/Detail/DetailCurrencyGra
 import './Home.scss';
 import Header from '../contents/Header';
 import SwitchMode from '../contents/SwitchMode';
+import { useEffect } from 'react';
 
 export default function Home() {
   const selectedStock = useSelector((state) => state.selectedStock);
@@ -19,6 +20,12 @@ export default function Home() {
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   };
+
+  const getColorMode = localStorage.getItem('lightMode');
+  useEffect(() => {
+    console.log(getColorMode);
+  }, [getColorMode]);
+
   return (
     <div className="home">
       <Header toggleMobileMenu={toggleMobileMenu} />
