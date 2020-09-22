@@ -14,7 +14,7 @@
     min-width: 70px;
     min-height: 100vh;
     box-sizing: border-box;
-    background-color: #2f3242;
+    background: #343748;
     display: flex;
     flex-direction: column;
     padding: 20px 10px 0 10px;
@@ -332,6 +332,7 @@
         min-width: unset;
         width: unset;
         width: 60px;
+
         .mobile-close-button {
           display: block;
         }
@@ -344,6 +345,7 @@
         min-width: unset;
         font-size: 0.7rem;
         min-height: 100%;
+
         .list-values {
           span:nth-child(1) {
             width: 40%;
@@ -395,8 +397,10 @@
 // start :: light mode
 .light {
   .sidebar-wrap {
+    .sidebarList {
+      box-shadow: none;
+    }
     .menu-bar {
-      background-color: #343748;
       box-shadow: none;
     }
   }
