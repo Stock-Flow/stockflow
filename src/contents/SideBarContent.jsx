@@ -26,7 +26,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
   // img url 경로 state
   // const [homeImgUrl, setHomeImgUrl] = useState('./images/home-white.png');
   const [stockImgUrl, setStockImgUrl] = useState(
-    './images/chartarrow-white.png',
+    './images/chartarrow.png',
   );
   const [currencyImgUrl, setCurrencyImgUrl] = useState(
     './images/currency-icon.png',
@@ -54,29 +54,60 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
     setSort(e.target.value);
   }, []);
 
+  const toggleMenu = () => {
+    setDisplay(!display);
+    if (display === true) {
+      setStockImgUrl('./images/chartarrow.png')
+      setCurrencyImgUrl('./images/currency-icon.png')
+      setFavoriteUrl('./images/star-click-icon.png')
+    } else if (display === false) {
+      if (menu === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'currency') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon-white.png')
+        setFavoriteUrl('./images/star-click-icon.png')
+      }
+      if (menu === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png')
+        setCurrencyImgUrl('./images/currency-icon.png')
+        setFavoriteUrl('./images/star-click-icon-white.png')
+      }
+    }
+  };
+
+  console.log(display)
+
   const changeMode = useCallback((e) => {
     // setHomeImgUrl('./images/home.png');
     setMenu(e);
     searchValue.current.value = '';
     setStockSearch('');
     setCurrencySearch('');
-
-    if (e === 'stock') {
-      setStockImgUrl('./images/chartarrow-white.png');
-      setCurrencyImgUrl('./images/currency-icon.png');
-      setFavoriteUrl('./images/star-click-icon.png');
-    } else if (e === 'currency') {
-      setStockImgUrl('./images/chartarrow.png');
-      setCurrencyImgUrl('./images/currency-icon-white.png');
-      setFavoriteUrl('./images/star-click-icon.png');
-    } else if (e === 'favorite') {
-      setStockImgUrl('./images/chartarrow.png');
-      setCurrencyImgUrl('./images/currency-icon.png');
-      setFavoriteUrl('./images/star-click-icon-white.png');
-    } else {
-      setStockImgUrl('./images/chartarrow-white.png');
+    if (display === true) {
+      if (e === 'stock') {
+        setStockImgUrl('./images/chartarrow-white.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'currency') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon-white.png');
+        setFavoriteUrl('./images/star-click-icon.png');
+      } else if (e === 'favorite') {
+        setStockImgUrl('./images/chartarrow.png');
+        setCurrencyImgUrl('./images/currency-icon.png');
+        setFavoriteUrl('./images/star-click-icon-white.png');
+      } else {
+        setStockImgUrl('./images/chartarrow-white.png');
+      }
     }
-  }, []);
+
+  }, [display]);
+
+
 
   // const goHome = () => {
   //   setHomeImgUrl('./images/home-white.png');
@@ -86,9 +117,7 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
   //   dispatch(getSelectedStockSagaActionCreator('', ''));
   // };
 
-  const toggleMenu = () => {
-    setDisplay(!display);
-  };
+
 
   console.log(menu);
   return (
