@@ -264,6 +264,7 @@ html {
   }
 }
 
+<<<<<<< HEAD
 @include mobile {
   .home {
     .detail-stock {
@@ -299,6 +300,15 @@ html {
       // margin: 0 auto;
       margin: 37px 40px !important;
       margin-top: 20px;
+=======
+// light mode
+
+.light {
+  #root {
+    .home {
+      color: #333 !important;
+      background: #fff !important;
+>>>>>>> 4321385e352e9e495f839715075f18879fc21f22
     }
   }
 }
