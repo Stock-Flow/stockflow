@@ -271,7 +271,7 @@ html {
       margin: 0 auto;
       .chart .tv-lightweight-charts {
         // margin: 0 auto;
-        margin: 37px 80px;
+        margin: 37px 15%;
         margin-top: 20px;
       }
       .detail-stock-button {
@@ -311,4 +311,12 @@ html {
       background: #fff !important;
     }
   }
+}
+
+.scroll-control {
+  max-height: 100%;
+  overflow: auto;
+}
+.scrolling-control {
+  overflow: hidden;
 }
