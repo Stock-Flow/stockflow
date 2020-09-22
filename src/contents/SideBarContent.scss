@@ -203,7 +203,7 @@
 
         .VictoryContainer {
           display: inline-block;
-          background-color: pink;
+          // background-color: pink;
         }
 
         .sidebar-price {
@@ -338,6 +338,37 @@
         min-width: unset;
         font-size: 0.7rem;
         min-height: 100%;
+        .list-values {
+          span:nth-child(1) {
+            width: 40%;
+          }
+          span:nth-child(2) {
+            width: 20%;
+            display: none;
+          }
+          span:nth-child(3) {
+            width: 30%;
+          }
+          span:nth-child(4) {
+            width: 30%;
+          }
+        }
+        .sidebar {
+          .sidebar-title {
+            flex-basis: 40%;
+          }
+          .inner-sidebar-chart {
+            display: none;
+          }
+          .sidebar-price {
+            flex-basis: 30%;
+            font-size: 0.75rem;
+          }
+          .sidebar-change {
+            flex-basis: 30%;
+            font-size: 0.75rem;
+          }
+        }
       }
     }
     .mobile-sidebar-show {

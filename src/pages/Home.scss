@@ -238,7 +238,7 @@ html {
         margin: 5px 40px;
         .detail-button {
           width: 190px;
-          margin: 20px 0;
+          margin: 20px 10px;
           font-size: 0.8rem;
         }
       }
@@ -250,6 +250,10 @@ html {
         z-index: 300;
         width: 100px;
         height: 100px;
+      }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
       }
     }
 
@@ -267,7 +271,7 @@ html {
       margin: 0 auto;
       .chart .tv-lightweight-charts {
         // margin: 0 auto;
-        margin: 37px 75px;
+        margin: 37px 80px;
         margin-top: 20px;
       }
       .detail-stock-button {
@@ -281,6 +285,20 @@ html {
           font-size: 0.9rem;
         }
       }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@include smallmobile {
+  .home {
+    .chart .tv-lightweight-charts {
+      // margin: 0 auto;
+      margin: 37px 40px !important;
+      margin-top: 20px;
     }
   }
 }

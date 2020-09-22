@@ -132,13 +132,13 @@ export default function DetailStockGraph({
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
     if (windowWidth < 1200) {
-      chart.current.resize(windowWidth * 0.72, 400);
+      chart.current.resize(windowWidth * 0.72, 300);
     }
     if (windowWidth >= 1200) {
       assistChart.current.resize(windowWidth * 0.72 - 100, 200);
     }
     if (windowWidth < 1200) {
-      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      assistChart.current.resize(windowWidth * 0.72, 200);
     }
     if (indicatorChart.current) {
       indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
@@ -212,7 +212,7 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
 
