@@ -39,17 +39,17 @@ export default function ForeignExchangeContainer() {
   let beforefxClose = 0;
   let afterfxClose = 0;
 
-  const fxIntradayClose = fxIntraday.forEach((v, i) => {
-    const beforefx = Object.keys(v)[1];
-    const afterfx = Object.keys(v)[0];
-    beforefxClose = Number(v[beforefx]['4. close']);
-    afterfxClose = Number(v[afterfx]['4. close']);
+  // const fxIntradayClose = fxIntraday.forEach((v, i) => {
+  //   const beforefx = Object.keys(v)[1];
+  //   const afterfx = Object.keys(v)[0];
+  //   beforefxClose = Number(v[beforefx]['4. close']);
+  //   afterfxClose = Number(v[afterfx]['4. close']);
 
-    return fxIntradayArr.push({
-      beforefxClose,
-      afterfxClose,
-    });
-  });
+  //   return fxIntradayArr.push({
+  //     beforefxClose,
+  //     afterfxClose,
+  //   });
+  // });
 
   useEffect(() => {
     getExchange(exchangeArr);
