@@ -37,9 +37,9 @@ export default class ExchangeSerivice {
     );
 
     const exchangeArrState = [...exchangePromise];
-    // let combineExchangeArray = await exchangeArr.map((exchange, i) => {
-    //   return (exchangeArrState[i].fxIntraday = exchangeIntraPromise[i]);
-    // });
+    exchangeArr.map((exchange, i) => {
+      return (exchangeArrState[i].fxIntraday = exchangeIntraPromise[i]);
+    });
     return exchangeArrState;
   }
 }

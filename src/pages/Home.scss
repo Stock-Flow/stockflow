@@ -259,3 +259,14 @@ html {
     // }
   }
 }
+
+// light mode
+
+.light {
+  #root {
+    .home {
+      color: #333 !important;
+      background: #fff !important;
+    }
+  }
+}
