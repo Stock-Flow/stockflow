@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { getSwitchModeSagaActionCreator } from '../redux/modules/switchMode';
 import './SwitchMode.scss';
 
-export default function SwitchMode() {
+export default function SwitchMode({ setLightMode }) {
   const [modeCheck, setModeCheck] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('lightMode', JSON.stringify(modeCheck));
+    localStorage.setItem('lightMode', modeCheck);
   }, [modeCheck]);
 
   return (
@@ -18,6 +18,7 @@ export default function SwitchMode() {
           checked={modeCheck}
           onChange={() => {
             setModeCheck(!modeCheck);
+            setLightMode(localStorage.getItem('lightMode'))
           }}
         />
         <span class="slider round"></span>

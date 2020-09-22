@@ -17,7 +17,6 @@ export default function FavoriteList({
   value
 }) {
   // const [value, setValue] = useState('stock');
-  console.log(value);
 
   const dispatch = useDispatch();
   // const selected = useRef();

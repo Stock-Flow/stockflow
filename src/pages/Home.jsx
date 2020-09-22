@@ -29,10 +29,7 @@ export default function Home() {
 
   // lightMode
   const [lightMode, setLightMode] = useState(localStorage.getItem('lightMode'));
-  useEffect(() => {
-    setLightMode(localStorage.getItem('lightMode'));
-    console.log('lightMode', lightMode);
-  }, [lightMode]);
+  console.log(lightMode)
 
   return (
     <div className="home">
@@ -47,11 +44,11 @@ export default function Home() {
       ) : selectedStock.kind === 'currency' ? (
         <DetailCurrencyGraphContainer symbol={selectedStock.symbol} />
       ) : (
-        <>
-          <DjiagraphContainer />
-        </>
-      )}
-      <SwitchMode />
+            <>
+              <DjiagraphContainer />
+            </>
+          )}
+      <SwitchMode setLightMode={setLightMode} />
     </div>
   );
 }

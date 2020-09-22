@@ -90,7 +90,6 @@ export default function SideBarContent({ mobileMenu, toggleMobileMenu, scroll })
     setDisplay(!display);
   };
 
-  console.log(menu);
   return (
     <>
 

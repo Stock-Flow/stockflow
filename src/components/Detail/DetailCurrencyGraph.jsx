@@ -469,7 +469,6 @@ export default function DetailCurrencyGraph({
   }, [symbol]);
 
   useEffect(() => {
-    console.log(compare)
     if (compareGraph.current) chart.current.removeSeries(compareGraph.current);
     compareGraph.current = chart.current.addCandlestickSeries({
       title: search.current,
