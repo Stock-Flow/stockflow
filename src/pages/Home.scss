@@ -238,7 +238,7 @@ html {
         margin: 5px 40px;
         .detail-button {
           width: 190px;
-          margin: 20px 0;
+          margin: 20px 10px;
           font-size: 0.8rem;
         }
       }
@@ -251,6 +251,10 @@ html {
         width: 100px;
         height: 100px;
       }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
+      }
     }
 
     // .chart .tv-lightweight-charts {
@@ -260,6 +264,44 @@ html {
   }
 }
 
+@include mobile {
+  .home {
+    .detail-stock {
+      width: 100%;
+      margin: 0 auto;
+      .chart .tv-lightweight-charts {
+        // margin: 0 auto;
+        margin: 37px 80px;
+        margin-top: 20px;
+      }
+      .detail-stock-button {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin: 0 auto;
+        .detail-button {
+          width: 80%;
+          margin: 10px auto;
+          font-size: 0.9rem;
+        }
+      }
+      h2 {
+        width: 70%;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@include smallmobile {
+  .home {
+    .chart .tv-lightweight-charts {
+      // margin: 0 auto;
+      margin: 37px 40px !important;
+      margin-top: 20px;
+    }
+  }
+}
 // light mode
 
 .light {

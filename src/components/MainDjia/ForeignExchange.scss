@@ -151,4 +151,58 @@
     display: block;
     width: 100% !important;
   }
+  .exchange-item {
+    .exchange-column.icon {
+      width: 0;
+      display: none;
+    }
+    .exchange-column.name {
+      width: 45% !important;
+      font-size: 0.75rem;
+      .currency-name {
+        line-height: 1.8;
+        font-size: 0.6rem !important;
+        color: #c9c9c9;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    .exchange-column.rate {
+      width: 35% !important;
+      padding-left: 10px;
+      font-size: 0.7rem;
+    }
+
+    .exchange-column.percent {
+      font-size: 0.7rem;
+      .plus {
+        color: #2baa65;
+      }
+
+      .minus {
+        color: #c52d3c;
+      }
+    }
+  }
+}
+
+@include smallmobile {
+  .exchange-item {
+    .exchange-column.name {
+      width: 38% !important;
+      font-size: 0.7rem;
+      .currency-name {
+        font-size: 0.5rem !important;
+      }
+    }
+    .exchange-column.rate {
+      width: 42% !important;
+      font-size: 0.65rem;
+    }
+
+    .exchange-column.percent {
+      font-size: 0.65rem;
+    }
+  }
 }

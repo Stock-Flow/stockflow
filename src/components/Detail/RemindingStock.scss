@@ -1,3 +1,5 @@
+@import '../../responsive.scss';
+
 .reminding-stock-wrap {
   .reminding-btn {
     position: relative;
@@ -113,5 +115,15 @@
   100% {
     opacity: 0;
     transform: scale(1);
+  }
+}
+
+@include mobile {
+  .reminding-stock-wrap {
+    .stocklist-wrap {
+      position: fixed;
+      top: 85px;
+      right: 74px;
+    }
   }
 }

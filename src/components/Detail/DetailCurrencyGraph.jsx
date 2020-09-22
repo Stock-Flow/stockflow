@@ -141,10 +141,13 @@ export default function DetailCurrencyGraph({
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
     if (windowWidth < 1200) {
-      chart.current.resize(windowWidth * 0.72, 400);
+      chart.current.resize(windowWidth * 0.72, 300);
     }
-    if (assistChart.current) {
+    if (windowWidth >= 1200) {
       assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+    }
+    if (windowWidth < 1200) {
+      assistChart.current.resize(windowWidth * 0.72, 200);
     }
     if (indicatorChart.current) {
       indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
@@ -192,7 +195,7 @@ export default function DetailCurrencyGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -211,7 +214,7 @@ export default function DetailCurrencyGraph({
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
     chart.current.applyOptions({
@@ -243,10 +246,19 @@ export default function DetailCurrencyGraph({
         },
       },
     });
-    assistChart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 200,
-    });
+    if (windowWidth >= 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 200,
+      });
+    }
+    if (windowWidth < 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 200,
+      });
+    }
+
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -459,10 +471,10 @@ export default function DetailCurrencyGraph({
   useEffect(() => {
     console.log(compare)
     if (compareGraph.current) chart.current.removeSeries(compareGraph.current);
-      compareGraph.current = chart.current.addCandlestickSeries({
+    compareGraph.current = chart.current.addCandlestickSeries({
       title: search.current,
-      });
-      compareGraph.current.setData(compare);
+    });
+    compareGraph.current.setData(compare);
   }, [compare]);
 
   useEffect(() => {
@@ -510,30 +522,30 @@ export default function DetailCurrencyGraph({
         {loading ? (
           <LoadingOutlined className="loading" />
         ) : (
-          <>
-            <h2>{symbol}</h2>
-            <div className="detail-stock-button">
-              <button 
-                className="detail-button"
-                onClick={openAddModal}
-              >
-                Add Currency
+            <>
+              <h2>{symbol}</h2>
+              <div className="detail-stock-button">
+                <button
+                  className="detail-button"
+                  onClick={openAddModal}
+                >
+                  Add Currency
               </button>
-              <button className="detail-button" onClick={() => {
-                if (compareGraph.current) {
-                  chart.current.removeSeries(compareGraph.current);
-                  compareGraph.current = null;
-                }
-              }}>remove compare graph</button>
-              <button 
-                className="detail-button" 
-                onClick={openModal}
+                <button className="detail-button" onClick={() => {
+                  if (compareGraph.current) {
+                    chart.current.removeSeries(compareGraph.current);
+                    compareGraph.current = null;
+                  }
+                }}>remove compare graph</button>
+                <button
+                  className="detail-button"
+                  onClick={openModal}
                 >
                   Indicators
                   </button>
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
 
         <Modal
           isOpen={addModalIsOpen}
@@ -553,20 +565,20 @@ export default function DetailCurrencyGraph({
           />
           <datalist id="search-list">
             {searchList.length !== 0 &&
-            searchList.map((item) => {
-              return <option value={item.symbol}></option>;
-            })}
+              searchList.map((item) => {
+                return <option value={item.symbol}></option>;
+              })}
 
           </datalist>
 
           <button
-          className="add-modal-btn"
-          onClick={() => {
-            getCompare(searchValue.current.value);
-            closeAddModal();
-          }}
-        >
-          Add
+            className="add-modal-btn"
+            onClick={() => {
+              getCompare(searchValue.current.value);
+              closeAddModal();
+            }}
+          >
+            Add
         </button>
         </Modal>
 

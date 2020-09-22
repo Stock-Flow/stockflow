@@ -132,25 +132,55 @@ export default function DetailStockGraph({
       chart.current.resize(windowWidth * 0.72 - 100, 400);
     }
     if (windowWidth < 1200) {
-      chart.current.resize(windowWidth * 0.72, 400);
+      chart.current.resize(windowWidth * 0.72, 300);
     }
     if (assistChart.current) {
-      assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      if (windowWidth < 1200) {
+        assistChart.current.resize(windowWidth * 0.72, 200);
+      } else {
+        assistChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (indicatorChart.current) {
-      indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (rsiChart.current) {
+      if (windowWidth < 1200) {
+        indicatorChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        indicatorChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (disparityChart.current) {
-      disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+
+    if (disparityGraph.current) {
+      if (windowWidth < 1200) {
+        disparityChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        disparityChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDChart.current) {
-      MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDGraph.current) {
+      if (windowWidth < 1200) {
+        MACDChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (MACDOSCChart.current) {
-      MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (MACDOSCGraph.current) {
+      if (windowWidth < 1200) {
+        MACDOSCChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        MACDOSCChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
-    if (stochasticSlowChart.current) {
-      stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+    if (stochasticSlowDGraph.current) {
+      if (windowWidth < 1200) {
+        stochasticSlowChart.current.resize(windowWidth * 0.72, 200);
+
+      } else {
+        stochasticSlowChart.current.resize(windowWidth * 0.72 - 100, 200);
+      }
     }
   };
 
@@ -190,7 +220,7 @@ export default function DetailStockGraph({
     setIsOpen(true);
   }
 
-  function afterOpenModal() {}
+  function afterOpenModal() { }
   function closeModal() {
     setIsOpen(false);
   }
@@ -209,7 +239,7 @@ export default function DetailStockGraph({
     if (windowWidth < 1200) {
       chart.current = createChart(chartposition.current, {
         width: windowWidth * 0.72,
-        height: 400,
+        height: 300,
       });
     }
 
@@ -242,10 +272,19 @@ export default function DetailStockGraph({
         },
       },
     });
-    assistChart.current = createChart(chartposition.current, {
-      width: windowWidth * 0.72 - 100,
-      height: 200,
-    });
+    if (windowWidth >= 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72 - 100,
+        height: 200,
+      });
+    }
+    if (windowWidth < 1200) {
+      assistChart.current = createChart(chartposition.current, {
+        width: windowWidth * 0.72,
+        height: 200,
+      });
+    }
+
     assistChart.current.applyOptions({
       priceScale: {
         position: 'right',
@@ -502,29 +541,29 @@ export default function DetailStockGraph({
       {loading ? (
         <LoadingOutlined className="loading" />
       ) : (
-        <>
-          <h2>{symbol}</h2>
-          <div className="detail-stock-button">
-            <button className="detail-button" onClick={openAddModal}>
-              Add Stock
+          <>
+            <h2>{symbol}</h2>
+            <div className="detail-stock-button">
+              <button className="detail-button" onClick={openAddModal}>
+                Add Stock
             </button>
-            <button
-              className="detail-button"
-              onClick={() => {
-                if (compareGraph.current) {
-                  chart.current.removeSeries(compareGraph.current);
-                  compareGraph.current = null;
-                }
-              }}
-            >
-              remove compare graph
+              <button
+                className="detail-button"
+                onClick={() => {
+                  if (compareGraph.current) {
+                    chart.current.removeSeries(compareGraph.current);
+                    compareGraph.current = null;
+                  }
+                }}
+              >
+                remove compare graph
             </button>
-            <button className="detail-button" onClick={openModal}>
-              Indicators
+              <button className="detail-button" onClick={openModal}>
+                Indicators
             </button>
-          </div>
-        </>
-      )}
+            </div>
+          </>
+        )}
 
       <Modal
         isOpen={addModalIsOpen}
