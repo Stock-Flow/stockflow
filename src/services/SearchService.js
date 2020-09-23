@@ -11,8 +11,10 @@ export default class SearchService {
   }
   static async searchingCurrencyList(search, currencyList) {
     const regexp = new RegExp(search, 'i');
-    return currencyList = currencyList.filter((currency) =>
-      regexp.test(currency.symbol),
-    );
+    currencyList = currencyList.filter((currency) =>
+    regexp.test(currency.symbol),
+  );
+  console.log(currencyList)
+    return currencyList
   }
 }
