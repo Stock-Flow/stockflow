@@ -172,6 +172,7 @@ html {
   .search::placeholder {
     color: #727aa0;
   }
+
   .add-modal-btn {
     position: absolute;
     top: 50%;
@@ -270,6 +271,7 @@ html {
     top: 30% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    z-index: 50 !important;
   }
   .home {
     .detail-stock {
@@ -422,6 +424,7 @@ html {
     top: 30% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    z-index: 50 !important;
   }
 }
 .scroll-control {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { getSwitchModeSagaActionCreator } from '../redux/modules/switchMode';
 import './SwitchMode.scss';
@@ -8,13 +9,13 @@ export default function SwitchMode({ setLightMode }) {
     localStorage.setItem('lightMode', false);
   }
   const [modeCheck, setModeCheck] = useState(
-    localStorage.getItem('lightMode'),
+    JSON.parse(localStorage.getItem('lightMode')),
   );
 
   useEffect(() => {
     localStorage.setItem('lightMode', modeCheck);
   }, [modeCheck]);
-
+  console.log('modeCheck', typeof modeCheck);
   return (
     <div className="switch-mode-wrap">
       <label class="switch">
