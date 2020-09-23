@@ -1,11 +1,16 @@
-
 # 📈Stock Flow
 
 주식 / 디지털화폐 정보의 데이터시각화
 
+## **기획의도**
+
+보조지표(그래프)를 활용하여
+시간 / 일 / 주간 / 월간 기준의 주식데이터를
+사용자가 다양하게 볼 수 있도록 구현
+
 ## **개발 인원 및 기간**
 
-- 개발기간 : 2020/8/18 ~
+- 개발기간 : 2020/8/18 ~ 2020/09/23
 - 개발인원 : Front-End 4명(유진혁, 배준선, 도지현, 박민지)
 
 ## 적용기술
@@ -40,12 +45,16 @@ API호출을 위한 key 파일은 업로드 되지 않았습니다.
 
 경로 : ./src/key.js
 
+```
 $ git clone "https://github.com/Stock-Flow/stockflow.git"
 $ npm install
 \$ npm start
+```
 
-
-## `How to run this app`
+## **How to run this app**
 
 `npm i` to download package. you need key.js file on src folder. If you want to test this app, please send a mail to dksro324@gmail.com. Then I'll give you a key.js file
 
+## **License**
+
+**MIT License**
