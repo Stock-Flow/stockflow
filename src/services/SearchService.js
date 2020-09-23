@@ -12,7 +12,7 @@ export default class SearchService {
   static searchingCurrencyList(search, currencyList) {
     const regexp = new RegExp(search, 'i');
     return currencyList.filter((currency) =>
-      regexp.test(currency.symbol),
+      regexp.test(currency.symbol)||regexp.test(currency.name),
     );
   }
 }
