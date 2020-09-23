@@ -56,3 +56,5 @@ $ npm install
 `npm i` to download package. you need key.js file on src folder. If you want to test this app, please send a mail to dksro324@gmail.com. Then I'll give you a key.js file
 
 ## **License**
+
+**MIT License**
