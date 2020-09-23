@@ -28,10 +28,8 @@
   9. error-boundary<br>
   10. devtools-extension<br>
   11. connected-react-router<br>
-  12. react-thunk<br>
-  13. react-actions<br>
-  14. http-proxy-middleware<br>
-  15. react-scripts<br>
+  12. http-proxy-middleware<br>
+  13. react-scripts<br>
   </details>
 
 ## **Getting Started**
