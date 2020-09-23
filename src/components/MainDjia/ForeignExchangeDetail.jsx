@@ -99,7 +99,7 @@ export default function ForeignExchangeDetail({
           </h2>
         )}
         <div ref={excahngeChartposition}></div>
-        {exchangeLoading && (
+        {exchangeLoading && !chartExchange.current && (
           <div className="exchange-loading">
             <LoadingOutlined />
           </div>
