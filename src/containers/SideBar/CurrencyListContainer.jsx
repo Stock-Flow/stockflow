@@ -11,13 +11,10 @@ export default function CurrencyListContainer({ search, sort, menu, toggleMenu, 
   let currencyList = useSelector(
     (state) => state.sidebarCurrency.sideBarCurrency,
   );
-  // let currencyList = [];
 
   if (currencyList.length !== 0) {
     if (search) {
-      console.log(currencyList)
       currencyList = SearchService.searchingCurrencyList(search, currencyList)
-      console.log(currencyList)
     }
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>

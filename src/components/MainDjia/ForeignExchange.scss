@@ -122,80 +122,91 @@
 }
 
 @include tablet {
-  .exchange-loading {
-    .anticon-loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: 10;
-      transform: translate(-50%, -50%);
+  .foreign-exchange-wrap {
+    .exchange-item-wrap-loading {
+      width: calc(100vw * 0.72);
+    }
+    .exchange-loading {
+      .anticon-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 10;
+        transform: translate(-50%, -50%);
 
-      .anticon-spin {
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
+        .anticon-spin {
+          width: 20px;
+          height: 20px;
+          font-size: 20px;
+        }
       }
     }
-  }
 
-  .foreign-exchange-detail-wrap {
-    display: block;
-    width: 100%;
-  }
-
-  .foreign-exchange-list-wrap {
-    display: block;
-    width: calc(100vw * 0.72) !important;
+    .foreign-exchange-detail-wrap {
+      display: block;
+      width: 100%;
+    }
+    .exchange-item-wrap-loading {
+      width: calc(100vw * 0.72);
+    }
+    .foreign-exchange-list-wrap {
+      display: block;
+      width: calc(100vw * 0.72) !important;
+    }
   }
 }
-
 @include mobile {
-  .foreign-exchange-detail-wrap {
-    display: block;
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .foreign-exchange-list-wrap {
-    display: block;
-    width: calc(100vw * 0.72) !important;
-  }
-
-  .exchange-item {
-    .exchange-column.icon {
-      width: 0;
-      display: none;
+  .foreign-exchange-wrap {
+    .exchange-item-wrap-loading {
+      width: calc(100vw * 0.72);
+    }
+    .foreign-exchange-detail-wrap {
+      display: block;
+      width: 100%;
+      margin-left: 0;
     }
 
-    .exchange-column.name {
-      width: 45% !important;
-      font-size: 0.75rem;
-
-      .currency-name {
-        line-height: 1.8;
-        font-size: 0.6rem !important;
-        color: #c9c9c9;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
+    .foreign-exchange-list-wrap {
+      display: block;
+      width: calc(100vw * 0.72) !important;
     }
 
-    .exchange-column.rate {
-      width: 35% !important;
-      padding-left: 10px;
-      font-size: 0.7rem;
-    }
-
-    .exchange-column.percent {
-      font-size: 0.7rem;
-
-      .plus {
-        color: #2baa65;
+    .exchange-item {
+      .exchange-column.icon {
+        width: 0;
+        display: none;
       }
 
-      .minus {
-        color: #c52d3c;
+      .exchange-column.name {
+        width: 45% !important;
+        font-size: 0.75rem;
+
+        .currency-name {
+          line-height: 1.8;
+          font-size: 0.6rem !important;
+          color: #c9c9c9;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+
+      .exchange-column.rate {
+        width: 35% !important;
+        padding-left: 10px;
+        font-size: 0.7rem;
+      }
+
+      .exchange-column.percent {
+        font-size: 0.7rem;
+
+        .plus {
+          color: #2baa65;
+        }
+
+        .minus {
+          color: #c52d3c;
+        }
       }
     }
   }
