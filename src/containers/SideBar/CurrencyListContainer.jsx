@@ -15,6 +15,7 @@ export default function CurrencyListContainer({ search, sort, menu, toggleMenu, 
   if (currencyList.length !== 0) {
     if (search) {
       currencyList = SearchService.searchingCurrencyList(search, currencyList)
+      console.log(currencyList)
     }
     if (sort === 'name') {
       currencyList = [...currencyList].sort((a, b) =>
