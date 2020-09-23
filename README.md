@@ -6,7 +6,7 @@
 
 ### [ PC Layout]
 
-[![StockFlow video](./public/images/stock-flow-thumbnail.png)](https://youtu.be/LnK441eviAA)
+[![StockFlow video](./public/images/stock-flow-thumbnail.PNG)](https://youtu.be/LnK441eviAA)
 
 ### [ Tablet Layout]
 
