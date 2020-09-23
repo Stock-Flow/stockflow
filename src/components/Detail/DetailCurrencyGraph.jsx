@@ -558,7 +558,7 @@ export default function DetailCurrencyGraph({
             </>
           )}
 
-        <Modal className='search-modal'
+        <Modal 
           isOpen={addModalIsOpen}
           onAfterOpen={modalIsOpen}
           onRequestClose={closeAddModal}
